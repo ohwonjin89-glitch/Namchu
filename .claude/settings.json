@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.github.com)",
+      "Read(//c/Users/오원진/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages/pycapcut/**)",
+      "WebFetch(domain:www.youtube.com)",
+      "Read(//c/Users/오원진/AppData/Local/Temp/**)"
+    ]
+  }
+}

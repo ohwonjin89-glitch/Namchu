@@ -1,0 +1,11 @@
+allowBuilds:
+  '@playwright/browser-chromium': true
+  '@scarf/scarf': false
+  '@tree-sitter-grammars/tree-sitter-yaml': false
+  bufferutil: true
+  core-js-pure: false
+  electron: true
+  tree-sitter: false
+  tree-sitter-json: false
+  unrs-resolver: false
+  utf-8-validate: true
