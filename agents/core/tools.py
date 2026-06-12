@@ -147,17 +147,38 @@ def _fallback_image(output_dir: str) -> str:
 
 # ── Video ──────────────────────────────────────────────────────────────────
 
+def _to_win(path: str) -> str:
+    """Convert WSL /mnt/c/ path to Windows C:\\ path."""
+    if path.startswith("/mnt/c/"):
+        return "C:\\" + path[7:].replace("/", "\\")
+    if path.startswith("/mnt/"):
+        parts = path[5:].split("/", 1)
+        drive = parts[0].upper() + ":\\"
+        rest = parts[1].replace("/", "\\") if len(parts) > 1 else ""
+        return drive + rest
+    return path
+
+
 def create_video(music_path: str, image_path: str,
                  output_dir: str, title: str = "") -> str:
-    """Call /api/make-video, poll until complete."""
-    win_output_dir = output_dir.replace("/mnt/c/", "C:/").replace("/", "\\")
+    """Create video via /api/make-video, with FFmpeg direct fallback."""
+    win_output_dir = _to_win(output_dir)
+    win_music = _to_win(music_path)
+    win_image = _to_win(image_path)
+    video_filename = "playlist.mp4"
+    video_win_path = os.path.join(win_output_dir, video_filename).replace("/", "\\")
 
     body = {
-        "bgImagePath": image_path,
-        "audioPath": music_path,
+        "bgImagePath": win_image,
+        "audioPath": win_music,
+        "bgImageUrl": win_image,
+        "musicFiles": [{"path": win_music, "title": title or "track"}],
+        "musicDir": win_output_dir,
         "outputDir": win_output_dir,
+        "outputFileName": video_filename,
         "texts": [{
             "content": title or "감성 플레이리스트",
+            "text": title or "감성 플레이리스트",
             "fontFamily": "맑은 고딕",
             "fontSize": 52,
             "color": "#FFFFFF",
@@ -165,46 +186,90 @@ def create_video(music_path: str, image_path: str,
             "widthPct": 90, "heightPct": 10,
             "bold": True, "shadow": False
         }],
-        "spectrum": {
-            "enabled": True,
-            "color": "#A78BFA",
-            "leftPct": 5, "topPct": 88,
-            "widthPct": 90, "heightPct": 8
-        },
-        "watermark": {
-            "enabled": True,
-            "text": "@DGM_Playlist",
-            "position": "bottomRight"
-        }
+        "textOverlays": [{
+            "text": title or "감성 플레이리스트",
+            "fontFamily": "맑은 고딕",
+            "fontSize": 52,
+            "color": "#FFFFFF",
+            "leftPct": 5, "topPct": 80,
+            "widthPct": 90, "heightPct": 10,
+            "bold": True
+        }]
     }
 
-    result = _post("/api/make-video", body, timeout=60)
-    task_id = result.get("taskId", "")
-    if not task_id:
-        # Synchronous response
-        video_path = result.get("outputPath", "")
-        if video_path:
-            return video_path
-        raise RuntimeError(f"영상 제작 실패: {result}")
+    try:
+        result = _post("/api/make-video", body, timeout=60)
+        task_id = result.get("taskId", "")
 
-    print(f"  영상 제작 중 (taskId: {task_id})...")
-    for i in range(90):  # 15 min max
-        time.sleep(10)
+        if task_id:
+            print(f"  영상 제작 중 (taskId: {task_id})...")
+            for i in range(90):  # 15 min max
+                time.sleep(10)
+                try:
+                    enc = urllib.parse.quote(task_id)
+                    poll = _get(f"/api/make-video?taskId={enc}")
+                    status = poll.get("status", "")
+                    progress = poll.get("progress", 0)
+                    if i % 3 == 0:
+                        print(f"  진행: {progress}%")
+                    if status == "done":
+                        out_path = poll.get("outputPath", "")
+                        if out_path:
+                            return out_path
+                    elif status == "error":
+                        raise RuntimeError(f"make-video error: {poll.get('message', '')}")
+                except (RuntimeError, TimeoutError):
+                    raise
+                except Exception:
+                    pass
+            raise TimeoutError("영상 제작 타임아웃 (15분)")
+    except (RuntimeError, TimeoutError):
+        raise
+    except Exception as e:
+        print(f"  /api/make-video 실패: {e} → FFmpeg 직접 생성 시도")
+
+    # ── FFmpeg 직접 생성 폴백 ─────────────────────────────────────────────
+    return _create_video_ffmpeg(music_path, image_path, output_dir, title, video_filename)
+
+
+def _create_video_ffmpeg(music_path: str, image_path: str,
+                         output_dir: str, title: str, filename: str = "playlist.mp4") -> str:
+    """Fallback: create video directly with system FFmpeg."""
+    import subprocess
+    video_path = os.path.join(output_dir, filename)
+
+    # Try Linux ffmpeg first, then Windows ffmpeg.exe via PATH
+    ffmpeg_candidates = ["ffmpeg", "ffmpeg.exe"]
+    ffmpeg_cmd = None
+    for ff in ffmpeg_candidates:
         try:
-            enc = urllib.parse.quote(task_id)
-            poll = _get(f"/api/make-video?taskId={enc}")
-            status = poll.get("status", "")
-            progress = poll.get("progress", 0)
-            if i % 3 == 0:
-                print(f"  진행: {progress}%")
-            if status == "done":
-                video_path = poll.get("outputPath", "")
-                if video_path:
-                    return video_path
+            subprocess.run([ff, "-version"], capture_output=True, timeout=5)
+            ffmpeg_cmd = ff
+            break
         except Exception:
             pass
 
-    raise TimeoutError("영상 제작 타임아웃 (15분)")
+    if not ffmpeg_cmd:
+        raise RuntimeError("FFmpeg를 찾을 수 없습니다. 'sudo apt install ffmpeg'로 설치하세요.")
+
+    cmd = [
+        ffmpeg_cmd, "-y",
+        "-loop", "1", "-i", image_path,
+        "-i", music_path,
+        "-c:v", "libx264", "-tune", "stillimage",
+        "-c:a", "aac", "-b:a", "192k",
+        "-pix_fmt", "yuv420p",
+        "-vf", f"scale=1280:720,drawtext=text='{title}':fontsize=52:fontcolor=white:x=60:y=h-160:shadowcolor=black:shadowx=2:shadowy=2",
+        "-shortest",
+        video_path
+    ]
+
+    print(f"  FFmpeg 직접 실행: {ffmpeg_cmd}")
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+    if result.returncode != 0:
+        raise RuntimeError(f"FFmpeg 실패: {result.stderr[-500:]}")
+
+    return video_path
 
 
 # ── Upload ─────────────────────────────────────────────────────────────────
@@ -215,7 +280,7 @@ def upload_youtube(video_path: str, title: str,
     body = {
         "action": "upload",
         "channelKey": channel_key,
-        "videoPath": video_path,
+        "videoPath": _to_win(video_path),
         "title": title,
         "description": description,
         "tags": tags,
