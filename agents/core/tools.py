@@ -58,25 +58,42 @@ def generate_music(concept: dict, output_dir: str) -> dict:
     song_ids = [s["id"] for s in result]
     print(f"  Suno 생성 시작: {song_ids}")
 
-    for _ in range(72):  # 12 min max
+    DONE = {"complete", "streaming"}
+    ERROR = {"error", "failed"}
+
+    for i in range(120):  # 20 min max
         time.sleep(10)
         try:
             ids_param = urllib.parse.quote(",".join(song_ids))
             songs = _get(f"/api/get?ids={ids_param}")
-            if all(s.get("status") in ("complete", "streaming") for s in songs):
-                audio_url = songs[0].get("audio_url", "")
-                if audio_url:
+
+            # 완료된 곡 먼저 찾기 (2곡 중 1곡만 완료돼도 사용)
+            for song in songs:
+                status = song.get("status", "")
+                audio_url = song.get("audio_url", "")
+                if status in DONE and audio_url and "None" not in audio_url:
                     music_path = os.path.join(output_dir, "music.mp3")
                     _download(audio_url, music_path)
+                    print(f"  Suno 완료: {song.get('title', '')} (상태: {status})")
                     return {
                         "path": music_path,
                         "ids": song_ids,
-                        "title": songs[0].get("title", "")
+                        "title": song.get("title", "")
                     }
+
+            # 전체 에러 상태 확인 — 모두 실패면 빠른 종료
+            statuses = [s.get("status", "") for s in songs]
+            if all(st in ERROR for st in statuses):
+                raise RuntimeError(f"Suno 전체 곡 생성 실패: {statuses}")
+
+            if i % 6 == 0:
+                print(f"  Suno 대기 중... {statuses}")
+        except (RuntimeError, TimeoutError):
+            raise
         except Exception:
             pass
 
-    raise TimeoutError("Suno 음악 생성 타임아웃 (12분)")
+    raise TimeoutError("Suno 음악 생성 타임아웃 (20분)")
 
 
 # ── Image ──────────────────────────────────────────────────────────────────
@@ -84,7 +101,7 @@ def generate_music(concept: dict, output_dir: str) -> dict:
 def generate_image(prompt: str, output_dir: str) -> str:
     """Call NB2 image API; fallback to solid-colour image if unavailable."""
     result = _post("/api/nano-banana",
-                   {"prompt": prompt, "size": "1792x1024", "quality": "hd"},
+                   {"prompt": prompt, "size": "16:9", "quality": "2K"},
                    timeout=60)
 
     task_id = result.get("taskId", "")
