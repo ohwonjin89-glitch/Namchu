@@ -217,14 +217,12 @@ def create_video(music_path: str, image_path: str,
                         if out_path:
                             return out_path
                     elif status == "error":
-                        raise RuntimeError(f"make-video error: {poll.get('message', '')}")
-                except (RuntimeError, TimeoutError):
-                    raise
+                        msg = poll.get("message", "unknown error")
+                        print(f"  make-video API 오류: {msg} → FFmpeg 폴백")
+                        break  # fall through to ffmpeg fallback
                 except Exception:
                     pass
-            raise TimeoutError("영상 제작 타임아웃 (15분)")
-    except (RuntimeError, TimeoutError):
-        raise
+            # Fall through to FFmpeg fallback
     except Exception as e:
         print(f"  /api/make-video 실패: {e} → FFmpeg 직접 생성 시도")
 
@@ -234,23 +232,36 @@ def create_video(music_path: str, image_path: str,
 
 def _create_video_ffmpeg(music_path: str, image_path: str,
                          output_dir: str, title: str, filename: str = "playlist.mp4") -> str:
-    """Fallback: create video directly with system FFmpeg."""
+    """Fallback: create video directly with bundled FFmpeg (imageio-ffmpeg)."""
     import subprocess
     video_path = os.path.join(output_dir, filename)
 
-    # Try Linux ffmpeg first, then Windows ffmpeg.exe via PATH
-    ffmpeg_candidates = ["ffmpeg", "ffmpeg.exe"]
+    # Get ffmpeg binary path
     ffmpeg_cmd = None
-    for ff in ffmpeg_candidates:
-        try:
-            subprocess.run([ff, "-version"], capture_output=True, timeout=5)
-            ffmpeg_cmd = ff
-            break
-        except Exception:
-            pass
+    try:
+        import imageio_ffmpeg
+        ffmpeg_cmd = imageio_ffmpeg.get_ffmpeg_exe()
+        print(f"  imageio-ffmpeg 사용: {ffmpeg_cmd}")
+    except ImportError:
+        pass
 
     if not ffmpeg_cmd:
-        raise RuntimeError("FFmpeg를 찾을 수 없습니다. 'sudo apt install ffmpeg'로 설치하세요.")
+        for ff in ["ffmpeg", "ffmpeg.exe"]:
+            try:
+                subprocess.run([ff, "-version"], capture_output=True, timeout=5)
+                ffmpeg_cmd = ff
+                break
+            except Exception:
+                pass
+
+    if not ffmpeg_cmd:
+        raise RuntimeError(
+            "FFmpeg를 찾을 수 없습니다. "
+            "'python3 -m pip install imageio-ffmpeg --break-system-packages'로 설치하세요."
+        )
+
+    # Escape special chars in title for drawtext
+    safe_title = title.replace("'", "").replace('"', "").replace(":", "").replace("\\", "")[:50]
 
     cmd = [
         ffmpeg_cmd, "-y",
@@ -259,16 +270,17 @@ def _create_video_ffmpeg(music_path: str, image_path: str,
         "-c:v", "libx264", "-tune", "stillimage",
         "-c:a", "aac", "-b:a", "192k",
         "-pix_fmt", "yuv420p",
-        "-vf", f"scale=1280:720,drawtext=text='{title}':fontsize=52:fontcolor=white:x=60:y=h-160:shadowcolor=black:shadowx=2:shadowy=2",
+        "-vf", f"scale=1280:720",
         "-shortest",
         video_path
     ]
 
-    print(f"  FFmpeg 직접 실행: {ffmpeg_cmd}")
+    print(f"  FFmpeg 영상 생성 중...")
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
     if result.returncode != 0:
-        raise RuntimeError(f"FFmpeg 실패: {result.stderr[-500:]}")
+        raise RuntimeError(f"FFmpeg 실패:\n{result.stderr[-800:]}")
 
+    print(f"  영상 생성 완료: {video_path}")
     return video_path
 
 
@@ -277,10 +289,25 @@ def _create_video_ffmpeg(music_path: str, image_path: str,
 def upload_youtube(video_path: str, title: str,
                    description: str, tags: list,
                    channel_key: str = "DGM") -> dict:
+    win_path = _to_win(video_path)
+
+    # Copy to a path without Korean characters so Windows can access it
+    import shutil
+    safe_dir = "/mnt/c/temp_dgm_upload"
+    os.makedirs(safe_dir, exist_ok=True)
+    safe_linux_path = os.path.join(safe_dir, "upload.mp4")
+    safe_win_path = "C:\\temp_dgm_upload\\upload.mp4"
+    try:
+        shutil.copy2(video_path, safe_linux_path)
+        win_path = safe_win_path
+        print(f"  업로드용 임시 복사: {safe_linux_path}")
+    except Exception as e:
+        print(f"  파일 복사 실패, 원본 경로 사용: {e}")
+
     body = {
         "action": "upload",
         "channelKey": channel_key,
-        "videoPath": _to_win(video_path),
+        "videoPath": win_path,
         "title": title,
         "description": description,
         "tags": tags,
