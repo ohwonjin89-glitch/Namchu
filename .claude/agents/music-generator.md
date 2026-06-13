@@ -22,7 +22,12 @@ tools: [Read, Write, Bash, Glob]
 ```bash
 cat {outputDir}/concept_brief.json
 ```
-`style`, `guide`, `mood` 필드를 기반으로 Suno 프롬프트를 작성한다.
+우선순위 순으로 참고한다:
+1. `musicDirection` — strategist가 구체적으로 작성한 음악 방향 (가장 중요)
+2. `style` — Suno 스타일 태그
+3. `guide` — Suno 분위기 가이드
+4. `mood` — 감성 키워드
+5. `avoidKeywords` — 이 목록의 장르·분위기는 적용하지 않는다
 
 ### 2. Suno API 호출 (2곡 생성)
 

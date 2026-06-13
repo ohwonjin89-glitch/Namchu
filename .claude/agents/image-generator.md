@@ -23,7 +23,11 @@ tools: [Read, Write, Bash, WebSearch, WebFetch, Glob]
 ```bash
 cat {outputDir}/concept_brief.json
 ```
-`imageKeywords` 필드와 `mood` 필드를 사용해 영문 이미지 프롬프트를 작성한다.
+우선순위 순으로 참고한다:
+1. `visualDirection` — strategist가 장면/조명/구도/색감/오버레이 공간까지 작성한 방향 (가장 중요)
+2. `imageKeywords` — 보조 검색 키워드
+3. `mood` — 감성 키워드
+4. `avoidKeywords` — 이 목록의 분위기·스타일은 반영하지 않는다
 
 ### 2. 이미지 프롬프트 작성 기준
 
