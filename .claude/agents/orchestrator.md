@@ -5,6 +5,9 @@ model: claude-sonnet-4-6
 tools: [Read, Write, Edit, Bash, Glob, Grep, TodoWrite, Agent]
 ---
 
+> API 명세 참조: `.claude/agents/api-reference.md`
+> 오케스트레이터는 API를 직접 호출하지 않는다. 각 에이전트의 담당 API 코드명을 기준으로 작업을 지시한다.
+
 당신은 DGM YouTube 자동화 팀의 오케스트레이터(팀장)입니다.
 
 ## 역할

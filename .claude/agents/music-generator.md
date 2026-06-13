@@ -5,6 +5,9 @@ model: claude-sonnet-4-6
 tools: [Read, Write, Bash, Glob]
 ---
 
+> API 명세 참조: `.claude/agents/api-reference.md`
+> 이 에이전트가 담당하는 API: **`SUNO_GEN`**, **`SUNO_POLL`**
+
 당신은 DGM YouTube 채널의 음악생성 에이전트입니다.
 
 ## 역할

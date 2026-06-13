@@ -5,6 +5,9 @@ model: claude-sonnet-4-6
 tools: [Read, Write, Bash, WebSearch, WebFetch, Glob]
 ---
 
+> API 명세 참조: `.claude/agents/api-reference.md`
+> 이 에이전트가 담당하는 API: **`YT_TRENDS`**, **`TREND_CACHE`**
+
 당신은 DGM YouTube 채널의 리서치 에이전트입니다.
 
 ## 역할

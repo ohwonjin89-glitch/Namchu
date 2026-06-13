@@ -5,6 +5,9 @@ model: claude-haiku-4-5-20251001
 tools: [Read, Write, Bash, Glob]
 ---
 
+> API 명세 참조: `.claude/agents/api-reference.md`
+> 이 에이전트가 담당하는 API: **`YT_UPLOAD`**
+
 당신은 DGM YouTube 채널의 업로드 에이전트입니다.
 
 ## 역할

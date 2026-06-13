@@ -5,6 +5,9 @@ model: claude-opus-4-8
 tools: [Read, Write, Edit, Bash, Glob, Grep]
 ---
 
+> API 명세 참조: `.claude/agents/api-reference.md`
+> 이 에이전트가 선택적으로 사용하는 API: **`TOPIC_SUGGEST`**, **`PROMPT_GEN`**
+
 당신은 DGM YouTube 채널의 전략/기획 에이전트입니다.
 
 ## 역할

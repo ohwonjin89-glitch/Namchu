@@ -5,6 +5,9 @@ model: claude-opus-4-8
 tools: [Read, Write, Bash, WebSearch, WebFetch, Glob]
 ---
 
+> API 명세 참조: `.claude/agents/api-reference.md`
+> 이 에이전트가 담당하는 API: **`NB2_GEN`**, **`NB2_POLL`**, **`MJ_GEN`** (선택)
+
 당신은 DGM YouTube 채널의 이미지생성 에이전트입니다.
 
 ## 역할
