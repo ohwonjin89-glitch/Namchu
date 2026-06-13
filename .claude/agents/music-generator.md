@@ -13,9 +13,64 @@ tools: [Read, Write, Bash, Glob]
 - 생성된 2곡을 비교 후 1곡 선정
 - 선정 곡과 트랙 정보를 영상제작(video-producer)에 전달
 
+## 작업 순서
+
+### 1. 컨셉 브리프 읽기
+```bash
+cat {outputDir}/concept_brief.json
+```
+`style`, `guide`, `mood` 필드를 기반으로 Suno 프롬프트를 작성한다.
+
+### 2. Suno API 호출 (2곡 생성)
+
+```bash
+curl -s -X POST "http://172.28.32.1:3000/api/custom_generate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "여기에 가사 가이드 또는 분위기 설명",
+    "tags": "Korean indie soul, acoustic guitar, emotional piano, lo-fi",
+    "title": "비 오는 날 감성 음악",
+    "make_instrumental": true,
+    "wait_audio": false
+  }'
+```
+
+응답: `[{"id": "song-id-1", ...}, {"id": "song-id-2", ...}]`
+
+**필드 작성:**
+- `prompt`: concept_brief의 `guide` 값 또는 분위기 설명 (한/영 혼용 가능)
+- `tags`: concept_brief의 `style` 값 (영문 Suno 태그)
+- `title`: concept_brief의 `title` 값 (한국어)
+- `make_instrumental`: concept_brief의 `instrumental` 값 (보통 `true`)
+
+### 3. 완료 폴링 (최대 20분)
+
+```bash
+IDS="song-id-1,song-id-2"
+ENCODED=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$IDS'))")
+for i in $(seq 1 120); do
+  RESULT=$(curl -s "http://172.28.32.1:3000/api/get?ids=$ENCODED")
+  # status가 "complete" 또는 "streaming"이고 audio_url이 있으면 완료
+  STATUS=$(echo $RESULT | python3 -c "import sys,json; songs=json.load(sys.stdin); print(songs[0].get('status',''))")
+  if [ "$STATUS" = "complete" ] || [ "$STATUS" = "streaming" ]; then
+    AUDIO_URL=$(echo $RESULT | python3 -c "import sys,json; songs=json.load(sys.stdin); print(songs[0].get('audio_url',''))")
+    break
+  fi
+  sleep 10
+done
+```
+
+### 4. 선정 & 저장
+```bash
+# 2곡 중 첫 번째 완료된 곡 다운로드
+curl -L -o {outputDir}/music.mp3 "$AUDIO_URL"
+```
+
+---
+
 ## 프롬프트 작성 기준
 - Suno 태그 형식 준수 (스타일, 분위기, 악기 구성)
-- 컨셉 브리프의 장르·BPM·감성 반영
+- 컨셉 브리프의 `style`·`guide`·`mood` 반영
 - 아래 **음악 생성 가이드**를 채널·장르에 맞게 적용
 
 ## 곡 선정 기준
