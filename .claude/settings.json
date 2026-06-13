@@ -4,7 +4,13 @@
       "WebFetch(domain:api.github.com)",
       "Read(//c/Users/오원진/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages/pycapcut/**)",
       "WebFetch(domain:www.youtube.com)",
-      "Read(//c/Users/오원진/AppData/Local/Temp/**)"
+      "Read(//c/Users/오원진/AppData/Local/Temp/**)",
+      "Bash(wsl -- bash -c \"sudo apt update -qq && sudo apt install -y tmux git curl build-essential 2>&1 | tail -5\")",
+      "Bash(wsl -- which tmux)",
+      "Bash(wsl -- tmux -V)",
+      "Bash(wsl -- bash -c \"curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash\")",
+      "Bash(wsl -- bash -c 'source /home/wonjin/.nvm/nvm.sh && nvm install 22 && node -v && npm -v')",
+      "Bash(wsl -- bash -c 'source /home/wonjin/.nvm/nvm.sh && npm install -g @anthropic-ai/claude-code 2>&1 | tail -5')"
     ]
   }
 }

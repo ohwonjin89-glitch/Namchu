@@ -179,11 +179,27 @@ def _to_win(path: str) -> str:
 def create_video(music_path: str, image_path: str,
                  output_dir: str, title: str = "") -> str:
     """Create video via /api/make-video, with FFmpeg direct fallback."""
+    import shutil
+
     win_output_dir = _to_win(output_dir)
-    win_music = _to_win(music_path)
-    win_image = _to_win(image_path)
     video_filename = "playlist.mp4"
-    video_win_path = os.path.join(win_output_dir, video_filename).replace("/", "\\")
+
+    # Copy inputs to Korean-free temp paths so Windows Python (make_video.py) can access them
+    safe_dir = "/mnt/c/temp_dgm_upload"
+    os.makedirs(safe_dir, exist_ok=True)
+    img_ext = os.path.splitext(image_path)[1] or ".jpg"
+    safe_image = os.path.join(safe_dir, f"background{img_ext}")
+    safe_music = os.path.join(safe_dir, "music.mp3")
+    try:
+        shutil.copy2(image_path, safe_image)
+        shutil.copy2(music_path, safe_music)
+    except Exception as e:
+        print(f"  temp 복사 실패, 원본 경로 사용: {e}")
+        safe_image = image_path
+        safe_music = music_path
+
+    win_music = _to_win(safe_music)
+    win_image = _to_win(safe_image)
 
     body = {
         "bgImagePath": win_image,
@@ -287,7 +303,7 @@ def _create_video_ffmpeg(music_path: str, image_path: str,
         "-c:v", "libx264", "-tune", "stillimage",
         "-c:a", "aac", "-b:a", "192k",
         "-pix_fmt", "yuv420p",
-        "-vf", f"scale=1280:720",
+        "-vf", "scale=1920:1080",
         "-shortest",
         video_path
     ]
