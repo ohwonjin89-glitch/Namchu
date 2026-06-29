@@ -23,7 +23,7 @@ def get_creds_dir(params):
     return params.get('credentialsDir', r'D:/AI Agent/Claude/yt_credentials').replace('/', os.sep)
 
 def get_token_path(creds_dir, channel_key='dgm'):
-    return os.path.join(creds_dir, f'token_{channel_key}.json')
+    return os.path.join(creds_dir, f'token_{channel_key.lower()}.json')
 
 def get_client_secret_path(creds_dir):
     return os.path.join(creds_dir, 'client_secret.json')
@@ -158,22 +158,43 @@ def run(params):
         from googleapiclient.http import MediaFileUpload
         import googleapiclient.errors
 
+        # 비동기 모드: statusPath에 진행 상황을 기록
+        status_path = params.get('statusPath', '')
+
+        def write_status(st, prog, msg, extra=None):
+            if not status_path:
+                return
+            data = {'status': st, 'progress': prog, 'message': msg}
+            if extra:
+                data.update(extra)
+            try:
+                with open(status_path, 'w', encoding='utf-8') as _f:
+                    json.dump(data, _f, ensure_ascii=False)
+            except Exception:
+                pass
+
         video_path = params.get('videoPath', '')
         if not os.path.exists(video_path):
-            return {'error': f'영상 파일 없음: {video_path}'}
+            result = {'error': f'영상 파일 없음: {video_path}'}
+            write_status('error', 0, result['error'])
+            return result
 
         creds, err = load_credentials(creds_dir, channel_key)
         if err:
+            write_status('error', 0, err)
             return {'error': err}
         if not creds or not creds.valid:
-            return {'error': '인증이 필요합니다. 먼저 auth_start를 실행하세요'}
+            msg = '인증이 필요합니다. 먼저 auth_start를 실행하세요'
+            write_status('error', 0, msg)
+            return {'error': msg}
 
-        title       = params.get('title', 'Playlist | AI 생성 음악')
+        title       = params.get('title', 'Playlist | 플레이리스트')
         description = params.get('description', '')
         tags        = params.get('tags', [])
         privacy     = params.get('privacyStatus', 'private')
         kids        = params.get('madeForKids', False)
         thumbnail   = params.get('thumbnailPath', '')
+        synthetic   = params.get('containsSyntheticMedia', True)
 
         body = {
             'snippet': {
@@ -188,20 +209,33 @@ def run(params):
                 'privacyStatus': privacy,
                 'madeForKids': kids,
                 'selfDeclaredMadeForKids': kids,
+                'containsSyntheticMedia': synthetic,
             }
         }
 
         try:
+            write_status('running', 5, f'YouTube API 연결 중... ({os.path.basename(video_path)})')
             youtube = build('youtube', 'v3', credentials=creds)
+            # chunksize 32MB로 증가 → 청크 수 감소, 업로드 속도 향상
             media = MediaFileUpload(video_path, mimetype='video/mp4',
-                                    resumable=True, chunksize=5 * 1024 * 1024)
+                                    resumable=True, chunksize=32 * 1024 * 1024)
             request = youtube.videos().insert(part='snippet,status', body=body, media_body=media)
+
+            file_size = os.path.getsize(video_path)
+            write_status('running', 10, f'업로드 시작... (파일 크기: {file_size // (1024*1024)}MB)')
 
             response = None
             while response is None:
-                status, response = request.next_chunk()
+                upload_status, response = request.next_chunk()
+                if upload_status:
+                    pct = int(upload_status.progress() * 90) + 10  # 10~100% 범위
+                    uploaded_mb = int(file_size * upload_status.progress() / (1024 * 1024))
+                    total_mb = file_size // (1024 * 1024)
+                    write_status('running', pct,
+                                 f'업로드 중... {uploaded_mb}MB / {total_mb}MB ({pct}%)')
 
             video_id = response.get('id', '')
+            write_status('running', 95, f'영상 처리 중... (videoId: {video_id})')
 
             # 썸네일 업로드
             if thumbnail and os.path.exists(thumbnail):
@@ -213,16 +247,23 @@ def run(params):
                 except Exception:
                     pass
 
-            return {
+            result = {
                 'success': True,
                 'videoId': video_id,
                 'videoUrl': f'https://youtu.be/{video_id}',
                 'studioUrl': f'https://studio.youtube.com/video/{video_id}/edit',
             }
+            write_status('done', 100, f'업로드 완료! https://youtu.be/{video_id}', result)
+            return result
+
         except googleapiclient.errors.HttpError as e:
-            return {'error': f'YouTube API 오류: {e}'}
+            msg = f'YouTube API 오류: {e}'
+            write_status('error', 0, msg)
+            return {'error': msg}
         except Exception as e:
-            return {'error': str(e)}
+            msg = str(e)
+            write_status('error', 0, msg)
+            return {'error': msg}
 
     return {'error': f'알 수 없는 action: {action}'}
 
