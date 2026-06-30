@@ -67,6 +67,10 @@ fi
 
 # ── 여기서부터 dgm 유저로 실행 ──────────────────────────────────────────
 
+# 최신 코드 반영 (git pull)
+echo "▶ 최신 코드 동기화..."
+cd "$PROJECT_DIR" && git pull --ff-only 2>&1 | tail -3 && echo "  ✓ git pull 완료"
+
 # 기존 세션 제거 후 재생성
 tmux kill-session -t "$SESSION" 2>/dev/null
 tmux new-session -d -s "$SESSION" -x 220 -y 50 -n "control-room"
@@ -104,11 +108,15 @@ tmux send-keys -t "$SESSION:logs" \
   "watch -n 1 'ls /tmp/dgm/tasks/*.log 2>/dev/null | head -5 | while read f; do echo \"=== \$(basename \$f .log) ===\"; tail -5 \$f; echo; done || echo \"로그 없음\"'" Enter
 
 # ── Window 3: limit-watcher ──────────────────────────────────────────
-# Agent Teams pane이 Claude 사용량 한도("What do you want to do?") 메뉴에서
-# 멈춰있으면 자동으로 감지해 Enter로 "한도 복구 대기"를 확정해 재개시킨다.
 tmux new-window -t "$SESSION" -n "limit-watcher"
 tmux send-keys -t "$SESSION:limit-watcher" \
   "bash $PROJECT_DIR/agents/limit-watcher.sh" Enter
+
+# ── Window 4: completion-watcher ──────────────────────────────────────
+# qa-inspector 완료 또는 TIMEOUT_HOURS 무진행 시 RunPod pod 자동 종료
+tmux new-window -t "$SESSION" -n "completion-watcher"
+tmux send-keys -t "$SESSION:completion-watcher" \
+  "bash $PROJECT_DIR/agents/completion-watcher.sh" Enter
 
 tmux select-window -t "$SESSION:orchestrator"
 

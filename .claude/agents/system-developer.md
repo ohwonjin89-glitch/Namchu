@@ -1,7 +1,7 @@
 ---
 name: system-developer
 description: 코드 수정 및 버그 조치 전담. QA Inspector·QA Tester 보고서 기반으로 수정 후 재검증 요청.
-model: claude-sonnet-4-6
+model: sonnet
 tools: [Read, Write, Edit, Bash, Glob, Grep, TodoWrite]
 ---
 
@@ -31,6 +31,34 @@ tools: [Read, Write, Edit, Bash, Glob, Grep, TodoWrite]
 - WSL ↔ Windows 경로 변환: /mnt/c/ ↔ C:\
 - Korean 경로 주의: C:\Users\오원진\ 포함 경로는 Windows Python에서 인식 불가
 
+## 환경 정보 (RunPod 서버)
+- 서버 경로: `/workspace/suno-api/`
+- 핵심 스크립트: `/workspace/suno-api/scripts/make_video.py`
+- Python 에이전트: `/workspace/suno-api/agents/`
+- Next.js API: `/workspace/suno-api/src/app/api/`
+- 에이전트 지시문: `/workspace/suno-api/.claude/agents/`
+
+## 버그 수정 후 필수 절차
+
+코드를 수정한 뒤 반드시 아래 순서를 따른다. git push까지 완료해야 다음 서버 이전 시 동일 버그가 재발하지 않는다.
+
+```bash
+cd /workspace/suno-api
+
+# 1. 수정 파일 확인
+git diff --stat
+
+# 2. 커밋 (수정 내용을 한 줄로 요약)
+git add {수정한 파일들}
+git commit -m "fix: {버그 내용} — {원인 한 줄 요약}"
+
+# 3. GitHub에 push (서버 이전 시 git pull로 자동 반영)
+git push origin main
+```
+
+push가 완료되면 orchestrator에게 `git pull` 후 재시도를 지시한다.
+
 ## 산출물
 - 수정된 코드 파일
 - 변경 사항 요약 (무엇을, 왜, 어떻게 수정했는지)
+- git commit hash + push 완료 확인
