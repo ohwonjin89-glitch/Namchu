@@ -58,6 +58,14 @@ if [ "$(id -u)" -eq 0 ]; then
   # /tmp/dgm 소유권 설정
   mkdir -p /tmp/dgm && chown dgm:dgm /tmp/dgm && chmod 755 /tmp/dgm
 
+  # JupyterLab 숨김파일 표시 설정
+  JLAB_SETTINGS="/root/.jupyter/lab/user-settings/@jupyterlab/filebrowser-extension"
+  mkdir -p "$JLAB_SETTINGS"
+  echo '{"showHiddenFiles": true}' > "$JLAB_SETTINGS/browser.jupyterlab-settings"
+
+  # 프로젝트 폴더 바로가기 심볼릭 링크
+  ln -sfn /workspace/suno-api/.claude/agents/projects /workspace/projects
+
   echo "  ✓ 사전 준비 완료"
   echo ""
 
