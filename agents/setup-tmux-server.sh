@@ -55,6 +55,26 @@ if [ "$(id -u)" -eq 0 ]; then
   fi
   chown -R dgm:dgm /home/dgm/.claude 2>/dev/null
 
+  # RUNPOD 키를 .env에 자동 주입 (없을 경우)
+  # .env는 gitignore 대상이라 git pull로 안 오므로 setup 시 직접 보장
+  # RunPod 대시보드 > Pod > Environment Variables 에 RUNPOD_API_KEY 설정 필요
+  if ! grep -q "^RUNPOD_API_KEY=" "$PROJECT_DIR/.env" 2>/dev/null; then
+    if [ -n "${RUNPOD_API_KEY:-}" ]; then
+      echo "RUNPOD_API_KEY=${RUNPOD_API_KEY}" >> "$PROJECT_DIR/.env"
+      echo "  ✓ RUNPOD_API_KEY(환경변수에서) → .env 주입됨"
+    else
+      echo "  ⚠ RUNPOD_API_KEY 없음 — RunPod 대시보드 > Pod > Env Variables에 설정 필요"
+    fi
+  fi
+  if ! grep -q "^RUNPOD_POD_ID=" "$PROJECT_DIR/.env" 2>/dev/null; then
+    if [ -n "${RUNPOD_POD_ID:-}" ]; then
+      echo "RUNPOD_POD_ID=${RUNPOD_POD_ID}" >> "$PROJECT_DIR/.env"
+      echo "  ✓ RUNPOD_POD_ID(환경변수에서) → .env 주입됨: ${RUNPOD_POD_ID}"
+    else
+      echo "  ⚠ RUNPOD_POD_ID 없음 — RunPod 대시보드 > Pod > Env Variables에 설정 필요"
+    fi
+  fi
+
   # /tmp/dgm 소유권 설정
   mkdir -p /tmp/dgm && chown dgm:dgm /tmp/dgm && chmod 755 /tmp/dgm
 

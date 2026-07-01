@@ -16,10 +16,6 @@ SESSION="dgm"
 
 mkdir -p /tmp/dgm
 
-# .env에서 RunPod API 키·Pod ID 로드
-RUNPOD_API_KEY=$(grep "^RUNPOD_API_KEY=" "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
-POD_ID=$(grep "^RUNPOD_POD_ID=" "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
-
 log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG"
 }
@@ -27,11 +23,23 @@ log() {
 stop_pod() {
   local reason="$1"
   log "🛑 Pod 종료 요청: $reason"
-  if [ -z "$RUNPOD_API_KEY" ] || [ -z "$POD_ID" ]; then
-    log "  ⚠ RUNPOD_API_KEY 또는 RUNPOD_POD_ID가 .env에 없음 — 종료 불가"
-    return
+
+  # 매번 .env를 새로 읽어 최신값 사용 (시작 시 캐시 금지)
+  local API_KEY POD_ID
+  API_KEY=$(grep "^RUNPOD_API_KEY=" "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
+  POD_ID=$(grep "^RUNPOD_POD_ID=" "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
+
+  # .env에 없으면 환경변수에서 폴백
+  [ -z "$API_KEY" ] && API_KEY="${RUNPOD_API_KEY:-}"
+  [ -z "$POD_ID" ] && POD_ID="${RUNPOD_POD_ID:-}"
+
+  if [ -z "$API_KEY" ] || [ -z "$POD_ID" ]; then
+    log "  ⚠ RUNPOD_API_KEY 또는 RUNPOD_POD_ID를 찾을 수 없음 (.env·환경변수 모두 확인)"
+    log "    .env 경로: $ENV_FILE"
+    log "    .env 내용(RUNPOD 관련): $(grep RUNPOD "$ENV_FILE" 2>/dev/null | sed 's/=.*/=***/' || echo '없음')"
+    return 1
   fi
-  curl -s -X POST "https://api.runpod.io/graphql?api_key=${RUNPOD_API_KEY}" \
+  curl -s -X POST "https://api.runpod.io/graphql?api_key=${API_KEY}" \
     -H "Content-Type: application/json" \
     -d "{\"query\": \"mutation { podStop(input: {podId: \\\"${POD_ID}\\\"}) { id desiredStatus } }\"}" \
     >> "$LOG" 2>&1
