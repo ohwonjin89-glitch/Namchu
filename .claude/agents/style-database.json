@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "description": "Gemini API 영상 분석으로 학습된 스타일 데이터베이스. gemini_analyzer.py가 자동 관리.",
+  "last_updated": null,
+  "analyzed_count": 0,
+  "genres": {},
+  "new_genres": [],
+  "filtered_out": []
+}
