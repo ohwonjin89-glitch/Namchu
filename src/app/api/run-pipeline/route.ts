@@ -13,7 +13,7 @@ const LOG_PATH = path.join(
 
 export async function POST(req: NextRequest) {
   try {
-    const { channel = "DGM" } = await req.json().catch(() => ({}));
+    const { channel = "DGM", num_tracks = 20 } = await req.json().catch(() => ({}));
 
     // Check if already running
     if (fs.existsSync(LOG_PATH)) {
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       "--",
       "bash",
       "-c",
-      `"export ANTHROPIC_API_KEY=${apiKey} && export SUNO_API_BASE=http://172.28.32.1:3000 && cd /home/wonjin/agents && python3 py_orchestrator.py ${channel} >> /home/wonjin/agents/logs/pipeline_run.log 2>&1 & echo $!"`,
+      `"export ANTHROPIC_API_KEY=${apiKey} && export SUNO_API_BASE=http://172.28.32.1:3000 && cd /home/wonjin/agents && python3 py_orchestrator.py ${channel} ${num_tracks} >> /home/wonjin/agents/logs/pipeline_run.log 2>&1 & echo $!"`,
     ].join(" ");
 
     const child = exec(cmd, { windowsHide: true });
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     fs.writeFileSync(
       LOG_PATH,
-      JSON.stringify({ running: true, pid, channel, startedAt: new Date().toISOString() }),
+      JSON.stringify({ running: true, pid, channel, num_tracks, startedAt: new Date().toISOString() }),
       "utf-8"
     );
 

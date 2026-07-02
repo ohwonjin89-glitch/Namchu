@@ -2,8 +2,9 @@
 """
 DGM 멀티에이전트 파이프라인 오케스트레이터
 사용법:
-  python py_orchestrator.py [채널명]
-  python py_orchestrator.py DGM
+  python py_orchestrator.py [채널명] [트랙수]
+  python py_orchestrator.py DGM          # 운영 모드 (20곡)
+  python py_orchestrator.py DGM 3        # 테스트 모드 (3곡)
 """
 import os
 import sys
@@ -34,8 +35,9 @@ from core.pipeline import run_pipeline
 
 if __name__ == "__main__":
     channel = sys.argv[1] if len(sys.argv) > 1 else "DGM"
+    num_tracks = int(sys.argv[2]) if len(sys.argv) > 2 else 20
     try:
-        state = run_pipeline(channel)
+        state = run_pipeline(channel, num_tracks=num_tracks)
         sys.exit(0 if state.get("status") == "completed" else 1)
     except KeyboardInterrupt:
         print("\n사용자 중단")

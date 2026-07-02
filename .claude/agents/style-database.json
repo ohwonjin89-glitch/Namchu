@@ -1,9 +1,235 @@
 {
   "version": "1.0",
   "description": "Gemini API 영상 분석으로 학습된 스타일 데이터베이스. gemini_analyzer.py가 자동 관리.",
-  "last_updated": null,
-  "analyzed_count": 0,
-  "genres": {},
+  "last_updated": "2026-07-03T07:58:56.363992",
+  "analyzed_count": 23,
+  "genres": {
+    "Groove Hip-hop & Chill Pop": {
+      "name_ko": "Groove Hip-hop & Chill Pop",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=2QjQLXFGuk8",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-02T23:29:22.999042",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 96
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=A-H_dUaWzD8",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-02T23:29:57.501026",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 95
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=MhcJSLuAXZM",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-02T23:30:56.929990",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 104
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=svm2RYnI73A",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-02T23:31:21.170130",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 108
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=zvA3hZaA6fs",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-02T23:32:13.239358",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 98
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=dlKcN4IP_Co",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-02T23:33:16.029035",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 98
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=QdgVYMa6X_8",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-02T23:33:42.024387",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 88
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=fdxi4YbNQ70",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-02T23:34:28.979380",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 96
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=XnU0ct5ZBfE",
+          "source": "user_curated",
+          "track_number": 9,
+          "analyzed_at": "2026-07-02T23:35:04.860264",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 98
+        }
+      ]
+    },
+    "Lo-fi Focus & Cafe Chill": {
+      "name_ko": "Lo-fi Focus & Cafe Chill",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=-68VSkmqjUY",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-03T00:05:50.795735",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=a58bf0dCVJ0",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-03T00:07:35.662966",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=o7-4So5IZD4",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-03T00:08:57.577084",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 83
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=2uZXOOt8JN0",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-03T00:10:58.883242",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=HM-qmO9O__0",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-03T00:14:53.044076",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 86
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=E1pqQm46VXQ",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-03T00:16:10.103543",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=2bLRBEWVNGk",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-03T00:16:30.765745",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 84
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=y9_6kuq2pkM",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-03T00:16:52.286744",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 92
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=L4F73SPcY50",
+          "source": "user_curated",
+          "track_number": 9,
+          "analyzed_at": "2026-07-03T00:17:35.173245",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 84
+        }
+      ]
+    },
+    "Late Night R&B & Soul": {
+      "name_ko": "Late Night R&B & Soul",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=Qqu28eDeFgo",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-03T00:22:48.983965",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 92
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=O1dpU8KGKzI",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-03T00:23:13.942643",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 85
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=hej7zF2bbuo",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-03T07:58:23.342972",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 85
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=LK1DpwFLynw",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-03T07:58:39.548750",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=TYcPtxo52ls",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-03T07:58:56.363959",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 88
+        }
+      ]
+    }
+  },
   "new_genres": [],
   "filtered_out": []
 }

@@ -6,8 +6,14 @@ import * as path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-const FFMPEG_PATH   = 'D:\\ffmpeg-8.1.1-essentials_build\\bin\\ffmpeg.exe';
-const ALLOWED_BASE  = 'D:\\AI Agent\\Claude\\channels';
+const IS_WINDOWS    = process.platform === 'win32';
+const FFMPEG_PATH    = IS_WINDOWS
+  ? 'D:\\ffmpeg-8.1.1-essentials_build\\bin\\ffmpeg.exe'
+  : 'ffmpeg';
+// 로컬 윈도우 작업 경로와 RunPod 서버(Linux) 프로젝트 경로 둘 다 허용
+const ALLOWED_BASES = IS_WINDOWS
+  ? ['D:\\AI Agent\\Claude\\channels']
+  : ['/workspace/suno-api/.claude/agents/projects', '/workspace/suno-api/.claude/agents/assets'];
 
 function writeStatus(statusPath: string, status: string, progress: number, message: string, outputPath?: string) {
   const data: any = { status, progress, message };
@@ -24,7 +30,7 @@ export async function POST(req: NextRequest) {
         status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders },
       });
     }
-    if (!filePath.startsWith(ALLOWED_BASE)) {
+    if (!ALLOWED_BASES.some((base) => filePath.startsWith(base))) {
       return new NextResponse(JSON.stringify({ error: '허용되지 않는 경로입니다.' }), {
         status: 403, headers: { 'Content-Type': 'application/json', ...corsHeaders },
       });

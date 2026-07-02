@@ -273,8 +273,13 @@ class SunoApi {
       args.push('--enable-unsafe-swiftshader',
         '--disable-gpu',
         '--disable-setuid-sandbox');
+    // Allow overriding the browser binary with a system-installed Chrome/Edge.
+    // Useful when the Playwright-managed Chromium download is unavailable
+    // (e.g. blocked/stuck due to local antivirus scanning the extracted binary).
+    const executablePath = process.env.BROWSER_EXECUTABLE_PATH || undefined;
     const browser = await this.getBrowserType().launch({
       args,
+      executablePath,
       headless: yn(process.env.BROWSER_HEADLESS, { default: true })
     });
     const context = await browser.newContext({ userAgent: this.userAgent, locale: process.env.BROWSER_LOCALE, viewport: null });
@@ -550,7 +555,10 @@ class SunoApi {
     make_instrumental: boolean = false,
     model?: string,
     wait_audio: boolean = false,
-    negative_tags?: string
+    negative_tags?: string,
+    vocal_gender?: string,
+    weirdness?: number,
+    style_influence?: number
   ): Promise<AudioInfo[]> {
     const startTime = Date.now();
     const audios = await this.generateSongs(
@@ -561,7 +569,13 @@ class SunoApi {
       make_instrumental,
       model,
       wait_audio,
-      negative_tags
+      negative_tags,
+      undefined,
+      undefined,
+      undefined,
+      vocal_gender,
+      weirdness,
+      style_influence
     );
     const costTime = Date.now() - startTime;
     logger.info(
@@ -596,7 +610,10 @@ class SunoApi {
     negative_tags?: string,
     task?: string,
     continue_clip_id?: string,
-    continue_at?: number
+    continue_at?: number,
+    vocal_gender?: string,
+    weirdness?: number,
+    style_influence?: number
   ): Promise<AudioInfo[]> {
     await this.keepAlive();
     const payload: any = {
@@ -610,10 +627,31 @@ class SunoApi {
       token: await this.getCaptcha()
     };
     if (isCustom) {
-      payload.tags = tags;
+      // vocal_gender → append to tags as "male vocals" / "female vocals"
+      let finalTags = tags || '';
+      if (vocal_gender) {
+        const v = vocal_gender.toLowerCase();
+        const vocalTag = (v === 'male' || v === 'm') ? 'male vocals' : 'female vocals';
+        finalTags = finalTags ? `${finalTags}, ${vocalTag}` : vocalTag;
+      }
+      payload.tags = finalTags;
       payload.title = title;
       payload.negative_tags = negative_tags;
       payload.prompt = prompt;
+
+      // control_sliders live in metadata.control_sliders (0.0–1.0)
+      const controlSliders: any = {};
+      if (weirdness !== undefined) controlSliders.weirdness_constraint = weirdness / 100;
+      if (style_influence !== undefined) controlSliders.style_weight = style_influence / 100;
+
+      payload.metadata = {
+        create_mode: 'custom',
+        is_max_mode: false,
+        is_mumble: false,
+        disable_volume_normalization: false,
+        web_client_pathname: '/create',
+        ...(Object.keys(controlSliders).length > 0 && { control_sliders: controlSliders })
+      };
     } else {
       payload.gpt_description_prompt = prompt;
     }
@@ -635,7 +673,7 @@ class SunoApi {
         )
     );
     const response = await this.client.post(
-      `${SunoApi.BASE_URL}/api/generate/v2/`,
+      `${SunoApi.BASE_URL}/api/generate/v2-web/`,
       payload,
       {
         timeout: 10000 // 10 seconds timeout

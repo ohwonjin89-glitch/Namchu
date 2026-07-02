@@ -6,7 +6,9 @@ import * as path from 'path';
 
 export const dynamic = 'force-dynamic';
 
-const SCRIPT_PATH = 'D:\\AI Agent\\Claude\\make_video.py';
+const SCRIPT_PATH = process.platform === 'win32'
+  ? 'D:\\AI Agent\\Claude\\make_video.py'
+  : '/workspace/suno-api/scripts/make_video.py';
 
 export async function POST(req: NextRequest) {
   try {

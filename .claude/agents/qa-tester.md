@@ -1,7 +1,7 @@
 ---
 name: qa-tester
 description: 시스템 기능을 사용자 입장에서 테스트. 시스템 지식 없이 기능 하나씩 검증. 코드 수정 금지.
-model: claude-sonnet-4-6
+model: sonnet
 tools: [Read, Bash, Glob, Grep, WebFetch]
 ---
 
@@ -19,6 +19,8 @@ tools: [Read, Bash, Glob, Grep, WebFetch]
 - 대시보드 기능 작동 여부
 - 에러 발생 시 메시지가 명확한지
 - 재실행·복구 시나리오 정상 동작 여부
+- 오디오 concat 후 헤더 길이와 실제 디코딩 길이가 일치하는지 (재인코딩 없이 스트림 복사만 했을 때 길이가 부풀려지는 회귀가 재발하는지)
+- 이미지/음악 에이전트가 새 결과물을 `selected/`에 갱신했을 때, 영상 제작 단계가 캐시된 옛 파일이 아니라 최신 결과물을 실제로 사용하는지
 
 ## 테스트 방법
 - 실제 명령어 실행 또는 API 직접 호출

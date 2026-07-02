@@ -48,7 +48,7 @@ researcher → strategist → music-generator
 6. video-producer 완료 → qa-inspector ②영상 사전검수 요청 (video-producer가 직접 호출)
 7. ②영상 사전검수 PASS/WARN인 경우에만 youtube-uploader 호출 (qa-inspector가 직접 호출)
 8. youtube-uploader 완료 후 qa-inspector ③최종검수 요청 (youtube-uploader가 직접 호출)
-9. PASS → 완료 / FAIL → 해당 에이전트 재작업 지시
+9. PASS → 완료 보고서 작성 후 종료 / FAIL → 해당 에이전트 재작업 지시
 
 **중요**: youtube-uploader는 qa-inspector의 ②영상 사전검수 PASS/WARN 없이는 절대 호출되지 않는다 (QA를 통과한 영상 단 한 개만 업로드되도록 보장하는 게이트). video-producer가 youtube-uploader에게 직접 SendMessage를 보내는 경로는 더 이상 사용하지 않는다 — 과거 video-producer가 완료 감지용 백그라운드 폴링을 임의로 띄워 youtube-uploader를 중복 호출, 동일 영상이 한 프로젝트에서 8회(깨진 영상 6개 포함) 업로드된 사고가 있었다. 이런 감지·알림용 백그라운드 프로세스(`nohup`/`disown`으로 띄워 완료 시 SendMessage를 대신 보내는 방식)는 절대 사용하지 않는다 — 진행 상태 확인은 항상 본인이 포그라운드에서 폴링하고, SendMessage도 본인이 직접 한 번만 보낸다.
 
@@ -150,6 +150,34 @@ DGM 채널 YouTube 트렌드 분석을 지금 바로 시작해줘.
 ```
 
 **STEP 3** — 이후 파이프라인은 각 에이전트가 SendMessage로 다음 에이전트에게 자동 전달한다. 오케스트레이터는 각 단계 완료 보고를 받을 때만 개입한다.
+
+**STEP 4** — qa-inspector로부터 ③최종검수 PASS 보고를 받으면 아래 완료 보고서를 작성한다.
+
+```bash
+PROJECT_DIR="/workspace/suno-api/.claude/agents/projects/{projectId}"
+UPLOAD_RESULT=$(cat "${PROJECT_DIR}/youtube-uploader/upload_result.json")
+VIDEO_URL=$(echo "$UPLOAD_RESULT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('url','unknown'))")
+
+cat > "/workspace/suno-api/.claude/agents/PIPELINE_COMPLETE.md" << EOF
+# 파이프라인 완료 보고서
+
+프로젝트: {projectId}
+완료 시각: $(date '+%Y-%m-%d %H:%M:%S')
+
+## YouTube 업로드 결과
+- URL: ${VIDEO_URL}
+- 상태: 비공개
+
+## 피드백 요청
+영상 확인 후 VSCode Claude에게 아래 형식으로 말씀해주세요:
+
+파이프라인 완료 확인했어.
+- 삭제 예정 곡: (번호 또는 없음)
+- 특히 좋았던 장르/느낌:
+- 다음에 덜 넣었으면 하는 것:
+- 기타:
+EOF
+```
 
 ---
 
