@@ -26,8 +26,9 @@ for _p in _env_paths:
                     os.environ.setdefault(_k.strip(), _v.strip())
         break
 
-# Suno API 서버 (WSL→Windows host)
-os.environ.setdefault("SUNO_API_BASE", "http://172.28.32.1:3000")
+# Suno API 서버: RunPod에서는 localhost:3000 (npm 서버가 같은 컨테이너에서 실행)
+# WSL에서는 .env의 SUNO_API_BASE 값 또는 http://172.28.32.1:3000 사용
+os.environ.setdefault("SUNO_API_BASE", "http://localhost:3000")
 
 # ── 실행 ───────────────────────────────────────────────────────────────────
 sys.path.insert(0, os.path.dirname(__file__))

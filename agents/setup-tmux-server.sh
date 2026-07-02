@@ -125,22 +125,32 @@ tmux send-keys -t "$SESSION:control-room.2" \
 
 tmux select-pane -t "$SESSION:control-room.0"
 
-# ── Window 1: orchestrator ──────────────────────────────────────────
+# ── Window 1: suno-api server (Next.js) ──────────────────────────────
+tmux new-window -t "$SESSION" -n "suno-server"
+tmux send-keys -t "$SESSION:suno-server" \
+  "cd $PROJECT_DIR && npm install --legacy-peer-deps 2>&1 | tail -3 && echo '▶ npm 서버 시작...' && npm run dev 2>&1 | tee /tmp/dgm/npm-server.log" Enter
+
+# npm 서버가 포트 3000에 바인딩될 때까지 대기 (최대 60초)
+tmux send-keys -t "$SESSION:control-room.0" \
+  "echo '▶ npm 서버 포트 3000 대기 중...'" Enter
+sleep 30
+
+# ── Window 2: orchestrator ──────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "orchestrator"
 tmux send-keys -t "$SESSION:orchestrator" \
   "cd $PROJECT_DIR && unset ANTHROPIC_API_KEY && export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 && claude --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
 
-# ── Window 2: logs ──────────────────────────────────────────────────
+# ── Window 3: logs ──────────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "logs"
 tmux send-keys -t "$SESSION:logs" \
   "watch -n 1 'ls /tmp/dgm/tasks/*.log 2>/dev/null | head -5 | while read f; do echo \"=== \$(basename \$f .log) ===\"; tail -5 \$f; echo; done || echo \"로그 없음\"'" Enter
 
-# ── Window 3: limit-watcher ──────────────────────────────────────────
+# ── Window 4: limit-watcher ──────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "limit-watcher"
 tmux send-keys -t "$SESSION:limit-watcher" \
   "bash $PROJECT_DIR/agents/limit-watcher.sh" Enter
 
-# ── Window 4: completion-watcher ──────────────────────────────────────
+# ── Window 5: completion-watcher ──────────────────────────────────────
 # qa-inspector 완료 또는 TIMEOUT_HOURS 무진행 시 RunPod pod 자동 종료
 tmux new-window -t "$SESSION" -n "completion-watcher"
 tmux send-keys -t "$SESSION:completion-watcher" \
@@ -154,9 +164,11 @@ echo "     CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 활성화됨"
 echo ""
 echo "  접속:  ssh -i ~/.ssh/runpod_dgm -p <PORT> root@<IP>  →  tmux attach -t $SESSION"
 echo ""
-echo "  [0] control-room   — 파이프라인 상태"
-echo "  [1] orchestrator   — Agent Teams 메인 (★)"
-echo "  [2] logs           — 작업 로그"
-echo "  [3] limit-watcher  — 사용량 한도 메뉴 자동 해제"
+echo "  [0] control-room     — 파이프라인 상태"
+echo "  [1] suno-server      — Next.js API 서버 (localhost:3000)"
+echo "  [2] orchestrator     — Agent Teams 메인 (★)"
+echo "  [3] logs             — 작업 로그"
+echo "  [4] limit-watcher    — 사용량 한도 메뉴 자동 해제"
+echo "  [5] completion-watcher — 완료 시 pod 자동 종료"
 echo ""
 tmux list-windows -t "$SESSION"
