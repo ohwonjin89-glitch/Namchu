@@ -101,6 +101,18 @@ if [ ! -d "$PROJECT_DIR/node_modules" ]; then
   cd "$PROJECT_DIR" && npm install --legacy-peer-deps 2>&1 | tail -5
 fi
 
+# Python 패키지 설치 (requirements.txt 기준 — 파이프라인 스크립트가 쓰는
+# anthropic/google-genai/googleapiclient/Pillow 등. 최초 1회 이후에는
+# pip가 알아서 스킵하므로 매번 실행해도 무해하다)
+if [ -f "$PROJECT_DIR/requirements.txt" ]; then
+  echo "▶ Python 패키지 확인/설치 중..."
+  # Ubuntu 23.10+/Debian 12+는 PEP 668(externally-managed-environment)로
+  # 기본 pip install을 막는다 — 실패하면 --break-system-packages로 재시도
+  # (--user 설치라 시스템 패키지를 깨뜨리지 않는다).
+  pip3 install --user -q -r "$PROJECT_DIR/requirements.txt" 2>/tmp/dgm_pip_install.log \
+    || pip3 install --user -q --break-system-packages -r "$PROJECT_DIR/requirements.txt" 2>&1 | tail -5
+fi
+
 # 기존 세션 제거 후 재생성
 tmux kill-session -t "$SESSION" 2>/dev/null || true
 tmux new-session -d -s "$SESSION" -x 220 -y 50 -n "control-room"

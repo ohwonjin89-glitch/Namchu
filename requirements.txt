@@ -1,0 +1,19 @@
+# DGM 파이프라인 Python 의존성 (VPS/RunPod 등 Linux 서버 기준)
+# 설치: pip3 install --user -r requirements.txt
+#
+# 참고: create_capcut_draft.py가 쓰는 pycapcut/pymediainfo는 CapCut 데스크톱 앱
+# (Windows 전용) 연동 기능이라 여기서 제외한다 — 헤드리스 Linux 서버에서는
+# 애초에 이 기능을 쓸 수 없다.
+
+anthropic>=0.109
+imageio-ffmpeg>=0.6
+Pillow>=12.0
+numpy>=2.0
+
+# Gemini 인기영상 분석 (researcher)
+google-genai>=0.1
+
+# YouTube 업로드/인증 (youtube-uploader)
+google-api-python-client>=2.198
+google-auth-oauthlib>=1.4
+google-auth>=2.55
