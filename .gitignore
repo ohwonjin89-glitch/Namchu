@@ -48,6 +48,10 @@ yt_credentials/
 *client_secret*.json
 *token*.json
 
+# 서버별로 scp로 직접 배치하는 폰트 (make_video.py의 <repo root>/assets/fonts) —
+# .claude/agents/assets/(로고·PNG 등, git 추적됨)와는 다른 폴더이니 혼동 주의
+/assets/
+
 # Claude OAuth 크레덴셜 (절대 커밋 금지)
 .claude_auth/
 *.credentials.json
