@@ -3,17 +3,20 @@ import { corsHeaders } from '@/lib/utils';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import { IS_WINDOWS, getChannelsBase, getProjectDir } from '@/lib/serverPaths';
 
 export const dynamic = 'force-dynamic';
 
-const IS_WINDOWS    = process.platform === 'win32';
 const FFMPEG_PATH    = IS_WINDOWS
   ? 'D:\\ffmpeg-8.1.1-essentials_build\\bin\\ffmpeg.exe'
   : 'ffmpeg';
-// 로컬 윈도우 작업 경로와 RunPod 서버(Linux) 프로젝트 경로 둘 다 허용
+// 로컬 윈도우 작업 경로와 Linux 서버(RunPod/VPS) 프로젝트 경로 둘 다 허용
 const ALLOWED_BASES = IS_WINDOWS
-  ? ['D:\\AI Agent\\Claude\\channels']
-  : ['/workspace/suno-api/.claude/agents/projects', '/workspace/suno-api/.claude/agents/assets'];
+  ? [getChannelsBase()]
+  : [
+      path.join(getProjectDir(), '.claude', 'agents', 'projects'),
+      path.join(getProjectDir(), '.claude', 'agents', 'assets'),
+    ];
 
 function writeStatus(statusPath: string, status: string, progress: number, message: string, outputPath?: string) {
   const data: any = { status, progress, message };

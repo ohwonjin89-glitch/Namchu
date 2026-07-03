@@ -2,10 +2,11 @@ import { NextResponse, NextRequest } from "next/server";
 import { corsHeaders } from "@/lib/utils";
 import fs from "fs";
 import path from "path";
+import { getWorkBase } from "@/lib/serverPaths";
 
 export const dynamic = "force-dynamic";
 
-const CACHE_PATH = path.join("D:\\AI Agent\\Claude", "trend_cache.json");
+const CACHE_PATH = path.join(getWorkBase(), "trend_cache.json");
 
 export async function POST(req: NextRequest) {
   try {

@@ -2,10 +2,11 @@ import { NextResponse, NextRequest } from 'next/server';
 import { corsHeaders } from '@/lib/utils';
 import * as fs from 'fs';
 import * as path from 'path';
+import { getChannelsBase } from '@/lib/serverPaths';
 
 export const dynamic = 'force-dynamic';
 
-const CHANNELS_BASE = 'D:\\AI Agent\\Claude\\channels';
+const CHANNELS_BASE = getChannelsBase();
 
 export async function POST(req: NextRequest) {
   try {

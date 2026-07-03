@@ -2,10 +2,11 @@ import { NextResponse, NextRequest } from 'next/server';
 import { corsHeaders } from '@/lib/utils';
 import * as fs from 'fs';
 import * as path from 'path';
+import { getWorkBase } from '@/lib/serverPaths';
 
 export const dynamic = 'force-dynamic';
 
-const TEMP_DIR = 'D:\\AI Agent\\Claude\\temp\\background';
+const TEMP_DIR = path.join(getWorkBase(), 'temp', 'background');
 
 export async function POST(req: NextRequest) {
   try {

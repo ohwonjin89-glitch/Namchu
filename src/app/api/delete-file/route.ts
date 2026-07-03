@@ -1,10 +1,11 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { corsHeaders } from '@/lib/utils';
 import * as fs from 'fs';
+import { getChannelsBase } from '@/lib/serverPaths';
 
 export const dynamic = 'force-dynamic';
 
-const ALLOWED_BASE = 'D:\\AI Agent\\Claude\\channels';
+const ALLOWED_BASE = getChannelsBase();
 
 export async function DELETE(req: NextRequest) {
   try {
