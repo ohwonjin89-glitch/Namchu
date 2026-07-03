@@ -14,13 +14,24 @@ params:
   madeForKids: false
   credentialsDir: client_secret.json이 있는 폴더 (기본: D:/AI Agent/Claude/yt_credentials)
 """
-import sys, json, os
+import sys, json, os, platform
 
 SCOPES = ['https://www.googleapis.com/auth/youtube.upload',
           'https://www.googleapis.com/auth/youtube.readonly']
 
+def _default_creds_dir():
+    """credentialsDir 파라미터가 없을 때 쓸 기본 경로.
+    Windows: 기존 운영 경로(D:\\AI Agent\\Claude\\yt_credentials) 유지.
+    Linux 계열(WSL/RunPod/VPS): 이 스크립트가 위치한 저장소 루트의
+    yt_credentials/ 를 사용한다 (.gitignore에도 이 컨벤션으로 등록되어 있음).
+    """
+    if platform.system() == 'Windows':
+        return r'D:/AI Agent/Claude/yt_credentials'
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(project_root, 'yt_credentials')
+
 def get_creds_dir(params):
-    return params.get('credentialsDir', r'D:/AI Agent/Claude/yt_credentials').replace('/', os.sep)
+    return params.get('credentialsDir', _default_creds_dir()).replace('/', os.sep)
 
 def get_token_path(creds_dir, channel_key='dgm'):
     return os.path.join(creds_dir, f'token_{channel_key.lower()}.json')
@@ -89,14 +100,18 @@ def run(params):
             with open(pending_path, 'w', encoding='utf-8') as f:
                 json.dump({'state': state, 'channelKey': channel_key, 'codeVerifier': code_verifier}, f)
             # 백그라운드 리스너 시작 (분리된 프로세스)
+            # - sys.executable: 'python'이 PATH에 없는 Linux 계열(WSL/RunPod/VPS)에서도
+            #   현재 실행 중인 인터프리터를 그대로 재사용해 ENOENT를 피한다.
+            # - creationflags(DETACHED_PROCESS 등)는 Windows 전용 인자라 Linux에서
+            #   그대로 넘기면 ValueError가 발생하므로 Windows에서만 적용한다.
             script_path = os.path.abspath(__file__)
             listen_params = json.dumps({'action': '_listen', 'channelKey': channel_key})
-            flags = 0x00000008 | 0x00000200  # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
-            subprocess.Popen(
-                ['python', script_path, listen_params],
-                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                creationflags=flags
-            )
+            popen_kwargs = {'stdout': subprocess.DEVNULL, 'stderr': subprocess.DEVNULL}
+            if platform.system() == 'Windows':
+                popen_kwargs['creationflags'] = 0x00000008 | 0x00000200  # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
+            else:
+                popen_kwargs['start_new_session'] = True  # 부모(Node) 종료와 무관하게 계속 실행
+            subprocess.Popen([sys.executable, script_path, listen_params], **popen_kwargs)
             return {'status': 'pending', 'authUrl': auth_url}
         except Exception as e:
             return {'error': str(e)}
