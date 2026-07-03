@@ -61,7 +61,8 @@ def _load_completed_upload(status_path, result_path):
         except Exception:
             continue
         video_id = data.get('videoId', '')
-        if video_id and (data.get('status') == 'done' or data.get('success')):
+        status_val = str(data.get('status', '')).lower()
+        if video_id and (status_val in ('done', 'success') or data.get('success')):
             return data
     return None
 
