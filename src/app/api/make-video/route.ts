@@ -3,24 +3,14 @@ import { corsHeaders } from '@/lib/utils';
 import { spawn } from 'child_process';
 import * as fs from 'fs';
 import * as path from 'path';
+import { isRunningInsideWSL, getPythonCommand } from '@/lib/pythonEnv';
 
 export const dynamic = 'force-dynamic';
 
-// WSL(Linux 게스트) 안에서 이 dev 서버가 실행 중인지 감지한다.
 // 이 프로젝트는 Next.js가 Windows 네이티브에서 실행되고, 필요 시 `wsl --`로
 // WSL 안의 Python을 호출하는 구조로 설계되어 있다 (run-pipeline/route.ts 참고).
 // 반대로 Next.js 자체가 WSL 안에서 실행되면 D:\, C:\Users\... 등
 // Windows 전용 경로/명령을 찾지 못해 spawn이 즉시 ENOENT로 실패한다.
-function isRunningInsideWSL(): boolean {
-  if (process.platform !== 'linux') return false;
-  if (process.env.WSL_DISTRO_NAME) return true;
-  try {
-    return fs.readFileSync('/proc/version', 'utf-8').toLowerCase().includes('microsoft');
-  } catch {
-    return false;
-  }
-}
-
 const IS_WSL = isRunningInsideWSL();
 
 const SCRIPT_PATH = process.platform === 'win32'
@@ -72,8 +62,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Python 프로세스 실행
-    const child = spawn('python', [SCRIPT_PATH, '--config', configPath], {
+    // Python 프로세스 실행 (Windows 네이티브: 'python', Linux 계열: 'python3')
+    const child = spawn(getPythonCommand(), [SCRIPT_PATH, '--config', configPath], {
       windowsHide: true,
       stdio: ['ignore', 'pipe', 'pipe'],
     });

@@ -3,6 +3,7 @@ import { corsHeaders } from '@/lib/utils';
 import { spawn } from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
+import { getPythonCommand } from '@/lib/pythonEnv';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 600;
@@ -38,10 +39,27 @@ export async function POST(req: NextRequest) {
 
       // Python 프로세스를 백그라운드에 spawn
       const child = spawn(
-        'python',
+        getPythonCommand(),
         [SCRIPT_PATH, JSON.stringify({ ...body, statusPath })],
         { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'], detached: false }
       );
+
+      // spawn 자체가 실패하면(ENOENT 등) 'close' 이벤트가 발생하지 않아
+      // _upload_status.json이 영원히 'running'에 멈춘다. error 핸들러로 즉시 기록한다.
+      child.on('error', (err: Error) => {
+        console.error('[youtube_upload] 프로세스 시작 실패:', err.message);
+        try {
+          fs.writeFileSync(
+            statusPath,
+            JSON.stringify({
+              status: 'error',
+              progress: 0,
+              message: `프로세스 시작 실패: ${err.message}`,
+            }),
+            'utf-8'
+          );
+        } catch {}
+      });
 
       let childStdout = '';
       child.stdout.on('data', (d: Buffer) => { childStdout += d.toString('utf8'); });
@@ -139,7 +157,7 @@ export async function GET(req: NextRequest) {
 
 function runPython(scriptPath: string, argsJson: string): Promise<any> {
   return new Promise((resolve) => {
-    const proc = spawn('python', [scriptPath, argsJson], {
+    const proc = spawn(getPythonCommand(), [scriptPath, argsJson], {
       env: { ...process.env },
     });
 
