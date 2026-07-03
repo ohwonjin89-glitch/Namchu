@@ -42,13 +42,9 @@ except ImportError:
     sys.exit(1)
 
 # ── 경로 설정 ────────────────────────────────────────────
-import platform as _platform
-if _platform.system() == "Windows":
-    PROJECT_DIR = Path(r"c:\suno-api")
-elif Path("/workspace/suno-api").exists():
-    PROJECT_DIR = Path("/workspace/suno-api")
-else:
-    PROJECT_DIR = Path("/mnt/c/suno-api")
+# 배포 서버가 바뀔 때마다(RunPod → VPS 등) 하드코딩 경로를 추가하는 대신,
+# 이 스크립트가 위치한 저장소 루트를 스스로 찾는다 (scripts/의 부모 디렉토리).
+PROJECT_DIR = Path(__file__).resolve().parent.parent
 AGENTS_DIR = PROJECT_DIR / ".claude" / "agents"
 GENRE_SAMPLES_PATH = AGENTS_DIR / "music-generator-genre-samples.md"
 STYLE_DB_PATH = AGENTS_DIR / "style-database.json"
