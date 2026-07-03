@@ -8,12 +8,9 @@
 #   bash agents/backup-restore.sh restore baseline   초기 버전으로 복원
 #   bash agents/backup-restore.sh diff [버전명]      현재와 특정 버전 차이 확인
 
-# 경로 자동 감지 (로컬 WSL / RunPod 서버)
-if [ -d "/workspace/suno-api" ]; then
-  PROJECT_DIR="/workspace/suno-api"
-else
-  PROJECT_DIR="/mnt/c/suno-api"
-fi
+# 경로 자동 감지: 이 스크립트(agents/backup-restore.sh)의 실제 위치 기준으로
+# 저장소 루트를 스스로 찾는다 (WSL/RunPod/VPS 등 배포 서버가 바뀌어도 항상 정확).
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 BACKUP_BASE="$PROJECT_DIR/.claude/agents/backups"
 AGENTS_DIR="$PROJECT_DIR/.claude/agents"
