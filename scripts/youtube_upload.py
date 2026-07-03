@@ -4,7 +4,7 @@ YouTube 영상 업로드 스크립트
 사용법: python youtube_upload.py <json_params>
 
 params:
-  action: "auth_status" | "auth_start" | "upload"
+  action: "auth_status" | "auth_start" | "upload" | "delete"
   videoPath: 업로드할 영상 파일 경로
   title: 제목
   description: 설명
@@ -16,6 +16,11 @@ params:
   resultPath: 업로드 결과(upload_result.json) 저장 경로 (기본: statusPath와 같은
               디렉터리의 upload_result.json). 중복 실행 가드가 이 파일을 참조한다.
   forceReupload: True면 이미 업로드 완료 기록이 있어도 강제로 재업로드 (기본 False)
+
+  action="delete" 전용 파라미터:
+    videoId: 삭제할 영상의 YouTube videoId
+    confirm: videoId와 정확히 동일한 값을 다시 넣어야만 실제로 삭제 실행됨
+             (이중 확인 안전장치 — 불일치 시 삭제하지 않고 에러 반환)
 """
 import sys, json, os, platform
 
@@ -325,6 +330,33 @@ def run(params):
             msg = str(e)
             write_status('error', 0, msg)
             return {'error': msg}
+
+    # ── 영상 삭제 (2026-07-04: 중복 업로드 사고 수습용으로 추가) ──
+    # videoId와 confirm(동일 videoId 재입력)이 정확히 일치해야만 실행되는
+    # 이중 확인 안전장치. 잘못된 videoId를 실수로 삭제하는 사고를 막기 위함.
+    elif action == 'delete':
+        from googleapiclient.discovery import build
+        import googleapiclient.errors
+        video_id = params.get('videoId', '')
+        confirm = params.get('confirm', '')
+        if not video_id:
+            return {'error': 'videoId가 필요합니다'}
+        if confirm != video_id:
+            return {'error': f'안전장치: confirm 파라미터에 videoId({video_id})를 정확히 똑같이 넣어야 삭제가 실행됩니다'}
+        creds, err = load_credentials(creds_dir, channel_key)
+        if err:
+            return {'error': err}
+        if not creds or not creds.valid:
+            # creds=None으로 build()를 호출하면 googleapiclient가 Application Default
+            # Credentials를 찾다가 처리되지 않은 예외(DefaultCredentialsError)를 던진다.
+            # upload 액션과 동일하게 여기서 명확한 에러로 먼저 걸러낸다.
+            return {'error': '인증이 필요합니다. 먼저 auth_start를 실행하세요'}
+        try:
+            youtube = build('youtube', 'v3', credentials=creds)
+            youtube.videos().delete(id=video_id).execute()
+            return {'success': True, 'deletedVideoId': video_id}
+        except googleapiclient.errors.HttpError as e:
+            return {'error': f'삭제 실패: {e}'}
 
     return {'error': f'알 수 없는 action: {action}'}
 
