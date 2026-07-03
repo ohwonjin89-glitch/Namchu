@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { corsHeaders } from '@/lib/utils';
 import { spawn } from 'child_process';
 import * as path from 'path';
+import { getPythonCommand } from '@/lib/pythonEnv';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
 
 function runPython(scriptPath: string, argsJson: string): Promise<any> {
   return new Promise((resolve) => {
-    const proc = spawn('python', [scriptPath, argsJson], {
+    const proc = spawn(getPythonCommand(), [scriptPath, argsJson], {
       env: { ...process.env },
     });
 
