@@ -395,7 +395,7 @@ mkdir -p "$REPORT_DIR"
 ### Gemini 분석 실행
 
 ```bash
-cd /workspace/suno-api
+cd /home/dgm/suno-api 2>/dev/null || cd /workspace/suno-api 2>/dev/null || cd /mnt/c/suno-api
 
 # 단일 영상 분석
 python3 scripts/gemini_analyzer.py analyze "https://youtube.com/watch?v=XXXX"
@@ -421,11 +421,11 @@ python3 scripts/gemini_analyzer.py list-genres
 ### 프롬프트 가이드 백업 (분석 전 반드시 실행)
 
 ```bash
-# Gemini 분석으로 파일이 수정되기 전에 백업
-bash /workspace/suno-api/agents/backup-restore.sh backup gemini_analysis
+# Gemini 분석으로 파일이 수정되기 전에 백업 (backup-restore.sh가 저장소 루트를 스스로 감지함)
+bash agents/backup-restore.sh backup gemini_analysis
 
 # 분석 후 초기 버전으로 되돌리고 싶을 때
-bash /workspace/suno-api/agents/backup-restore.sh restore baseline
+bash agents/backup-restore.sh restore baseline
 ```
 
 ---

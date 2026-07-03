@@ -291,7 +291,8 @@ add-curated 실행 시 총 수가 20을 초과하면 자동 제거:
 장르 선택 및 프롬프트 작성 전에 사용자 피드백 DB를 읽는다.
 
 ```bash
-cat "/workspace/suno-api/.claude/agents/user-feedback.json"
+REPO_DIR="/home/dgm/suno-api"; [ -d "$REPO_DIR" ] || REPO_DIR="/workspace/suno-api"
+cat "$REPO_DIR/.claude/agents/user-feedback.json"
 ```
 
 파일이 존재하면 아래 항목을 프롬프트 작성에 반영한다:

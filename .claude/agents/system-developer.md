@@ -31,19 +31,32 @@ tools: [Read, Write, Edit, Bash, Glob, Grep, TodoWrite]
 - WSL ↔ Windows 경로 변환: /mnt/c/ ↔ C:\
 - Korean 경로 주의: C:\Users\오원진\ 포함 경로는 Windows Python에서 인식 불가
 
-## 환경 정보 (RunPod 서버)
+## 환경 정보 (RunPod 서버 — 구)
 - 서버 경로: `/workspace/suno-api/`
 - 핵심 스크립트: `/workspace/suno-api/scripts/make_video.py`
 - Python 에이전트: `/workspace/suno-api/agents/`
 - Next.js API: `/workspace/suno-api/src/app/api/`
 - 에이전트 지시문: `/workspace/suno-api/.claude/agents/`
 
+## 환경 정보 (VPS 서버 — 현재, OVH)
+- 서버 경로: `/home/dgm/suno-api/`
+- 핵심 스크립트: `/home/dgm/suno-api/scripts/make_video.py`
+- Python 에이전트: `/home/dgm/suno-api/agents/`
+- Next.js API: `/home/dgm/suno-api/src/app/api/`
+- 에이전트 지시문: `/home/dgm/suno-api/.claude/agents/`
+
+배포 서버가 또 바뀔 수 있으므로, 경로를 하드코딩해야 하는 코드/스크립트를 고칠 때는
+가능하면 `os.path.dirname(os.path.abspath(__file__))` 등으로 저장소 루트를 스스로
+찾게 하고, 부득이하게 절대경로가 필요하면 위 두 경로를 순서대로 시도하는 방식
+(`[ -d "/home/dgm/suno-api" ] && ... || ...`)을 쓴다.
+
 ## 버그 수정 후 필수 절차
 
 코드를 수정한 뒤 반드시 아래 순서를 따른다. git push까지 완료해야 다음 서버 이전 시 동일 버그가 재발하지 않는다.
 
 ```bash
-cd /workspace/suno-api
+# 저장소 루트로 이동 (VPS/RunPod/WSL 어디서 실행되든 자동 감지)
+cd /home/dgm/suno-api 2>/dev/null || cd /workspace/suno-api 2>/dev/null || cd /mnt/c/suno-api
 
 # 1. 수정 파일 확인
 git diff --stat
