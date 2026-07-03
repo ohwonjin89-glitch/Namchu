@@ -370,8 +370,12 @@ def get_ordered_audio_files(music_dir, song_titles=None):
 if IS_WINDOWS:
     _FONT_DIR = r'D:/AI Agent/Claude/fonts'
 else:
-    # RunPod 서버(Linux): scp로 복사해둔 Pretendard 폰트 디렉토리
-    _FONT_DIR = '/workspace/suno-api/assets/fonts'
+    # Linux 계열(RunPod/VPS 등): 배포 서버마다 프로젝트 루트 경로가 다르므로
+    # (RunPod=/workspace/suno-api, VPS=/home/dgm/suno-api 등) 하드코딩 대신
+    # 이 스크립트 위치 기준으로 <프로젝트 루트>/assets/fonts를 자동으로 찾는다.
+    # 폰트 파일 자체는 서버별로 scp로 미리 복사해둬야 한다.
+    _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _FONT_DIR = os.path.join(_PROJECT_ROOT, 'assets', 'fonts')
 
 if IS_WINDOWS:
     FONT_MAP = {
