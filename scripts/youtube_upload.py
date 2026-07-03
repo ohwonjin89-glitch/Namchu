@@ -13,6 +13,9 @@ params:
   privacyStatus: "private" | "public" | "unlisted"
   madeForKids: false
   credentialsDir: client_secret.json이 있는 폴더 (기본: D:/AI Agent/Claude/yt_credentials)
+  resultPath: 업로드 결과(upload_result.json) 저장 경로 (기본: statusPath와 같은
+              디렉터리의 upload_result.json). 중복 실행 가드가 이 파일을 참조한다.
+  forceReupload: True면 이미 업로드 완료 기록이 있어도 강제로 재업로드 (기본 False)
 """
 import sys, json, os, platform
 
@@ -38,6 +41,25 @@ def get_token_path(creds_dir, channel_key='dgm'):
 
 def get_client_secret_path(creds_dir):
     return os.path.join(creds_dir, 'client_secret.json')
+
+def _load_completed_upload(status_path, result_path):
+    """중복 업로드 방지용: 이미 완료된 업로드 결과가 있으면 그 dict를, 없으면 None을 반환.
+    result_path(전용 결과 파일)를 먼저 확인하고, 없으면 status_path 자체가
+    이미 status=done + videoId를 가진 경우도 완료로 간주한다.
+    """
+    for path in (result_path, status_path):
+        if not path or not os.path.exists(path):
+            continue
+        try:
+            with open(path, encoding='utf-8') as f:
+                data = json.load(f)
+        except Exception:
+            continue
+        video_id = data.get('videoId', '')
+        if video_id and (data.get('status') == 'done' or data.get('success')):
+            return data
+    return None
+
 
 def load_credentials(creds_dir, channel_key='dgm'):
     from google.oauth2.credentials import Credentials
@@ -188,6 +210,23 @@ def run(params):
             except Exception:
                 pass
 
+        # ── 중복 실행 가드 ──────────────────────────────────────
+        # 2026-07-03 사고: youtube-uploader 에이전트가 시행착오 중 동일
+        # playlist.mp4를 두 번 독립적으로 업로드에 성공시켜 DGM 채널에 동일
+        # 영상이 2개 게시됨(qa-inspector, failType: code_bug). 이미 업로드가
+        # 완료된 적이 있으면 forceReupload=True가 아닌 이상 재업로드하지 않는다.
+        result_path = params.get('resultPath') or (
+            os.path.join(os.path.dirname(status_path), 'upload_result.json') if status_path else ''
+        )
+        force_reupload = bool(params.get('forceReupload', False))
+        if not force_reupload:
+            existing = _load_completed_upload(status_path, result_path)
+            if existing:
+                video_id = existing.get('videoId', '')
+                msg = f'이미 업로드 완료됨 (videoId: {video_id}), 중복 실행 방지'
+                write_status('done', 100, msg, existing)
+                return {'error': msg, 'videoId': video_id, 'duplicate': True}
+
         video_path = params.get('videoPath', '')
         if not os.path.exists(video_path):
             result = {'error': f'영상 파일 없음: {video_path}'}
@@ -268,6 +307,13 @@ def run(params):
                 'videoUrl': f'https://youtu.be/{video_id}',
                 'studioUrl': f'https://studio.youtube.com/video/{video_id}/edit',
             }
+            # 중복 실행 가드가 다음 호출에서 참조할 전용 결과 파일 기록
+            if result_path:
+                try:
+                    with open(result_path, 'w', encoding='utf-8') as _rf:
+                        json.dump(result, _rf, ensure_ascii=False)
+                except Exception:
+                    pass
             write_status('done', 100, f'업로드 완료! https://youtu.be/{video_id}', result)
             return result
 
