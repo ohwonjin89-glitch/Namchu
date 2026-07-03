@@ -33,6 +33,14 @@ if [ "$(id -u)" -eq 0 ]; then
     echo "  ✓ Node.js $(node --version)"
   fi
 
+  # Chromium 헤드리스 실행에 필요한 OS 공유 라이브러리 설치 (libnss3 등)
+  # music-generator의 SUNO_GEN이 rebrowser-playwright-core로 실제 Chromium을
+  # 띄워 Suno.ai와 상호작용한다 — 이 라이브러리들이 없으면 브라우저 launch()
+  # 자체가 "error while loading shared libraries" 로 실패한다.
+  # root 권한이 필요해 이 블록(apt 설치 구간)에서 미리 처리한다.
+  echo "  ▶ Chromium 헤드리스 의존성 확인/설치 중 (수 분 소요될 수 있음)..."
+  npx --yes playwright install-deps chromium &>/dev/null || echo "  ⚠ playwright install-deps 실패 — 수동 확인 필요"
+
   # dgm 유저 생성 (없으면)
   if ! id dgm &>/dev/null; then
     useradd -m -s /bin/bash -u 1001 dgm 2>/dev/null || useradd -m -s /bin/bash dgm
