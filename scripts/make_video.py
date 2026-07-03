@@ -54,15 +54,6 @@ else:
 VALID_CHANNELS = ["Playlisttann", "DGM_Playlist"]
 
 def get_video_codec_args(crf=23):
-    """h264_qsv on Windows with Intel iGPU, libx264 ultrafast on Linux/VPS."""
-    if IS_WINDOWS and os.environ.get('USE_QSV', '1') == '1':
-        try:
-            import subprocess as _sp
-            r = _sp.run(['ffmpeg', '-encoders'], capture_output=True, text=True, timeout=5)
-            if 'h264_qsv' in r.stdout:
-                return ['-c:v', 'h264_qsv', '-global_quality', str(crf), '-look_ahead', '0']
-        except Exception:
-            pass
     return ['-c:v', 'libx264', '-preset', 'ultrafast', '-crf', str(crf)]
 
 
@@ -370,12 +361,8 @@ def get_ordered_audio_files(music_dir, song_titles=None):
 if IS_WINDOWS:
     _FONT_DIR = r'D:/AI Agent/Claude/fonts'
 else:
-    # Linux 계열(RunPod/VPS 등): 배포 서버마다 프로젝트 루트 경로가 다르므로
-    # (RunPod=/workspace/suno-api, VPS=/home/dgm/suno-api 등) 하드코딩 대신
-    # 이 스크립트 위치 기준으로 <프로젝트 루트>/assets/fonts를 자동으로 찾는다.
-    # 폰트 파일 자체는 서버별로 scp로 미리 복사해둬야 한다.
-    _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    _FONT_DIR = os.path.join(_PROJECT_ROOT, 'assets', 'fonts')
+    # RunPod 서버(Linux): scp로 복사해둔 Pretendard 폰트 디렉토리
+    _FONT_DIR = '/workspace/suno-api/assets/fonts'
 
 if IS_WINDOWS:
     FONT_MAP = {
@@ -731,16 +718,13 @@ def run_api_mode(config_path):
     )
 
     codec_args = get_video_codec_args(CRF)
-    # h264_qsv는 -tune/-pix_fmt yuv420p 미지원, libx264는 stillimage tune 가능
-    is_qsv = 'h264_qsv' in codec_args
-    tune_args = [] if is_qsv or is_video_bg else ["-tune", TUNE]
-    pix_args = [] if is_qsv else ["-pix_fmt", "yuv420p"]
+    tune_args = [] if is_video_bg else ["-tune", TUNE]
 
     cmd = [FFMPEG_PATH, "-y"] + cmd_inputs + [
         "-filter_complex", filter_cx,
         "-map", f"[{out_label}]", "-map", f"{audio_idx}:a",
         *codec_args,
-    ] + tune_args + pix_args + [
+    ] + tune_args + ["-pix_fmt", "yuv420p"] + [
         "-color_range", "1",
         "-r", str(FPS),
         "-c:a", "aac", "-b:a", "192k",
