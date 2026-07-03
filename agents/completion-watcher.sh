@@ -1,14 +1,20 @@
 #!/bin/bash
-# 파이프라인 완료 또는 장기 중단 감지 → RunPod pod 자동 종료
-# 실행: setup-tmux-server.sh가 별도 창으로 자동 기동
+# 파이프라인 완료 또는 장기 중단 감지 → tmux 창에 알림 표시
+# 실행: setup-vps.sh 또는 setup-tmux-server.sh가 별도 창으로 자동 기동
 #
-# 종료 조건:
+# 감지 조건:
 #   1. qa-inspector가 meeting_log.md에 기록 완료 → 정상 완료
-#   2. meeting_log.md가 TIMEOUT_HOURS 이상 변경 없음 → 비정상 중단(토큰한도 등)
-#   3. orchestrator pane에 활성 세션이 없음 (claude 종료) → 비정상 종료
+#   2. meeting_log.md가 TIMEOUT_HOURS 이상 변경 없음 → 비정상 중단 가능성
+#   3. orchestrator pane에 claude 프로세스 없음 → 종료 감지
 
-OUTPUT_BASE="/workspace/suno-api/.claude/agents/projects"
-ENV_FILE="/workspace/suno-api/.env"
+# 프로젝트 경로: VPS는 /home/dgm, RunPod은 /workspace
+if [ -d "/home/dgm/suno-api" ]; then
+  OUTPUT_BASE="/home/dgm/suno-api/.claude/agents/projects"
+  ENV_FILE="/home/dgm/suno-api/.env"
+else
+  OUTPUT_BASE="/workspace/suno-api/.claude/agents/projects"
+  ENV_FILE="/workspace/suno-api/.env"
+fi
 LOG="/tmp/dgm/completion-watcher.log"
 CHECK_INTERVAL=60      # 점검 주기 (초)
 TIMEOUT_HOURS=4        # 이 시간 이상 진행 없으면 강제 종료 (토큰한도 대기 포함)
@@ -20,32 +26,12 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG"
 }
 
-stop_pod() {
+notify_done() {
   local reason="$1"
-  log "🛑 Pod 종료 요청: $reason"
-
-  # 매번 .env를 새로 읽어 최신값 사용 (시작 시 캐시 금지)
-  local API_KEY POD_ID
-  API_KEY=$(grep "^RUNPOD_API_KEY=" "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
-  POD_ID=$(grep "^RUNPOD_POD_ID=" "$ENV_FILE" 2>/dev/null | cut -d'=' -f2-)
-
-  # .env에 없으면 환경변수에서 폴백
-  [ -z "$API_KEY" ] && API_KEY="${RUNPOD_API_KEY:-}"
-  [ -z "$POD_ID" ] && POD_ID="${RUNPOD_POD_ID:-}"
-
-  if [ -z "$API_KEY" ] || [ -z "$POD_ID" ]; then
-    log "  ⚠ RUNPOD_API_KEY 또는 RUNPOD_POD_ID를 찾을 수 없음 (.env·환경변수 모두 확인)"
-    log "    .env 경로: $ENV_FILE"
-    log "    .env 내용(RUNPOD 관련): $(grep RUNPOD "$ENV_FILE" 2>/dev/null | sed 's/=.*/=***/' || echo '없음')"
-    return 1
-  fi
-  curl -s -X POST "https://api.runpod.io/graphql?api_key=${API_KEY}" \
-    -H "Content-Type: application/json" \
-    -d "{\"query\": \"mutation { podStop(input: {podId: \\\"${POD_ID}\\\"}) { id desiredStatus } }\"}" \
-    >> "$LOG" 2>&1
-  log "  ✓ podStop API 호출 완료 — 수 초 내 pod 정지 예정"
-  sleep 10  # API 반영 대기
-  halt -p 2>/dev/null || poweroff 2>/dev/null || true
+  log "✅ 파이프라인 종료: $reason"
+  # tmux control-room 창에 완료 배너 표시
+  tmux send-keys -t "${SESSION}:control-room.0" "" ""
+  tmux display-message -t "$SESSION" "DGM 파이프라인 완료: $reason"
 }
 
 log "completion-watcher 시작 (종료 기준: qa-inspector 완료 또는 ${TIMEOUT_HOURS}시간 무진행)"
@@ -84,7 +70,7 @@ while true; do
   if grep -q "^## qa-inspector" "$MEETING_LOG" 2>/dev/null; then
     log "✅ qa-inspector 완료 감지 — 파이프라인 정상 종료"
     sleep 30  # 최종 파일 기록 완료 대기
-    stop_pod "파이프라인 정상 완료"
+    notify_done "파이프라인 정상 완료"
     exit 0
   fi
 
@@ -93,7 +79,7 @@ while true; do
   IDLE_HOURS=$(( IDLE_SECONDS / 3600 ))
   if [ "$IDLE_HOURS" -ge "$TIMEOUT_HOURS" ]; then
     log "⏰ ${TIMEOUT_HOURS}시간 이상 무진행 (마지막 진행: ${IDLE_SECONDS}초 전) → 강제 종료"
-    stop_pod "타임아웃 (${TIMEOUT_HOURS}h 무진행)"
+    notify_done "타임아웃 (${TIMEOUT_HOURS}h 무진행 — orchestrator 확인 필요)"
     exit 1
   fi
 
@@ -106,7 +92,7 @@ while true; do
     if [ "$CLAUDE_RUNNING2" -eq 0 ]; then
       log "⚠ orchestrator claude 프로세스 종료 감지 — 1시간 추가 대기 후 pod 종료"
       sleep 3600
-      stop_pod "orchestrator 종료 (claude 프로세스 없음)"
+      notify_done "orchestrator claude 프로세스 종료 감지"
       exit 1
     fi
   fi

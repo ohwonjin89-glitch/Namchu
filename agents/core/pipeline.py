@@ -135,8 +135,11 @@ def _save_state(state: dict, output_dir: str) -> None:
 _CHANNEL_FOLDER_MAP = {
     "DGM": "DGM_Playlist",
 }
-# WSL에서 접근 가능한 C: 드라이브 기반 프로젝트 경로
-_PROJECTS_BASE = "/mnt/c/Users/오원진/AppData/Local/dgm_output/{ch_folder}/projects"
+# 프로젝트 경로: 환경변수 DGM_OUTPUT_BASE 우선, 없으면 Linux 표준 경로
+_PROJECTS_BASE = os.environ.get(
+    "DGM_OUTPUT_BASE",
+    "/mnt/c/Users/오원진/AppData/Local/dgm_output"
+) + "/{ch_folder}/projects"
 
 
 def run_pipeline(channel: str = "DGM", num_tracks: int = 20) -> dict:

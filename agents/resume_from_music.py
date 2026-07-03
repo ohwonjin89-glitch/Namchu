@@ -35,7 +35,7 @@ def main():
 
     if not date_str:
         # Find latest folder
-        base = f"/mnt/c/Users/오원진/AppData/Local/dgm_output/{channel}"
+        base = os.path.join(os.environ.get("DGM_OUTPUT_BASE", "/mnt/c/Users/오원진/AppData/Local/dgm_output"), channel)
         folders = sorted([f for f in os.listdir(base) if os.path.isdir(os.path.join(base, f))])
         if not folders:
             print("출력 폴더를 찾을 수 없습니다.")
@@ -43,7 +43,7 @@ def main():
         date_str = folders[-1]
         print(f"가장 최근 폴더 사용: {date_str}")
 
-    output_dir = f"/mnt/c/Users/오원진/AppData/Local/dgm_output/{channel}/{date_str}"
+    output_dir = os.path.join(os.environ.get("DGM_OUTPUT_BASE", "/mnt/c/Users/오원진/AppData/Local/dgm_output"), channel, date_str)
     music_path = os.path.join(output_dir, "music.mp3")
 
     if not os.path.exists(music_path):

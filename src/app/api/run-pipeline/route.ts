@@ -13,7 +13,24 @@ const LOG_PATH = path.join(
 
 export async function POST(req: NextRequest) {
   try {
-    const { channel = "DGM", num_tracks = 20 } = await req.json().catch(() => ({}));
+    const body = await req.json().catch(() => ({}));
+    const channel: string = body.channel ?? "DGM";
+    const num_tracks: number = body.num_tracks ?? 20;
+
+    // 입력값 검증 — 커맨드 인젝션 방지
+    if (!/^[a-zA-Z0-9_]+$/.test(channel)) {
+      return new NextResponse(
+        JSON.stringify({ error: "channel은 영문·숫자·밑줄만 허용" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    const numTracksInt = Math.floor(Number(num_tracks));
+    if (!Number.isFinite(numTracksInt) || numTracksInt < 1 || numTracksInt > 100) {
+      return new NextResponse(
+        JSON.stringify({ error: "num_tracks는 1~100 사이 정수여야 합니다" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     // Check if already running
     if (fs.existsSync(LOG_PATH)) {
@@ -32,7 +49,7 @@ export async function POST(req: NextRequest) {
       "--",
       "bash",
       "-c",
-      `"export ANTHROPIC_API_KEY=${apiKey} && export SUNO_API_BASE=http://172.28.32.1:3000 && cd /home/wonjin/agents && python3 py_orchestrator.py ${channel} ${num_tracks} >> /home/wonjin/agents/logs/pipeline_run.log 2>&1 & echo $!"`,
+      `"export ANTHROPIC_API_KEY=${apiKey} && export SUNO_API_BASE=http://172.28.32.1:3000 && cd ${process.env.WSL_AGENTS_DIR || '/home/wonjin/agents'} && python3 py_orchestrator.py ${channel} ${numTracksInt} >> ${process.env.WSL_AGENTS_DIR || '/home/wonjin/agents'}/logs/pipeline_run.log 2>&1 & echo $!"`,
     ].join(" ");
 
     const child = exec(cmd, { windowsHide: true });
@@ -40,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     fs.writeFileSync(
       LOG_PATH,
-      JSON.stringify({ running: true, pid, channel, num_tracks, startedAt: new Date().toISOString() }),
+      JSON.stringify({ running: true, pid, channel, num_tracks: numTracksInt, startedAt: new Date().toISOString() }),
       "utf-8"
     );
 
@@ -87,7 +104,8 @@ export async function GET() {
     }
 
     // Recent log tail
-    const logPath = "\\\\wsl$\\Ubuntu\\home\\wonjin\\agents\\logs\\pipeline_run.log";
+    const wslAgentsDir = process.env.WSL_AGENTS_DIR || '/home/wonjin/agents';
+    const logPath = `\\\\wsl$\\Ubuntu${wslAgentsDir}/logs/pipeline_run.log`;
     let logTail = "";
     if (fs.existsSync(logPath)) {
       const lines = fs.readFileSync(logPath, "utf-8").split("\n");

@@ -54,7 +54,15 @@ else:
 VALID_CHANNELS = ["Playlisttann", "DGM_Playlist"]
 
 def get_video_codec_args(crf=23):
-    """libx264 ultrafast — 720p 단일 스트림에서 h264_nvenc보다 실측 5배 빠름."""
+    """h264_qsv on Windows with Intel iGPU, libx264 ultrafast on Linux/VPS."""
+    if IS_WINDOWS and os.environ.get('USE_QSV', '1') == '1':
+        try:
+            import subprocess as _sp
+            r = _sp.run(['ffmpeg', '-encoders'], capture_output=True, text=True, timeout=5)
+            if 'h264_qsv' in r.stdout:
+                return ['-c:v', 'h264_qsv', '-global_quality', str(crf), '-look_ahead', '0']
+        except Exception:
+            pass
     return ['-c:v', 'libx264', '-preset', 'ultrafast', '-crf', str(crf)]
 
 
@@ -252,7 +260,7 @@ def make_video(channel, project_path, folder_name, logo_override=None):
             '[bg][logo]overlay=(W-w)/2:(H-h)/2:format=auto[v]',
             '-map', '[v]', '-map', '2:a',
             *get_video_codec_args(23),
-            '-pix_fmt', 'yuv420p', '-r', '30',
+            '-r', '30',
             '-c:a', 'aac', '-b:a', '320k', '-ar', '44100',
             '-shortest', output_file
         ]
@@ -263,7 +271,7 @@ def make_video(channel, project_path, folder_name, logo_override=None):
             '-loop', '1', '-i', bg_image,
             '-f', 'concat', '-safe', '0', '-i', concat_file,
             *get_video_codec_args(23),
-            '-vf', 'scale=1920:1080', '-pix_fmt', 'yuv420p', '-r', '30',
+            '-vf', 'scale=1920:1080', '-r', '30',
             '-c:a', 'aac', '-b:a', '320k', '-ar', '44100',
             '-shortest', output_file
         ]
@@ -718,14 +726,18 @@ def run_api_mode(config_path):
         spectrum_cfg, text_overlays, preview_w, preview_h
     )
 
-    tune_args = ["-tune", TUNE] if not is_video_bg else []
+    codec_args = get_video_codec_args(CRF)
+    # h264_qsv는 -tune/-pix_fmt yuv420p 미지원, libx264는 stillimage tune 가능
+    is_qsv = 'h264_qsv' in codec_args
+    tune_args = [] if is_qsv or is_video_bg else ["-tune", TUNE]
+    pix_args = [] if is_qsv else ["-pix_fmt", "yuv420p"]
 
     cmd = [FFMPEG_PATH, "-y"] + cmd_inputs + [
         "-filter_complex", filter_cx,
         "-map", f"[{out_label}]", "-map", f"{audio_idx}:a",
-        *get_video_codec_args(CRF),
-    ] + tune_args + [
-        "-pix_fmt", "yuv420p", "-color_range", "1",
+        *codec_args,
+    ] + tune_args + pix_args + [
+        "-color_range", "1",
         "-r", str(FPS),
         "-c:a", "aac", "-b:a", "192k",
         "-t", str(audio_duration),

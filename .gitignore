@@ -47,3 +47,12 @@ __pycache__/
 yt_credentials/
 *client_secret*.json
 *token*.json
+
+# Claude OAuth 크레덴셜 (절대 커밋 금지)
+.claude_auth/
+*.credentials.json
+
+# 로그/임시 파일
+server.log
+*.log
+orch_pane_dump.txt
