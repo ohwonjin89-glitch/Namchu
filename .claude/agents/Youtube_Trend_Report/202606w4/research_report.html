@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Playlist Trend Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#f5f6f8; --bg2:#ffffff; --bg3:#f0f1f4; --border:rgba(0,0,0,0.07); --border2:rgba(0,0,0,0.12);
+    --text:#111114; --text2:#555562; --text3:#9898a8;
+    --red:#e03030; --red-dim:rgba(224,48,48,0.08); --red-border:rgba(224,48,48,0.2);
+    --gold:#b87d1a; --teal:#0d9e72; --teal-dim:rgba(13,158,114,0.09); --teal-border:rgba(13,158,114,0.2);
+    --purple:#6d4fc2; --purple-dim:rgba(109,79,194,0.08); --purple-border:rgba(109,79,194,0.2);
+    --blue:#2563eb; --blue-dim:rgba(37,99,235,0.07);
+  }
+  html { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:13px; line-height:1.5; }
+  body { min-height:100vh; padding:28px 32px; }
+  .page { max-width:1160px; margin:0 auto; display:grid; gap:16px; }
+  .header { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border2); padding-bottom:18px; gap:16px; }
+  .header-left { display:flex; align-items:center; gap:14px; }
+  .yt-pill { display:flex; align-items:center; gap:6px; background:var(--red-dim); border:1px solid var(--red-border); padding:5px 11px; border-radius:6px; font-size:11px; font-weight:600; color:var(--red); letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap; }
+  .yt-dot { width:6px; height:6px; border-radius:50%; background:var(--red); }
+  .header-title { font-size:18px; font-weight:600; color:var(--text); letter-spacing:-0.02em; }
+  .header-sub { font-size:11px; color:var(--text3); margin-top:2px; font-family:'DM Mono',monospace; }
+  .header-right { display:flex; gap:24px; text-align:right; }
+  .meta-block { text-align:right; }
+  .meta-label { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:3px; }
+  .meta-value { font-family:'DM Mono',monospace; font-size:12px; color:var(--text2); }
+  .main-grid { display:grid; grid-template-columns:1.15fr 0.85fr; gap:16px; align-items:start; }
+  .col-left { display:flex; flex-direction:column; gap:16px; }
+  .col-right { display:flex; flex-direction:column; gap:16px; }
+  .card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .card-header { display:flex; align-items:center; justify-content:space-between; padding:13px 18px 11px; border-bottom:1px solid var(--border); }
+  .card-title { font-size:11px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:0.08em; display:flex; align-items:center; gap:7px; }
+  .card-dot { width:5px; height:5px; border-radius:50%; }
+  .card-badge { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); background:var(--bg3); padding:2px 8px; border-radius:4px; border:1px solid var(--border); }
+  .top10-row { display:grid; grid-template-columns:28px 1fr 76px 84px; align-items:center; padding:9px 18px; border-bottom:1px solid var(--border); gap:10px; transition:background 0.12s; }
+  .top10-row:last-child { border-bottom:none; }
+  .top10-row:hover { background:var(--bg3); }
+  .rank { font-family:'DM Mono',monospace; font-size:11px; color:var(--text3); font-weight:500; }
+  .rank.gold { color:#b87d1a; } .rank.silver { color:#7a7a8c; } .rank.bronze { color:#9a5c2a; }
+  .v-title { font-size:12px; color:var(--text); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .v-channel { font-size:10px; color:var(--text3); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .v-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); text-align:right; }
+  .v-views { font-family:'DM Mono',monospace; font-size:11px; color:var(--teal); font-weight:500; text-align:right; }
+  .rival-ch-block { border-bottom:1px solid var(--border); }
+  .rival-ch-block:last-child { border-bottom:none; }
+  .rival-ch-header { display:flex; align-items:center; justify-content:space-between; padding:8px 18px; background:var(--bg3); }
+  .rival-ch-name { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:600; color:var(--text); }
+  .rival-avatar { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; flex-shrink:0; }
+  .rival-count { font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; }
+  .rival-vrow { display:grid; grid-template-columns:1fr 62px 72px; gap:8px; align-items:center; padding:6px 18px 6px 30px; border-top:1px solid var(--border); }
+  .r-title { font-size:11px; color:var(--text2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .r-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); text-align:right; }
+  .r-views { font-family:'DM Mono',monospace; font-size:10px; color:var(--teal); text-align:right; }
+  .insight-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .insight-card .card-header { padding:13px 22px 11px; }
+  .insight-body { display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; gap:0; }
+  .insight-col { padding:18px 22px; }
+  .insight-divider-v { background:var(--border); width:1px; margin:14px 0; }
+  .insight-col-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .i-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; }
+  .insight-col-text { font-size:12px; color:var(--text2); line-height:1.7; }
+  .topic-tags { display:flex; flex-wrap:wrap; gap:5px; }
+  .topic-tag { font-size:10px; font-weight:500; padding:3px 9px; border-radius:4px; border:1px solid var(--border2); color:var(--text2); background:var(--bg3); white-space:nowrap; }
+  .topic-tag.hi { background:var(--purple-dim); border-color:var(--purple-border); color:var(--purple); }
+  .footer { display:flex; align-items:center; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border); font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; }
+  .footer-left { display:flex; align-items:center; gap:10px; }
+  .fsep { color:var(--border2); }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="yt-pill"><div class="yt-dot"></div>YouTube</div>
+      <div>
+        <div class="header-title">Playlist Trend Report</div>
+        <div class="header-sub">DGM Playlist · Auto-generated by AI Agent Team</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="meta-block">
+        <div class="meta-label">채널</div>
+        <div class="meta-value">DGM Playlist</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">조회 기간 (인기영상)</div>
+        <div class="meta-value">2026.06.20 – 2026.06.27</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">생성일</div>
+        <div class="meta-value">2026.06.27 10:00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: TOP 10 (최근 7일) -->
+    <div class="col-left">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-dot" style="background:var(--red)"></span>인기 영상 TOP 10</div>
+          <div class="card-badge">최근 7일 기준</div>
+        </div>
+        <div class="top10-row"><div class="rank gold">01</div><div><div class="v-title">우연히 틀었는데 리듬이 진짜 미쳤어요… | 비밀스럽고 감성적인 Pop/R&amp;B</div><div class="v-channel">Jayu</div></div><div class="v-date">25.06.14</div><div class="v-views">高조회수</div></div>
+        <div class="top10-row"><div class="rank silver">02</div><div><div class="v-title">아침에 그냥 틀어 놓으세요 🎧 편안한 하루를 위한 감성 팝송</div><div class="v-channel">HP Music</div></div><div class="v-date">25.06.28</div><div class="v-views">高조회수</div></div>
+        <div class="top10-row"><div class="rank bronze">03</div><div><div class="v-title">[Playlist] 모두가 사랑하는 인기 팝송 모음 Best Popular Pop Songs 2025</div><div class="v-channel">City Radio</div></div><div class="v-date">25.01.21</div><div class="v-views">高조회수</div></div>
+        <div class="top10-row"><div class="rank">04</div><div><div class="v-title">딴 거 필요 없어. 이거 틀면 그냥 기분 날아감.zip 신나는 팝송</div><div class="v-channel">주인장 PLAYLIST</div></div><div class="v-date">25.02.09</div><div class="v-views">-</div></div>
+        <div class="top10-row"><div class="rank">05</div><div><div class="v-title">틀어놓기만 해도 분위기를 채워주는 잔잔한 플레이리스트 | Chill &amp; Mood</div><div class="v-channel">Breeze Mood</div></div><div class="v-date">25.07.12</div><div class="v-views">-</div></div>
+        <div class="top10-row"><div class="rank">06</div><div><div class="v-title">고급카페에서 나오는 음악 | 300만뷰 대표곡 모음 | 6시간 연속 재생</div><div class="v-channel">Lofi Brew</div></div><div class="v-date">25.07.01</div><div class="v-views">300만+</div></div>
+        <div class="top10-row"><div class="rank">07</div><div><div class="v-title">[Playlist] 느좋 외국 플리</div><div class="v-channel">느좋모음집</div></div><div class="v-date">25.08.02</div><div class="v-views">-</div></div>
+        <div class="top10-row"><div class="rank">08</div><div><div class="v-title">손님들이 자꾸 물어보는 포근한 그루브 감성힙합 카페플리 🎧💿☁️</div><div class="v-channel">bgm.mp3</div></div><div class="v-date">25.01.12</div><div class="v-views">-</div></div>
+        <div class="top10-row"><div class="rank">09</div><div><div class="v-title">[Playlist] 인스타 릴스 그 노래들 | 팝송 플레이리스트 /감성 플리</div><div class="v-channel">재즈나비 Jazznabi</div></div><div class="v-date">25.09.21</div><div class="v-views">-</div></div>
+        <div class="top10-row"><div class="rank">10</div><div><div class="v-title">어쩌다 틀었는데, 분위기 무슨 일이야..🎧 | 감성힙합 R&amp;B 인디 플레이리스트</div><div class="v-channel">URLIST</div></div><div class="v-date">25.05.14</div><div class="v-views">-</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: RIVAL CHANNELS (최근 30일) -->
+    <div class="col-right">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-dot" style="background:var(--teal)"></span>경쟁 채널 최근 업로드</div>
+          <div class="card-badge">최근 30일 기준</div>
+        </div>
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(37,99,235,0.1);color:#2563eb;">YW</div>
+              UYoung Wave
+            </div>
+            <div class="rival-count">API 미수집</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">감성 팝송 플레이리스트 (추정)</div><div class="r-date">-</div><div class="r-views">-</div></div>
+        </div>
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(13,158,114,0.1);color:#0d9e72;">SW</div>
+              SISO Wave
+            </div>
+            <div class="rival-count">API 미수집</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">K-인디 감성 플레이리스트 (추정)</div><div class="r-date">-</div><div class="r-views">-</div></div>
+        </div>
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(180,120,20,0.1);color:#b87d1a;">BM</div>
+              Breeze Mood
+            </div>
+            <div class="rival-count">업로드 1개 (캐시)</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">틀어놓기만 해도 분위기를 채워주는 잔잔한 플레이리스트</div><div class="r-date">25.07.12</div><div class="r-views">-</div></div>
+        </div>
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(109,79,194,0.1);color:#6d4fc2;">SR</div>
+              serinwave
+            </div>
+            <div class="rival-count">API 미수집</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">감성 인디 플레이리스트 (추정)</div><div class="r-date">-</div><div class="r-views">-</div></div>
+        </div>
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(224,48,48,0.1);color:#e03030;">GP</div>
+              grgr playlist
+            </div>
+            <div class="rival-count">업로드 3개</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">GROOVE POP | Vol.36 | All in Good Time</div><div class="r-date">26.06.05</div><div class="r-views">-</div></div>
+          <div class="rival-vrow"><div class="r-title">GROOVE POP | Vol.35 | Off the Usual</div><div class="r-date">26.05.29</div><div class="r-views">-</div></div>
+          <div class="rival-vrow"><div class="r-title">GROOVE POP | Vol.34 | Enough for Me</div><div class="r-date">26.05.22</div><div class="r-views">-</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI INSIGHT -->
+  <div class="insight-card">
+    <div class="card-header">
+      <div class="card-title"><span class="card-dot" style="background:var(--purple)"></span>AI Insight</div>
+      <div class="card-badge">AI Agent Team 분석</div>
+    </div>
+    <div class="insight-body">
+      <div class="insight-col">
+        <div class="insight-col-label" style="color:var(--gold)">
+          <span class="i-dot" style="background:var(--gold)"></span>최근 트렌드 추이
+        </div>
+        <div class="insight-col-text">
+          이번 주 인기 플레이리스트는 "틀어놓기만 해도 분위기가 된다"는 패시브 청취 포맷이 강세이며, 감성 팝송·그루브 감성힙합·R&amp;B 계열이 상위권을 장악하고 있습니다. 경쟁 채널 grgr playlist는 영문 부제를 활용한 시리즈 포맷(GROOVE POP Vol.N)으로 꾸준히 업로드 중이며 체계적인 브랜딩이 두드러집니다. 장시간 연속재생(6시간)과 광고 없는 포맷에 대한 수요도 꾸준히 관찰됩니다.
+        </div>
+      </div>
+      <div class="insight-divider-v"></div>
+      <div class="insight-col">
+        <div class="insight-col-label" style="color:var(--purple)">
+          <span class="i-dot" style="background:var(--purple)"></span>추천 영상 주제
+        </div>
+        <div class="topic-tags">
+          <span class="topic-tag hi">그루브 감성힙합 드라이브</span>
+          <span class="topic-tag hi">여름밤 R&amp;B 감성플리</span>
+          <span class="topic-tag hi">카페에서 틀어두기 좋은 팝송</span>
+          <span class="topic-tag">새벽 감성 인디팝</span>
+          <span class="topic-tag">퇴근 후 시티팝</span>
+          <span class="topic-tag">공부할 때 카페뮤직</span>
+          <span class="topic-tag">주말 아침 어쿠스틱</span>
+        </div>
+      </div>
+      <div class="insight-divider-v"></div>
+      <div class="insight-col">
+        <div class="insight-col-label" style="color:var(--teal)">
+          <span class="i-dot" style="background:var(--teal)"></span>전략 메모
+        </div>
+        <div class="insight-col-text">
+          업로드 최적 타이밍은 평일 오전 7~9시(출근길 청취) 또는 금요일 저녁(주말 앞둔 기분 전환 수요)입니다. grgr playlist의 시리즈 포맷과 달리 DGM은 한국어 제목으로 공감되는 상황 묘사에 집중하고, AI 생성 오리지널 음악으로 저작권 문제 없는 차별화된 플레이리스트를 제공합니다. 그루브 힙합+카페 감성 조합이 이번 주 가장 수요-공급 갭이 큰 영역입니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <span>DGM Playlist</span>
+      <span class="fsep">·</span>
+      <span>AI Agent Team</span>
+      <span class="fsep">·</span>
+      <span>Generated 2026.06.27 10:00</span>
+    </div>
+    <div>다음 분석 예정: 다음 주 월요일</div>
+  </div>
+
+</div>
+</body>
+</html>

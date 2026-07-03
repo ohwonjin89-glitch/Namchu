@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Playlist Trend Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#f5f6f8; --bg2:#ffffff; --bg3:#f0f1f4; --border:rgba(0,0,0,0.07); --border2:rgba(0,0,0,0.12);
+    --text:#111114; --text2:#555562; --text3:#9898a8;
+    --red:#e03030; --red-dim:rgba(224,48,48,0.08); --red-border:rgba(224,48,48,0.2);
+    --gold:#b87d1a; --teal:#0d9e72; --teal-dim:rgba(13,158,114,0.09); --teal-border:rgba(13,158,114,0.2);
+    --purple:#6d4fc2; --purple-dim:rgba(109,79,194,0.08); --purple-border:rgba(109,79,194,0.2);
+    --blue:#2563eb; --blue-dim:rgba(37,99,235,0.07);
+  }
+  html { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:13px; line-height:1.5; }
+  body { min-height:100vh; padding:28px 32px; }
+  .page { max-width:1160px; margin:0 auto; display:grid; gap:16px; }
+  .header { display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border2); padding-bottom:18px; gap:16px; }
+  .header-left { display:flex; align-items:center; gap:14px; }
+  .yt-pill { display:flex; align-items:center; gap:6px; background:var(--red-dim); border:1px solid var(--red-border); padding:5px 11px; border-radius:6px; font-size:11px; font-weight:600; color:var(--red); letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap; }
+  .yt-dot { width:6px; height:6px; border-radius:50%; background:var(--red); }
+  .header-title { font-size:18px; font-weight:600; color:var(--text); letter-spacing:-0.02em; }
+  .header-sub { font-size:11px; color:var(--text3); margin-top:2px; font-family:'DM Mono',monospace; }
+  .header-right { display:flex; gap:24px; text-align:right; }
+  .meta-block { text-align:right; }
+  .meta-label { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:3px; }
+  .meta-value { font-family:'DM Mono',monospace; font-size:12px; color:var(--text2); }
+  .main-grid { display:grid; grid-template-columns:1.15fr 0.85fr; gap:16px; align-items:start; }
+  .col-left { display:flex; flex-direction:column; gap:16px; }
+  .col-right { display:flex; flex-direction:column; gap:16px; }
+  .card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .card-header { display:flex; align-items:center; justify-content:space-between; padding:13px 18px 11px; border-bottom:1px solid var(--border); }
+  .card-title { font-size:11px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:0.08em; display:flex; align-items:center; gap:7px; }
+  .card-dot { width:5px; height:5px; border-radius:50%; }
+  .card-badge { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); background:var(--bg3); padding:2px 8px; border-radius:4px; border:1px solid var(--border); }
+  .top10-row { display:grid; grid-template-columns:28px 1fr 76px 84px; align-items:center; padding:9px 18px; border-bottom:1px solid var(--border); gap:10px; transition:background 0.12s; }
+  .top10-row:last-child { border-bottom:none; }
+  .top10-row:hover { background:var(--bg3); }
+  .rank { font-family:'DM Mono',monospace; font-size:11px; color:var(--text3); font-weight:500; }
+  .rank.gold { color:#b87d1a; } .rank.silver { color:#7a7a8c; } .rank.bronze { color:#9a5c2a; }
+  .v-title { font-size:12px; color:var(--text); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .v-channel { font-size:10px; color:var(--text3); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .v-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); text-align:right; }
+  .v-views { font-family:'DM Mono',monospace; font-size:11px; color:var(--teal); font-weight:500; text-align:right; }
+  .rival-ch-block { border-bottom:1px solid var(--border); }
+  .rival-ch-block:last-child { border-bottom:none; }
+  .rival-ch-header { display:flex; align-items:center; justify-content:space-between; padding:8px 18px; background:var(--bg3); }
+  .rival-ch-name { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:600; color:var(--text); }
+  .rival-avatar { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; flex-shrink:0; }
+  .rival-count { font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; }
+  .rival-vrow { display:grid; grid-template-columns:1fr 62px 72px; gap:8px; align-items:center; padding:6px 18px 6px 30px; border-top:1px solid var(--border); }
+  .r-title { font-size:11px; color:var(--text2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .r-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text3); text-align:right; }
+  .r-views { font-family:'DM Mono',monospace; font-size:10px; color:var(--teal); text-align:right; }
+  .insight-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .insight-card .card-header { padding:13px 22px 11px; }
+  .insight-body { display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; gap:0; }
+  .insight-col { padding:18px 22px; }
+  .insight-divider-v { background:var(--border); width:1px; margin:14px 0; }
+  .insight-col-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+  .i-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; }
+  .insight-col-text { font-size:12px; color:var(--text2); line-height:1.7; }
+  .topic-tags { display:flex; flex-wrap:wrap; gap:5px; }
+  .topic-tag { font-size:10px; font-weight:500; padding:3px 9px; border-radius:4px; border:1px solid var(--border2); color:var(--text2); background:var(--bg3); white-space:nowrap; }
+  .topic-tag.hi { background:var(--purple-dim); border-color:var(--purple-border); color:var(--purple); }
+  .footer { display:flex; align-items:center; justify-content:space-between; padding-top:12px; border-top:1px solid var(--border); font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; }
+  .footer-left { display:flex; align-items:center; gap:10px; }
+  .fsep { color:var(--border2); }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="yt-pill"><div class="yt-dot"></div>YouTube</div>
+      <div>
+        <div class="header-title">Playlist Trend Report</div>
+        <div class="header-sub">DGM Playlist · Auto-generated by AI Agent Team</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="meta-block">
+        <div class="meta-label">채널</div>
+        <div class="meta-value">DGM Playlist</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">조회 기간 (인기영상)</div>
+        <div class="meta-value">2026.06.07 – 2026.06.14</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">생성일</div>
+        <div class="meta-value">2026.06.14 20:23</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: TOP 10 (최근 7일) -->
+    <div class="col-left">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-dot" style="background:var(--red)"></span>인기 영상 TOP 10</div>
+          <div class="card-badge">최근 7일 기준</div>
+        </div>
+
+        <!-- 1위 -->
+        <div class="top10-row">
+          <div class="rank gold">01</div>
+          <div>
+            <div class="v-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 우연히 틀었는데 리듬이 진짜 미쳤어요… 사장님, 이 노래들 제목 좀 알려주세요! 🎧</div>
+            <div class="v-channel">Jayu</div>
+          </div>
+          <div class="v-date">25.06.14</div>
+          <div class="v-views">2,847,392</div>
+        </div>
+
+        <!-- 2위 -->
+        <div class="top10-row">
+          <div class="rank silver">02</div>
+          <div>
+            <div class="v-title">아침에 그냥 틀어 놓으세요 🎧편안한 하루를 위한 감성 팝송 / 감미로운 멜로디 Playlist🎵</div>
+            <div class="v-channel">HP Music</div>
+          </div>
+          <div class="v-date">25.06.28</div>
+          <div class="v-views">1,623,158</div>
+        </div>
+
+        <!-- 3위 -->
+        <div class="top10-row">
+          <div class="rank bronze">03</div>
+          <div>
+            <div class="v-title">[Playlist] 모두가 사랑하는 인기 팝송 모음 🎧 Best Popular Pop Songs 2025</div>
+            <div class="v-channel">City Radio</div>
+          </div>
+          <div class="v-date">25.01.21</div>
+          <div class="v-views">1,342,509</div>
+        </div>
+
+        <!-- 4위 -->
+        <div class="top10-row">
+          <div class="rank">04</div>
+          <div>
+            <div class="v-title">𝐏𝐋𝐀𝐘𝐋𝐈𝐒𝐓 딴 거 필요 없어. 이거 틀면 그냥 기분 날아감.zip 신나는 팝송 다 모아놨음!</div>
+            <div class="v-channel">주인장 𝐏𝐋𝐀𝐘𝐋𝐈𝐒𝐓</div>
+          </div>
+          <div class="v-date">25.02.09</div>
+          <div class="v-views">934,281</div>
+        </div>
+
+        <!-- 5위 -->
+        <div class="top10-row">
+          <div class="rank">05</div>
+          <div>
+            <div class="v-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁🎧 틀어놓기만 해도 분위기를 채워주는 잔잔한 플레이리스트 | Chill &amp; Mood</div>
+            <div class="v-channel">Breeze Mood</div>
+          </div>
+          <div class="v-date">25.07.12</div>
+          <div class="v-views">721,503</div>
+        </div>
+
+        <!-- 6위 -->
+        <div class="top10-row">
+          <div class="rank">06</div>
+          <div>
+            <div class="v-title">(🏆300만뷰)고급카페에서 나오는 음악 | 300만뷰 대표곡 모음 | 6시간 연속 재생 · 중간광고없음</div>
+            <div class="v-channel">Lofi Brew</div>
+          </div>
+          <div class="v-date">25.07.01</div>
+          <div class="v-views">682,944</div>
+        </div>
+
+        <!-- 7위 -->
+        <div class="top10-row">
+          <div class="rank">07</div>
+          <div>
+            <div class="v-title">[Playlist] 느좋 외국 플리</div>
+            <div class="v-channel">느좋모음집</div>
+          </div>
+          <div class="v-date">25.08.02</div>
+          <div class="v-views">473,821</div>
+        </div>
+
+        <!-- 8위 -->
+        <div class="top10-row">
+          <div class="rank">08</div>
+          <div>
+            <div class="v-title">𝘱𝘭𝘢𝘺𝘭𝘪𝘴𝘵 와 방금 그 노래 뭐예요? 손님들이 자꾸 물어보는 포근한 그루브 감성힙합 카페플리🎧💿☁️</div>
+            <div class="v-channel">bgm.mp3</div>
+          </div>
+          <div class="v-date">25.01.12</div>
+          <div class="v-views">358,134</div>
+        </div>
+
+        <!-- 9위 -->
+        <div class="top10-row">
+          <div class="rank">09</div>
+          <div>
+            <div class="v-title">[Playlist] 인스타 릴스 그 노래들 | 팝송 플레이리스트 / 감성 플리 / pop</div>
+            <div class="v-channel">재즈나비 Jazznabi Studio</div>
+          </div>
+          <div class="v-date">25.09.21</div>
+          <div class="v-views">287,426</div>
+        </div>
+
+        <!-- 10위 -->
+        <div class="top10-row">
+          <div class="rank">10</div>
+          <div>
+            <div class="v-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 어쩌다 틀었는데, 분위기 무슨 일이야..🎧 | 감성힙합 R&amp;B 인디 플레이리스트</div>
+            <div class="v-channel">URLIST</div>
+          </div>
+          <div class="v-date">25.05.14</div>
+          <div class="v-views">184,932</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: RIVAL CHANNELS (최근 30일) -->
+    <div class="col-right">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><span class="card-dot" style="background:var(--teal)"></span>경쟁 채널 최근 업로드</div>
+          <div class="card-badge">최근 30일 기준</div>
+        </div>
+
+        <!-- UYoung Wave -->
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(37,99,235,0.1);color:#2563eb;">YW</div>
+              UYoung Wave
+            </div>
+            <div class="rival-count">업로드 0개 (30일)</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 맛잘알들이 듣는 느좋 감성힙합 | R&amp;B 국내 인디 플리</div><div class="r-date">26.03.04</div><div class="r-views">471,000</div></div>
+          <div class="rival-vrow"><div class="r-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 나만 듣기 아까운 인디 감성힙합 | R&amp;B 느좋 플리 🩶</div><div class="r-date">26.02.04</div><div class="r-views">619,000</div></div>
+          <div class="rival-vrow"><div class="r-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 연말 느좋 인스타 감성힙합 플리</div><div class="r-date">25.12.29</div><div class="r-views">476,000</div></div>
+        </div>
+
+        <!-- SISO Wave -->
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(13,158,114,0.1);color:#0d9e72;">SW</div>
+              SISO Wave
+            </div>
+            <div class="rival-count">업로드 0개 (30일)</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 요청 많고 반응 핫한 노래들만 모음.zip 💿 '이 곡 뭐예요?' 댓글로 만든 플레이리스트</div><div class="r-date">26.01.11</div><div class="r-views">245,000</div></div>
+          <div class="rival-vrow"><div class="r-title">팝송 플레이리스트 | 카페·매장에서 많이 틀어주는 인기 히트곡 모음 🎧</div><div class="r-date">26.01.11</div><div class="r-views">185,000</div></div>
+          <div class="rival-vrow"><div class="r-title">𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 뭘 좋아할지 몰라서 다 준비해왔어요 🔥 | 선곡 맛집! 올타임 갓플리 All-in-one vibes</div><div class="r-date">25.02.08</div><div class="r-views">312,000</div></div>
+        </div>
+
+        <!-- Breeze Mood -->
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(180,120,20,0.1);color:#b87d1a;">BM</div>
+              Breeze Mood
+            </div>
+            <div class="rival-count">업로드 0개 (30일)</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁🎧 틀어놓기만 해도 분위기를 채워주는 잔잔한 플레이리스트 | Chill &amp; Mood</div><div class="r-date">25.07.12</div><div class="r-views">721,503</div></div>
+          <div class="rival-vrow"><div class="r-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁 이어폰만 끼면 바로 여름휴가 ON🌞 여권없이 떠나는 여행 | Summer &amp; Pop🎐🌊</div><div class="r-date">25.07.10</div><div class="r-views">387,000</div></div>
+          <div class="rival-vrow"><div class="r-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁 그냥 틀어놓기만 해도 분위기 좋아지는 플레이리스트 | Chill &amp; Good Day</div><div class="r-date">25.04.20</div><div class="r-views">248,000</div></div>
+        </div>
+
+        <!-- serinwave -->
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(109,79,194,0.1);color:#6d4fc2;">SR</div>
+              serinwave
+            </div>
+            <div class="rival-count">업로드 0개 (30일)</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁 "딱 지금 듣기 좋은 감성 힙합 R&amp;B POP 🎧" | 카페 음악 · 집중 · 공부 · 휴식 ☕️</div><div class="r-date">25.10.30</div><div class="r-views">213,000</div></div>
+          <div class="rival-vrow"><div class="r-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁 "지금 계절에 어울리는 감성 힙합 R&amp;B POP 🤍🎶" | 카페 · 집중 · 공부 · 노동요 · 휴식 · 드라이브 ✨</div><div class="r-date">25.10.15</div><div class="r-views">178,000</div></div>
+          <div class="rival-vrow"><div class="r-title">𝗽𝗹𝗮𝘆𝗹𝗶𝘀𝘁 "딱 지금 듣기 좋은 감성 힙합 R&amp;B POP 🎧" Summer Ver. | 드라이브 · 여름밤 · 여행</div><div class="r-date">25.08.02</div><div class="r-views">143,000</div></div>
+        </div>
+
+        <!-- grgr playlist -->
+        <div class="rival-ch-block">
+          <div class="rival-ch-header">
+            <div class="rival-ch-name">
+              <div class="rival-avatar" style="background:rgba(224,48,48,0.1);color:#e03030;">GP</div>
+              grgr playlist
+            </div>
+            <div class="rival-count">업로드 3개</div>
+          </div>
+          <div class="rival-vrow"><div class="r-title">GROOVE POP | Vol.36 | All in Good Time</div><div class="r-date">26.06.05</div><div class="r-views">8,400</div></div>
+          <div class="rival-vrow"><div class="r-title">GROOVE POP | Vol.35 | Off the Usual</div><div class="r-date">26.05.29</div><div class="r-views">27,300</div></div>
+          <div class="rival-vrow"><div class="r-title">GROOVE POP | Vol.34 | Enough for Me</div><div class="r-date">26.05.22</div><div class="r-views">48,700</div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- AI INSIGHT -->
+  <div class="insight-card">
+    <div class="card-header">
+      <div class="card-title"><span class="card-dot" style="background:var(--purple)"></span>AI Insight</div>
+      <div class="card-badge">AI Agent Team 분석</div>
+    </div>
+    <div class="insight-body">
+      <div class="insight-col">
+        <div class="insight-col-label" style="color:var(--gold)">
+          <span class="i-dot" style="background:var(--gold)"></span>최근 트렌드 추이
+        </div>
+        <div class="insight-col-text">
+          이번 주 TOP 10 영상의 제목에서 "우연히 틀었는데", "그냥 틀어 놓으세요", "틀어놓기만 해도" 등 <strong>우발적 발견</strong>과 <strong>낮은 진입장벽</strong>을 강조하는 카피 패턴이 공통적으로 관찰됩니다. 감성힙합·R&amp;B·인디를 섞은 올인원 혼합 플레이리스트와 카페·작업·드라이브 등 <strong>상황별 포지셔닝</strong>이 클릭률을 높이는 핵심 공식으로 자리잡고 있습니다. 경쟁 채널 5개 중 grgr playlist만 주 1회 꾸준히 업로드 중이며, UYoung Wave(3개월 공백), Breeze Mood(11개월 공백), serinwave(8개월 공백)로 주요 경쟁 채널 대부분이 <strong>업로드 공백 상태</strong>입니다.
+        </div>
+      </div>
+      <div class="insight-divider-v"></div>
+      <div class="insight-col">
+        <div class="insight-col-label" style="color:var(--purple)">
+          <span class="i-dot" style="background:var(--purple)"></span>추천 영상 주제
+        </div>
+        <div class="topic-tags">
+          <span class="topic-tag hi">우연히 틀었는데 분위기 미쳤다 R&amp;B · 인디 플리</span>
+          <span class="topic-tag hi">여름 새벽 감성힙합 드라이브 플레이리스트</span>
+          <span class="topic-tag hi">카페에서 흘러나오는 그루브 팝 · R&amp;B 선곡</span>
+          <span class="topic-tag">공부할 때 집중되는 감성팝 노래 모음</span>
+          <span class="topic-tag">인스타 릴스 팝송 풀버전 플리</span>
+          <span class="topic-tag">새벽 감성 인디 R&amp;B 3곡</span>
+          <span class="topic-tag">기분 날아가는 신나는 팝송 모음.zip</span>
+        </div>
+      </div>
+      <div class="insight-divider-v"></div>
+      <div class="insight-col">
+        <div class="insight-col-label" style="color:var(--teal)">
+          <span class="i-dot" style="background:var(--teal)"></span>전략 메모
+        </div>
+        <div class="insight-col-text">
+          <strong>금요일 저녁 8~10시 또는 토요일 오전</strong> 업로드 시 주말 청취 수요를 선점하기에 유리하며, grgr playlist의 목요일 업로드 패턴과 차별화할 수 있는 타이밍입니다. 현재 UYoung Wave·Breeze Mood·serinwave가 모두 장기 공백 상태로 <strong>틈새 점유율 확보 최적의 시점</strong>이며, 이들의 구독자층이 대안 채널을 탐색 중일 가능성이 높습니다. DGM의 <strong>"노래 3곡" 쇼트 큐레이션</strong>은 롱폼(2시간+) 피로도를 피하면서 선곡 밀도를 강점으로 내세울 수 있는 핵심 차별화 포인트로, 제목에 "틀었더니", "이거지" 등의 공감형 카피를 결합하면 클릭률 극대화를 기대할 수 있습니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <span>DGM Playlist</span>
+      <span class="fsep">·</span>
+      <span>AI Agent Team</span>
+      <span class="fsep">·</span>
+      <span>Generated 2026.06.14 20:23</span>
+    </div>
+    <div>다음 분석 예정: 다음 주 월요일</div>
+  </div>
+
+</div>
+</body>
+</html>
