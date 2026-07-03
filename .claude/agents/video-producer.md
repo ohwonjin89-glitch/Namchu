@@ -40,10 +40,16 @@ tools: [Read, Write, Bash, Glob, SendMessage]
 | 음악 | `{projectDir}/music-generator/selected/` (트랙 폴더) |
 | 트랙 정보 | `{projectDir}/music-generator/music_info.json` |
 | 컨셉 브리프 | `{projectDir}/strategist/concept_brief.json` |
-| **Playlist 텍스트 (기본 오버레이)** | `C:\suno-api\.claude\agents\assets\Playlist text_White.png` 또는 `Playlist text_black.png` |
-| DGM Playlist 로고 (명시적 요청 시에만) | `C:\suno-api\.claude\agents\assets\logo_White.png` 또는 `logo_Black.png` |
-| 오디오스펙트럼 | `C:\suno-api\.claude\agents\assets\Audio_spectrum\Audio_spectrum_Green_Screen_transparent.webm` |
-| 포지셔닝 참고 (Display sample) | `C:\suno-api\.claude\agents\assets\display sample\Display sample.png` |
+| **Playlist 텍스트 (기본 오버레이)** | `{assetsDir}\Playlist text_White.png` 또는 `Playlist text_black.png` |
+| DGM Playlist 로고 (명시적 요청 시에만) | `{assetsDir}\logo_White.png` 또는 `logo_Black.png` |
+| 오디오스펙트럼 | `{assetsDir}\Audio_spectrum\Audio_spectrum_Green_Screen_transparent.webm` |
+| 포지셔닝 참고 (Display sample) | `{assetsDir}\display sample\Display sample.png` |
+
+> `{assetsDir}`는 실행 환경에 따라 다르다 (이 asset들은 저장소에 커밋되어 있어 `git clone`만으로 항상 존재한다):
+> - Windows 네이티브: `C:\suno-api\.claude\agents\assets`
+> - VPS(Linux, 현재): `/home/dgm/suno-api/.claude/agents/assets`
+> - RunPod(Linux, 구): `/workspace/suno-api/.claude/agents/assets`
+> logoPath 등을 `_config.json`에 채울 때 **현재 이 명령이 실행 중인 서버의 실제 경로**를 사용한다 (Windows에서 실행 중이면 `_config.json`도 Windows 경로, VPS에서 실행 중이면 VPS 경로 — 둘을 섞지 않는다).
 
 > Display sample 폴더에는 `Display sample.png`(최신, 기본 참고용)와 `Display sample1.jpg`(구버전)가 함께 있다. **항상 `Display sample.png`를 기준으로 판단한다** — Playlist 텍스트가 화면 중앙에 크게 배치되고 그 아래 얇은 사운드스펙트럼이 있는 구성이 현재 기준이다.
 
@@ -197,8 +203,18 @@ API는 색상을 자동으로 고르지 않는다. **`_config.json`을 작성하
 > **기존 `_config.json`을 재사용/재구성하는 경우에도 예외 없다.** Windows 경로를 Linux 경로로 바꾸는 등 다른 필드만 고치는 작업이라도, `logoPath`/`spectrumOverlay.color`는 절대 그대로 복사하지 말고 매번 brightness를 새로 계산해서 채운다 (과거 프로젝트의 고정값을 그대로 들고 와서 배경과 안 맞는 색을 쓴 사고가 2026062802 프로젝트에서 실제로 발생했다 — 어두운 카페 배경에 black 텍스트/스펙트럼을 그대로 써서 거의 안 보이는 영상이 나왔다).
 
 ```python
+import os
 from PIL import Image
 import numpy as np
+
+# assetsDir 자동 감지: Windows는 C:\suno-api, Linux 계열은 VPS(/home/dgm/suno-api)
+# 우선 확인 후 없으면 RunPod(/workspace/suno-api) — 이 명령을 실행 중인 서버 기준.
+if os.name == 'nt':
+    assets_dir = r'C:\suno-api\.claude\agents\assets'
+else:
+    assets_dir = '/home/dgm/suno-api/.claude/agents/assets'
+    if not os.path.isdir(assets_dir):
+        assets_dir = '/workspace/suno-api/.claude/agents/assets'
 
 img = Image.open('{PROJECT_DIR}/image-generator/selected/background_final.jpg')
 w, h = img.size
@@ -207,13 +223,13 @@ brightness = np.mean(np.array(center.convert('L')))
 
 if brightness < 200:
     # 기본값: 흰색 (거의 흰 배경이 아닌 한 흰색이 가장 잘 보임)
-    text_path = 'C:\\suno-api\\.claude\\agents\\assets\\Playlist text_White.png'
-    logo_path = 'C:\\suno-api\\.claude\\agents\\assets\\logo_White.png'   # DGM 로고 요청 시에만 사용
+    text_path = os.path.join(assets_dir, 'Playlist text_White.png')
+    logo_path = os.path.join(assets_dir, 'logo_White.png')   # DGM 로고 요청 시에만 사용
     spectrum_color = 'white'
 else:
     # 예외: 중앙 영역이 거의 흰색(200 이상)이라 흰 텍스트가 안 보일 때만 검은색
-    text_path = 'C:\\suno-api\\.claude\\agents\\assets\\Playlist text_black.png'
-    logo_path = 'C:\\suno-api\\.claude\\agents\\assets\\logo_Black.png'
+    text_path = os.path.join(assets_dir, 'Playlist text_black.png')
+    logo_path = os.path.join(assets_dir, 'logo_Black.png')
     spectrum_color = 'black'
 ```
 
@@ -228,14 +244,14 @@ else:
   "outputDir": "{PROJECT_DIR}\\video-producer",
   "outputFileName": "playlist.mp4",
 
-  "logoPath": "C:\\suno-api\\.claude\\agents\\assets\\Playlist text_White.png",
+  "logoPath": "{assetsDir}\\Playlist text_White.png",
   "logoHPos": 50,
   "logoVPos": 39,
   "logoSize": 54,
   "logoOpacity": 1.0,
 
   "spectrumOverlay": {
-    "filePath": "C:\\suno-api\\.claude\\agents\\assets\\Audio_spectrum\\Audio_spectrum_Green_Screen_transparent.webm",
+    "filePath": "{assetsDir}\\Audio_spectrum\\Audio_spectrum_Green_Screen_transparent.webm",
     "leftPct": 37.5,
     "topPct": 74,
     "widthPct": 25,

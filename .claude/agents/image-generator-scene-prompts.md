@@ -2,6 +2,11 @@
 
 > image-generator.md Section 4(미드저니 AI 이미지 생성)에서 레퍼런스 폴더의 배경 주제를 정한 뒤, 아래에서 해당 주제 1개 섹션(장면 구성/스타일/금지/템플릿/예시)만 펼쳐서 참고한다. 전체를 매번 다 읽을 필요 없음 — 결정된 주제 1개 섹션만 확인.
 
+> `{referenceDir}`는 실행 환경에 따라 다르다 (이 레퍼런스 이미지들은 저장소에 커밋되어 있어 `git clone`만으로 항상 존재한다):
+> - Windows 네이티브: `C:\suno-api\.claude\agents\reference`
+> - VPS(Linux, 현재): `/home/dgm/suno-api/.claude/agents/reference`
+> - RunPod(Linux, 구): `/workspace/suno-api/.claude/agents/reference`
+
 ---
 
 #### 도시배경 전용 프롬프트 기준
@@ -85,7 +90,7 @@ A natural real-life photo of a cozy urban cafe street, inspired only by the mood
 
 #### 도시야경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\도시야경`
+레퍼런스 폴더 경로: `{referenceDir}\도시야경`
 
 선택한 레퍼런스 폴더가 **도시야경** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. (도시야경, 노을 도시, 해질녘 스카이라인, 야간 도시 풍경, 강변 도시 야경, 브릿지 야경, R&B/Chill/City Pop 플레이리스트 도시 배경 주제 포함)
 
@@ -208,7 +213,7 @@ A natural real-life cityscape photo of a calm evening skyline with open sky spac
 
 #### 여름 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\여름`
+레퍼런스 폴더 경로: `{referenceDir}\여름`
 
 선택한 레퍼런스 폴더가 **여름** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. 그 외 배경에는 적용하지 않는다.
 
@@ -294,7 +299,7 @@ A natural real-life summer photo of a quiet seaside walkway, inspired only by th
 
 #### 카페 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\카페`
+레퍼런스 폴더 경로: `{referenceDir}\카페`
 
 선택한 레퍼런스 폴더가 **카페** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. 그 외 배경에는 적용하지 않는다.
 
@@ -375,7 +380,7 @@ A natural real-life photo of a cozy cafe music corner with a small speaker, a cu
 
 #### 하늘 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\하늘`
+레퍼런스 폴더 경로: `{referenceDir}\하늘`
 
 선택한 레퍼런스 폴더가 **하늘** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. (하늘, 구름, 맑은 하늘, 여름 하늘, 청량한 배경, 플레이리스트 배경용 하늘 주제 포함)
 
@@ -507,7 +512,7 @@ A natural real-life photo of a clean open blue sky background with soft white cl
 
 #### 공부 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\공부`
+레퍼런스 폴더 경로: `{referenceDir}\공부`
 
 선택한 레퍼런스 폴더가 **공부** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. (공부, 스터디, 책상, 집중, 노트북 작업, 학습 공간, 감성 공부방, 플레이리스트용 공부 배경 주제 포함)
 
@@ -652,7 +657,7 @@ A natural real-life photo of a cozy study room background with a wooden desk, la
 
 #### 하이틴 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\하이틴`
+레퍼런스 폴더 경로: `{referenceDir}\하이틴`
 
 선택한 레퍼런스 폴더가 **하이틴** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. (감성 R&B, R&B playlist, 하이틴, 청춘 로맨스, 여름 로맨스, 영화 스틸컷, 감성 인물 장면 주제 포함)
 
@@ -793,7 +798,7 @@ A natural real-life photo of a nostalgic summer boardwalk scene with two young a
 
 #### Groove Hiphop 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\Groove hiphop`
+레퍼런스 폴더 경로: `{referenceDir}\Groove hiphop`
 
 선택한 레퍼런스 폴더가 **Groove Hiphop** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. (Groove Hip-hop, Chill Pop, Boom Bap, Lo-fi Groove, 플레이리스트 커버용 일러스트 주제 포함)
 
@@ -926,7 +931,7 @@ A whimsical hand-drawn 2D illustration of a colorful groove hip-hop road trip sc
 
 #### 드라이브 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\드라이브`
+레퍼런스 폴더 경로: `{referenceDir}\드라이브`
 
 선택한 레퍼런스 폴더가 **드라이브** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. 그 외 배경에는 적용하지 않는다.
 
@@ -1005,7 +1010,7 @@ A natural real-life driving photo of an open highway stretching through golden p
 
 #### 어쿠스틱팝 배경 전용 프롬프트 기준
 
-레퍼런스 폴더 경로: `C:\suno-api\.claude\agents\reference\어쿠스틱팝`
+레퍼런스 폴더 경로: `{referenceDir}\어쿠스틱팝`
 
 선택한 레퍼런스 폴더가 **어쿠스틱팝** 폴더일 경우에만 이 섹션의 프롬프트 규칙을 적용한다. 그 외 배경에는 적용하지 않는다.
 

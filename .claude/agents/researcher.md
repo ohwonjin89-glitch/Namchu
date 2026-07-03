@@ -21,8 +21,10 @@ tools: [Read, Write, Bash, WebSearch, WebFetch, Glob, SendMessage]
 
 ## 산출물 경로
 
+> `{repoRoot}`: Windows `C:\suno-api` / VPS(현재) `/home/dgm/suno-api` / RunPod(구) `/workspace/suno-api`
+
 ```
-C:\suno-api\.claude\agents\Youtube_Trend_Report\{주차폴더}\
+{repoRoot}\.claude\agents\Youtube_Trend_Report\{주차폴더}\
 └── research_report.html
 ```
 
@@ -434,7 +436,7 @@ bash agents/backup-restore.sh restore baseline
 
 ```
 [researcher → strategist]
-리포트 저장 완료: C:\suno-api\.claude\agents\Youtube_Trend_Report\{WEEK_FOLDER}\research_report.html
+리포트 저장 완료: {repoRoot}\.claude\agents\Youtube_Trend_Report\{WEEK_FOLDER}\research_report.html
 
 이번 주 강력 추천 주제: {hi 태그 3개}
 전략 메모 요약: {한 줄}
@@ -445,6 +447,6 @@ bash agents/backup-restore.sh restore baseline
 ```
 [researcher → orchestrator] (CC)
 researcher 완료.
-리포트: C:\suno-api\.claude\agents\Youtube_Trend_Report\{WEEK_FOLDER}\research_report.html
+리포트: {repoRoot}\.claude\agents\Youtube_Trend_Report\{WEEK_FOLDER}\research_report.html
 → strategist에게 전달 완료.
 ```

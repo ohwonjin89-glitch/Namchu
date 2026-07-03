@@ -136,7 +136,7 @@ ls -lh "${PROJECT_DIR}/image-generator/unsplash_candidate.jpg"
 
 ### 3. 레퍼런스 이미지 선택 (미드저니 sref용)
 
-**레퍼런스 폴더:** `C:\suno-api\.claude\agents\reference\`
+**레퍼런스 폴더:** `{referenceDir}` — Windows: `C:\suno-api\.claude\agents\reference\` / VPS(현재): `/home/dgm/suno-api/.claude/agents/reference/` / RunPod(구): `/workspace/suno-api/.claude/agents/reference/` (저장소에 커밋되어 있어 `git clone`만으로 항상 존재)
 
 #### 음악 장르 → 레퍼런스 폴더 매핑
 

@@ -26,8 +26,9 @@ tools: [Read, Write, Edit, Bash, Glob, Grep, SendMessage]
 researcher로부터 전달받은 경로의 리포트를 읽는다.
 
 ```
-리포트 경로: C:\suno-api\.claude\agents\Youtube_Trend_Report\{주차폴더}\research_report.md
+리포트 경로: {repoRoot}\.claude\agents\Youtube_Trend_Report\{주차폴더}\research_report.md
 ```
+> `{repoRoot}`: Windows `C:\suno-api` / VPS(현재) `/home/dgm/suno-api` / RunPod(구) `/workspace/suno-api`
 
 리포트의 **추천 컨셉 후보**와 **strategist 전달 요약**을 우선 확인한다.
 
@@ -405,7 +406,7 @@ cat > "${PROJECT_DIR}/meeting_log.md" << EOF
 ---
 
 ## researcher
-- 리포트 경로: C:\suno-api\.claude\agents\Youtube_Trend_Report\{주차폴더}\research_report.md
+- 리포트 경로: {repoRoot}\.claude\agents\Youtube_Trend_Report\{주차폴더}\research_report.md
 
 ---
 
