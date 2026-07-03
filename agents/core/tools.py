@@ -318,7 +318,12 @@ def concatenate_audio(track_paths: list, output_path: str) -> str:
 # ── Image ──────────────────────────────────────────────────────────────────
 
 # 레퍼런스 폴더 → 키워드 매핑
-_REF_BASE = "/mnt/c/suno-api/.claude/agents/reference"
+# 스크립트 위치(agents/core/의 조부모 디렉토리) 기준으로 저장소 루트를 스스로
+# 찾는다 — WSL/RunPod/VPS 등 배포 서버가 바뀌어도 하드코딩 없이 항상 정확.
+_REF_BASE = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+    ".claude", "agents", "reference",
+)
 _REF_KEYWORD_MAP = [
     (["cafe", "카페", "coffee", "cozy indoor", "latte"],        "카페/카페 감성사진.jpg"),
     (["terrace", "outdoor cafe"],                               "카페/카페 테라스 감성사진.jpg"),
