@@ -64,7 +64,11 @@ if [ "$(id -u)" -eq 0 ]; then
   fi
 
   # Claude 인증·설정 파일 복원
-  if [ -f "$PROJECT_DIR/.claude_auth/.credentials.json" ]; then
+  # API 키(/home/dgm/.config/dgm.env)가 있으면 OAuth 파일 복원 건너뜀 — API 키 우선
+  if [ -f "/home/dgm/.config/dgm.env" ] && grep -q "ANTHROPIC_API_KEY" /home/dgm/.config/dgm.env 2>/dev/null; then
+    echo "  ✓ API 키 감지 — OAuth credentials 복원 건너뜀"
+    rm -f /home/dgm/.claude/.credentials.json
+  elif [ -f "$PROJECT_DIR/.claude_auth/.credentials.json" ]; then
     mkdir -p /home/dgm/.claude
     cp "$PROJECT_DIR/.claude_auth/.credentials.json" /home/dgm/.claude/.credentials.json
     chmod 600 /home/dgm/.claude/.credentials.json
