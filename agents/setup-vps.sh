@@ -125,13 +125,17 @@ if [ -f "$PROJECT_DIR/requirements.txt" ]; then
     || pip3 install --user -q --break-system-packages -r "$PROJECT_DIR/requirements.txt" 2>&1 | tail -5
 fi
 
-# tmux 설정 (focus-events: Agent Teams 우측 패널 표시에 필요)
+# tmux 설정 (focus-events + xterm-256color: Agent Teams 우측 패널 표시에 필수)
 grep -q 'focus-events on' "$HOME/.tmux.conf" 2>/dev/null || echo 'set -g focus-events on' >> "$HOME/.tmux.conf"
+grep -q 'default-terminal' "$HOME/.tmux.conf" 2>/dev/null \
+  || echo 'set -g default-terminal "xterm-256color"' >> "$HOME/.tmux.conf"
+sed -i 's/set -g default-terminal.*/set -g default-terminal "xterm-256color"/' "$HOME/.tmux.conf"
 tmux source-file "$HOME/.tmux.conf" 2>/dev/null || true
 
-# 기존 세션 제거 후 재생성
+# 기존 세션 제거 후 재생성 (TERM 명시: SSH 환경에서 unknown으로 잡히는 버그 방지)
 tmux kill-session -t "$SESSION" 2>/dev/null || true
-tmux new-session -d -s "$SESSION" -x 220 -y 50 -n "control-room"
+export TERM=xterm-256color
+tmux new-session -d -s "$SESSION" -x 220 -y 50 -n "control-room" -e TERM=xterm-256color
 
 # ── Window 0: control-room ─────────────────────────────────────────────
 tmux send-keys -t "$SESSION:control-room" \
@@ -164,12 +168,88 @@ tmux send-keys -t "$SESSION:suno-server" \
 echo "▶ Next.js 서버 기동 대기 중 (30초)..."
 sleep 30
 
-# ── Window 2: orchestrator ─────────────────────────────────────────────
-# API 키: /home/dgm/.config/dgm.env 에서 로드 (레포 미포함, 재부팅 유지)
-# 파일 형식: ANTHROPIC_API_KEY=sk-ant-api03-...
-tmux new-window -t "$SESSION" -n "orchestrator"
-tmux send-keys -t "$SESSION:orchestrator" \
-  "cd $PROJECT_DIR && [ -f /home/dgm/.config/dgm.env ] && source /home/dgm/.config/dgm.env && claude --model claude-sonnet-5 --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
+# ── 패인 대기 / Claude 시작 헬퍼 함수 ─────────────────────────────────────
+wait_for_pane() {
+    local pane="$1" pattern="$2" timeout="${3:-30}" waited=0
+    while [ $waited -lt $timeout ]; do
+        tmux capture-pane -t "$pane" -p 2>/dev/null | grep -q "$pattern" && return 0
+        sleep 1; waited=$((waited + 1))
+    done
+    return 1
+}
+
+start_claude_in_pane() {
+    local pane="$1" agent_name="$2" model="${3:-claude-sonnet-4-6}"
+    local agent_md="$PROJECT_DIR/.claude/agents/${agent_name}.md"
+
+    tmux send-keys -t "$pane" C-c 2>/dev/null || true; sleep 0.3
+
+    local CMD="cd $PROJECT_DIR && source /home/dgm/.config/dgm.env"
+    if [ -f "$agent_md" ]; then
+        CMD="$CMD && claude --model $model --dangerously-skip-permissions --append-system-prompt-file $agent_md"
+    else
+        CMD="$CMD && claude --model $model --dangerously-skip-permissions"
+    fi
+    tmux send-keys -t "$pane" "$CMD" Enter
+
+    if wait_for_pane "$pane" "trust this folder" 20; then
+        tmux send-keys -t "$pane" Enter; sleep 1
+    fi
+    if wait_for_pane "$pane" "I accept" 20; then
+        tmux send-keys -t "$pane" Down; sleep 0.5
+        tmux send-keys -t "$pane" Enter; sleep 1
+    fi
+
+    wait_for_pane "$pane" "❯" 40 || echo "  ⚠ ${agent_name} 시작 타임아웃 (수동 확인 필요)"
+    echo "  ✓ ${agent_name} 준비됨"
+}
+
+# ── Window 2: agents (orchestrator 왼쪽 + 에이전트 5개 오른쪽 스택) ────────
+# dgm.env 필수 항목 보장 (export 형식 필수 — 없으면 자식 프로세스 미전달)
+if [ -f "/home/dgm/.config/dgm.env" ]; then
+  grep -q 'CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS' /home/dgm/.config/dgm.env \
+    || echo 'export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1' >> /home/dgm/.config/dgm.env
+  sed -i 's/^ANTHROPIC_API_KEY=/export ANTHROPIC_API_KEY=/' /home/dgm/.config/dgm.env
+  sed -i 's/^CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=/export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=/' /home/dgm/.config/dgm.env
+  grep -q 'export TERM=' /home/dgm/.config/dgm.env \
+    || echo 'export TERM=xterm-256color' >> /home/dgm/.config/dgm.env
+fi
+
+tmux new-window -t "$SESSION" -n "agents"
+
+# 오른쪽 열 패인 5개 생성 (pane 0 = 왼쪽 orchestrator, pane 1-5 = 오른쪽 에이전트 스택)
+tmux split-window -t "$SESSION:agents.0" -h
+tmux split-window -t "$SESSION:agents.1" -v
+tmux split-window -t "$SESSION:agents.2" -v
+tmux split-window -t "$SESSION:agents.3" -v
+tmux split-window -t "$SESSION:agents.4" -v
+
+# main-vertical 레이아웃: pane 0 왼쪽 130컬럼, pane 1-5 오른쪽 수직 분할
+tmux select-layout -t "$SESSION:agents" main-vertical
+tmux set-option -t "$SESSION:agents" main-pane-width 130
+tmux set-option -t "$SESSION" pane-border-status top
+tmux set-option -t "$SESSION" pane-border-format " #{pane_title} "
+tmux set-option -t "$SESSION" allow-rename off
+
+# 패인 제목 설정
+tmux select-pane -t "$SESSION:agents.0" -T "orchestrator"
+tmux select-pane -t "$SESSION:agents.1" -T "music-generator"
+tmux select-pane -t "$SESSION:agents.2" -T "image-generator"
+tmux select-pane -t "$SESSION:agents.3" -T "qa-inspector"
+tmux select-pane -t "$SESSION:agents.4" -T "video-producer"
+tmux select-pane -t "$SESSION:agents.5" -T "youtube-uploader"
+
+# 각 패인에 Claude Code 시작 (순차적 — 다이얼로그 처리 후 다음 패인)
+echo "▶ 에이전트 Claude Code 시작 중..."
+start_claude_in_pane "$SESSION:agents.0" "orchestrator-pane" "claude-sonnet-4-6"
+start_claude_in_pane "$SESSION:agents.1" "music-generator"   "claude-sonnet-4-6"
+start_claude_in_pane "$SESSION:agents.2" "image-generator"   "claude-sonnet-4-6"
+start_claude_in_pane "$SESSION:agents.3" "qa-inspector"      "claude-sonnet-4-6"
+start_claude_in_pane "$SESSION:agents.4" "video-producer"    "claude-sonnet-4-6"
+start_claude_in_pane "$SESSION:agents.5" "youtube-uploader"  "claude-sonnet-4-6"
+echo "  ✅ 모든 에이전트 준비 완료"
+
+tmux select-pane -t "$SESSION:agents.0"
 
 # ── Window 3: logs ─────────────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "logs"
@@ -186,18 +266,18 @@ tmux new-window -t "$SESSION" -n "completion-watcher"
 tmux send-keys -t "$SESSION:completion-watcher" \
   "bash $PROJECT_DIR/agents/completion-watcher.sh" Enter
 
-tmux select-window -t "$SESSION:orchestrator"
+tmux select-window -t "$SESSION:agents"
 
 echo ""
-echo "✅  DGM Agent Teams 세션 준비 완료 (OVH VPS Singapore)"
+echo "✅  DGM 멀티에이전트 세션 준비 완료 (OVH VPS)"
 echo ""
 echo "  접속: ssh root@<서버IP>  →  tmux attach -t $SESSION"
 echo ""
-echo "  [0] control-room     — 파이프라인 상태"
-echo "  [1] suno-server      — Next.js API 서버 (localhost:3000)"
-echo "  [2] orchestrator     — Agent Teams 메인 (★)"
-echo "  [3] logs             — 작업 로그"
-echo "  [4] limit-watcher    — 사용량 한도 자동 해제"
+echo "  [0] control-room   — 파이프라인 상태 모니터"
+echo "  [1] suno-server    — Next.js API (localhost:3000)"
+echo "  [2] agents         — orchestrator(왼쪽) + 에이전트 5개(오른쪽) ★"
+echo "  [3] logs           — 작업 로그"
+echo "  [4] limit-watcher  — 사용량 한도 자동 해제"
 echo "  [5] completion-watcher — 완료 감지"
 echo ""
 tmux list-windows -t "$SESSION"
