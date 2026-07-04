@@ -271,6 +271,16 @@ done
 | 16:9 비율 | 20 | 비율이 맞고 주요 피사체가 중앙에 배치되어 있는가 |
 | 텍스트·로고 없음 | 20 | 이미지 내 텍스트, 로고, 워터마크가 없는가 |
 
+> **컨셉 일치도 상세 기준 — 계절·날씨별 가산/감산**
+>
+> | 컨셉 | 선호 | 감점 요인 |
+> |------|------|---------|
+> | 여름 / Summer / Ocean / Beach / Chill Pop | 쨍한 파란 하늘, 선명한 푸른 바다, 강한 햇살, 높은 채도 | 흐린 하늘, 흐린 바다, 회색빛 톤, 낮은 채도 → **-10점** |
+> | 가을 / Acoustic / 감성 | 따뜻한 노을, 단풍 계열, 황금빛 | 쨍한 여름빛 → **-5점** |
+> | 새벽 / 심야 / Lo-fi | 어두운 도시 불빛, 인공조명, 블루-퍼플 톤 | 낮 풍경 → **-5점** |
+>
+> 예: Summer Ocean Chill Pop 컨셉에서 흐린 하늘+흐린 바다 이미지는 컨셉 일치도 35점 → **25점**으로 감산 후 평가한다.
+
 ```bash
 mkdir -p "${PROJECT_DIR}/image-generator/selected"
 
@@ -442,34 +452,28 @@ cp "${PROJECT_DIR}/meeting_log.md" "${PROJECT_DIR}/meeting_log.txt"
 
 ---
 
-## 완료 후 — video-producer에게 직접 전달 + orchestrator CC
+## 완료 후 — orchestrator에게만 보고 (video-producer 직접 호출 금지)
+
+> ⛔ image-generator는 video-producer에게 직접 SendMessage를 보내지 않는다.
+> video-producer는 qa-inspector가 ①음악 사전검수 PASS/WARN 판정 후에만 시작한다.
+> image-generator가 먼저 완료되더라도 QA① 결과를 기다리는 것이 올바른 순서다.
 
 ```
-[image-generator → video-producer]
-이미지 생성 완료.
+[image-generator → orchestrator]
+image-generator 완료.
 projectId: {projectId}
 background_final.jpg: {projectDir}/image-generator/selected/background_final.jpg ({파일크기})
+최종 선정: {선정된 파일명} — {선정 이유}
 image_info.json: {projectDir}/image-generator/image_info.json
-최종 선정 방법: {선정 방법 요약}
 
-music-generator 완료 확인 후 영상 합성을 시작해줘.
-music_final.mp3가 준비되면 바로 진행해도 됨.
+video-producer 호출은 qa-inspector ①음악 사전검수 PASS/WARN 후 qa-inspector가 직접 수행합니다.
 ```
 
 위 메시지를 보낸 즉시 원문 그대로 기록한다:
 ```bash
 cat >> "${PROJECT_DIR}/conversation_log.md" << EOF
-[$(date '+%H:%M:%S')] image-generator → video-producer
+[$(date '+%H:%M:%S')] image-generator → orchestrator
 {위에서 실제로 보낸 메시지 원문}
 
 EOF
-```
-
-```
-[image-generator → orchestrator] (CC)
-image-generator 완료.
-projectId: {projectId}
-background_final.jpg: {projectDir}/image-generator/selected/background_final.jpg ({파일크기})
-최종 선정 방법: {선정 방법 요약}
-→ video-producer에게 전달 완료.
 ```
