@@ -113,15 +113,24 @@ cat "${PROJECT_DIR}/strategist/concept_brief.json"
 
 DGM 파이프라인 실행 요청을 받으면, **에이전트 팀을 생성**하여 팀원들이 직접 소통하며 작업을 완성하도록 한다.
 
-아래 팀원들로 구성된 에이전트 팀을 만든다:
+> ⛔ **CRITICAL — 모델 과금 방지 규칙:**
+> Agent Teams가 frontmatter의 `model: sonnet` 설정을 무시하고 기본으로 `claude-opus-4-8`을 스폰하는 버그가 있다.
+> **팀원을 스폰할 때 반드시 `model: "sonnet"` 파라미터를 명시한다** (미명시 시 Opus로 과금됨).
+> ```
+> Agent({ subagent_type: "qa-inspector", model: "sonnet", ... })
+> Agent({ subagent_type: "music-generator", model: "sonnet", ... })
+> ```
+> youtube-uploader만 예외적으로 `model: "haiku"` 사용.
 
-- **researcher** — YouTube 트렌드 수집 및 리포트 작성
-- **strategist** — 트렌드 기반 컨셉 확정 및 concept_brief.json 생성
-- **music-generator** — 음악 생성 (strategist 완료 후 image-generator와 병렬)
-- **image-generator** — 배경 이미지 생성 (strategist 완료 후 music-generator와 병렬)
-- **video-producer** — 영상 편집 (음악 + 이미지 모두 완료 후)
-- **youtube-uploader** — YouTube 업로드
-- **qa-inspector** — 최종 품질 검수 및 GO/NO-GO 판정
+아래 팀원들로 구성된 에이전트 팀을 만든다 (각각 `model: "sonnet"` 명시, youtube-uploader만 `model: "haiku"`):
+
+- **researcher** `model: "sonnet"` — YouTube 트렌드 수집 및 리포트 작성
+- **strategist** `model: "sonnet"` — 트렌드 기반 컨셉 확정 및 concept_brief.json 생성
+- **music-generator** `model: "sonnet"` — 음악 생성 (strategist 완료 후 image-generator와 병렬)
+- **image-generator** `model: "sonnet"` — 배경 이미지 생성 (strategist 완료 후 music-generator와 병렬)
+- **video-producer** `model: "sonnet"` — 영상 편집 (음악 + 이미지 모두 완료 후)
+- **youtube-uploader** `model: "haiku"` — YouTube 업로드
+- **qa-inspector** `model: "sonnet"` — 최종 품질 검수 및 GO/NO-GO 판정
 
 ## 파이프라인 자동 시작
 
