@@ -169,7 +169,7 @@ sleep 30
 # 파일 형식: ANTHROPIC_API_KEY=sk-ant-api03-...
 tmux new-window -t "$SESSION" -n "orchestrator"
 tmux send-keys -t "$SESSION:orchestrator" \
-  "cd $PROJECT_DIR && [ -f /home/dgm/.config/dgm.env ] && source /home/dgm/.config/dgm.env && claude --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
+  "cd $PROJECT_DIR && [ -f /home/dgm/.config/dgm.env ] && source /home/dgm/.config/dgm.env && claude --model claude-sonnet-5 --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
 
 # ── Window 3: logs ─────────────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "logs"
