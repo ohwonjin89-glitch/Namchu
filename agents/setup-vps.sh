@@ -63,16 +63,22 @@ if [ "$(id -u)" -eq 0 ]; then
     echo "  ✓ SSH 키 확인됨"
   fi
 
-  # Claude 인증·설정 파일 복원
-  # API 키(/home/dgm/.config/dgm.env)가 있으면 OAuth 파일 복원 건너뜀 — API 키 우선
-  if [ -f "/home/dgm/.config/dgm.env" ] && grep -q "ANTHROPIC_API_KEY" /home/dgm/.config/dgm.env 2>/dev/null; then
-    echo "  ✓ API 키 감지 — OAuth credentials 복원 건너뜀"
-    rm -f /home/dgm/.claude/.credentials.json
-  elif [ -f "$PROJECT_DIR/.claude_auth/.credentials.json" ]; then
+  # ── [BILLING GUARD 1/4] API 키 제거 — Claude Pro OAuth만 사용 ──────────────
+  # API 키가 dgm.env에 있으면 무조건 삭제 (API 과금 방지)
+  if grep -q "ANTHROPIC_API_KEY" /home/dgm/.config/dgm.env 2>/dev/null; then
+    sed -i '/ANTHROPIC_API_KEY/d' /home/dgm/.config/dgm.env
+    echo "  ⚠  API 키 감지 → dgm.env에서 제거됨 (Claude Pro OAuth만 허용)"
+  fi
+
+  # Claude 인증·설정 파일 복원 (OAuth 무조건 복원)
+  if [ -f "$PROJECT_DIR/.claude_auth/.credentials.json" ]; then
     mkdir -p /home/dgm/.claude
     cp "$PROJECT_DIR/.claude_auth/.credentials.json" /home/dgm/.claude/.credentials.json
     chmod 600 /home/dgm/.claude/.credentials.json
-    echo "  ✓ Claude 인증 파일 복원 (OAuth)"
+    chown dgm:dgm /home/dgm/.claude/.credentials.json
+    echo "  ✓ Claude 인증 파일 복원 (OAuth — Claude Pro)"
+  else
+    echo "  ⚠  .claude_auth/.credentials.json 없음 → VPS에서 /login 필요"
   fi
   if [ -f "$PROJECT_DIR/.claude_auth/settings.json" ]; then
     mkdir -p /home/dgm/.claude
@@ -169,14 +175,18 @@ echo "▶ Next.js 서버 기동 대기 중 (30초)..."
 sleep 30
 
 # ── Window 2: orchestrator (teammateMode: tmux — 에이전트 스폰 시 자동 패인 생성) ─
-# dgm.env 필수 항목 보장 (export 형식 필수 — 없으면 자식 프로세스 미전달)
+
+# ── [BILLING GUARD 2/4] dgm.env 정리 — API 키 완전 제거 ────────────────────
 if [ -f "/home/dgm/.config/dgm.env" ]; then
+  # API 키 줄 삭제 (있으면 Claude Pro 대신 API 과금됨)
+  sed -i '/ANTHROPIC_API_KEY/d' /home/dgm/.config/dgm.env
+  # 필수 항목 추가 (export 형식으로)
+  sed -i 's/^CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=/export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=/' /home/dgm/.config/dgm.env
   grep -q 'CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS' /home/dgm/.config/dgm.env \
     || echo 'export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1' >> /home/dgm/.config/dgm.env
-  sed -i 's/^ANTHROPIC_API_KEY=/export ANTHROPIC_API_KEY=/' /home/dgm/.config/dgm.env
-  sed -i 's/^CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=/export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=/' /home/dgm/.config/dgm.env
   grep -q 'export TERM=' /home/dgm/.config/dgm.env \
     || echo 'export TERM=xterm-256color' >> /home/dgm/.config/dgm.env
+  echo "▶ dgm.env 확인 완료 (API 키 없음, AGENT_TEAMS=1, TERM 설정됨)"
 fi
 
 # settings.json에 teammateMode: tmux 반영 (에이전트 스폰 시 tmux 패인 자동 생성)
@@ -190,8 +200,9 @@ print('  ✓ settings.json teammateMode: tmux 설정됨')
 " 2>/dev/null || true
 
 tmux new-window -t "$SESSION" -n "orchestrator"
+# ── [BILLING GUARD 3/4] unset API 키 후 billing-guard 검증 → claude 실행 ───
 tmux send-keys -t "$SESSION:orchestrator" \
-  "cd $PROJECT_DIR && source /home/dgm/.config/dgm.env && claude --model claude-sonnet-4-6 --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
+  "unset ANTHROPIC_API_KEY && cd $PROJECT_DIR && source /home/dgm/.config/dgm.env && bash $PROJECT_DIR/agents/billing-guard.sh && claude --model claude-sonnet-4-6 --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
 
 # ── Window 3: logs ─────────────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "logs"
