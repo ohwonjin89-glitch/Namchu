@@ -189,15 +189,18 @@ if [ -f "/home/dgm/.config/dgm.env" ]; then
   echo "▶ dgm.env 확인 완료 (API 키 없음, AGENT_TEAMS=1, TERM 설정됨)"
 fi
 
-# settings.json에 teammateMode: tmux 반영 (에이전트 스폰 시 tmux 패인 자동 생성)
+# settings.json Agent Teams 필수 설정 강제 적용 (항상 덮어씀)
 python3 -c "
 import json, os
 f = '/home/dgm/.claude/settings.json'
 d = json.load(open(f)) if os.path.exists(f) else {}
+if 'env' not in d or not isinstance(d.get('env'), dict):
+    d['env'] = {}
+d['env']['CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS'] = '1'
 d['teammateMode'] = 'tmux'
 json.dump(d, open(f,'w'), indent=2)
-print('  ✓ settings.json teammateMode: tmux 설정됨')
-" 2>/dev/null || true
+print('  ✓ settings.json: AGENT_TEAMS=1, teammateMode=tmux 강제 적용')
+"
 
 tmux new-window -t "$SESSION" -n "orchestrator"
 # ── [BILLING GUARD 3/4] unset API 키 후 billing-guard 검증 → claude 실행 ───
