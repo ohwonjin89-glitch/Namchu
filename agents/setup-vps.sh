@@ -159,7 +159,7 @@ sleep 30
 # ── Window 2: orchestrator ─────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "orchestrator"
 tmux send-keys -t "$SESSION:orchestrator" \
-  "cd $PROJECT_DIR && unset ANTHROPIC_API_KEY && export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 && claude --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
+  "cd $PROJECT_DIR && unset ANTHROPIC_API_KEY && claude --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
 
 # ── Window 3: logs ─────────────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "logs"
