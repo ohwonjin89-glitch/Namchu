@@ -125,6 +125,10 @@ if [ -f "$PROJECT_DIR/requirements.txt" ]; then
     || pip3 install --user -q --break-system-packages -r "$PROJECT_DIR/requirements.txt" 2>&1 | tail -5
 fi
 
+# tmux 설정 (focus-events: Agent Teams 우측 패널 표시에 필요)
+grep -q 'focus-events on' "$HOME/.tmux.conf" 2>/dev/null || echo 'set -g focus-events on' >> "$HOME/.tmux.conf"
+tmux source-file "$HOME/.tmux.conf" 2>/dev/null || true
+
 # 기존 세션 제거 후 재생성
 tmux kill-session -t "$SESSION" 2>/dev/null || true
 tmux new-session -d -s "$SESSION" -x 220 -y 50 -n "control-room"
