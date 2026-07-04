@@ -317,7 +317,7 @@ cat "$REPO_DIR/.claude/agents/user-feedback.json"
 늦은 밤, 이별, 감성, 드라이브, 로맨틱                        → Late Night R&B & Soul
 밝은 에너지, 설렘, 여름, 댄서블, 긍정, 도시 활기             → Upbeat City Pop & Funk Groove
 따뜻함, 자연, 위로, 아침 산책, 희망, 어쿠스틱                → Acoustic Indie Pop & Folk Soul
-네온, 몽환적, 80년대 감성, 드라이브, 신스팝, 하이저우         → Chillwave & Synth Pop
+몽환적, 80년대 감성, 드라이브, 신스팝, 하이저우              → Chillwave & Synth Pop
 카페, 여유로운 오후, 대화, 재즈, 보사노바, 소박한 행복        → Jazz-hop & Bossa Nova Chill
 ```
 

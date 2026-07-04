@@ -267,13 +267,13 @@ researcher 리포트의 **인기 탑10 목록**을 반드시 확인한다.
 
 | 트렌드 키워드 | 맞는 배경 | 피해야 할 배경 |
 |---|---|---|
-| 여름, 청량, 바다, 수영 | 맑은 하늘, 바다, 야외 낮 장면 | 야경, 도시 네온, 흐린 밤 |
+| 여름, 청량, 바다, 수영 | 맑은 하늘, 바다, 야외 낮 장면 | 야경, 도시 인공조명, 흐린 밤 |
 | 새벽, 밤, 감성, 몽환 | 야경, 도시 불빛, 어두운 실내 | 밝은 낮 풍경, 맑은 하늘 |
 | 드라이브, 도시 | 도로, 차창 밖 풍경, 도심 | 바다, 숲, 자연 |
 | 카페, 공부, 일상 | 카페 창가, 따뜻한 실내 | 야외 대자연 |
 | 힐링, 자연, 봄 | 초록 숲, 꽃, 맑은 강 | 어두운 도시 |
 
-**규칙**: 트렌드가 "여름/청량"인데 `visualDirection`에 야경·도시·네온이 들어가면 안 된다.
+**규칙**: 트렌드가 "여름/청량"인데 `visualDirection`에 야경·어두운 도시 조명이 들어가면 안 된다.
 
 ---
 
@@ -354,7 +354,7 @@ researcher의 후보를 검토할 때 아래 순서로 판단한다.
 | 우선순위 | 장르 | 적합 컨셉 예시 |
 |:---:|---|---|
 | ★★★ | Groove Hip-hop & Chill Pop | 도시, 드라이브, 세련된 감성, 미드템포 |
-| ★★☆ | Chillwave & Synth Pop | 네온, 몽환, 80s 감성, 야경, 신스 분위기 |
+| ★★☆ | Chillwave & Synth Pop | 몽환, 80s 감성, 야경, 신스 분위기 |
 | ★☆☆ | Acoustic Indie Pop & Folk Soul | 자연, 위로, 아침, 따뜻한 어쿠스틱 |
 
 - 위 3개 장르에 해당하지 않는 컨셉은 나머지 장르(Lo-fi, Late Night R&B, Upbeat City Pop, Jazz-hop) 중에서 선택한다.
@@ -409,7 +409,7 @@ print('OK:', d['title'], '| projectId:', d['projectId'])
 |------|--------------|
 | 카페 | cozy cafe aesthetic woman warm light |
 | 새벽 감성 | late night city lights solitude moody |
-| 드라이브 | night drive highway neon window |
+| 드라이브 | night drive highway warm city lights window |
 | 모닝커피 | morning coffee window sunlight golden |
 | 주말 아침 | sunday morning cozy bedroom soft light |
 | 공부/작업 | study desk minimal aesthetic lamp |

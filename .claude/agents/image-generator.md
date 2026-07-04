@@ -414,7 +414,7 @@ print('OK selected:', d['finalSelection']['selectedFrom'])
 | 장르 | 미드저니 프롬프트 방향 |
 |------|----------------------|
 | 감성 R&B | Soft indoor lighting, warm amber tones, intimate atmosphere |
-| 시티팝 | Neon-lit urban night, retro 80s aesthetic, stylish city |
+| 시티팝 | Retro 80s urban night, warm street lights, stylish city |
 | chill vibe | Cozy room, dim lamp, vinyl record, relaxed atmosphere |
 | 감성 힙합 | Late night cityscape, moody blue tones, reflective urban |
 | 그루브 힙합 | Vibrant colors, energetic, street aesthetic, dynamic composition |

@@ -103,7 +103,7 @@ A natural real-life photo of a cozy urban cafe street, inspired only by the mood
 - 도시, 다리, 강, 빌딩 배치는 새롭게 만든다 — 레퍼런스와 동일한 도시·랜드마크·다리·구도를 그대로 재현하지 않는다
 - 특정 랜드마크는 사용자가 명시적으로 요청한 경우에만 포함하며, 기본적으로 실제 도시명을 프롬프트에 넣지 않는다
 - 인물은 넣지 않는다
-- 도시 조명은 자연스럽게 켜져 있어야 하며, 과장된 네온 도시처럼 만들지 않는다
+- 도시 조명은 자연스럽게 켜져 있어야 하며, 과장된 사이버펑크 도시처럼 만들지 않는다
 - 하늘은 극적인 판타지 하늘이 아니라 실제 노을과 블루아워 사이의 색감으로 표현한다
 
 예시 장면:
@@ -141,18 +141,18 @@ A natural real-life photo of a cozy urban cafe street, inspired only by the mood
 
 - text / logo / watermark / handwritten title / music title / artist name / subtitle
 - CGI / obvious AI look / hyperreal rendering / HDR-heavy image
-- oversaturated neon colors / fantasy skyline / futuristic cyberpunk city
+- oversaturated colors / fantasy skyline / futuristic cyberpunk city
 - unrealistic building geometry / warped skyscrapers / duplicated landmarks / excessive glow
 - cartoon / illustration / 3D render
 
 아래 표현은 가급적 사용하지 않는다:
 - ultra detailed / hyper detailed / epic cinematic / dramatic fantasy lighting
-- cyberpunk / futuristic city / perfect composition / vibrant neon colors
+- cyberpunk / futuristic city / perfect composition / vibrant oversaturated colors
 
 ##### 도시야경 공통 프롬프트 템플릿
 
 ```
-A natural real-life cityscape photo of [expanded night city scene], inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Dusk or blue hour skyline, warm building lights, soft pink and lavender evening sky, subtle atmospheric haze, realistic windows, calm river reflections if appropriate, muted film-like colors, slightly imperfect real-world framing, playlist background mood, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated neon, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
+A natural real-life cityscape photo of [expanded night city scene], inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Dusk or blue hour skyline, warm building lights, soft pink and lavender evening sky, subtle atmospheric haze, realistic windows, calm river reflections if appropriate, muted film-like colors, slightly imperfect real-world framing, playlist background mood, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated colors, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
 ```
 
 ##### [expanded night city scene] 작성 규칙
@@ -178,22 +178,22 @@ a moody metropolitan skyline with a bridge crossing the frame and warm lights re
 
 **입력: 도시야경**
 ```
-A natural real-life cityscape photo of a wide riverfront skyline at dusk with warm building lights and soft reflections on the water, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Dusk skyline, soft pink and lavender evening sky, subtle atmospheric haze, realistic windows, calm river reflections, muted film-like colors, slightly imperfect real-world framing, playlist background mood, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated neon, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
+A natural real-life cityscape photo of a wide riverfront skyline at dusk with warm building lights and soft reflections on the water, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Dusk skyline, soft pink and lavender evening sky, subtle atmospheric haze, realistic windows, calm river reflections, muted film-like colors, slightly imperfect real-world framing, playlist background mood, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated colors, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
 ```
 
 **입력: 브릿지 야경**
 ```
-A natural real-life cityscape photo of a large suspension bridge crossing over a dark river with a glowing skyline behind it, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different bridge shape, different city layout, different composition, and different viewpoint. Blue hour sky, warm bridge lights, realistic building windows, soft water reflections, muted purple-gray tones, subtle atmospheric haze, slightly imperfect real-world framing, calm playlist background mood, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated neon, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
+A natural real-life cityscape photo of a large suspension bridge crossing over a dark river with a glowing skyline behind it, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different bridge shape, different city layout, different composition, and different viewpoint. Blue hour sky, warm bridge lights, realistic building windows, soft water reflections, muted purple-gray tones, subtle atmospheric haze, slightly imperfect real-world framing, calm playlist background mood, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated colors, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
 ```
 
 **입력: 노을 도시**
 ```
-A natural real-life cityscape photo of a dense downtown skyline under a soft pink, orange, and lavender sunset sky, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Warm building lights beginning to glow, subtle haze, realistic skyscraper silhouettes, muted film-like colors, calm urban evening mood, slightly imperfect real-world framing, playlist background atmosphere, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated neon, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
+A natural real-life cityscape photo of a dense downtown skyline under a soft pink, orange, and lavender sunset sky, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Warm building lights beginning to glow, subtle haze, realistic skyscraper silhouettes, muted film-like colors, calm urban evening mood, slightly imperfect real-world framing, playlist background atmosphere, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated colors, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
 ```
 
 **입력: 플레이리스트 배경**
 ```
-A natural real-life cityscape photo of a calm evening skyline with open sky space, warm city lights, and soft river reflections, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Dusk or blue hour mood, muted pink and purple sky, realistic buildings, subtle haze, clean open area for playlist visual, film-like colors, slightly imperfect real-world framing, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated neon, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
+A natural real-life cityscape photo of a calm evening skyline with open sky space, warm city lights, and soft river reflections, inspired only by the mood, lighting, color palette, skyline depth, and evening atmosphere of the reference image, but with a different city layout, different composition, different viewpoint, and different landmark arrangement. Dusk or blue hour mood, muted pink and purple sky, realistic buildings, subtle haze, clean open area for playlist visual, film-like colors, slightly imperfect real-world framing, not overly polished, not hyperreal. --ar 16:9 --style raw --s 20 --v 6 --no text, logo, watermark, handwritten title, music title, artist name, subtitles, CGI, AI look, HDR, oversaturated colors, fantasy skyline, cyberpunk, warped buildings, duplicated landmarks, cartoon, illustration, 3D render
 ```
 
 ##### 상황별 장면 선택 기준
