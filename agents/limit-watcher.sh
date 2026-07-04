@@ -38,6 +38,18 @@ while true; do
       continue
     fi
 
+    # API 키 rate limit: overloaded_error 또는 529 감지 → 60초 대기 후 continue
+    if echo "$CONTENT" | grep -qE "overloaded_error|529|rate.limit|Too many requests"; then
+      LAST=${LAST_TRY[$p]:-0}
+      if [ $((NOW - LAST)) -ge 60 ]; then
+        echo "[$TS] pane ${p}: API rate limit 감지 → 60초 후 continue 전송" | tee -a "$LOG"
+        sleep 60
+        tmux send-keys -t "${SESSION}:${WINDOW}.${p}" "continue" Enter
+        LAST_TRY[$p]=$NOW
+      fi
+      continue
+    fi
+
     if [ "${WAITING[$p]}" = "1" ]; then
       if echo "$CONTENT" | grep -q "esc to interrupt"; then
         echo "[$TS] pane ${p}: 작업 재개 확인 → 감시 해제" | tee -a "$LOG"
