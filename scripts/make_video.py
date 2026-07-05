@@ -54,7 +54,7 @@ else:
 VALID_CHANNELS = ["Playlisttann", "DGM_Playlist"]
 
 def get_video_codec_args(crf=23):
-    return ['-c:v', 'libx264', '-preset', 'ultrafast', '-crf', str(crf)]
+    return ['-c:v', 'libx264', '-preset', 'slow', '-crf', str(crf)]
 
 
 _CHROMA_KEY_CACHE = {}
@@ -674,14 +674,14 @@ def run_api_mode(config_path):
 
     # 4. 영상 인코딩
     # ── 화질/속도 설정 (속도 최적화 적용) ──────────────────────────
-    VW, VH  = 1280, 720   # 720p: 1080p 대비 픽셀 수 2.3배 감소 → 인코딩 속도 2배↑
-    FPS     = 24           # 24fps: 30fps 대비 20% 빠름 (음악 영상은 24fps 충분)
-    CRF     = 28           # CRF 28: YouTube 재인코딩 후 화질 차이 없음, 인코딩 20%↑
+    VW, VH  = 1920, 1080  # 1080p Full HD
+    FPS     = 24           # 24fps (음악 영상 표준)
+    CRF     = 23           # CRF 23: 1080p 기본 화질 (YouTube 권장 수준)
     TUNE    = "stillimage" # 정적 배경 최적화 (배경 이미지일 때만)
 
     spec_msg = " + 스펙트럼" if spectrum_cfg else ""
     txt_msg  = f" + 텍스트 {len(text_overlays)}개" if text_overlays else ""
-    write_api_status(output_dir, "running", 40, f"영상 인코딩 중{spec_msg}{txt_msg} (720p/24fps 최적화)...")
+    write_api_status(output_dir, "running", 40, f"영상 인코딩 중{spec_msg}{txt_msg} (1080p/24fps)...")
 
     output_path = os.path.join(output_dir, output_name)
     logo_w_px = int(VW * logo_size / 100)

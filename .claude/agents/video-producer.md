@@ -317,7 +317,7 @@ done
 ---
 
 ## 출력 스펙
-- 해상도: **1280x720 (HD, 720p)** — 인코딩 속도 최적화를 위해 `make_video.py`에서 의도적으로 720p 고정. (이전 문서에 1080p로 잘못 적혀 있었음 — QA 체크리스트도 720p 기준으로 확인할 것)
+- 해상도: **1920x1080 (Full HD, 1080p)** — `make_video.py`에서 1080p 고정. preset=slow, CRF=23.
 - 포맷: MP4 (H.264 + AAC)
 - 오디오 비트레이트: 192kbps
 
@@ -329,7 +329,7 @@ done
 - [ ] `playlist.mp4` 파일 존재 여부
 - [ ] 파일 크기 5MB 이상
 - [ ] 영상 길이 ≈ 음악 길이 (±5초 허용)
-- [ ] 영상 해상도 1280x720 (720p) — 1080p가 아님에 주의
+- [ ] 영상 해상도 1920x1080 (1080p)
 - [ ] 사용자가 DGM Playlist 로고 사용을 명시했는가? 명시하지 않았다면 `logoPath`가 `Playlist text_White/black.png`로 채워져 있는가 (DGM 로고 PNG가 들어가 있지 않은가)?
 - [ ] 배경 중앙 영역(가로 25~75%, 세로 30~60%) 밝기 기준으로 흰색(기본)/검은색(밝기 200 이상 예외)을 선택했는가 (전체 이미지 평균이 아님)? **기존/이전 프로젝트의 `_config.json`을 재사용·재구성한 경우에도 brightness를 새로 계산했는가** — 옛 값을 그대로 복사하지 않았는가?
 - [ ] Playlist 텍스트(또는 로고) 오버레이 확인 — 실제 화면에 보이는지, `logoSize`% 대비 너무 작아 보이지 않는지, 화면 중앙에 위치하는지
@@ -355,7 +355,7 @@ cat >> "${PROJECT_DIR}/meeting_log.md" << EOF
 ## video-producer — $(date '+%Y-%m-%d %H:%M:%S')
 - 영상 길이: {duration}초
 - 파일 크기: {size}MB
-- 해상도: 1280x720
+- 해상도: 1920x1080
 - 오버레이: {Playlist 텍스트/DGM 로고} {White/Black} 선택 (중앙 영역 밝기: {brightness}), logoPath: {logoPath}
 - 스펙트럼: spectrumOverlay.filePath 적용됨, color={white/black}
 - 첫 번째 트랙: {첫 곡 제목}
