@@ -90,6 +90,7 @@ echo "경로: ${PROJECT_DIR}"
     "𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 창가에 앉아 조용히 듣는 비 오는 날 음악",
     "𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 퇴근 후 비 오는 밤에 듣는 따뜻한 플레이리스트"
   ],
+  "youtubeTitle": "𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 비 오는 날 혼자 듣기 좋은 감성 플레이리스트",
   "trendReference": "비 오는 날, 새벽 감성, 혼자 듣는 음악",
   "differentiationPoint": "경쟁 채널과 다른 점",
   "targetAudience": "예상 시청자 상황 (예: 퇴근 후 혼자 방에 있는 20대)",
@@ -118,6 +119,7 @@ echo "경로: ${PROJECT_DIR}"
 | `instrumental` | **false** (기본값) | 가사 포함 기본. 특별 요청 시만 true |
 | `imageKeywords` | 영문 | 아래 테마 맵 참고 |
 | `titleCandidates` | 배열 3개, 50자 이내 | 반드시 `𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 \|` 로 시작 |
+| `youtubeTitle` | 문자열 | `titleCandidates` 중 트렌드·검색 유입 관점에서 **전략가가 최종 선택한 1개** — youtube-uploader가 이 값을 그대로 사용하므로 반드시 포함 |
 | `trendReference` | 문자열 | 리포트에서 발췌한 트렌드 키워드 |
 | `differentiationPoint` | 문자열 | 경쟁 채널과 다른 점 |
 | `targetAudience` | 문자열 | 예상 시청자 상황 |

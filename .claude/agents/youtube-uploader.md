@@ -75,21 +75,14 @@ cat "${PROJECT_DIR}/music-generator/music_info.json"
 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | {내용}
 ```
 
-**내용 부분:** concept_brief.json의 `titleCandidates` 중 가장 적합한 것 선택 또는 새로 작성.
+**내용 부분:** concept_brief.json의 `youtubeTitle` 값을 **그대로** 사용한다.
 
-**제목 예시 (참고):**
-```
-𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 선선한 여름밤 산책하며 듣기 좋은 | 여름밤 인디음악 플레이리스트
-𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 오늘 온도는 여름, 내 기분은 레몬에이드🍋 듣자마자 상큼해지는 청량팝🌿 카페음악 노동요 acoustic pop
-𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 오늘 내 기분은 파리✨☕️ 듣는 순간 좋아지는 감성 팝송 모음🎧 카페음악 · 노동요
-𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 바다로 훌쩍 떠나고 싶어 🌊 하루종일 틀어두기 좋은 노래 모음
-𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | 틀자마자 기분이 맑아졌는데요?🌿☀️요즘 필수 팝송💿뉴욕플리 acoustic pop 카페음악
-```
+> ⛔ **자체 제목 작성 금지** — 제목은 트렌드 리포트를 분석한 strategist(Opus)가 확정했다. 임의로 수정하거나 새로 작성하지 않는다.
+> `youtubeTitle` 필드가 없는 구버전 concept_brief.json의 경우에만 `titleCandidates[0]`을 사용한다.
 
-**작성 기준:**
-- 감성 키워드 + 상황/시간대 포함
-- 이모지 1~3개 활용 가능
-- 자연스러운 구어체, 청취자 상황 묘사
+```python
+title = brief.get("youtubeTitle") or brief["titleCandidates"][0]
+```
 
 ---
 
