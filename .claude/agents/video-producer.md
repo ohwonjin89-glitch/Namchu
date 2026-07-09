@@ -235,7 +235,7 @@ else:
 
 ### 3. `_config.json` 필드 — `POST /api/make-video` 바디로 그대로 전송
 
-**기본 구성 (Playlist 텍스트 + 스펙트럼) — 별도 요청 없으면 이 형태를 사용한다:**
+**기본 구성 (Display sample 기준 표준 레이아웃):**
 
 ```json
 {
@@ -244,49 +244,64 @@ else:
   "outputDir": "{PROJECT_DIR}\\video-producer",
   "outputFileName": "playlist.mp4",
 
-  "logoPath": "{assetsDir}\\Playlist text_White.png",
+  "logoPath": "{assetsDir}\\Playlist_White.png",
   "logoHPos": 50,
-  "logoVPos": 39,
-  "logoSize": 54,
+  "logoVPos": 28,
+  "logoSize": 58,
   "logoOpacity": 1.0,
+
+  "channelLogoPath": "{assetsDir}\\logo_White.png",
+  "channelLogoSize": 9,
+  "channelLogoX": 2.2,
+  "channelLogoY": 4.2,
 
   "spectrumOverlay": {
     "filePath": "{assetsDir}\\Audio_spectrum\\Audio_spectrum_Green_Screen_transparent.webm",
-    "leftPct": 37.5,
-    "topPct": 74,
-    "widthPct": 25,
-    "heightPct": 18,
+    "leftPct": 86.5,
+    "topPct": 93,
+    "widthPct": 13,
+    "heightPct": 6.5,
     "opacity": 1.0,
     "tolerance": 80,
     "color": "white"
   },
 
-  "textOverlays": []
+  "textOverlays": [
+    { "text": "Title 1 · Title 2 · ... · Title N",
+      "textAlign": "center", "leftPct": 0, "topPct": 7.2,
+      "fontSize": 18, "color": "#ffffff", "opacity": 0.9, "fontLabel": "pretendard light" },
+    { "text": "Title N+1 · ... · Title 15",
+      "textAlign": "center", "leftPct": 0, "topPct": 9.4,
+      "fontSize": 18, "color": "#ffffff", "opacity": 0.9, "fontLabel": "pretendard light" }
+  ],
+
+  "previewWidth": 1920,
+  "previewHeight": 1080
 }
 ```
 
 **`logoPath` / `spectrumOverlay`는 절대 빠뜨리지 않는다.** 이 두 필드가 없으면 영상에 Playlist 텍스트(또는 로고)와 사운드스펙트럼이 전혀 나오지 않는다 (코드는 정상 동작하지만 입력이 없으면 합성하지 않음). API에는 "Playlist 텍스트"와 "DGM 로고"를 구분하는 별도 필드가 없다 — **둘 다 동일한 `logoPath`/`logoHPos`/`logoVPos`/`logoSize` 필드에 PNG 경로와 위치값만 바꿔서 넘기는 방식**이다.
 
-- **Playlist 텍스트/DGM 로고를 AI로 새로 그리거나 다른 폰트로 대체하지 않는다.** 반드시 지정된 PNG 에셋(`Playlist text_White.png` / `Playlist text_black.png` / `logo_White.png` / `logo_Black.png`)을 그대로 사용한다. 네 PNG 모두 마크 주위 투명 여백을 제거(크롭)한 버전이므로 `logoSize`%가 실제 보이는 너비와 거의 일치한다 (원본은 `*_orig.png`로 보관 — 여백이 캔버스의 상당 부분을 차지해서 `logoSize`만큼 크게 보이지 않는 문제가 있었음).
-- **Playlist 텍스트 기본값**: `logoHPos=50`, `logoSize=54`(화면 너비의 약 54%), `logoVPos=39` — Display sample 기준 화면 중앙(세로 약 46% 지점)에 크게 배치한 값이다. 허용 범위는 `logoSize` 50~58, 그에 따라 `logoVPos`도 대략 37~41 사이에서 같이 조정한다(세로 중심을 46% 부근에 유지하려면 폭이 커질수록 `logoVPos`도 같이 키운다). 텍스트를 작게 배치하거나 좌측 상단/우측 하단으로 옮기지 않는다. 회전·기울임·과한 그림자·외곽선·글로우도 추가하지 않는다.
-- **DGM Playlist 로고 기본값(명시적 요청 시에만)**: `logoHPos=50`, `logoVPos=10`, `logoSize=35` — 화면 중앙 상단(약 75~83% 구간)에 작게 배치한다. 이 경우 `spectrumOverlay.topPct`는 **83 이상**으로 유지한다 (83 미만이면 로고 서브텍스트 `music & more`와 겹쳐 스펙트럼이 가려진 것처럼 보이는 버그가 2026062701 프로젝트에서 실제로 발생했었다).
-- `spectrumOverlay` 기본값은 `leftPct=37.5`, `topPct=74`, `widthPct=25`, `heightPct=18`이다 — Playlist 텍스트(중앙 46% 부근) 바로 아래, 화면 하단 중앙(절대 화면 기준 약 84% 지점)에 작고 얇게 배치한 값이다. `spectrumOverlay.color`를 `text_path`/`logo_path`와 동일한 색(`white`/`black`)으로 맞춘다 — 스펙트럼 에셋 자체는 흰색 바 하나뿐이지만, `color: "black"`을 주면 `make_video.py`가 크로마키 처리 후 `negate` 필터로 색만 반전해서 검은 바로 만들어준다 (투명도는 그대로 유지됨).
-- DGM 로고 사용 시 `spectrumOverlay.topPct`를 다시 84로 낮출 필요는 없다 — 로고 박스(75~83%)를 피해 83 이상으로 두고, 필요하면 `heightPct`를 18 그대로 유지한다.
-- **`textOverlays`는 기본적으로 빈 배열로 둔다.** Display sample 기준 디자인에는 영상에 별도 제목 텍스트를 박지 않는다 — 제목은 YouTube 메타데이터(영상 제목)로만 노출한다. 과거 `textOverlays`에 제목을 넣었다가 (1) 긴 제목이 화면 우측 끝을 벗어나 잘려 보이고 (2) 스펙트럼 바 영역과 겹쳐 스펙트럼이 안 보이는 사고가 2026062701 프로젝트에서 있었다. 사용자가 명시적으로 텍스트 오버레이를 요청한 경우에만 채우고, 그 외에는 비워둔다. 정말 채워야 하는 경우 `topPct`가 스펙트럼 위치(72~92% 구간)와 겹치지 않게 하고, 텍스트가 길면 fontSize를 줄이거나 줄바꿈을 직접 넣는다 (자동 줄바꿈/축소 로직 없음).
+- **Playlist 텍스트/채널 로고를 AI로 새로 그리거나 다른 폰트로 대체하지 않는다.** 반드시 지정된 PNG 에셋(`Playlist_White.png` / `Playlist_Black.png` / `logo_White.png` / `logo_Black.png`)을 그대로 사용한다.
+- **Playlist 텍스트 기본값**: `logoHPos=50`, `logoSize=58`(화면 너비의 약 58%), `logoVPos=28` — Display sample 기준 콘텐츠 중심이 화면 세로 약 43% 지점에 위치하는 값이다. 텍스트를 작게 배치하거나 좌측 상단/우측 하단으로 옮기지 않는다. 회전·기울임·과한 그림자·외곽선·글로우도 추가하지 않는다.
+- **채널 로고(O·REUM) 기본값**: `channelLogoPath=logo_White.png(or Black)`, `channelLogoSize=9`, `channelLogoX=2.2`, `channelLogoY=4.2` — 화면 좌상단(≈42×45px 여백)에 배치. 파일이 없으면 오버레이 건너뜀.
+- `spectrumOverlay` 기본값은 `leftPct=86.5`, `topPct=93`, `widthPct=13`, `heightPct=6.5` — Display sample 기준 화면 **우하단 코너**에 작게 배치한 값이다. `spectrumOverlay.color`를 `logoPath`/`channelLogoPath`와 동일한 색(`white`/`black`)으로 맞춘다.
+- **`textOverlays`에는 항상 트랙리스트 2줄을 넣는다.** Display sample 기준 화면 **상단 중앙**에 곡명을 " · " 구분자로 나열한다. `previewWidth=1920, previewHeight=1080`으로 설정하면 `fontSize`가 실제 픽셀 크기와 일치한다 (font_scale=1.0). 트랙리스트 fontSize=18 → 18px (샘플 기준 적정값). 곡 수가 많아 한 줄에 가로로 넘치면 fontSize를 14~16으로 줄이거나, 1줄당 트랙 수를 줄인다. 트랙리스트 외 제목 텍스트는 넣지 않는다.
 - **스펙트럼은 코드상 항상 "원본 해상도에서 크로마키 처리 → 축소" 순서로 처리된다** (`make_video.py`). 축소를 먼저 하면 그린 배경색이 인접 픽셀과 섞여 가장자리에 초록 잔상·흐림이 남는 화질 저하가 발생했던 적이 있어 순서를 고정했다. `widthPct`/`heightPct`를 키워도 화질이 흐려지지 않아야 정상이며, 흐릿하게 보이면 코드 회귀를 의심한다.
 - 텍스트의 `𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭` 같은 유니코드 굵은체는 그대로 써도 된다 — `make_video.py`가 NFKC 정규화로 자동 변환해서 깨지지 않게 렌더링한다 (직접 폰트 글리프에 의존하지 않음).
 
-### 3-b. 채널 로고 + 트랙리스트 레이아웃 (`channelLogoPath` + `textOverlays`)
+### 3-b. 표준 레이아웃 배치 기준 (Display sample 참조)
 
-사용자가 "채널 로고 좌상단 + 하단 트랙리스트" 레이아웃을 요청한 경우 아래 추가 필드를 `_config.json`에 넣는다.
+Display sample(`{assetsDir}/display sample/Display sample.jpg`)이 확정 배치 기준이다. 모든 파이프라인에서 아래 구성을 사용한다.
 
-**채널 로고 파일 경로** (사용자가 파일을 미리 업로드해야 함):
-- VPS: `/home/dgm/suno-api/.claude/agents/assets/channel_logo.png`
-- Windows: `C:\suno-api\.claude\agents\assets\channel_logo.png`
+**에셋 파일:**
+| 역할 | 밝은 배경 | 어두운 배경 |
+|------|-----------|------------|
+| Playlist PNG (화면 중앙) | `Playlist_White.png` | `Playlist_Black.png` |
+| 채널 로고 (좌상단) | `logo_White.png` | `logo_Black.png` |
+| 스펙트럼 | `Audio_spectrum/Audio_spectrum_Green_Screen_transparent.webm` (공통) |
 
-**Playlist 텍스트 PNG** — 기존 `logoPath`는 "Playlist" + 서브타이틀이 합쳐진 PNG를 가리킨다 (사용자가 별도 제공). 파일명 예: `Playlist_subtitle_White.png`. 없으면 기존 `Playlist text_White.png` 사용.
-
-**트랙리스트 조립 코드** — 곡 순서 결정(`ordered_tracks`) 직후 실행:
+**트랙리스트 조립 코드** — 곡 순서 확정(`ordered_tracks`) 직후 실행:
 
 ```python
 import re
@@ -294,25 +309,24 @@ import re
 def clean_title(t):
     return re.sub(r'[⭐★⭑]', '', t.get('title', '')).strip()
 
-sel_titles = [clean_title(t) for t in selected_tracks]
-# 8 + 나머지로 2줄 분할
-line1 = ' · '.join(sel_titles[:8])
-line2 = ' · '.join(sel_titles[8:]) if len(sel_titles) > 8 else None
+sel_titles = [clean_title(t) for t in ordered_tracks[:15]]  # 최대 15곡
+mid = (len(sel_titles) + 1) // 2  # 균등 분할 (홀수면 1줄이 1개 더 많음)
+line1 = ' · '.join(sel_titles[:mid])
+line2 = ' · '.join(sel_titles[mid:]) if len(sel_titles) > mid else None
 
-track_overlays = [{
-    "text": line1, "textAlign": "center",
-    "leftPct": 0, "topPct": 88, "fontSize": 10,
-    "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light"
-}]
+logo_color = "#ffffff"   # 밝은 배경이면 "#000000"으로 변경
+track_overlays = [
+    { "text": line1, "textAlign": "center", "leftPct": 0, "topPct": 7.2,
+      "fontSize": 18, "color": logo_color, "opacity": 0.9, "fontLabel": "pretendard light" }
+]
 if line2:
-    track_overlays.append({
-        "text": line2, "textAlign": "center",
-        "leftPct": 0, "topPct": 92, "fontSize": 10,
-        "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light"
-    })
+    track_overlays.append(
+        { "text": line2, "textAlign": "center", "leftPct": 0, "topPct": 9.4,
+          "fontSize": 18, "color": logo_color, "opacity": 0.9, "fontLabel": "pretendard light" }
+    )
 ```
 
-**`_config.json` 전체 예시** (채널 로고 + 트랙리스트 레이아웃):
+**`_config.json` 전체 예시:**
 
 ```json
 {
@@ -321,55 +335,61 @@ if line2:
   "outputDir": "{PROJECT_DIR}/video-producer",
   "outputFileName": "playlist.mp4",
 
-  "logoPath": "{assetsDir}/Playlist_subtitle_White.png",
+  "logoPath": "{assetsDir}/Playlist_White.png",
   "logoHPos": 50,
-  "logoVPos": 39,
-  "logoSize": 54,
+  "logoVPos": 28,
+  "logoSize": 58,
   "logoOpacity": 1.0,
 
-  "channelLogoPath": "{assetsDir}/channel_logo.png",
-  "channelLogoSize": 10,
-  "channelLogoX": 3,
-  "channelLogoY": 4,
+  "channelLogoPath": "{assetsDir}/logo_White.png",
+  "channelLogoSize": 9,
+  "channelLogoX": 2.2,
+  "channelLogoY": 4.2,
 
   "spectrumOverlay": {
     "filePath": "{assetsDir}/Audio_spectrum/Audio_spectrum_Green_Screen_transparent.webm",
-    "leftPct": 20,
-    "topPct": 68,
-    "widthPct": 60,
-    "heightPct": 10,
+    "leftPct": 86.5,
+    "topPct": 93,
+    "widthPct": 13,
+    "heightPct": 6.5,
     "opacity": 1.0,
     "tolerance": 80,
     "color": "white"
   },
 
   "textOverlays": [
-    { "text": "Title 1 · Title 2 · ... · Title 8",
-      "textAlign": "center", "leftPct": 0, "topPct": 88,
-      "fontSize": 10, "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light" },
-    { "text": "Title 9 · ... · Title 15",
-      "textAlign": "center", "leftPct": 0, "topPct": 92,
-      "fontSize": 10, "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light" }
+    { "text": "Track 1 · Track 2 · Track 3 · ...",
+      "textAlign": "center", "leftPct": 0, "topPct": 7.2,
+      "fontSize": 18, "color": "#ffffff", "opacity": 0.9, "fontLabel": "pretendard light" },
+    { "text": "Track N · Track N+1 · ...",
+      "textAlign": "center", "leftPct": 0, "topPct": 9.4,
+      "fontSize": 18, "color": "#ffffff", "opacity": 0.9, "fontLabel": "pretendard light" }
   ],
 
-  "previewWidth": 500,
-  "previewHeight": 281
+  "previewWidth": 1920,
+  "previewHeight": 1080
 }
 ```
 
-**파라미터 설명:**
-- `channelLogoSize` 10 = 화면 너비의 10% (≈192px). 로고가 크거나 작으면 8~15 범위에서 조정.
-- `channelLogoX` 3 / `channelLogoY` 4 = 좌상단에서 3%/4% 여백 (≈58px / 43px).
-- `spectrumOverlay.leftPct=20, widthPct=60` = 화면 중앙에 넓게 (20~80% 구간).
-- `spectrumOverlay.topPct=68, heightPct=10` = Playlist 텍스트 아래, 트랙리스트 위.
-- `textAlign: "center"` = FFmpeg drawtext `x=(w-tw)/2` 정확한 중앙 배치.
-- `fontSize=10` → 실제 렌더 약 38px (500px 프리뷰 기준 스케일 ×3.84 적용 시).
-- `channelLogoPath`가 없거나 파일이 존재하지 않으면 해당 오버레이를 자동으로 건너뜀.
+**파라미터 요약 (Display sample 측정값):**
+- `logoSize=58, logoVPos=28` → Playlist 콘텐츠 중심이 화면 세로 43% 지점
+- `channelLogoSize=9` → 화면 너비 9% ≈ 173px, logo_White.png(2046×826) 기준 73px 높이
+- `channelLogoX=2.2, channelLogoY=4.2` → 좌상단 여백 ≈ 42×45px
+- `spectrumOverlay` → 화면 우하단 코너 (leftPct=86.5% 시작, 너비 13%, 높이 6.5%)
+- `textOverlays topPct=7.2/9.4` → 화면 상단 중앙 (y≈78px / y≈102px at 1080p)
+- `previewWidth=1920, previewHeight=1080` → fontSize=실제 픽셀 크기 (font_scale=1.0)
+- `fontSize=18` → 18px 렌더 (트랙명 표시 적정값, 15곡이 한 줄에 넘치면 14~16으로 줄임)
 
-**품질 체크 추가:**
-- [ ] `channel_logo.png` 파일이 지정 경로에 존재하는지 확인 (`ls {assetsDir}/channel_logo.png`)
-- [ ] 트랙리스트 2줄이 화면 하단에 잘림 없이 표시되는지 확인 (topPct 88/92, 각 행 ~38px)
-- [ ] 스펙트럼이 Playlist 텍스트(중앙 ~46%)와 트랙리스트(88%~) 사이에 위치하는지 확인
+**배경 밝기에 따른 색상 선택:**
+- 밝은 배경 → `Playlist_Black.png`, `logo_Black.png`, `color: "black"`, `"#000000"`
+- 어두운 배경 → `Playlist_White.png`, `logo_White.png`, `color: "white"`, `"#ffffff"`
+
+**품질 체크:**
+- [ ] `logo_White.png` / `logo_Black.png` 파일 존재 확인
+- [ ] `Playlist_White.png` / `Playlist_Black.png` 파일 존재 확인
+- [ ] 트랙리스트 2줄이 화면 상단에 잘림 없이 표시되는지 확인 (topPct 7.2/9.4)
+- [ ] 스펙트럼이 화면 우하단 코너에 표시되는지 확인 (leftPct 86.5%)
+- [ ] 채널 로고가 화면 좌상단에 표시되는지 확인 (channelLogoX 2.2%, channelLogoY 4.2%)
 
 ---
 
