@@ -128,10 +128,16 @@ def create_draft(params: dict) -> dict:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print(json.dumps({"error": "params JSON 인수가 필요합니다."}))
+        print(json.dumps({"error": "사용법: python create_capcut_draft.py <JSON문자열> 또는 --params-file <경로>"}))
         sys.exit(1)
     try:
-        params = json.loads(sys.argv[1])
+        if sys.argv[1] == "--params-file":
+            if len(sys.argv) < 3:
+                raise ValueError("--params-file 뒤에 파일 경로가 필요합니다.")
+            with open(sys.argv[2], encoding="utf-8") as f:
+                params = json.load(f)
+        else:
+            params = json.loads(sys.argv[1])
         result = create_draft(params)
     except Exception as e:
         result = {"error": str(e)}

@@ -13,8 +13,26 @@ tools: [Read, Write, Bash, Glob, SendMessage]
 
 ## 역할
 - concept_brief.json과 music_info.json 기반으로 YouTube 메타데이터 작성
-- 완성 영상을 비공개로 YouTube 업로드
+- 완성 영상을 비공개로 YouTube 업로드 (FFmpeg 모드)
 - 업로드 결과를 upload_result.json으로 저장
+
+---
+
+## 파이프라인 모드 분기
+
+**작업 시작 전 가장 먼저 실행:**
+
+```bash
+PIPELINE_MODE=$(python3 -c "import json; d=json.load(open('${PROJECT_DIR}/strategist/concept_brief.json')); print(d.get('pipelineMode','ffmpeg'))" 2>/dev/null || echo "ffmpeg")
+echo "pipelineMode: $PIPELINE_MODE"
+```
+
+- **`ffmpeg`** (기본/없는 경우): 아래 일반 절차(0번~회의록)를 그대로 실행한다.
+- **`capcut`**: **"## CapCut 모드 작업"** 섹션만 실행하고 업로드는 진행하지 않는다.
+
+또는 capcut-draft-producer로부터 받은 SendMessage에 `pipelineMode: capcut`이 명시된 경우에도 CapCut 모드로 동작한다.
+
+---
 
 ---
 
@@ -285,6 +303,165 @@ URL: {url}
 ```bash
 cat >> "${PROJECT_DIR}/conversation_log.md" << EOF
 [$(date '+%H:%M:%S')] youtube-uploader → qa-inspector
+{위에서 실제로 보낸 메시지 원문}
+
+EOF
+```
+
+---
+
+## CapCut 모드 작업
+
+**이 섹션은 `pipelineMode: capcut`인 경우에만 실행한다. 업로드는 하지 않는다.**
+
+### C-1. 트랙 순서 및 타임스탬프 계산
+
+capcut-draft-producer로부터 전달받은 musicFiles 배열 순서를 기준으로 한다.
+
+```bash
+# _capcut_params.json에서 musicFiles 경로 목록 추출 (VPS Linux 경로로 역변환)
+# Z:\home\dgm\... → /home/dgm/...
+python3 -c "
+import json, sys
+p = json.load(open('${PROJECT_DIR}/capcut-draft-producer/_capcut_params.json'))
+for mf in p['musicFiles']:
+    path = mf['path'].replace('Z:\\\\', '/').replace('\\\\', '/')
+    print(path + '|' + mf['title'])
+"
+```
+
+각 파일을 ffprobe로 직접 실측하여 누적 시작 시간 계산:
+
+```bash
+python3 << 'PYEOF'
+import json, subprocess, sys
+
+with open('${PROJECT_DIR}/capcut-draft-producer/_capcut_params.json') as f:
+    p = json.load(f)
+
+tracks = []
+cursor_sec = 0
+for mf in p['musicFiles']:
+    vps_path = mf['path'].replace('Z:\\\\', '/').replace('\\\\', '/')
+    try:
+        result = subprocess.run(
+            ['ffprobe', '-v', 'error', '-show_entries', 'format=duration',
+             '-of', 'default=noprint_wrappers=1:nokey=1', vps_path],
+            capture_output=True, text=True
+        )
+        dur_sec = float(result.stdout.strip() or '0')
+    except Exception:
+        dur_sec = 180.0
+    h = int(cursor_sec // 3600)
+    m = int((cursor_sec % 3600) // 60)
+    s = int(cursor_sec % 60)
+    ts = f'{h}:{m:02d}:{s:02d}' if h > 0 else f'{m}:{s:02d}'
+    tracks.append({'timestamp': ts, 'title': mf['title'], 'durationSec': dur_sec})
+    cursor_sec += dur_sec
+
+with open('${PROJECT_DIR}/capcut-draft-producer/_track_timestamps.json', 'w') as f:
+    json.dump(tracks, f, ensure_ascii=False, indent=2)
+print(json.dumps(tracks, ensure_ascii=False, indent=2))
+PYEOF
+```
+
+### C-2. 메타데이터 문서 작성
+
+입력 파일 읽기:
+```bash
+cat "${PROJECT_DIR}/strategist/concept_brief.json"
+```
+
+`{PROJECT_DIR}/youtube-uploader/_youtube_meta.md` 를 Write 도구로 작성:
+
+````markdown
+# YouTube 메타데이터 — {projectId}
+
+생성일: {날짜}
+트랙 수: {N}곡
+
+---
+
+## 제목 (YouTube 제목란에 붙여넣기)
+
+```
+𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | {concept_brief.youtubeTitle}
+```
+
+---
+
+## 설명 (YouTube 설명란에 붙여넣기)
+
+```
+{해시태그1} {해시태그2} {해시태그3} ...
+
+{본문 설명 — 채널 분위기에 맞는 구어체. concept_brief의 mood/targetAudience/trendReference 반영.}
+
+⏱ Track list
+0:00 {트랙 제목 1}
+{타임스탬프} {트랙 제목 2}
+{타임스탬프} {트랙 제목 3}
+...
+```
+
+---
+
+## 태그 (YouTube 태그란에 붙여넣기)
+
+```
+플레이리스트, 감성음악, KoreanPlaylist, ChillMusic, 음악모음, {컨셉 키워드들}
+```
+
+---
+
+## 설정
+
+- **공개 범위**: 비공개 (검토 후 수동으로 공개 전환)
+- **카테고리**: 음악
+- **어린이용**: 아니오
+- **변경/합성 콘텐츠**: 예 (AI 생성 음악 포함)
+````
+
+**작성 기준 (FFmpeg 모드 설명 섹션 3과 동일):**
+- 해시태그 10개 이상
+- "AI가 생성한" 등 AI 언급 문구 금지
+- "저작권 걱정 없이" 등 저작권 안심 멘트 금지
+- 트랙리스트 타임스탬프: mm:ss 형식 (1시간 초과 시 h:mm:ss)
+
+### C-3. 출력 디렉터리 생성 및 회의록 기록
+
+```bash
+mkdir -p "${PROJECT_DIR}/youtube-uploader"
+
+cat >> "${PROJECT_DIR}/meeting_log.md" << EOF
+## youtube-uploader (CapCut 모드) — $(date '+%Y-%m-%d %H:%M:%S')
+- 모드: capcut (업로드 없음, 메타데이터 문서만 작성)
+- _youtube_meta.md: ${PROJECT_DIR}/youtube-uploader/_youtube_meta.md
+- YouTube 제목: 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | {youtubeTitle}
+- 트랙 수: {N}곡
+
+---
+EOF
+```
+
+### C-4. orchestrator에게 완료 보고
+
+```
+[youtube-uploader → orchestrator]
+CapCut 모드 메타데이터 문서 작성 완료.
+
+projectId: {projectId}
+_youtube_meta.md: {projectDir}/youtube-uploader/_youtube_meta.md
+YouTube 제목: 𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭 | {youtubeTitle}
+트랙 수: {N}곡
+
+사용자가 CapCut에서 영상 편집 완료 후 _youtube_meta.md를 참조해서 직접 업로드하면 됩니다.
+```
+
+SendMessage 즉시 conversation_log.md에 기록:
+```bash
+cat >> "${PROJECT_DIR}/conversation_log.md" << EOF
+[$(date '+%H:%M:%S')] youtube-uploader → orchestrator
 {위에서 실제로 보낸 메시지 원문}
 
 EOF
