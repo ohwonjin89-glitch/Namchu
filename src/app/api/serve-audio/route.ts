@@ -28,6 +28,12 @@ export async function GET(req: NextRequest) {
     '.mov': 'video/quicktime',
     '.webm': 'video/webm',
     '.avi': 'video/x-msvideo',
+    '.png': 'image/png',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.gif': 'image/gif',
+    '.webp': 'image/webp',
+    '.svg': 'image/svg+xml',
   };
   const contentType = mime[ext] || 'application/octet-stream';
 

@@ -428,8 +428,9 @@ def _css_color_to_ffmpeg(css_color):
     return "0xFFFFFF"
 
 
-def build_video_filter(bg_idx, audio_idx, logo_idx, spec_idx, VW, VH,
-                        logo_w_px, overlay_x, logo_v_pos, logo_opacity,
+def build_video_filter(bg_idx, audio_idx, logo_idx, spec_idx, ch_logo_idx,
+                        VW, VH, logo_w_px, overlay_x, logo_v_pos, logo_opacity,
+                        ch_logo_size_pct, ch_logo_x_pct, ch_logo_y_pct,
                         spectrum_cfg, text_overlays, preview_w, preview_h):
     """
     동적으로 FFmpeg filter_complex 문자열을 생성한다.
@@ -508,7 +509,19 @@ def build_video_filter(bg_idx, audio_idx, logo_idx, spec_idx, VW, VH,
         parts.append(f"[{cur}][spec_o]overlay={sx}:{sy}:format=auto:eof_action=repeat[{nxt}]")
         cur = nxt
 
-    # 4. 텍스트 오버레이 (drawtext)
+    # 4. 채널 로고 오버레이 (좌상단 브랜딩)
+    if ch_logo_idx is not None:
+        ch_w_px = max(1, int(VW * ch_logo_size_pct / 100))
+        ch_x    = max(0, int(VW * ch_logo_x_pct   / 100))
+        ch_y    = max(0, int(VH * ch_logo_y_pct   / 100))
+        parts.append(
+            f"[{ch_logo_idx}:v]scale={ch_w_px}:-1:flags=lanczos,format=rgba[ch_logo_o]"
+        )
+        nxt = 'v_ch_logo'
+        parts.append(f"[{cur}][ch_logo_o]overlay={ch_x}:{ch_y}:format=auto[{nxt}]")
+        cur = nxt
+
+    # 5. 텍스트 오버레이 (drawtext)
     pw = preview_w or 500
     ph = preview_h or 281
     sx_scale = VW / pw
@@ -524,6 +537,13 @@ def build_video_filter(bg_idx, audio_idx, logo_idx, spec_idx, VW, VH,
         txt = unicodedata.normalize('NFKC', txt)
         x_px = max(0, int(ot.get('leftPct', 10) / 100 * VW))
         y_px = max(0, int(ot.get('topPct',  10) / 100 * VH))
+        align = ot.get('textAlign', 'left')
+        if align == 'center':
+            x_expr = "(w-tw)/2"
+        elif align == 'right':
+            x_expr = f"w-tw-{x_px}"
+        else:
+            x_expr = str(x_px)
         fs   = max(12, int(ot.get('fontSize', 24) * font_scale))
         ff_color = _css_color_to_ffmpeg(ot.get('color', '#ffffff'))
         alpha    = max(0.0, min(1.0, float(ot.get('opacity', 1.0))))
@@ -549,7 +569,7 @@ def build_video_filter(bg_idx, audio_idx, logo_idx, spec_idx, VW, VH,
         font_f_escaped = font_f.replace(':', '\\:')
         dt = (f"drawtext=text='{safe_txt}'"
               f":fontfile='{font_f_escaped}'"
-              f":x={x_px}:y={y_px}"
+              f":x={x_expr}:y={y_px}"
               f":fontsize={fs}"
               f":fontcolor={fc}")
         nxt = f'v_txt{i}'
@@ -586,6 +606,10 @@ def run_api_mode(config_path):
     logo_v_pos     = int(cfg.get("logoVPos", 20))
     logo_size      = int(cfg.get("logoSize", 28))
     logo_opacity   = float(cfg.get("logoOpacity", 1.0))
+    ch_logo_path  = cfg.get("channelLogoPath", "")
+    ch_logo_size  = float(cfg.get("channelLogoSize", 12))
+    ch_logo_x     = float(cfg.get("channelLogoX", 3))
+    ch_logo_y     = float(cfg.get("channelLogoY", 4))
     output_dir     = cfg.get("outputDir", "")
     output_name    = cfg.get("outputFileName", "output.mp4")
     # texts/spectrum/watermark 키를 textOverlays/spectrumOverlay로 변환 (Python 오케스트레이터용)
@@ -711,13 +735,19 @@ def run_api_mode(config_path):
         cmd_inputs += ["-stream_loop", "-1", "-an", "-i", spectrum_cfg["filePath"]]
         spec_idx  = next_idx; next_idx += 1
 
+    ch_logo_idx = None
+    if ch_logo_path and os.path.exists(ch_logo_path):
+        cmd_inputs += ["-loop", "1", "-i", ch_logo_path]
+        ch_logo_idx = next_idx; next_idx += 1
+
     # 음악 길이를 명시적으로 지정 (-shortest 대체)
     audio_duration = get_audio_duration(combined_audio)
 
     # ── filter_complex 생성 ────────────────────────────────────────
     filter_cx, out_label = build_video_filter(
-        bg_idx, audio_idx, logo_idx, spec_idx,
+        bg_idx, audio_idx, logo_idx, spec_idx, ch_logo_idx,
         VW, VH, logo_w_px, overlay_x, logo_v_pos, logo_opacity,
+        ch_logo_size, ch_logo_x, ch_logo_y,
         spectrum_cfg, text_overlays, preview_w, preview_h
     )
 

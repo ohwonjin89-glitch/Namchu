@@ -66,6 +66,7 @@ export async function POST(req: NextRequest) {
     const child = spawn(getPythonCommand(), [SCRIPT_PATH, '--config', configPath], {
       windowsHide: true,
       stdio: ['ignore', 'pipe', 'pipe'],
+      env: { ...process.env, PYTHONIOENCODING: 'utf-8', PYTHONUTF8: '1' },
     });
 
     // spawn 자체가 실패하면(ENOENT 등) 'close' 이벤트가 발생하지 않아

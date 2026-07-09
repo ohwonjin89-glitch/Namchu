@@ -14,7 +14,7 @@ tools: [Read, Write, Bash, Glob, SendMessage]
 ## 역할
 - music-generator·image-generator 결과물을 받아 최종 영상 합성
 - **기본 오버레이는 `Playlist` 텍스트 + 오디오스펙트럼** (흑/백은 배경 밝기로 자동 선택). `DGM Playlist` 채널 로고는 사용자가 명시적으로 요청한 경우에만 사용한다.
-- **곡 순서 결정**: A버전 전체를 먼저, B버전 전체를 이어서 배치(블록 단위, 곡마다 번갈아 배치하지 않음). 각 블록 내에서는 가사가 도입부부터 즉시 시작하는 곡을 첫 곡으로 배치
+- **곡 순서 결정**: 선정곡(01~15번) 전체를 먼저, 비선정곡(16~30번) 전체를 이어서 배치(블록 단위). 각 블록 내에서는 가사가 도입부부터 즉시 시작하는 곡을 첫 곡으로 배치
 - 완성 영상 품질 확인 후 youtube-uploader에 전달
 
 ---
@@ -60,12 +60,12 @@ tools: [Read, Write, Bash, Glob, SendMessage]
 영상 합성 전에 music_info.json을 읽어 곡 순서를 확정한다.
 
 **규칙:**
-1. **A버전 전체를 먼저, B버전 전체를 이어서 배치**한다 (곡마다 A,B를 번갈아 배치하지 않는다 — music-generator가 같은 호출에서 나온 A/B를 둘 다 살려 쓰기 시작했으므로, 같은 멜로디의 두 버전이 연속으로 들리지 않도록 블록 단위로 떼어놓는다).
-2. 각 블록(A블록/B블록) 내부에서는 `lyricsStartsImmediately: true`인 곡을 그 블록의 **첫 번째 트랙**으로 배치한다.
-3. A블록의 마지막 곡과 B블록의 첫 곡이 같은 `pairId`(=같은 Suno 호출에서 나온 A/B 쌍)이면, 같은 곡이 경계에서 바로 이어지므로 B블록 내에서 자리를 한 번 바꿔 피한다.
+1. **선정곡(usage: "selected") 전체를 먼저, 비선정곡(usage: "rejected") 전체를 이어서 배치**한다 (곡마다 번갈아 배치하지 않는다 — 동일 호출에서 나온 선정/비선정이 연속으로 들리지 않도록 블록 단위로 떼어놓는다).
+2. 각 블록(선정 블록/비선정 블록) 내부에서는 `lyricsStartsImmediately: true`인 곡을 그 블록의 **첫 번째 트랙**으로 배치한다.
+3. 파일명 번호(01~15 / 16~30) 기준으로 정렬하되, `lyricsStartsImmediately` 우선 정렬을 그 위에 적용한다.
 
 ```python
-import json, os
+import json, os, re
 
 PROJECT_DIR = '{PROJECT_DIR}'
 SELECTED = os.path.join(PROJECT_DIR, 'music-generator', 'selected')
@@ -73,16 +73,14 @@ SELECTED = os.path.join(PROJECT_DIR, 'music-generator', 'selected')
 info = json.load(open(f'{PROJECT_DIR}/music-generator/music_info.json'))
 tracks = info['tracks']
 
-import re
 def slug(title):
     return re.sub(r'[^a-z0-9_]', '', title.lower().replace(' ', '_'))
 
 def resolve_filename(t):
-    # filename 필드가 있으면 그대로, 없으면 music-generator와 동일한 규칙으로 title을 슬러그화해서 추정
+    # filename 필드가 있으면 그대로, 없으면 슬러그화해서 추정
     return t.get('filename') or (slug(t['title']) + '.mp3')
 
-# qa-inspector의 음악 사전검수에서 가사없음/길이미달로 selected/_rejected/로 격리된 트랙은 제외한다.
-# (selected/에 실제 파일이 없는 항목도 동일하게 걸러낸다 — 곡 순서에 빈 자리가 생기지 않도록)
+# qa-inspector의 음악 사전검수에서 격리된 트랙 및 파일 없는 항목 제외
 before = len(tracks)
 for t in tracks:
     t['filename'] = resolve_filename(t)
@@ -91,23 +89,25 @@ skipped = before - len(tracks)
 if skipped:
     print(f"제외된 트랙: {skipped}개 (음악 사전검수에서 격리되었거나 파일 없음)")
 
-a_tracks = [t for t in tracks if t.get('version') == 'A']
-b_tracks = [t for t in tracks if t.get('version') == 'B']
+# usage 기반 분류: selected 블록(01~15) 먼저, rejected 블록(16~30) 이어서
+selected_tracks = [t for t in tracks if t.get('usage') == 'selected']
+rejected_tracks = [t for t in tracks if t.get('usage') == 'rejected']
+fallback_tracks  = [t for t in tracks if t.get('usage') not in ('selected', 'rejected')]  # single_fallback 등
 
-# 블록 내부: 가사 즉시 시작 곡을 최우선으로
-a_tracks.sort(key=lambda t: not t.get('lyricsStartsImmediately', False))
-b_tracks.sort(key=lambda t: not t.get('lyricsStartsImmediately', False))
+# 파일명 번호 기준 정렬 (01_, 02_, ... 안정 정렬 기반)
+selected_tracks.sort(key=lambda t: t['filename'])
+rejected_tracks.sort(key=lambda t: t['filename'])
 
-# A/B 경계에서 같은 pairId(동일 곡)가 바로 이어지면 보정
-if a_tracks and b_tracks and len(b_tracks) > 1 and a_tracks[-1]['pairId'] == b_tracks[0]['pairId']:
-    b_tracks[0], b_tracks[1] = b_tracks[1], b_tracks[0]
+# 각 블록 첫 곡: lyricsStartsImmediately: true 우선 (stable sort — 번호 순 유지하면서 true가 앞으로)
+selected_tracks.sort(key=lambda t: not t.get('lyricsStartsImmediately', False))
+rejected_tracks.sort(key=lambda t: not t.get('lyricsStartsImmediately', False))
 
-ordered_tracks = a_tracks + b_tracks
-print("A블록:", len(a_tracks), "곡 / B블록:", len(b_tracks), "곡")
+ordered_tracks = selected_tracks + rejected_tracks + fallback_tracks
+print("선정 블록:", len(selected_tracks), "곡 / 비선정 블록:", len(rejected_tracks), "곡")
 print("첫 곡:", ordered_tracks[0]['title'] if ordered_tracks else "없음")
 ```
 
-> `single_fallback`(한쪽만 완성된 트랙)은 `version` 필드 없이 들어올 수 있다 — 이런 트랙은 A블록 끝에 붙인다.
+> `single_fallback`(한쪽만 완성된 트랙)은 `usage` 필드 없이 들어올 수 있다 — 이런 트랙은 `fallback_tracks`로 분류되어 비선정 블록 뒤에 붙는다.
 
 곡 순서가 selected/ 폴더의 기본 순서와 다르면 FFmpeg concat 목록을 재구성한다. **확정한 순서는 `track_order.json`으로 저장**해서 youtube-uploader가 트랙리스트 타임스탬프를 정확한 재생 순서로 계산할 수 있게 한다:
 
@@ -126,7 +126,7 @@ json.dump(ordered, open('${PROJECT_DIR}/video-producer/track_order.json', 'w'), 
 
 **이 섹션은 절대 건너뛰거나 임의 순서로 대체하지 않는다.** `music-generator`는 `selected/` 폴더에 트랙 파일만 낱개로 저장할 뿐, 합쳐진 오디오 파일을 만들지 않는다 — 합치는 책임은 100% video-producer에게 있다. 아래 세 가지 사고가 실제로 발생한 적이 있고, 모두 이 단계를 제대로 하지 않아서 생긴 문제다.
 
-> **실제 사고 사례**: 트랙리스트가 실제 영상 재생 순서와 안 맞고, A/B 버전이 블록 단위가 아니라 번갈아 재생되고, 곡이 중간에 끊기고 다음 곡으로 넘어가는 현상이 동시에 보고되었다. 세 가지 모두 아래 원인 중 하나다 — (1) `selected/*.mp3`를 glob 기본 순서(A1,B1,A2,B2... 순서로 저장되어 있어 자동으로 번갈아 나옴)로 그대로 합쳤거나, (2) concat demuxer를 `-c copy`(스트림 복사)로 돌려서 mp3 프레임 경계가 어긋나 재생 중 끊김/잡음이 생겼거나, (3) `track_order.json`과 실제 합친 순서가 서로 다른 채로 둘 다 만들어졌기 때문이다.
+> **실제 사고 사례**: 트랙리스트가 실제 영상 재생 순서와 안 맞고, 선정/비선정 곡이 블록 단위가 아니라 번갈아 재생되고, 곡이 중간에 끊기고 다음 곡으로 넘어가는 현상이 동시에 보고되었다. 세 가지 모두 아래 원인 중 하나다 — (1) `selected/*.mp3`를 glob 기본 순서(파일명 알파벳 순)로 그대로 합쳤거나, (2) concat demuxer를 `-c copy`(스트림 복사)로 돌려서 mp3 프레임 경계가 어긋나 재생 중 끊김/잡음이 생겼거나, (3) `track_order.json`과 실제 합친 순서가 서로 다른 채로 둘 다 만들어졌기 때문이다.
 
 **1. concat 목록 파일은 반드시 `track_order.json`(또는 직전에 계산한 `ordered_tracks`)에서 생성한다 — `selected/` 디렉터리 glob 순서(`ls selected/*.mp3` 등)를 그대로 쓰지 않는다:**
 
@@ -275,6 +275,103 @@ else:
 - **`textOverlays`는 기본적으로 빈 배열로 둔다.** Display sample 기준 디자인에는 영상에 별도 제목 텍스트를 박지 않는다 — 제목은 YouTube 메타데이터(영상 제목)로만 노출한다. 과거 `textOverlays`에 제목을 넣었다가 (1) 긴 제목이 화면 우측 끝을 벗어나 잘려 보이고 (2) 스펙트럼 바 영역과 겹쳐 스펙트럼이 안 보이는 사고가 2026062701 프로젝트에서 있었다. 사용자가 명시적으로 텍스트 오버레이를 요청한 경우에만 채우고, 그 외에는 비워둔다. 정말 채워야 하는 경우 `topPct`가 스펙트럼 위치(72~92% 구간)와 겹치지 않게 하고, 텍스트가 길면 fontSize를 줄이거나 줄바꿈을 직접 넣는다 (자동 줄바꿈/축소 로직 없음).
 - **스펙트럼은 코드상 항상 "원본 해상도에서 크로마키 처리 → 축소" 순서로 처리된다** (`make_video.py`). 축소를 먼저 하면 그린 배경색이 인접 픽셀과 섞여 가장자리에 초록 잔상·흐림이 남는 화질 저하가 발생했던 적이 있어 순서를 고정했다. `widthPct`/`heightPct`를 키워도 화질이 흐려지지 않아야 정상이며, 흐릿하게 보이면 코드 회귀를 의심한다.
 - 텍스트의 `𝐏𝐥𝐚𝐲𝐥𝐢𝐬𝐭` 같은 유니코드 굵은체는 그대로 써도 된다 — `make_video.py`가 NFKC 정규화로 자동 변환해서 깨지지 않게 렌더링한다 (직접 폰트 글리프에 의존하지 않음).
+
+### 3-b. 채널 로고 + 트랙리스트 레이아웃 (`channelLogoPath` + `textOverlays`)
+
+사용자가 "채널 로고 좌상단 + 하단 트랙리스트" 레이아웃을 요청한 경우 아래 추가 필드를 `_config.json`에 넣는다.
+
+**채널 로고 파일 경로** (사용자가 파일을 미리 업로드해야 함):
+- VPS: `/home/dgm/suno-api/.claude/agents/assets/channel_logo.png`
+- Windows: `C:\suno-api\.claude\agents\assets\channel_logo.png`
+
+**Playlist 텍스트 PNG** — 기존 `logoPath`는 "Playlist" + 서브타이틀이 합쳐진 PNG를 가리킨다 (사용자가 별도 제공). 파일명 예: `Playlist_subtitle_White.png`. 없으면 기존 `Playlist text_White.png` 사용.
+
+**트랙리스트 조립 코드** — 곡 순서 결정(`ordered_tracks`) 직후 실행:
+
+```python
+import re
+
+def clean_title(t):
+    return re.sub(r'[⭐★⭑]', '', t.get('title', '')).strip()
+
+sel_titles = [clean_title(t) for t in selected_tracks]
+# 8 + 나머지로 2줄 분할
+line1 = ' · '.join(sel_titles[:8])
+line2 = ' · '.join(sel_titles[8:]) if len(sel_titles) > 8 else None
+
+track_overlays = [{
+    "text": line1, "textAlign": "center",
+    "leftPct": 0, "topPct": 88, "fontSize": 10,
+    "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light"
+}]
+if line2:
+    track_overlays.append({
+        "text": line2, "textAlign": "center",
+        "leftPct": 0, "topPct": 92, "fontSize": 10,
+        "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light"
+    })
+```
+
+**`_config.json` 전체 예시** (채널 로고 + 트랙리스트 레이아웃):
+
+```json
+{
+  "bgImagePath": "{PROJECT_DIR}/image-generator/selected/background_final.jpg",
+  "audioPath": "{PROJECT_DIR}/music-generator/music_final.mp3",
+  "outputDir": "{PROJECT_DIR}/video-producer",
+  "outputFileName": "playlist.mp4",
+
+  "logoPath": "{assetsDir}/Playlist_subtitle_White.png",
+  "logoHPos": 50,
+  "logoVPos": 39,
+  "logoSize": 54,
+  "logoOpacity": 1.0,
+
+  "channelLogoPath": "{assetsDir}/channel_logo.png",
+  "channelLogoSize": 10,
+  "channelLogoX": 3,
+  "channelLogoY": 4,
+
+  "spectrumOverlay": {
+    "filePath": "{assetsDir}/Audio_spectrum/Audio_spectrum_Green_Screen_transparent.webm",
+    "leftPct": 20,
+    "topPct": 68,
+    "widthPct": 60,
+    "heightPct": 10,
+    "opacity": 1.0,
+    "tolerance": 80,
+    "color": "white"
+  },
+
+  "textOverlays": [
+    { "text": "Title 1 · Title 2 · ... · Title 8",
+      "textAlign": "center", "leftPct": 0, "topPct": 88,
+      "fontSize": 10, "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light" },
+    { "text": "Title 9 · ... · Title 15",
+      "textAlign": "center", "leftPct": 0, "topPct": 92,
+      "fontSize": 10, "color": "#ffffff", "opacity": 0.75, "fontLabel": "pretendard light" }
+  ],
+
+  "previewWidth": 500,
+  "previewHeight": 281
+}
+```
+
+**파라미터 설명:**
+- `channelLogoSize` 10 = 화면 너비의 10% (≈192px). 로고가 크거나 작으면 8~15 범위에서 조정.
+- `channelLogoX` 3 / `channelLogoY` 4 = 좌상단에서 3%/4% 여백 (≈58px / 43px).
+- `spectrumOverlay.leftPct=20, widthPct=60` = 화면 중앙에 넓게 (20~80% 구간).
+- `spectrumOverlay.topPct=68, heightPct=10` = Playlist 텍스트 아래, 트랙리스트 위.
+- `textAlign: "center"` = FFmpeg drawtext `x=(w-tw)/2` 정확한 중앙 배치.
+- `fontSize=10` → 실제 렌더 약 38px (500px 프리뷰 기준 스케일 ×3.84 적용 시).
+- `channelLogoPath`가 없거나 파일이 존재하지 않으면 해당 오버레이를 자동으로 건너뜀.
+
+**품질 체크 추가:**
+- [ ] `channel_logo.png` 파일이 지정 경로에 존재하는지 확인 (`ls {assetsDir}/channel_logo.png`)
+- [ ] 트랙리스트 2줄이 화면 하단에 잘림 없이 표시되는지 확인 (topPct 88/92, 각 행 ~38px)
+- [ ] 스펙트럼이 Playlist 텍스트(중앙 ~46%)와 트랙리스트(88%~) 사이에 위치하는지 확인
+
+---
 
 ### 4. 애니메이션 가이드 (참고용 — 현재 `make_video.py`는 정적 합성만 지원)
 

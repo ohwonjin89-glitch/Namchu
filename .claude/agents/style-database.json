@@ -1,8 +1,8 @@
 {
   "version": "1.0",
   "description": "Gemini API 영상 분석으로 학습된 스타일 데이터베이스. gemini_analyzer.py가 자동 관리.",
-  "last_updated": "2026-07-03T07:58:56.363992",
-  "analyzed_count": 23,
+  "last_updated": "2026-07-03T08:10:40.676521",
+  "analyzed_count": 58,
   "genres": {
     "Groove Hip-hop & Chill Pop": {
       "name_ko": "Groove Hip-hop & Chill Pop",
@@ -226,6 +226,345 @@
           "vocal_gender": "female",
           "vocal_tone": "몽환적",
           "bpm": 88
+        }
+      ]
+    },
+    "Upbeat City Pop & Funk Groove": {
+      "name_ko": "Upbeat City Pop & Funk Groove",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=T_lC2O1oIew",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-03T07:59:16.536699",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 112
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=z7tGVrdmHNk",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-03T07:59:49.662083",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 95
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=KYYmdRLJ4O8",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-03T08:00:09.484700",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 95
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=PXkaGbcJDhA",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-03T08:00:31.530213",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 92
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=3yE7UFS_4ag",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-03T08:00:52.751558",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 112
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=v7frfweReWY",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-03T08:01:08.780539",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 112
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=GN0FbB5cTxA",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-03T08:01:29.812051",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 115
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=tqkHyHNEpQg",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-03T08:01:46.075682",
+          "vocal_gender": "female",
+          "vocal_tone": "청량한",
+          "bpm": 112
+        }
+      ]
+    },
+    "Acoustic Indie Pop & Folk Soul": {
+      "name_ko": "Acoustic Indie Pop & Folk Soul",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=N_7QscATi2g",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-03T08:02:07.019641",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=s56q_90bxOg",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-03T08:02:38.256266",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=0HAvEIHmRjo",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-03T08:02:58.355059",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 94
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=cBfjyjkSVqo",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-03T08:03:13.184103",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 85
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=zdtZutkLyKQ",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-03T08:03:29.199123",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 88
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=rsO5YqLgkLQ",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-03T08:03:43.654059",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 86
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=RY1HYNGpQkc",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-03T08:04:08.848481",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 85
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=enh2DCSaHjw",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-03T08:04:30.625797",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 88
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=GUa-ycD-EoM",
+          "source": "user_curated",
+          "track_number": 9,
+          "analyzed_at": "2026-07-03T08:04:48.323643",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 88
+        }
+      ]
+    },
+    "Chillwave & Synth Pop": {
+      "name_ko": "Chillwave & Synth Pop",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=6Kj1POpGqfk",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-03T08:05:07.074752",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 84
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=YOyH95iWQ-U",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-03T08:05:20.631640",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 84
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=r3L5kbg7S5E",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-03T08:05:36.022023",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 86
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=oGRbpUocT6s",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-03T08:05:54.207460",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=EAgVfwDTR0o",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-03T08:06:16.357812",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 95
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=kf9RRsa6buI",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-03T08:06:32.637611",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 84
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=S22A5uqy5iU",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-03T08:06:46.088476",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 95
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=MJPOC53yPHM",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-03T08:07:01.347325",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 94
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=1eKUt634m2Q",
+          "source": "user_curated",
+          "track_number": 9,
+          "analyzed_at": "2026-07-03T08:07:18.217664",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 96
+        }
+      ]
+    },
+    "Jazz-hop & Bossa Nova Chill": {
+      "name_ko": "Jazz-hop & Bossa Nova Chill",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=sGYVbOXSGmE",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-03T08:07:36.419207",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 90
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=hKq5P52XyJc",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-03T08:07:50.318526",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 88
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=LbUm8ve40W8",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-03T08:08:06.094952",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=u8InP8o9WIs",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-03T08:08:54.937662",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 84
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=0_eW2MtZf6Q",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-03T08:09:17.710127",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 85
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=GqJYN9VajX0",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-03T08:09:32.330870",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=2mjElnVIZ6w",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-03T08:09:52.556284",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 85
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=XkuQ6s2Ssu0",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-03T08:10:16.518726",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 90
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=MtHC0gdGtMo",
+          "source": "user_curated",
+          "track_number": 9,
+          "analyzed_at": "2026-07-03T08:10:40.676479",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 86
         }
       ]
     }

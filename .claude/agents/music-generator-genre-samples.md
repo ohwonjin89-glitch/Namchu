@@ -359,324 +359,6 @@ We don't chase it
 We just breathe once
 And come find us
 ```
-
-### 레퍼런스 6
-> 원본: https://www.youtube.com/watch?v=HM-qmO9O__0
-
-```
-1) Styles
-Late Night R&B & Soul featuring a cozy electric bassline, warm electric piano chords, and a laid-back mid-tempo beat. The track is led by a smooth, intimate female vocal with a warm and soulful tone, delivering a comforting and contemplative vibe at 86 BPM.
-
-2) Lyrics
-[Verse 1]
-(Softly singing)
-Phone face down, screen still buzzing on the table
-Same three names, same old "are you free tonight?"
-Left on read, half a sandwich in the fridge like
-Talking back to the silence of my mind
-
-[Chorus]
-(Emphasizing the beat)
-Do not disturb me
-I'm busy learning how to breathe alone in this small room
-Just my heartbeat and the sheets, do not disturb me
-Let me fall apart in peace, if I don't pick up
-That's me, picking me
-
-[Verse 2]
-(Calmly)
-Dirty mugs, ring-shaped ghosts on the counter
-Curtains drawn, sun keeps sneaking in anyway
-Half-done plans, pinned like pictures on a corkboard
-Every call feels like someone wants a piece
-
-[Chorus]
-(With emotion)
-Do not disturb me
-I'm busy learning how to breathe alone in this small room
-Just my heartbeat and the sheets, do not disturb me
-Let me fall apart in peace, if I don't pick up
-That's me, picking me
-
-[Bridge]
-(Building up softly)
-I always said yes to the world till I lost me
-Gave all my hours till my days stopped healing
-So if you hear that tone and it cuts off early
-That's just my little wall, my quiet mercy
-
-[Chorus]
-(Stronger vocals)
-Do not disturb me
-I'm busy learning how to breathe alone in this small room
-Just my heartbeat and the sheets, do not disturb me
-Let me fall apart in peace, if I don't pick up
-That's me, picking me
-```
-
-### 레퍼런스 7
-> 원본: https://www.youtube.com/watch?v=E1pqQm46VXQ
-
-```
-1) Styles
-This is a warm Acoustic Indie Pop song featuring gentle acoustic guitar strumming and a soft, comforting male vocal. The slow tempo of 78 BPM, accompanied by subtle percussion and ambient synth undertones, creates a cozy, nostalgic, and emotional late-night cafe atmosphere.
-
-2) Lyrics
-[Verse 1]
-(Acoustic guitar begins softly with gentle vocals)
-Two mugs on the counter
-Lip prints fading on the rim
-You know by the kettle
-Folded like a tiny hem
-
-[Chorus]
-(Warm percussion and bass join, elevating the cozy emotion)
-I'm holding the small things
-Like they're all I ever owned
-Crumbs on the table
-Your sweater on my chair at home
-I'm holding the small things
-So the big ones don't feel gone
-If I keep these pieces
-Maybe you're not really gone
-
-[Verse 2]
-(The rhythm slows down slightly, returning to a calmer acoustic vibe)
-Your key on the hook still
-Coat sleeve caught along the door
-That joke on a receipt slip
-Tucked inside the kitchen drawer
-
-[Chorus]
-(Fully instrumented, rich and emotional)
-I'm holding the small things
-Like they're all I ever owned
-Crumbs on the table
-Your sweater on my chair at home
-I'm holding the small things
-So the big ones don't feel gone
-If I keep these pieces
-Maybe you're not really gone
-
-[Bridge]
-(Muted acoustic guitar with soft synth pad, highly reflective)
-Late light through the blinds
-Dust dancing where you stand
-I trace every outline
-With my clumsy, empty hand
-
-[Chorus]
-(Dynamic swell, highly emotional vocal delivery)
-Oh, I'm holding the small things
-Like they're all I've ever known
-Name on the mailbox
-Old echoes in the dial tone
-I'm holding the small things
-Till the letting go feels kind
-If I keep these pieces
-You're still living in my mind
-```
-
-### 레퍼런스 8
-> 원본: https://www.youtube.com/watch?v=2bLRBEWVNGk
-
-```
-1) Styles
-Late Night R&B & Soul featuring a smooth Rhodes piano, a laid-back electric bassline, and warm, soulful female vocals with a moderate BPM of 84, creating a cozy and reflective mood.
-
-2) Lyrics
-[Verse 1]
-[Singing]
-You said you'd call by Friday
-I kept the whole night clear
-Left my jacket on the back chair
-Like you might end up here
-Watch the takeout getting colder
-Leaving grease on the lid
-All these plans I made for two
-Got charged to the kid I was
-
-[Chorus]
-[Singing]
-Now there's a late fee on my feelings
-Interest on these wasted nights
-Every promise that you left pending
-Shows up in the neon of my mind
-Guess my heart missed the due date on letting you go
-On healing, yeah
-I'm paying, overpaying
-There's a late fee on my feelings
-
-[Verse 2]
-[Singing]
-Still scrolling over receipts
-Little texts you used to send
-"Be right there" and blurry selfies
-In the corners of my weekends
-Friends say I should turn the page
-But I reread every line
-Like if I find a little clue, correct it
-You would love me on time
-
-[Chorus]
-[Singing]
-But there's a late fee on my feelings
-Stacked up charges I can't find
-Overdrafted on the maybes
-Chasing credits in your eyes
-Guess my heart missed the due date on saying goodbye
-On leaving, yeah
-I'm paying, overpaying
-There's a late fee on my feelings
-
-[Bridge]
-[Singing]
-Tell me, who do I call to
-Cancel this account?
-Is there a window where I
-Can finally write you out?
-I've been waiting in this lobby
-With your name up on the screen
-Take a number, take a breath
-Let the clerk refund the dream
-
-[Chorus]
-[Singing]
-Still there's a late fee on my feelings
-But I'm cutting up your ghost tonight
-Let the balance hit the zero
-Let the silence treat me right
-If my heart missed the due date, I'm starting a new time
-New meaning, yeah
-I'm paying, overpaying
-Now I'm waiving all my feelings
-On...
-Now I'm waiving all my feelings on...
-```
-
-### 레퍼런스 9
-> 원본: https://www.youtube.com/watch?v=y9_6kuq2pkM
-
-```
-An upbeat yet chill R&B-infused pop song featuring smooth male vocals, a grooving bassline, soft electric piano chords, and a laid-back mid-tempo beat, creating a warm, cozy, and romantic atmosphere.
-
-2) Lyrics
-[Verse 1]
-[Singing]
-You left your charger on my kitchen floor
-Guess that means you'll have to come back for more
-We're on the sofa, screen at three percent
-You laugh and say, "this feels permanent"
-
-[Chorus]
-[Rhythmic]
-We're just low battery love
-Holding on, holding on
-Red bubble blinking at the top
-But we run, yeah, we run
-If this cuts out tonight
-I'll still remember every touch
-Fading light, tired eyes
-That low battery love
-
-[Verse 2]
-[Singing]
-You kill your data, sending pics to me
-Crooked mirror, coffee, chipmunk teeth
-We keep on talking till the voices drag
-You fall asleep with the phone still warm in your hand
-
-[Chorus]
-[Rhythmic]
-We're just low battery love
-Holding on, holding on
-Red bubble blinking at the top
-But we run, yeah, we run
-If this cuts out tonight
-I'll still remember every touch
-Fading light, tired eyes
-That low battery love
-
-[Bridge]
-[Singing]
-Maybe we're short on charge, but we're rich in time
-You say, "if this dies now, I'll just come spend the night"
-Signal weak, hearts live
-In my mind, can you hear my mind?
-
-[Chorus]
-[Rhythmic]
-We're just low battery love
-Holding on, holding on
-Red bubble blinking at the top
-But we run, yeah, we run
-If this cuts out tonight
-I'll still remember every touch
-Fading light, tired eyes
-That low battery love
-```
-
-### 레퍼런스 10
-> 원본: https://www.youtube.com/watch?v=L4F73SPcY50
-
-```
-1) Styles
-A smooth Chill Pop track with a laid-back, groovy R&B beat. Features mellow electric guitar chords, a steady electronic drum kick, and subtle synth layers. Led by a warm, clear female vocal with a sweet and comforting tone, setting a cozy, late-night bedroom atmosphere at a relaxed BPM of around 84.
-
-2) Lyrics
-[Verse 1]
-[Sing softly, calm voice]
-A phone face down on the dresser that is dead
-While these little regrets try to live inside my head
-Clock is buzzing like a hornet in a jar
-I could call my life to pieces, never leave these four walls
-
-[Chorus]
-[Expressive, melodic vocals with a steady beat]
-I'm all fine tonight, pull the plug, kill the light
-As if silence talks for the first time on my side
-From moderate to out of sight
-No more endless empty fights
-So leave me, that's alright
-I'm just breathing, all fine tonight
-
-[Verse 2]
-[Relaxed, groovy flow]
-Heartbeat takes dark light as if she's in the scene
-Every one a prophet, every one on the drink
-Oh, I miss laughing at nothing, enough is enough
-Just want a playlist that will win, just to do...
-
-[Chorus]
-[Catchy, uplifting melody]
-I'm all fine tonight, pull the plug, kill the light
-As if silence talks for the first time on my side
-From moderate to out of sight
-No more endless empty fights
-So leave me, that's alright
-I'm just breathing, all fine tonight
-
-[Bridge]
-[Gentle and slow build up]
-Maybe you'll call, maybe okay
-Maybe you will lie to me, me that
-Past the noise, past the quiet place
-Just to find some quiet space
-
-[Chorus]
-[Full groove, warm and comforting]
-I'm all fine tonight, pull the plug, kill the light
-As if silence talks for the first time on my side
-From moderate to out of sight
-No more endless empty fights
-So leave me, that's alright
-I'm just breathing, all fine tonight
-
-[Outro]
-[Fading out softly]
-Tonight
-```
-
 <!-- CURATED_REFS_END -->
 
 
@@ -1365,7 +1047,6 @@ Weathering through a soft rain
 
 
 ---
-
 ## 4-3. Late Night R&B & Soul
 
 <!-- CURATED_REFS_START -->
@@ -2415,7 +2096,7 @@ Cold nights and warm sweaters
 ## 4-4. Upbeat City Pop & Funk Groove
 
 <!-- CURATED_REFS_START -->
-> 🎵 영구 레퍼런스 (user_curated) — 총 9곡 / 갱신일: 2026-07-03
+> 🎵 영구 레퍼런스 (user_curated) — 총 17곡 / 갱신일: 2026-07-03
 
 ### 레퍼런스 1
 ```
@@ -2980,6 +2661,432 @@ Lavender Fast Lane
 (Instrumental)
 ```
 
+### 레퍼런스 10
+> 원본: https://www.youtube.com/watch?v=T_lC2O1oIew
+
+```
+A classic 1980s Japanese City Pop track featuring a groovy bassline, sparkling synthesizers, brass accents, and smooth female vocals with a nostalgic, late-night driving vibe at 112 BPM.
+
+2) Lyrics
+[Chorus]
+突然のキスや熱いまなざしで
+恋のプログラムを狂わせないでね
+出会いと別れ上手に打ち込んで
+時間がくれば終わる Don't hurry!
+
+[Verse 1]
+愛に傷ついたあの日からずっと
+昼と夜が逆の暮らしを続けて
+流行りのディスコで踊り明かすうちに
+おぼえた魔術なのよ I'm sorry!
+
+[Chorus]
+私のことを決して愛さないで
+恋なんてただのゲーム 楽しめばそれでいい
+閉ざした心を飾る派手なドレスも靴も
+孤独な友だち
+
+[Verse 2]
+私を誘う人はあいにく
+気まぐれな男ばかりね いつも
+彼に似ているわ なぜか思い出と重なり合う
+グラスを落として急に涙ぐんでも
+わけは尋ねないでね
+```
+
+### 레퍼런스 11
+> 원본: https://www.youtube.com/watch?v=z7tGVrdmHNk
+
+```
+1) Styles
+- Genre: Upbeat City Pop & Funk Groove
+- Instruments: Retro synthesizer, funky bass guitar, drum machine, smooth saxophone, electric guitar
+- Vocal: Warm and smooth male vocal with a nostalgic, dreamy tone
+- BPM: Approximately 95 BPM
+- Mood: Retro, nocturnal, breezy, perfect for a late-night drive through the city lights
+
+2) Lyrics
+[Intro]
+(Saxophone Solo)
+
+[Verse 1]
+[따뜻하고 차분한 목소리로 독백하듯 시작하는 도입부]
+나 외롭고 쓸쓸한 이 거리를
+또 정처 없이 걸어 늘 그렇듯
+
+[Chorus]
+[리드미컬한 비트와 함께 감정이 고조되며 꿈을 향한 다짐을 노래하는 후렴구]
+아무리 애를 써봐도 난 둘이 될 수 없나 봐
+어때, 인생은 혼자인데
+까맣게 물든 현실 속 하얗게 잊고 살아온
+내 꿈들을 찾을래
+
+[Hook]
+[도시의 밤 풍경을 비유하며 희망적인 여운을 남기는 파트]
+하루가 또 다시 져도
+불빛이 이 도시를 밝히듯
+
+[Instrumental Break]
+(Saxophone Solo)
+
+[Verse 2]
+[다시 차분하고 쓸쓸한 분위기로 이어지는 벌스]
+나 혼자서 외롭게 이 밤을
+또 헤매고 있네 늘 그렇듯
+
+[Chorus]
+[깊은 어둠 속에서도 다시 일어서겠다는 다짐을 전하는 후렴구]
+아무리 소리쳐봐도 넌 들을 수가 없나 봐
+어때, 인생이 그런 거지
+깊은 이 어둠을 지나 기다리는 내 꿈들을
+다시 한번 깨울래
+
+[Hook]
+[쓸쓸함과 이별을 받아들이며 빛을 찾아가는 고조된 감정의 브릿지 겸 훅]
+하루가 또 다시 져도
+불빛이 이 도시를 밝히듯
+어두운 이 밤도 이 별이 밝혀주듯
+어두운 이 맘도 이별(離別)이 밝혀주네
+
+[Hook]
+[마지막으로 다짐하듯 외치는 훅]
+하루가 또 다시 져도
+불빛이 이 도시를 밝히듯
+
+[Outro]
+(Saxophone Solo)
+```
+
+### 레퍼런스 12
+> 원본: https://www.youtube.com/watch?v=KYYmdRLJ4O8
+
+```
+1) Styles
+Late Night R&B & Soul featuring smooth electric piano, warm synth bass, and a laid-back drum groove. The clear and dreamy female vocals create a romantic, late-night driving atmosphere under city lights at 95 BPM.
+
+2) Lyrics
+[Intro]
+(Instrumental)
+
+[Verse 1]
+ガラスの向こうに うつる切なさ抱いて
+薄い日の光 ゆらりゆらり
+ゆらりゆらりと 揺れる影法師
+あなたの指が 触れるくせ
+
+[Pre-Chorus]
+触れて 触れずに
+息をひそめて
+言葉はいらない 朝の前
+
+[Chorus]
+そっと そっと ささめく水
+まぶたの裏で 咲いてゆく
+このままほどけて しまいたい
+ほどけたくない 朝が来る
+
+[Verse 2]
+蝋燭のような 黄の光がにじむ
+FMが流す 古いボサノヴァ
+くるりくるりと 回る秒針
+止めて あなたの寝息の中で
+
+[Pre-Chorus 2]
+触れて 触れずに
+今まどろむ心地
+夢か現（うつつ）か わからない
+
+[Chorus 2]
+そっと そっと ささめく水
+まぶたの裏で 咲いてゆく
+冷めたくないのに 冷めてゆく
+冷めないままで いたいのに
+しらしらけてく 窓の向こう
+夢のフチから こぼれそう
+繋いだ指が ほどけても
+まだ温もりは 残ってる
+そっと そっと ささめく水
+光の粒に 溶けてゆく
+このまま二人 眠るふり
+冷めてゆくのが 怖いだけ
+
+[Outro]
+ゆらり ゆらり
+ささめいて
+```
+
+### 레퍼런스 13
+> 원본: https://www.youtube.com/watch?v=PXkaGbcJDhA
+
+```
+1) Styles
+This Upbeat City Pop & Funk Groove track features retro synthesizers, a prominent slap bassline, and dreamy female vocals at 92 BPM, creating a nostalgic, breezy retro night drive atmosphere.
+
+2) Lyrics
+[Verse 1]
+[Mellow synth intro, bass grooving]
+喫茶店の隅にじんだ
+誰かの文字
+
+[Chorus]
+[Smooth and emotional vocal]
+明日 普通の日に
+胸がおかしいの
+嬉しいはずが
+足がすくんでいる
+夜中の窓に
+伝う雨がのぼる
+行きたいのに まだ
+ここにいたい
+
+[Verse 2]
+[Groovy bass and synth pad]
+ハーフ・ウェットのつつみ
+ほどかずに 抱いて
+古いラジオが
+低く ソウルを流す
+母の煮物の
+匂いがまだ残る
+
+[Chorus]
+[Emotional vocal delivery]
+明日 普通の日に
+眠れずにいる
+さよならよりも
+言えない ありがとう
+夜中の窓に
+ともしびが揺れる
+離れたいのに
+離れたくない
+
+[Bridge]
+[Electric guitar and brass-like synth solo]
+この街がくれた
+名もない日々
+強がってみても
+指が震えている
+育ててくれた
+すべてに背を向けて
+
+[Chorus]
+[Vocal builds up passion]
+夜が白々
+ほどけ始める頃
+トランクひとつ
+肩に深く背負い
+振り返らずに
+ときめたのに
+途中で一度
+部屋を見まわす
+
+[Outro]
+[Fading out with synth and bass groove]
+夜中の窓に
+まだ
+陽が残る
+```
+
+### 레퍼런스 14
+> 원본: https://www.youtube.com/watch?v=3yE7UFS_4ag
+
+```
+1) Styles
+[Upbeat City Pop & Funk Groove, funky electric bass, retro synthesizer chords, clear female vocals, 112 BPM, driving through Tokyo night lights with a nostalgic, groovy and emotional late-night city atmosphere]
+
+2) Lyrics
+[Verse 1]
+[Smooth vocals over a groovy bassline and light percussion]
+Akaneiro ga nijimu fluid
+Dansu hooru juke box ni hyaku-en hitotsu
+Odoritai noni ashi ga sukunde
+Kabe no tokei wo yokome de miteru
+Naite nanka inai to warau
+Nanoni hoho ga hotette yuku
+
+[Chorus]
+[Upbeat and bright chorus with retro brass-like synths]
+Mawaru mirror ball, koboreru hikari
+Dare mo kizukanu yureru mune no uchi
+Mou ikkyoku dake, mou ikkyoku dake
+Owarasetakute, owaritakunakte
+
+[Verse 2]
+[Calm rhythm with light synth keys]
+Kashii record no surikireta soul
+Ano natsu koko de kimi to waratta
+Koori no toketa cola no awa ga
+Gurasu no fuchi de hajikete kieru
+Heiki na kao de suteppu fumu no
+Tsumasaki dake ga motsurete shimau
+
+[Chorus]
+[Emotional and energetic delivery with rich city pop backing]
+Mawaru mirror ball, koboreru hikari
+Akane ga kurete ame ni somaru koro
+Mou ikkyoku dake, mou ikkyoku dake
+Hanashitakunai, hanasanakya to shiru
+
+[Bridge]
+[Funky instrumental solo with a prominent bass guitar and synth melody]
+
+[Chorus]
+[Vibrant climax transitioning into a smooth resolution]
+Mawaru mirror ball, koboreru hikari
+Saigo no kyoku ga shizuka ni hodokete
+Mou ikkyoku nankai sou ni naru
+Iikakete mata nomikonde
+Akane no mama de hikari ga mawaru
+```
+
+### 레퍼런스 15
+> 원본: https://www.youtube.com/watch?v=v7frfweReWY
+
+```
+1) Styles
+Upbeat City Pop featuring groovy synth bass, funky electric guitar riffs, sweet female vocals, driving retro drums, 112 BPM, creating a nostalgic and breezy late-night driving atmosphere.
+
+2) Lyrics
+[Verse 1]
+気がつけば留守電に 冷めてた紅茶
+窓に明日を凝らす 春は名ばかり
+FMの針が拾うあの曲
+あなたの好きだった一節
+黒電話をかけそうになる
+市外番号はもう誰かのもの
+
+[Chorus]
+めぐるめぐる季節の中で
+あなたをひとつ数えている
+さよならは言わずに置いた
+木枯らしにそっと預けて
+
+[Verse 2]
+路面電車のきしむ音さえ
+あの頃のまま変わらずにいて
+仮定を抜け 振り向いた背中
+終わらなかった三角の入り口
+元気ですかと書きかけた葉書
+切手も貼らず 抽斗の奥
+
+[Chorus]
+めぐるめぐる季節の中で
+あなたをひとつ数えている
+ありがとうも言えずにいたね
+夕凪にそっと流して
+
+[Bridge]
+忘れたはずの面影が
+ふいに灯る夕暮れ時に
+会いたいけれど 会えなくていい
+そんな矛盾を抱いたまま
+
+[Chorus]
+めぐるめぐる季節の中で
+あなたをひとつ数えている
+さよならは言わないままで
+春隣の風に紛れて
+
+[Outro]
+めぐるめぐる
+季節の中で
+あなたを
+```
+
+### 레퍼런스 16
+> 원본: https://www.youtube.com/watch?v=GN0FbB5cTxA
+
+```
+1) Styles
+This classic 80s Japanese City Pop track features a groovy bassline, warm synthesizer brass, and a breezy retro rhythm. The female vocals are clear, bright, and nostalgic, delivering a smooth melody at around 115 BPM that perfectly suits a late-night drive mood.
+
+2) Lyrics
+[Verse 1]
+姿勢正すの何のために
+少し派手に引いて
+鏡の中の私に微笑む
+もう平気なの
+口元だけが動く
+
+[Chorus]
+パンジーの風
+襟を立ててみる
+泣いたりはしない
+大人のさよなら
+なのに香水を
+あの人の好きな方
+まだ選んでしまう
+指のくせ
+
+[Verse 2]
+洋食屋の隅
+ナポリタンひとつ
+二人で来た日を
+フォークがなぞる
+地下鉄の風
+髪を乱して行く
+
+[Chorus]
+枯葉がひとつ
+コートの肩に落ち
+振り払うふり
+そっと手にのせる
+忘れたいのに
+忘れたくない夜は
+割り切れなさを抱いて
+歩く
+
+[Bridge]
+ガラスの灯りのなかの海を
+ひとり見ていたあの人の横
+もういないのに
+まだとなりをあける
+
+[Chorus]
+パンジーの街
+灯りがともる頃
+平気なふりも
+だんだん板につく
+なのに受話器を
+途中まで回して
+戻す指まだ未練
+残り香のまま夜が明けていく
+```
+
+### 레퍼런스 17
+> 원본: https://www.youtube.com/watch?v=tqkHyHNEpQg
+
+```
+1) Styles
+Genre: Upbeat City Pop & Funk Groove. Featuring a groovy electric bassline, retro synthesizers, and breezy brass accents. The bright, sweet, and clear female vocal flows effortlessly over an upbeat 112 BPM tempo, delivering a nostalgic 80s retro driving vibe.
+
+2) Lyrics
+[Verse 1]
+(맑은 여성 보컬과 시티팝 특유의 그루비한 베이스로 시작)
+車乗るライト
+街を駆ける
+二人だけの
+夜のスピード
+
+[Verse 2]
+(신스 패드와 일렉트릭 기타가 더해지며 그루브 형성)
+すれ違う光
+君に向かう
+あの日の記憶
+まだ離さない
+
+[Chorus]
+(드럼 비트와 브라스 신스가 터져 나오며 청량하게 울리는 훅)
+Love in the first lane
+夢をのせて
+心の向こう
+君に出会う
+
+Love in the first lane
+光の影
+二人の足音
+まだ刻む
+```
+
 <!-- CURATED_REFS_END -->
 
 
@@ -2989,7 +3096,7 @@ Lavender Fast Lane
 ## 4-5. Acoustic Indie Pop & Folk Soul
 
 <!-- CURATED_REFS_START -->
-> 🎵 영구 레퍼런스 (user_curated) — 총 10곡 / 갱신일: 2026-07-03
+> 🎵 영구 레퍼런스 (user_curated) — 총 19곡 / 갱신일: 2026-07-03
 
 ### 레퍼런스 1
 ```
@@ -3769,6 +3876,677 @@ I'm alive, I'm alive
 Everything feels right
 ```
 
+### 레퍼런스 11
+> 원본: https://www.youtube.com/watch?v=N_7QscATi2g
+
+```
+1) Styles
+An acoustic indie pop track characterized by warm acoustic guitar strumming, gentle piano chords, and cozy percussion. A sweet and soothing female vocal delivers comforting melodies at a relaxed 82 BPM, creating a gentle and sunny morning cafe atmosphere.
+
+2) Lyrics
+[Verse 1]
+[Gently singing over light acoustic guitar]
+In my pocket, sweet little jelly
+Morning latte, vanilla and steady
+All the things that I love, I carry
+Start my day feeling light already
+
+[Pre-Chorus]
+[Piano and soft percussion join]
+Sweetness melting, filling up my mind
+Soft warm scent wrapping me in time
+All these little pieces come alive
+Turning into today
+Piece by piece I find
+
+[Chorus]
+[Full rhythmic instrumentation with warm harmonies]
+Little bits of happiness
+Stacking one by one
+I love this story that my days become
+No need for miracles, I'm fine as I am
+Hitting joy inside the rhythm I've found
+A day like a gift, I'm holding it now
+This is enough, I don't need more somehow
+
+[Verse 2]
+[Light acoustic rhythm resumes]
+Found a book with a title so pretty
+Gentle words that are common and witty
+Let my worries just fade in the city
+My heart warms up, feeling soft and easy
+
+[Pre-Chorus]
+[Building up gently]
+Sweetness melting, filling up my mind
+Soft warm scent wrapping me in time
+All these little pieces come alive
+Turning into today
+Piece by piece I find
+
+[Chorus]
+[Expressive vocal with a full, comforting sound]
+Little bits of happiness
+Stacking one by one
+I love this story that my days become
+No need for miracles, I'm fine as I am
+Hitting joy inside the rhythm I've found
+A day like a gift, I'm holding it now
+This is enough, I don't need more somehow
+
+[Bridge]
+[Melodic bridge with soft electric piano]
+What's the next page waiting for me?
+A warm hug from the me I've been
+Little joys draw a map so softly
+This moment rests right here within
+
+[Chorus]
+[Climactic chorus with soaring backing vocals]
+Little bits of happiness
+Stacking one by one
+I love this story that my days become
+No need for miracles, I'm fine as I am
+Hitting joy inside the rhythm I've found
+A day like a gift, I'm holding it now
+This is enough, I don't need more somehow
+
+[Outro]
+[Fading out with a warm guitar melody]
+Somehow...
+```
+
+### 레퍼런스 12
+> 원본: https://www.youtube.com/watch?v=s56q_90bxOg
+
+```
+1) Styles
+A comforting and warm Acoustic Indie Pop track driven by a gentle acoustic guitar fingerpicking pattern and soft percussion. The soothing, airy female vocals convey a heartfelt message of healing, hope, and resilience, creating a cozy and sunlit cafe atmosphere.
+
+2) Lyrics
+[Verse 1]
+[Soft, quiet vocal accompanied by gentle acoustic guitar plucking]
+I was stuck in the dark
+Endless ice, no spark
+Breathe in through the pain
+Didn't know my way
+Tears fell quietly
+Light came over me
+Faint, but I can see
+There's a reason here
+
+[Pre-Chorus]
+[Warm transition with rising ambient pad and snaps]
+Like winter into spring
+Like dawn after the night
+Just a little more, you'll be alright
+
+[Chorus]
+[Relaxed drum beat joins, establishing a full acoustic pop rhythm]
+Your peace is coming now
+Closer than you think
+Even all this pain will fade out in the end
+Only what you can hold
+Comes and then it goes
+Even this right now won't last anymore
+Sunlight feels so warm
+Want to step outside
+Grab a cup of coffee, stay here for a while
+
+[Verse 2]
+[Groovier bassline and rhythmic guitar strumming]
+Broken but I walked
+Through it all alone
+Days I couldn't speak, still I carried on
+Then I saw somehow, I was moving on
+Even step by step, I was getting strong
+
+[Pre-Chorus]
+[Expressive and builds anticipation with swelling backing harmonies]
+Like winter into spring
+Like dawn after the night
+Light is coming back, you'll be alright
+
+[Chorus]
+[Full band sound, emotional peak with richer vocal delivery]
+Your peace is coming now
+Closer than you think
+Even all this pain will fade out in the end
+Only what you can hold
+Comes and then it goes
+Even this right now won't last anymore
+Sunlight feels so warm
+Want to step outside
+Grab a cup of coffee, stay here for a while
+
+[Chorus 2]
+[High energy, featuring beautiful falsetto ad-libs and vocal echoes]
+Your peace is coming now
+Closer than you think
+Even all this pain will fade out in the end
+Only what you can hold
+Comes and then it goes
+Even this right now won't last anymore
+Sunlight feels so warm
+Want to step outside
+Grab a cup of coffee, stay here for a while
+```
+
+### 레퍼런스 13
+> 원본: https://www.youtube.com/watch?v=0HAvEIHmRjo
+
+```
+1) Styles
+An acoustic-driven Chill Pop track featuring a rhythmic guitar riff and a warm bassline. Mellow, smooth male vocals deliver a relaxed yet uplifting melody, creating a cozy and comforting atmosphere.
+
+2) Lyrics
+[Verse 1]
+[Singing calmly over a rhythmic acoustic guitar riff]
+Cold air, but I feel something shifting
+Light leaks in, yeah, something's different
+Days go by, I don't even notice
+Now I slow it down, I'm in the moment
+Even one breath got a reason to live
+
+[Pre-Chorus]
+[Soft build-up with a gentle rhythm]
+Feel that vibe, yeah, it runs through me
+Don't words needed, I just let it be
+Something tells me I can move again
+
+[Chorus]
+[Uplifting and groovy melody]
+One more breath, yeah, I take it in
+Slow rise, feel it from within
+Small spark, now it's growing big
+Fill my day, let it really sink
+Even low days, I still pull through
+In this flow, now I'm back to new
+Yeah, right now, I'm alive again
+
+[Verse 2]
+[Melodic singing with relaxed guitar accompaniment]
+New air hits, I don't know that scent
+Heavy mind, now it's slowly bent
+Same street, but it feels brand new
+Nothing changed, but I feel it move
+No need reason, I just stay true
+
+[Pre-Chorus]
+[Expressive vocals with a rising beat]
+Feel that vibe, yeah, it runs through me
+No words needed, I just let it be
+Something tells me I can move again
+
+[Chorus]
+[Energetic and catchy groove]
+One more breath, yeah, I take it in
+Slow rise, feel it from within
+Small spark, now it's growing big
+Fill my day, let it really sink
+Even low days, I still pull through
+In this flow, now I'm back to new
+Yeah, right now, I'm alive again
+
+[Bridge]
+[Rhythmic instrumental break with acoustic guitar solo]
+
+[Verse 3]
+[Quiet, reflective singing]
+Light stays low, but it still shines through
+Past feels far, I don't chase it through
+Little shift got me feeling right
+All these moments line up in time
+Now I see it, I'm back in tune
+
+[Chorus]
+[Full band sound with maximum energy]
+One more breath, yeah, I take it in
+Slow rise, feel it from within
+Small spark, now it's growing big
+Fill my day, let it really sink
+Even low days, I still pull through
+In this flow, now I'm back to new
+Yeah, right now, I'm alive again
+
+[Outro]
+[Guitar-focused fading instrumental]
+```
+
+### 레퍼런스 14
+> 원본: https://www.youtube.com/watch?v=cBfjyjkSVqo
+
+```
+1) Styles
+A smooth, mid-tempo Chill Pop track with elements of R&B and Soul, featuring soft electric piano chords, a steady laid-back drum groove, and warm, gentle male vocals. The atmosphere is warm, cozy, and romantic, perfect for a relaxing afternoon at a cafe or a late-night drive.
+
+2) Lyrics
+[Verse 1]
+Walking down this quiet street
+Same old air, familiar feet
+Little smiles pass us by
+Something feels so easy now
+
+We don't need to say too much, yeah
+This right here is more than enough
+Just the fact we're here in time
+Gives a reason to this moment
+
+[Chorus]
+Stay with me, just like this
+Every second, every beat
+Don't need any reason why
+It already feels so right
+
+Stay with me, don't let go
+Even moments moving slow
+Let it linger, let it grow
+We keep it close, together
+
+[Verse 2]
+Sharing coffee, taking time
+Simple words, but they feel right
+One after another, the things
+Still, it means everything
+
+Even laughter without cause
+Doesn't need a why, because
+Just the fact you're here with me
+Is already everything
+
+[Chorus]
+Stay with me, just like this
+Every second, every beat
+Don't need any reason why
+It already feels so right
+
+Stay with me, don't let go
+Even moments moving slow
+Let it linger, let it grow
+We keep it close, together
+
+[Bridge]
+We don't have to go too far
+Right here is just where we are
+Looking in the same direction
+That's enough for now
+Stay with me
+
+[Chorus]
+Just like this
+Every second, every beat
+Don't need any reason why
+It already feels so right
+
+Stay with me, don't let go
+Even moments moving slow
+Let it linger, let it grow
+We keep it close, together
+
+Stay with me
+Don't let go
+Even moments moving slow
+Let it linger, let it grow
+We keep it close, together
+```
+
+### 레퍼런스 15
+> 원본: https://www.youtube.com/watch?v=zdtZutkLyKQ
+
+```
+1) Styles
+An acoustic indie pop track characterized by warm acoustic guitar strumming, cozy percussion snaps, a sweet and clear female vocal, and a relaxing tempo around 88 BPM, creating a gentle and uplifting cafe atmosphere.
+
+2) Lyrics
+[Verse 1]
+Say hello to myself in the mirror
+Little warmth on my lips getting clearer
+Tiny flowers on the street keep smiling
+All the noise turns to music, I'm vibing
+
+[Pre-Chorus]
+In a breath that lingers on my lips
+Heavy air just fades away like this
+Picking only what I want to keep
+
+[Chorus]
+Easy smile, you pull me in, I feel it now
+Easy smile, on my lips, I don't know how
+Light it up, shake it off, let it all go
+Every little breath is taking control
+Feels like the wind's on my side somehow
+I just love the way you smile right now
+
+[Verse 2]
+No more rushing, I can take it slow
+Moving gently with my own tempo
+All the tangled thoughts, I let them fall
+Living in this moment, that is all
+
+[Pre-Chorus]
+In a breath that lingers on my lips
+Heavy air just fades away like this
+Picking only what I want to keep
+
+[Chorus]
+Easy smile, you pull me in, I feel it now
+Easy smile, on my lips, I don't know how
+Light it up, shake it off, let it all go
+Every little breath is taking control
+Feels like the wind's on my side somehow
+I just love the way you smile right now
+
+[Bridge]
+Even if I'm a little unsure
+I don't need to be anything more
+Trust the feeling, let it guide me through
+Every step feels lighter next to you
+
+[Chorus]
+Easy smile, you pull me in, I feel it now
+Easy smile, on my lips, I don't know how
+Light it up, shake it off, let it all go
+Every little breath is taking control
+Feels like the wind's on my side somehow
+I just love the way you smile right now
+
+[Outro]
+(Vocal vocalizing to fade)
+```
+
+### 레퍼런스 16
+> 원본: https://www.youtube.com/watch?v=rsO5YqLgkLQ
+
+```
+1) Styles
+A charming acoustic indie pop track featuring bright acoustic guitar plucking, warm bass, and a gentle rhythmic beat. The sweet, clear female vocals and uplifting melody create a cozy, sunlit morning cafe atmosphere.
+
+2) Lyrics
+[Verse 1]
+[Clean acoustic guitar picking and soft bass]
+By the window, morning settles clear
+Air feels lighter than it did yesterday here
+Tie my laces on my brand new shoes
+Step outside with nothing left to lose
+
+[Chorus]
+[Soft percussion and fuller groove enters]
+Sunlight falling, wrapping me in gold
+Today's blank canvas, bright and bold
+Painting smiles I've never felt before
+Shining morning, every moment glows
+Even in the dark, the light still shows
+Take your time, let your heart align
+Step into this day, it's yours and mine
+Like a stage that's waiting just for you
+Let's walk it through, just me and you
+
+[Verse 2]
+[Guitar-driven light rhythm]
+Through the leaves, the light comes breaking in
+Carried softly by a humming wind
+All the crowded thoughts, I let them rest
+Hope is shining moment in my chest
+
+[Chorus]
+[Bright and cheerful full band groove]
+Sunlight falling, wrapping me in gold
+Today's blank canvas, bright and bold
+Painting smiles I've never felt before
+Shining morning, every moment glows
+Even in the dark, the light still shows
+Take your time, let your heart align
+Step into this day, it's yours and mine
+Like a stage that's waiting just for you
+Let's walk it through, just me and you
+
+[Bridge]
+[Mellow breakdown with sweet vocals]
+Even if I move a little slow
+There's a gentle light that helps me grow
+Little pieces waking up inside
+Shining brighter, nothing left to hide
+
+[Chorus]
+[Uplifting, swelling emotional chorus]
+Shining morning, every moment glows
+Even in the dark, the light still shows
+Take your time, let your heart align
+Step into this day, it's yours and mine
+Like a stage that's waiting just for you
+Let's walk it through
+
+[Outro]
+[Soft guitar picking fades out]
+Just me and you
+Mmm...
+```
+
+### 레퍼런스 17
+> 원본: https://www.youtube.com/watch?v=RY1HYNGpQkc
+
+```
+1) Styles
+Late Night R&B & Soul, featuring warm electric guitar, smooth basslines, and a mellow male vocal. The relaxed tempo around 85 BPM creates a cozy, late-night cafe ambiance.
+
+2) Lyrics
+[Verse 1]
+[Warmly]
+Sunlight on the glass warm slowly fades
+Familiar kind of scent yeah it pulls me in
+Sitting here alone but I feel alright
+All the noise in my head getting soft and light
+
+[Pre-Chorus]
+[Softly]
+Pause a little, don't gotta do a thing
+Let the moment settle let it sink in
+Just leaning into the way it flows
+
+[Chorus]
+[Groovily]
+Sip slow, right where we are
+No rush, don't go too far
+Vibe slow, let it just ride
+Keep it calm, keep it inside
+Breathe in, let it begin
+One more time, let it sink in
+This is all I really need
+Today feels good, yeah we good we good
+
+[Verse 2]
+[Calmly]
+No need to hurry take it nice and slow
+Same old street but it feels like home
+Little bit of space changed the whole mood
+Nothing really special but it feels so good
+
+[Pre-Chorus]
+[Softly]
+Pause a little, don't gotta do a thing
+Let the moment settle let it sink in
+Just leaning into the way it flows
+
+[Chorus]
+[Groovily]
+Sip slow, right where we are
+No rush, don't go too far
+Vibe slow, let it just ride
+Keep it calm, keep it inside
+Breathe in, let it begin
+One more time, let it sink in
+This is all I really need
+Today feels good, yeah we good we good
+
+[Bridge]
+[Expressively]
+Turn the noise down bring the warmth up
+Let it all move in a softer touch
+Even simple days can feel alright
+If the moment hits you just right
+
+[Chorus]
+[Groovily]
+Sip slow, right where we are
+No rush, don't go too far
+Vibe slow, let it just ride
+Keep it calm, keep it inside
+Breathe in, let it begin
+One more time, let it sink in
+This is all I really need
+Today feels good, yeah we good we good
+```
+
+### 레퍼런스 18
+> 원본: https://www.youtube.com/watch?v=enh2DCSaHjw
+
+```
+Acoustic Indie Pop & Folk Soul, centered around acoustic guitar, featuring soft percussion and melodic male vocals. The track is set at a relaxed 88 BPM with a warm, sunny, and peaceful afternoon vibe.
+
+2) Lyrics
+[Verse 1]
+(Acoustic guitar melody plays gently)
+A white petal resting on my shoulder
+Something in the air is getting warmer
+Stays of green are filling up this street
+Spring is rising slowly at my feet
+
+[Pre-Chorus]
+(Soft background humming and guitar progression)
+Little feelings I forgot back then
+Blooming softly once again
+At the end of this road I'm on
+What kind of view will I find?
+
+[Chorus]
+(Warm, rhythmic acoustic strumming and soft vocals)
+Bloom with you, in this moment now
+Feel it drifting on the breeze somehow
+We don't have to rush, it's alright
+(La la la la la la)
+We're just flowing in the golden light
+(La la la la la la)
+This right here is more than enough
+
+[Verse 2]
+(Calm guitar accompaniment continues)
+Walking slow, I see the yellow flowers
+Don't know names, but they still feel like ours
+Even when the wind begins to sway
+Something in them gently finds its way
+
+[Pre-Chorus]
+(Deepening tone, building emotion)
+Little feelings coming back to life
+Growing clearer deep inside
+Standing on this road right now
+Everything feels alive somehow
+
+[Chorus]
+(Warm, rhythmic acoustic strumming and soft vocals)
+Bloom with you, in this moment now
+Feel it drifting on the breeze somehow
+We don't have to rush, it's alright
+(La la la la la la)
+We're just flowing in the golden light
+(La la la la la la)
+This right here is more than enough
+
+[Bridge]
+(Guitar strumming swells, uplifting mood)
+Opened up the door I closed before
+Stepped into the light a little more
+Now I see the season calling me
+I can finally just be free
+
+[Chorus]
+(Full acoustic rhythm, bright and emotional)
+Bloom with you, in this moment now
+Feel it drifting on the breeze somehow
+We don't have to rush, it's alright
+(La la la la la la)
+We're just flowing in the golden light
+(La la la la la la)
+This right here is more than enough
+```
+
+### 레퍼런스 19
+> 원본: https://www.youtube.com/watch?v=GUa-ycD-EoM
+
+```
+1) Styles
+This track is a cozy Acoustic Indie Pop & Folk Soul song driven by a gentle acoustic guitar strumming and a steady, light percussion beat. Delivered by a warm and clear female vocal at 88 BPM, the song exudes a bright, uplifting, and comforting cafe vibe.
+
+2) Lyrics
+[Verse 1]
+(Acoustic guitar and gentle percussion)
+Sunlight melts just like candy
+Warm breeze brushes past me
+Happiness is always small things
+Thank you for this day, my day
+
+[Pre-Chorus]
+(Soft percussion builds up)
+Sweet like chocolate in this moment
+Every touch feels soft and golden
+Doesn't matter where I'm going today
+Just feels like a gift
+
+[Chorus]
+(Main chorus beat with warm, full sound)
+Open up, feel the air right here in this moment, everywhere
+I won't stop, I won't hide, even if I go further, it's alright
+Open up, feel the light, filling me up with these vibes
+Standing here on this road, everything is clear right now
+I'm alive, live, live
+I'm alive, live, live
+I'm alive, live, live, I'm alive
+Everything feels right
+
+[Verse 2]
+(Rhythmic acoustic guitar)
+Melodies from the radio
+I just hum along slow
+Even in an ordinary day
+Little things begin to glow
+
+[Pre-Chorus]
+(Pre-chorus groove)
+Light as balloons in the sky
+Floating feelings drifting by
+Don't have to hold on too tight
+Let it go, just let it flow
+
+[Chorus]
+(Full drum beat and backing vocals)
+Open up, feel the air right here in this moment, everywhere
+I won't stop, I won't hide, even if I go further, it's alright
+Open up, feel the light, filling me up with these vibes
+Standing here on this road, everything is clear right now
+I'm alive, live, live
+I'm alive, live, live
+I'm alive, live, live, I'm alive
+Everything feels right
+
+[Bridge]
+(Mellow and soft instrumentation)
+Today feels like a small gift
+No need to dress it up
+Right here in this simple moment
+I can feel I'm in love
+
+[Chorus]
+(Dynamic final chorus, soaring vocals)
+Open up, feel the air right here in this moment, everywhere
+I won't stop, I won't hide, I'll just keep on going now
+Open up, feel the light, filling me up with these vibes
+Standing here where I am, everything is clear right now
+I'm alive, live, live
+I'm alive, live, live
+I'm alive, live, live, I'm alive
+Everything feels right
+```
+
 <!-- CURATED_REFS_END -->
 
 
@@ -3778,7 +4556,7 @@ Everything feels right
 ## 4-6. Chillwave & Synth Pop
 
 <!-- CURATED_REFS_START -->
-> 🎵 영구 레퍼런스 (user_curated) — 총 10곡 / 갱신일: 2026-07-03
+> 🎵 영구 레퍼런스 (user_curated) — 총 19곡 / 갱신일: 2026-07-03
 
 ### 레퍼런스 1
 ```
@@ -4526,6 +5304,658 @@ This flutter of my heart
 Sent straight to you
 ```
 
+### 레퍼런스 11
+> 원본: https://www.youtube.com/watch?v=6Kj1POpGqfk
+
+```
+This song is a warm Acoustic Indie Pop track featuring gentle acoustic guitar fingerpicking and soft, mellow male vocals. The BPM is around 84, creating a cozy and reflective atmosphere perfect for a rainy day or a relaxed evening.
+
+2) Lyrics
+[Verse 1]
+(Soft acoustic guitar strumming)
+I catch my breath when you walk by
+A fleeting glance I can't deny
+When you look my way the world fades out
+But I'm too scared to even speak
+Every moment feels so close, yet far
+Like wishing on a fading star
+
+[Chorus]
+(Warm, swelling percussion and bass join in)
+Wash away, wash away the doubt
+Let my love be what you think about
+Every word you never say still finds a way to light my day
+Wash away, wash away the pain
+Let me feel you in the rain
+Like a dream that we both know
+Wash away, let it grow
+Let it grow
+
+[Verse 2]
+(Acoustic guitar and gentle synth padding)
+I trace the lines of your sweet face
+In my mind in every space
+I wonder if you feel it too
+But I can't find the courage to move
+I keep my distance, play the game
+Hoping one day you'll know my name
+
+[Chorus]
+(Full acoustic band arrangement with rich harmony)
+Wash away, wash away the doubt
+Let my love be what you think about
+Every word you never say still finds a way to light my day
+Wash away, wash away the pain
+Let me feel you in the rain
+Like a dream that we both know
+Wash away, let it grow
+Let it grow
+
+[Bridge]
+(Muted, intimate instrumentation)
+Maybe one day you'll understand
+The quiet hope I've had in hand
+Until that time, I'll stay right here
+Hoping you will feel me near
+
+[Chorus]
+(Climactic warm vocal performance)
+Wash away, wash away the doubt
+Let my love be what you think about
+Every word you never say still finds a way to light my day
+Wash away, wash away the pain
+Let me feel you in the rain
+Like a dream that we both know
+Wash away
+Let it grow
+
+[Outro]
+(Gently fading out with acoustic guitar)
+Wash away
+Wash away
+Let it grow
+Let it grow
+```
+
+### 레퍼런스 12
+> 원본: https://www.youtube.com/watch?v=YOyH95iWQ-U
+
+```
+An acoustic indie pop song featuring a rhythmic acoustic guitar strumming pattern, gentle handclaps, and warm ambient synths. The cozy and romantic atmosphere is elevated by a smooth, warm male vocal at a relaxed tempo of around 84 BPM.
+
+2) Lyrics
+[Verse 1]
+[Soft acoustic guitar and finger snaps]
+Two straws in a latte cup
+You smile and I can't keep up
+Your name scribbled on my coffee sleeve
+Little things I wanna keep
+
+[Chorus]
+[Elevated percussion and warm pads]
+Eyes locked, a silent tune
+Hands in motion under the moon
+Everything fades, but you stay
+In this moment, we drift away
+
+[Verse 2]
+[Acoustic guitar with a steady acoustic beat]
+Mismatched socks and tangled hair
+You laugh like you don't even care
+Humming tunes while brushing teeth
+Love is hiding underneath
+
+[Chorus]
+[Full rhythmic acoustic arrangement]
+Hold me closer, don't let go
+Heartbeats dancing soft and slow
+Streetlight shadows on your face
+You and me, this little space
+
+[Bridge]
+[Slower tempo, gentle acoustic guitar]
+Fingers locked, we walk so slow
+Didn't know it'd feel this close
+But here we are, and it feels right
+Holding on to you tonight
+
+[Outro]
+[Soft humming and fading acoustic chords]
+Fingers locked, we walk so slow
+Didn't know it'd feel this close
+But here we are, and it feels right
+Holding on to you tonight
+```
+
+### 레퍼런스 13
+> 원본: https://www.youtube.com/watch?v=r3L5kbg7S5E
+
+```
+1) Styles
+Late Night R&B & Soul track driven by a mellow acoustic guitar pluck and a steady, soft R&B drum pattern. The male vocalist delivers warm, intimate, and smooth vocals with a gentle falsetto. The mood is cozy, romantic, and slightly melancholic, perfect for a late-night drive or quiet bedroom listening.
+
+2) Lyrics
+[Verse 1]
+[Singing softly over acoustic guitar]
+The screen lights up
+Your name appears
+My heart beats louder
+Few bad fears
+
+I type the words
+Then hit delete
+This endless cycle
+A bitter sweet repeat
+
+[Pre-Chorus]
+[Vocal builds with gentle harmonies]
+How do I say it? How do I start?
+How do I show you the depths of my heart?
+Every word feels both wrong and right
+I've been at this all night
+
+[Chorus]
+[Full beat enters, warm and groovy]
+I've typed it, erased it, a hundred times or more
+"I like you" feels so small but it shakes me to my core
+What if I send it, what will you say?
+Will you smile, or will you turn away?
+I've typed it, erased it, but the truth stays the same
+Every beat of my heart whispers your name
+Whispers your name
+
+[Verse 2]
+[Beat continues, intimate vibe]
+I stare at the screen
+The cursor blinks
+My thoughts are loud
+And my courage sinks
+
+"I like you" feels too plain, too bare
+But no other words could ever compare
+Will you laugh, or will you see
+The way you mean everything to me?
+This little message, it holds my fate
+I just can't make you wait
+
+[Chorus]
+[Rich harmonies, emotional delivery]
+I've typed it, erased it, a hundred times or more
+"I like you" feels so small but it shakes me to my core
+What if I send it, what will you say?
+Will you smile, or will you turn away?
+I've typed it, erased it, but the truth stays the same
+Every beat of my heart whispers your name
+Whispers your name
+
+[Bridge]
+[Beat drops out slightly, focusing on vocal and guitar]
+Maybe tonight, I'll press send
+And let this message be my friend
+Maybe tomorrow, I'll see your reply
+And find my courage wasn't a lie
+
+[Chorus]
+[Powerful yet smooth peak]
+I've typed it, erased it, a hundred times or more
+"I like you" feels so small but it shakes me to my core
+What if I send it, what will you say?
+Will you smile, or will you turn away?
+
+[Outro]
+[Fades out gently with acoustic guitar]
+I've typed it, erased it, but the truth stays the same
+Every beat of my heart whispers your name
+The screen goes dark, the words still stay
+Maybe tomorrow will be the day
+"I like you", simple and true
+Hoping it finally reaches you
+```
+
+### 레퍼런스 14
+> 원본: https://www.youtube.com/watch?v=oGRbpUocT6s
+
+```
+1) Styles
+- Genre: Chillwave & Synth Pop with a smooth lo-fi R&B groove.
+- Instruments: Warm analog synthesizer pads, a pulsing synth bassline, and a relaxed mid-tempo drum beat.
+- Vocal: Soft, warm, and breezy male vocals with a touch of dreamy reverb.
+- BPM: 82 BPM.
+- Mood: Nostalgic, dreamy, and perfect for a late-night drive or chill evening vibe.
+
+2) Lyrics
+[Verse 1]
+Headlights flashing, time runs thin
+She don't stay long, never been
+One foot out before they ask
+Slipping through like grains of sand
+They still wait for something certain
+But she's written in the wind
+Falling faster than they notice
+By the time they reach, she's gone again
+
+[Chorus]
+Gone before dawn
+Like a breath that fades too fast
+By the time they see her leaving
+She's already in the past
+Gone before dawn
+Like a thought you can't hold on
+Try to trace the way she's headed
+But the feeling's already gone
+
+[Verse 2]
+Fingers brush but never hold
+Never answers, never folds
+No regrets, no second calls
+She was never theirs at all
+They still wait for something certain
+But she's written in the wind
+Falling faster than they notice
+By the time they reach, she's gone again
+
+[Chorus]
+Gone before dawn
+Like a breath that fades too fast
+By the time they see her leaving
+She's already in the past
+Gone before dawn
+Like a thought you can't hold on
+Try to trace the way she's headed
+But the feeling's already gone
+
+[Bridge]
+She's not lost, she's just ahead
+Footsteps light but never left
+Calling out, but there's no sound
+By the time they look, she's nowhere now
+
+[Chorus]
+Gone before dawn
+Left a memory, left a name
+But by the time they even miss her
+She's already miles away
+```
+
+### 레퍼런스 15
+> 원본: https://www.youtube.com/watch?v=EAgVfwDTR0o
+
+```
+Soft acoustic guitar arpeggios establish a gentle rhythm, accompanied by a clean and warm male vocal. The addition of subtle synth pads and light percussion creates a nostalgic, cozy indie pop atmosphere ideal for late-night listening.
+
+2) Lyrics
+[Intro]
+(따뜻한 어쿠스틱 기타 리프 연주)
+
+[Verse 1]
+(차분하고 감미로운 목소리로)
+I caught a glimpse, you caught my eye
+A second but it felt like a lifetime passed by
+I never said a word, but I swear you knew
+Like a photo, I can't get rid of you
+
+[Verse 2]
+(조금 더 깊어지는 감정선으로)
+I wonder if you feel it too
+The pull, the push, everything we didn't do
+We're standing close but we're miles apart
+Like a Polaroid stuck in my heart
+
+[Pre-Chorus]
+(가성이 어우러지며 부드러운 호소)
+We don't need words, we just need us, ah
+Maybe we're both waiting for the right time
+But every second feels like too much
+I'm holding on, but I can't touch
+
+[Chorus]
+(감정이 고조되며 캐치하게 터지는 후렴구)
+Like a Polaroid, you're stuck in my mind
+A moment frozen but you're hard to find
+One shot, one chance, I won't let it go
+I'll keep it all but you'll never know
+Like a Polaroid, we're stuck in place
+A perfect picture but it's not the same
+I'll keep you in this frame, it's all I know
+Wishing you'd stay, but I've got to let go
+
+[Verse 3]
+(다시 차분하고 담담하게 속삭이듯)
+You never spoke, but I felt your eyes
+A glance, a smile, no need for disguise
+But I can't stay in this moment forever
+Maybe it's time to move on together
+
+[Verse 4]
+(리드미컬하고 안타까운 감정을 담아)
+I see you move on, and I'm still here
+Caught in the memory, caught in the fear
+I try to let go, but it's not that easy
+Oh love unspoken, still leaving me dizzy
+
+[Pre-Chorus]
+(가슴 깊이 호소하듯 감정이 어우러지며)
+We don't need words, we just need us, ah
+Maybe we're both waiting for the right time
+But every second feels like too much
+I'm holding on, but I can't touch
+
+[Chorus]
+(풍성한 비트와 호소력 짙은 고음 보컬)
+Like a Polaroid, you're stuck in my mind
+A moment frozen but you're hard to find
+One shot, one chance, I won't let it go
+I'll keep it all but you'll never know
+Like a Polaroid, we're stuck in place
+A perfect picture but it's not the same
+I'll keep you in this frame, it's all I know
+Wishing you'd stay, but I've got to let go
+
+[Bridge]
+(잔잔하게 읊조리며 빌드업되는 구간)
+Maybe one day we'll meet again
+But for now, I'll just let go of what could have been
+I'll keep the moments that we've shared and leave the rest behind
+No more despair
+
+[Chorus]
+(화려한 애드리브와 폭발적인 감정의 후렴구)
+Like a Polaroid, you're stuck in my mind
+A moment frozen but you're hard to find
+One shot, one chance, I won't let it go
+I'll keep it all but you'll never know
+Like a Polaroid, we're stuck in place
+A perfect picture but it's not the same
+I'll keep you in this frame, it's all I know
+Wishing you'd stay, but I've got to let go
+
+[Outro]
+(어쿠스틱 기타 연주와 여운이 남는 멜로디)
+(Instrumental fade out)
+```
+
+### 레퍼런스 16
+> 원본: https://www.youtube.com/watch?v=kf9RRsa6buI
+
+```
+1) Styles
+- Genre: Late Night R&B & Soul with a touch of acoustic warmth.
+- Key Instruments: Smooth acoustic guitar, gentle electric piano, subtle bass, and warm string synthesizer accents.
+- Vocal: A soothing, warm male vocal with a gentle, whispering delivery.
+- BPM: 84 BPM, providing a slow and relaxing groove.
+- Mood: Romantic, intimate, and comforting, perfect for late-night listening or a quiet cafe setting.
+
+2) Lyrics
+
+[Verse 1]
+[Warm acoustic guitar and soft piano entry]
+Under the moonlight I write to you slow
+Each word a whisper and melodies that flow
+The sway of the piano, the hum of the strings
+A song for the silence that your memory brings
+
+[Verse 2]
+[Gentle R&B beat enters]
+Do you still smile at the thought of our days?
+Does the wind ever call my name through the haze?
+No rush, no pressure, just a question or two
+This letter's my heart, and it's singing for you
+
+[Chorus]
+[Melancholic yet sweet harmony]
+Softly yours, like the morning sun
+A quiet confession, my love's undone
+Through every note, through every line
+A gentle reminder, you're always mine
+
+[Verse 3]
+[Rhythmic groove continues with acoustic guitar plucks]
+I hear the echoes of laughter we shared
+Moments like paintings carefully spared
+The strings of this guitar, they're weaving a truth
+Each chord a reflection of my love in youth
+
+[Bridge]
+[Emotional lift with swelling strings]
+Do you feel it too, when the sky turns gray?
+Like the touch of the rain, washing worries away
+I don't need answers, just this song to be heard
+A symphony of feelings wrapped in every word
+
+[Chorus]
+[Expressive vocal delivery with layered harmonies]
+Softly yours, like the morning sun
+A quiet confession, my love's undone
+Through every note, through every line
+A gentle reminder, you're always mine
+
+[Verse 4]
+[Vocal becomes intimate and whispery over acoustic guitar and piano]
+No stage, no lights, just the warmth of this tune
+Dacing in shadows beneath the soft moon
+If my heart could speak, it would sound like this
+A melody of longing, sealed with a kiss
+
+[Guitar Solo]
+[Mellow electric guitar solo over a smooth R&B rhythm]
+
+[Outro]
+[Vocal fades out gently]
+So I'll play this song till the night melts away
+Hoping you'll hear it in the quiet of your day
+Softly yours, in every note I compose
+Forever in rhythm where our story grows
+```
+
+### 레퍼런스 17
+> 원본: https://www.youtube.com/watch?v=S22A5uqy5iU
+
+```
+Late Night R&B and Chill Pop features a smooth, laid-back electric piano chord progression accompanied by a steady, mellow drum beat and a warm, groovy bassline. The gentle, airy female vocals convey a sense of calm confidence and subtle mystery, creating a sophisticated yet relaxing late-night atmosphere around 95 BPM.
+
+2) Lyrics
+[Verse 1]
+[gentle electric piano and soft beats]
+Did you really think I wouldn't find out?
+Took your time, but you're running out.
+Got too bold, left the door half closed.
+Now you're standing there looking exposed.
+Oh, you thought you had it down to an art,
+but I traced it right back to the start.
+Now you're trying to change the scene,
+like I don't know what you really mean.
+
+[Chorus]
+[rhythmic beat with groovy bassline]
+Are you serious?
+Acting so mysterious,
+but your cover's blown.
+Now you're on your own.
+Were you curious?
+Testing what you could get away with,
+guess you lost the game.
+Now say my name.
+
+[Verse 2]
+[mellow and smooth verse dynamics]
+Kept your cool, but the cracks still show.
+Left your words where the silence grows.
+Funny how you thought I'd stay naive.
+Now you're watching me as I leave.
+Oh, you thought you had it down to an art,
+but I traced it right back to the start.
+Now you're trying to change the scene,
+like I don't know what you really mean.
+Now you're trying to change the scene,
+like I don't know what you really mean.
+
+[Chorus]
+[full groove with soulful backing vocals]
+Are you serious?
+Acting so mysterious,
+but your cover's blown.
+Now you're on your own.
+Were you curious?
+Testing what you could get away with,
+guess you lost the game.
+Now say my name.
+
+[Bridge]
+[stripped-back instrumental focus on vocals]
+Oh, don't play the victim now.
+You had your turn, so figure it out.
+I'm already ten steps ahead.
+Hope you hear my words in your head.
+
+[Chorus]
+[passionate high vocals and rich chords]
+Are you serious?
+Thought you had me delirious,
+but I caught on quick.
+Now this is it.
+Were you curious?
+Now you know what the limit is.
+Guess you lost the game.
+Now say my name.
+
+[Outro]
+[soft guitar and piano chords fading out]
+
+```
+
+### 레퍼런스 18
+> 원본: https://www.youtube.com/watch?v=MJPOC53yPHM
+
+```
+1) Styles
+This is a smooth Late Night R&B & Soul track driven by a warm, rhythmic electric bassline, gentle keyboard chords, and subtle percussion. The track features soulful male vocals with a warm, intimate tone, moving at a relaxed mid-tempo of 94 BPM. It creates a cozy, romantic, and slightly melancholic late-night atmosphere, perfect for relaxing at a quiet cafe or driving under city lights.
+
+2) Lyrics
+[Intro]
+(Instrumental bass groove and soft keyboard chords)
+
+[Verse 1]
+[Warm male vocals accompanied by a soft, rhythmic bassline]
+I think about you every day without even knowing
+It's getting hard to hide this feeling, baby
+The time with you is getting too precious
+I don't know what to do anymore, spin it
+
+[Pre-Chorus]
+[Vocal melody rising, adding anticipation]
+When our eyes meet, I feel like you already know
+I can't hide it, I want you, why is it like this?
+You and I, should we just go for it?
+I want to tell you right now, I need to know
+
+[Chorus]
+[Groovy chorus with lush harmonies and a full rhythm section]
+What about me? How do you feel?
+I can't hold it in anymore, can't hide it
+I just want to get closer, that's all I need
+What about me? Look in my eyes and tell me, baby
+
+[Verse 2]
+[Beat continues with a smooth, steady flow]
+You and I, feels like it's already begun
+The more time passes, the more I'm drawn to you
+When I see you, I forget everything else
+This feeling is growing, I can't stop it now
+
+[Pre-Chorus]
+[Building up emotion once again]
+I'm dreaming of you every night now
+I'm waiting for your answer, I'm so nervous
+I don't want to miss this moment
+Tell me what you feel, right here, right now
+
+[Chorus]
+[Full groove back in, expressive and emotional delivery]
+What about me? How do you feel?
+I can't hold it in anymore, can't hide it
+I just want to get closer, that's all I need
+What about me? Look in my eyes and tell me, baby
+
+[Bridge]
+[Calmer texture focusing on a sweet keyboard progression and earnest vocals]
+I only want the moments with you
+I want to fill it all up, my heart is falling
+A world just for us, let's start it now
+You and I, let's keep going side by side
+
+[Chorus]
+[Final passionate chorus with ad-libs]
+What about me? How do you feel?
+I can't hold it in anymore, can't hide it
+I just want to get closer, that's all I need
+What about me? Look in my eyes and tell me, baby
+What about me? How do you feel?
+Tell me, baby, I only want you
+
+[Outro]
+[Instrumental fades out with gentle guitar plucking and soft keys]
+(Music fades out slowly)
+```
+
+### 레퍼런스 19
+> 원본: https://www.youtube.com/watch?v=1eKUt634m2Q
+
+```
+1) Styles
+This soft chill pop track blends elements of contemporary R&B, featuring clean electric piano chords, a steady relaxed drum beat, and a warm, groovy bassline. A soothing male vocal delivers emotional English lyrics at 96 BPM, evoking a cozy, late-night atmosphere perfect for winding down.
+
+2) Lyrics
+[Verse 1]
+[Warm and calm]
+Under the stars with the city asleep
+Whispers of you in my heart run deep
+The clock ticks slow, but my mind runs fast
+Chasing the echoes of a love that last
+How's your world, is it bright as your smile?
+I've been wandering these thoughts for a while
+It's been some time, but it feels brand new
+Every word I write, it leads me back to you
+
+[Chorus]
+[Melodic and expressive]
+Midnight calls through the silence replies
+A melody of hope under velvet skies
+Let it find you like the moon's soft glow
+Every line, every beat, just letting you know
+
+[Verse 2]
+[Laid-back groove]
+Life's been moving, but I'm standing still
+Lost in the moments we can't refill
+The laughter, the tears, the stories we spun
+Like pages of a book, never quite done
+Do you still dream of the songs we'd hum?
+Does my voice ever drift where you've come?
+No answers needed, just this feeling I send
+A quiet refrain where the heart never ends
+
+[Chorus]
+[Melodic and expressive]
+Midnight calls through the silence replies
+A melody of hope under velvet skies
+Let it find you like the moon's soft glow
+Every line, every beat, just letting you know
+
+[Bridge]
+[Gentle and sincere]
+If you hear this, let it cradle your soul
+A rhythm that lingers, a piece of the whole
+No goodbyes, no shadows, just a spark of light
+A message that lingers, carried through the night
+
+[Outro]
+[Soft fading whisper]
+Sealed with the stars, wrapped in the air
+Hoping it reaches you, wherever out there
+Midnight whispers, soft and true
+This flutter of my heart, sent straight to you
+```
+
 <!-- CURATED_REFS_END -->
 
 
@@ -4535,7 +5965,7 @@ Sent straight to you
 ## 4-7. Jazz-hop & Bossa Nova Chill
 
 <!-- CURATED_REFS_START -->
-> 🎵 영구 레퍼런스 (user_curated) — 총 10곡 / 갱신일: 2026-07-03
+> 🎵 영구 레퍼런스 (user_curated) — 총 19곡 / 갱신일: 2026-07-03
 
 ### 레퍼런스 1
 ```
@@ -5471,6 +6901,1003 @@ Table by the window, heat came in and I settled down
 Nothing too loud, just a better bounce
 ```
 
+### 레퍼런스 11
+> 원본: https://www.youtube.com/watch?v=sGYVbOXSGmE
+
+```
+Groove Hip-hop & Chill Pop, characterized by clean guitar plucks, a warm, laidback drum groove, and an easygoing male vocal with a rhythmic, conversational flow. Operating at a moderate 90 BPM, this track delivers a cozy, focused cafe vibe with its neat, self-assured energy.
+
+2) Lyrics
+[Chorus]
+[Singing]
+Walk in with the beat, already there
+Coat on the chair, cool in the air
+Didn't say much, just fix my sleeve
+Whole room change when the kick came in
+Cup on the left, keys by the phone
+Bass hits low like it knows my tone
+No big entrance, still that clean pull
+I don't force much, I just move full
+
+[Verse 1]
+[Rhythmic Rap-singing]
+Window got light on the edge of the table
+Days start neat when the pocket feels stable
+Not in a rush, still first in line
+That's my type of perfect timing
+No warm up talk, no extra frame
+Just one good bar and the whole thing changed
+Head nod once, then twice again
+That's when I know the day locked in
+
+[Chorus]
+[Singing]
+Walk in with a beat, that's enough to set the tone
+Drums hit low, I'm in my lane, now the whole day feels my own
+Walk in with a beat, no delay, no wasted phrase
+Just that swing and a clean first step, and I'm already on the way
+
+[Verse 2]
+[Rhythmic Rap-singing]
+Menu change but the air stay right
+Milk foam line and a stripe of light
+Chair don't move and the groove sits late
+That's the kind of start I rate
+Phone face down, let the room breathe first
+Best part hits when the snare lands terse
+No overstyle, no heavy scene
+Still got weight in the quiet things
+Pen taps once on the notebook side
+Roads feel gold and the glass goes bright
+I don't need much for the day to click
+Just a real good drum and a line that sticks
+
+[Pre-Chorus]
+[Singing]
+No warm up talk, no extra frame
+Just one good bar and the whole thing changed
+Head nod once, then twice again
+That's when I know the day locked in
+
+[Chorus]
+[Singing]
+Walk in with a beat, that's enough to set the tone
+Drums hit low, I'm in my lane, now the whole day feels my own
+Walk in with a beat, no delay, no wasted phrase
+Just that swing and a clean first step, and I'm already on the way
+
+[Bridge]
+[Singing]
+Light on the cup, dust in the sun
+Small good signs that the day has begun
+Nothing too loud, still feels deep
+Whole little room moves with me
+
+[Chorus]
+[Singing]
+Walk in with a beat, that's enough to set the tone
+Drums hit low, I'm in my lane, now the whole day feels my own
+Walk in with a beat, no delay, no wasted phrase
+One clean hook and a steady swing, and I'm already on the way
+
+[Outro]
+[Singing / Fade-out]
+Cup rain, page edge, sun by the frame
+One good beat, then I'm in the lane, yeah
+```
+
+### 레퍼런스 12
+> 원본: https://www.youtube.com/watch?v=hKq5P52XyJc
+
+```
+Laid-back chill pop with a distinct hip-hop groove, featuring a prominent bassline, smooth keys, crisp percussion, and warm, soulful male vocals that create a cozy morning cafe atmosphere at 88 BPM.
+
+2) Lyrics
+[Intro]
+(Right on time)
+
+[Verse 1]
+[Singing warmly]
+Cup on the counter, city still soft
+Light hits the table, shaking dust off
+Phone face down at the morning talk
+I don't rush much but I don't get lost
+Keys in my jacket, pen in my toe
+Small clean rhythm in the things I hold
+Not chasing noise, I just let it roll
+Walk in the room like I already know
+
+[Pre-Chorus]
+[Rhythmic build-up]
+No big speech, no extra pose
+Just one beat and the whole thing goes
+Day starts here when the hi-hat shows
+I let the window open slow
+
+[Chorus]
+[Catchy groove]
+First sip, no delay
+Drums laying low and I feel okay
+No long intro, go straight to the wave
+I came for the groove, let it lead the day
+First sip, no delay
+Neat little swing in the way I move, yeah
+Nothing too loud but it stays in place
+I came for the groove, let it lead the day
+
+[Verse 2]
+[Calm rap-singing]
+Chair by the corner, bag on the floor
+Same old cafe, still wanting more
+Steam in the glass, hand on the door
+I like that hush right before the pour
+Friend send a message "you up?" I'm good
+Half of my mood comes from decent wood
+Tabletop grain and a kick that should
+Sit just behind me the way it could
+
+[Pre-Chorus]
+[Smooth transition]
+No dramatics in the frame
+Just a clean shirt and a catching name
+When the bass leans in, I do the same
+Let the small things carry weight
+
+[Chorus]
+[Full groove]
+First sip, no delay
+Drums laying low and I feel okay
+No long intro, go straight to the wave
+I came for the groove, let it lead the day
+First sip, no delay
+Neat little swing in the way I move, yeah
+Nothing too loud but it stays in place
+I came for the groove, let it lead the day
+
+[Bridge]
+[Laid-back and melodic]
+Not in a hurry, still ahead
+Good light falling on the bread
+Tiny plan in my head
+That's enough to make it spread
+No big promise, no display
+Just enough style in a simple day
+When the room wakes up, I'm already made
+One small nod and I'm on my way
+
+[Chorus]
+[Energetic outro chorus]
+First sip, no delay
+Drums laying low and I feel okay
+No long intro, go straight to the wave
+I came for the groove, let it lead the day
+First sip, no delay
+Three first steps and a real good pace
+Small thing, don't need a lot to change
+Just the right beat in the right safe place
+
+[Outro]
+[Soft fading chords]
+Cup leaves a ring by the page
+Sun climbs, warmth shelf off the wall
+That's all I need after all
+Cup leaves a ring by the page
+Sun climbs, warmth shelf off the wall
+That's all I need after all
+```
+
+### 레퍼런스 13
+> 원본: https://www.youtube.com/watch?v=LbUm8ve40W8
+
+```
+1) Styles
+Late Night R&B & Soul featuring a warm electric piano chord progression, a laid-back hip-hop drum loop, and smooth, cozy male vocals at 82 BPM.
+
+2) Lyrics
+[Verse 1]
+[Male Vocal]
+Morning lands write a low drum drops
+Cup by my hand and the whole room softens
+Slide on the chrome and the pace stays open
+Once small swing and I'm already in it
+Phone face down let the first thought wait
+Chair leans back and the snare says patience
+Nothing too big but the filter runs clean
+It's my kind of start to the day beginning
+
+[Pre-Chorus]
+[Male Vocal]
+No extra talk
+No heavy move
+Just one calm line
+And a better groove
+
+[Chorus]
+[Male Vocal / Harmonies]
+Morning lands right
+That's when the mood comes through
+One clean beat and a warm-lit room
+And the whole day starts brand new
+Morning lands right
+Nothing forced, just good taste
+Low bass, soft life, first good step
+And the whole thing falls in place
+
+[Verse 2]
+[Male Vocal]
+Steamed-up glass, art of silver machine
+Milk foam line in a slow bright clean
+Keys by the page and the pen taps once
+I think more clear when the rhythm breathes
+Not trying hard, just letting it sit
+One phrase leans where the next one fits
+Something quiet, but it holds its shape
+And the groove stays close without getting stiff
+
+[Pre-Chorus]
+[Male Vocal]
+No extra talk
+No heavy move
+Just one calm line
+And a better groove
+
+[Chorus]
+[Male Vocal / Harmonies]
+Morning lands right
+That's when the mood comes through
+One clean beat and a warm-lit room
+And the whole day starts brand new
+Morning lands right
+Nothing forced, just good taste
+Low bass, soft life, first good step
+And the whole thing falls in place
+
+[Bridge]
+[Male Vocal]
+Cup by the notebook
+Sun on the frame
+One good rhythm
+Can change everything
+No need to rush it
+No need to prove
+Just let the morning
+Fall into groove
+
+[Chorus]
+[Male Vocal / Harmonies]
+Morning lands right
+That's when the mood comes through
+One clean beat and a warm-lit room
+And the whole day starts brand new
+Morning lands right
+Nothing forced, just good taste
+One good start and a light that lands
+And the whole thing falls in place
+
+[Outro]
+[Male Vocal]
+Bass in the floor
+Light on the wall
+That was enough
+That was all
+```
+
+### 레퍼런스 14
+> 원본: https://www.youtube.com/watch?v=u8InP8o9WIs
+
+```
+1) Styles
+Chill groove hip-hop song featuring electric piano, a laid-back bassline, soft drum machine beats, and a smooth, warm male vocal with a relaxed flow. The BPM is around 84, creating a cozy and mellow late-night vibe.
+
+2) Lyrics
+[Intro]
+Yeah
+Right here
+
+[Verse 1]
+[Relaxed]
+Right, I like it when... when I like it... I like it when the room gets right before I even settle in. When the cup hits wood and the low drum folds in, till the air a little better than expected, no need to announce it. I can tell by the way the light sits on the chrome, by the way the chair leans back, by the way the pocket already feels collected, phone turned over, keys by the notebook. One good line in my head and it suddenly sounds expensive when the snare stays late and the bass keeps everything centered. That's usually enough for me, I don't need a dramatic start, just a clean first step and a rhythm that moves like it's been here all morning waiting.
+
+[Chorus]
+[Melodic]
+I'm into the small things, the steamed-up window, the silver edge of the machine, the soft talk and the back fold neatly into the hi-hat pattern. Nothing too dressed up, still the whole place sharpens and I start hearing the day come together in pieces that don't look loud but land with a real kind of balance. That's more my speed, not sleepy, not pressing, just a calm little glide with a bit of weight in it, the sort of groove that doesn't beg but stays on your mind after.
+
+[Chorus]
+[Groovy]
+So let it roll in natural, let it hold that angle, let the first bar set the tone with no wasted motion and no extra static. No long lead-in, no stage effect, just one good pocket and the whole thing clicks. Head nod easy, shoulders loose, that's when I know I can trust the groove.
+
+[Refrain]
+[Smooth]
+Room service groove, that's the kind of start I use, nothing forced, just the right small move, and the whole day shifts a little. Room service groove, drums stay low but they carry through, clean first line and a warm backbeat, that's enough to make it hit you.
+
+[Verse 2]
+[Laid-back]
+Barista calling softly somewhere over my shoulder, milk foam rising, glass doors sliding, sunlight drawing one bright line across the table ledge. I write better in places like this, when the phrasing doesn't have to fight for attention. When the hook comes easy and the verse can breathe without feeling overweighted. Not trying to sound deep, just write, just flowing, just a little more polished and casual, like a jacket that sits clean because it knows its shape.
+
+[Chorus]
+[Melodic]
+And I think that's the difference, when the style doesn't push at you, it just stays in the room and changes the air a bit, and by then you're already inside it. Cup ring on the paper, one note underlined, somebody laughing near the counter, a soft kick drum threading the whole thing together without showing off.
+
+[Chorus]
+[Groovy]
+That's where I want to start, not in a rush, not drifting either, just locked enough to move forward, just warm enough to keep the head nod going.
+
+[Refrain]
+[Smooth]
+Let the first key talking, let the thought keep flowing, let the rhythm sit behind me the way a good day does when it knows exactly where it's going. And if the room feels better when the beat comes in, then I'm fine with that, because some mornings really only need one clean groove to open.
+
+[Refrain]
+[Smooth]
+No long lead-in, no stage effect, just one good pocket and the whole thing clicks. Head nod easy, shoulders loose, that's when I know I can trust the groove.
+Room service groove, that's the kind of start I use, nothing forced, just the right small move, and the whole day shifts a little. Room service groove, drums stay low but they carry through, warm clean start and a line that moves, that's enough to make it hit you.
+
+[Outro]
+[Fading]
+Cup by the page, sun by the wall, beat in the floor, and that was all.
+```
+
+### 레퍼런스 15
+> 원본: https://www.youtube.com/watch?v=0_eW2MtZf6Q
+
+```
+1) Styles
+Groove Hip-hop & Chill Pop, featuring a laid-back boom-bap drum beat, warm electric piano chords, and a smooth male vocal with rap-singing elements, set around 85 BPM, creating a relaxed, cozy, and reflective morning cafe atmosphere.
+
+2) Lyrics
+[Intro]
+[humming]
+Set it off
+
+[Verse 1]
+[soft rap-singing]
+I like the day when it's all before I name it
+When the cup hits the table and the room is calibrated
+No rush in the shoulders, no theatrical entrance
+Just a clean little pocket and the timing lands expensive
+Window on my left and the light comes in gentle
+Pen by the notebook, phone down, mind central
+Nothing overdone but the whole thing's together
+That kind of quiet detail always holds a beat better
+I don't need a sign when the rhythm already speaks
+Just a low drum sitting late and a line that breathes
+Same chair, same wood grain, same little corner
+Still the mood turns new when the groove comes forward
+That's enough for me, let the small things lead it
+Let the kick draw shape and the first thought mean it
+I'm not chasing noise, I'm just letting it enter
+And the room gets clean when the swing sits center
+
+[Pre-Chorus]
+[melodic singing]
+No overtalking, no extra scene
+Just one good break and the air turns clean
+Head nod once, then it settles in
+That's when I know where the day begins
+
+[Chorus]
+[warm vocal harmony]
+Set the tone early
+Let the drum line speak first
+Let the room breathe easy
+Let the whole thing work (Let the whole thing work)
+Set the tone early
+Nothing forced, nothing blurred
+Just that right small swing
+And a clean first word, and a clean first word
+
+[Verse 2]
+[rhythmic singing]
+Barista in the back with the steam rising sideways
+Somebody laughs softly and it folds into the hi-hat
+I'd rather be here when the pace isn't showing off
+When the bass stays warm, the top line knows when not to push
+That's the part I like
+When the fills stay human, when the verse moves close
+And the phrasing stays fluid, not too sharp, not lazy
+Not rigid at the corners, just enough weight in it to carry the morning forward
+Coat on the chair and the keys by the notebook
+One fresh line suddenly sounding better than it looked
+No fake cool in it, no decorative distance
+Just a natural kind of ease with a little precision
+I've learned the day can shift from a very small detail
+From the snare hitting late to the light on the steel rail
+So I let it come simple, let it land when it wants to
+'Cause the best kind of style never asks you
+
+[Pre-Chorus]
+[melodic singing]
+No overtalking, no extra scene
+Just one good break and the air turns clean
+Head nod once, then it settles in
+That's when I know where the day begins
+
+[Chorus]
+[warm vocal harmony]
+Set the tone early
+Let the drum line speak first
+Let the room breathe easy
+Let the whole thing work (Let the whole thing work)
+Set the tone early
+Nothing forced, nothing blurred
+Just that right small swing
+And a clean first word
+
+[Bridge]
+[melodic singing]
+Sign on the metal edge
+Cup ring by the page
+It could be a straight path
+And I'm already changed
+No heavy statement
+No big reveal
+Just the right pocket
+And the rest turns real
+
+[Chorus]
+[warm vocal harmony]
+Set the tone
+Set the tone early
+Let the drum line speak first
+Let the room breathe easy
+Let the whole thing work (Let the whole thing work)
+Set the tone early
+Nothing forced, nothing blurred
+One good start, one calm groove
+And a clean first word, and a clean first word
+
+[Outro]
+[soft vocalizing and keyboards fading out]
+And a clean first word
+Light on the table
+Bass on the floor
+That's all it took
+To open the door
+```
+
+### 레퍼런스 16
+> 원본: https://www.youtube.com/watch?v=GqJYN9VajX0
+
+```
+Late Night R&B & Soul featuring a warm electric piano, a laid-back mellow drum groove, and smooth, soulful male vocals operating at a relaxed 82 BPM to establish a cozy, reflective late-night atmosphere.
+
+2) Lyrics
+[Verse 1]
+[Slowly and calmly]
+Clean start, low drum, cup by the right hand
+Sun hits chrome, and the whole room slows down
+Phone face down, let the first thought arrive
+I like mornings better when the groove speaks first
+
+[Pre-Chorus]
+[Building up smoothly]
+Chair leans back, steam lifts off through the light
+No big scene, just a time it sits right
+One good swing and the air turns clear
+That’s enough to let the whole day in
+No extra words, no heavy move
+Just one calm line and a better groove
+
+[Chorus]
+[Full and warm groove]
+Clean start, slow swing, that's the way I ease in
+One small beat, one soft room, and the whole day begins
+Clean start, slow swing, nothing forced, just the right thing
+Low light, warm bass, clean first step and the mood slips in
+
+[Verse 2]
+[Rhythmic and conversational]
+Minute change but the feeling stays proper
+Milk foam line by the silver machine
+Keys by the page and the pen taps once
+I think better when the rhythm stays loose
+
+[Pre-Chorus]
+[Smoothly building up]
+Not too much, just a little good taste
+Something quiet but it holds its shape
+One phrase leans into the next real smooth
+And the room gets better with the groove
+No extra words, no heavy move
+Just one calm line and a better groove
+
+[Chorus]
+[Full and warm groove]
+Clean start, slow swing, that's the way I ease in
+One small beat, one soft room, and the whole day begins
+Clean start, slow swing, nothing forced, just the right thing
+Low light, warm bass, clean first step and the mood slips in
+
+[Outro]
+[Fading out gently]
+Bass on the floor, light on the wall
+That was enough, that was all
+Bass on the floor, light on the wall
+That was enough, that was all
+```
+
+### 레퍼런스 17
+> 원본: https://www.youtube.com/watch?v=2mjElnVIZ6w
+
+```
+1) Styles
+Late Night R&B & Soul featuring a smooth groovy bassline, clean electric guitar chords, and crisp drum beats. A warm, soulful male vocal delivers rhythmic, laid-back melodies. The BPM is around 85, creating a mellow, relaxing, and sophisticated late-night atmosphere perfect for unwinding.
+
+2) Lyrics
+[Hook]
+Good timing, no noise
+Good timing, no noise
+
+[Verse 1]
+[Warm and rhythmic]
+Good timing, no noise
+Cup on the table and the low end rolls in
+Light on the steel frame, one small swing and the whole room opens
+Phone face down for a minute
+Chair leans back and the air gets clearer
+I like mornings better
+When the beat gets there a little sooner
+
+[Pre-Chorus]
+[Smooth building]
+No big entrance
+Just a clean first step and the pocket stays easy
+Nothing dramatic
+Still the whole mood turns when the snare lands neatly
+
+[Chorus]
+[Soulful and catchy]
+That's more my speed, not sleepy, not loud
+Just smooth in the right way
+One good rhythm and the day starts keeping good taste
+No extra talk, no extra pose
+Just one calm line and the groove comes close
+Head nod once, let it sit
+That's when I know the day can start like this
+Good timing, no noise
+All I need in the morning
+One clean drum, one warm room
+And the whole day starts forming
+
+[Verse 2]
+[Laid-back flow]
+Good timing, no noise
+Nothing forced, just the right choice
+Low bass, soft light
+First good move and the whole thing holds its poise
+Menu changed a little
+Milk foam rose by the silver machine
+Page half open
+Pen taps once and the thought turns clean
+
+[Bridge]
+[Gentle variation]
+Not too much in it
+Just enough shaping the line to stay with me
+I don't need big words
+When the groove already says it clearly
+Coat on the chair, keys by the page
+And the glass throws color
+Somebody laughs in the back
+And it folds right into the drama
+
+[Outro]
+[Fading out with groove]
+That's what I trust when the rest stays light
+But the feel stays certain
+One phrase leads to the next
+And the room gets better without working
+```
+
+### 레퍼런스 18
+> 원본: https://www.youtube.com/watch?v=XkuQ6s2Ssu0
+
+```
+1) Styles
+A warm and laid-back R&B/soul track featuring a smooth bassline, soft drum kicks, mellow keyboard chords, and a soulful male vocal that delivers a relaxing and comforting vibe at a mid-tempo BPM.
+
+2) Lyrics
+[Intro]
+(Instrumental)
+
+[Verse 1]
+[Male Vocal, Calm]
+Soft kick, clear morning
+Cup in my hand and the room starts turning
+Light on the still and the page stays open
+One small swing and I'm already in it
+Phone face down let the first thought wait
+Chair leans back and the snare sits patient
+Nothing too big but the feel comes clean
+That kind of start makes the whole day lean in
+Steam near the glass by the window frame
+Low bass warm and the air feels changed
+I like it best when the groove gets there
+Before I say much, before I look up
+
+[Pre-Chorus]
+[Male Vocal, Smooth]
+No extra talk, no extra show
+Just one good pocket and the whole thing goes
+
+[Chorus]
+[Male Vocal, Warm]
+Soft kick, clear morning
+That's how the day comes through
+One clean beat in a bright small room
+And the whole mood feels brand new
+Soft kick, clear morning
+Nothing forced, just sitting right
+Low light, warm bass, first good step
+And the whole day starts in time
+
+[Verse 2]
+[Male Vocal, Chill]
+Milk foam rising by the silver machine
+Keys by the page and the pen taps between
+Someone laughs slow and it fits that snare
+Good days start better when the feel is there
+Not too dressed up, not too loose in shape
+One phrase leaning where the next one stays
+I like a song that can move with ease
+A little calm up top with a real groove underneath
+
+[Pre-Chorus]
+[Male Vocal, Smooth]
+No hard push, no overplay
+Just enough weight in a clean first phrase
+One good line and the room feels wide
+That's usually all that I need to like it
+
+[Chorus]
+[Male Vocal, Warm]
+No extra talk
+No extra show
+Just one good pocket and the whole thing goes
+Soft kick, clear morning
+That's how the day comes through
+One clean beat in a bright small room
+And the whole mood feels brand new
+Soft kick, clear morning
+Nothing forced, just sitting right
+Low light, warm bass, first good step
+And the whole day starts in time
+
+[Outro]
+[Male Vocal, Soft]
+Cup by the notebook
+Sun on the frame
+One low rhythm
+Can change the shade
+No need to chase it
+No need to prove
+Just let the morning wake in the groove
+Soft kick, clear morning
+That's how the day comes through
+One clean beat in a bright small room
+And the whole mood feels brand new
+Soft kick, clear morning
+Nothing forced, just sitting right
+One good start and a line that lands
+And the whole day starts in time
+```
+
+### 레퍼런스 19
+> 원본: https://www.youtube.com/watch?v=MtHC0gdGtMo
+
+```
+1) Styles
+Groove Hip-hop & Chill Pop featuring mellow electric piano chords, a steady laid-back hip-hop drum beat, a warm male vocal, and a cozy cafe vibe at 86 BPM.
+
+2) Lyrics
+[Verse 1]
+Table by the window, back by the leg
+Cup leaves a mark and I like that tray
+Sun on the sleeve, one crease on the edge
+Whole little scene got a natural place
+Didn't say much when I walked inside
+Still got rhythm in the way I slide
+Menu board changed but the air's the same
+Keep it low key and it clears my mind
+
+[Pre-Chorus]
+I don't need luck, I just need space
+Good chair, clean cup, bass in place
+Morning stays light when the swing sits late
+That's enough style for a working day
+No extra shine, no big reveal
+Just that pocket that makes it real
+One small nod, one clean phrase
+Then the whole room starts to behave
+
+[Chorus]
+Table by the window, beat came in and I settled down
+Nothing too loud, just a better bounce
+That's how I want it now
+Table by the window, good light, good cup, good little sound
+Drums stay low but they hold the ground
+That's how I want it now
+
+[Verse 2]
+Notebook open, pen taps twice
+Milk foam line and a cube of ice
+Barista laughs then the steam goes up
+Everything lands in the shape I like
+Phone on silent, work can wait
+I work better when the hi-hats sway
+Not in a rush, still right on time
+Let the baseline draw the straightest line
+
+[Pre-Chorus]
+You can keep all the heavy display
+I'll take small things done the proper way
+Chair don't move and the hook don't chase
+Still it sticks when it hits that way
+No extra shine, no big reveal
+Just that pocket that makes it real
+One small nod, one clean phrase
+Then the whole room starts to behave
+
+[Chorus]
+Table by the window, beat came in and I settled down
+Nothing too loud, just a better bounce
+That's how I want it now
+Table by the window, good light, good cup, good little sound
+Drums stay low but they hold the ground
+That's how I want it now
+
+[Bridge]
+Shoes by the chair
+Keys by the phone
+I like the day
+When it moves this slow
+Not too soft, not too hard
+Just enough swing to carry far
+
+[Chorus]
+Table by the window, beat came in and I settled down
+Nothing too loud, just a better bounce
+That's how I want it now
+Table by the window, good light, good cup, good little sound
+Drums stay low but they hold the ground
+That's how I want it now
+
+[Outro]
+Ring on the table
+Note on the page
+One more good bar
+And I'm on my way
+```
+
 <!-- CURATED_REFS_END -->
 
 
+
+
+---
+
+## 4-8. Jazz Instrumental (재즈 인스트루멘탈)
+
+<!-- CURATED_REFS_START -->
+> 🎷 영구 레퍼런스 (user_curated) — Gemini 20곡 청취 분석 / 갱신일: 2026-07-08
+> 가사 없는 순수 연주곡 전용 — no vocals, no lyrics
+
+### 레퍼런스 1
+
+```
+1) Styles
+Cool jazz piano trio instrumental — no vocals, no lyrics, no humming. A relaxed and breezy piece with gentle brushed swing rhythm, warm upright bass walking the groove, and elegant acoustic piano melodies at 78 BPM. Cozy lounge atmosphere, peaceful and elegant. Warm analog texture, intimate room ambience.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, piano trio, 78 BPM, brushed swing rhythm, warm upright bass, acoustic piano, cozy lounge, relaxed, peaceful, elegant, no vocals, instrumental only]
+```
+
+### 레퍼런스 2
+
+```
+1) Styles
+Bossa nova jazz instrumental — no vocals, no lyrics. A warm and cheerful bossa nova piece featuring rhythmic acoustic guitar comping, acoustic piano melodies, upright bass holding the groove, and light brushed drums with bossa rhythm at 120 BPM. Sunny afternoon cafe, breezy and welcoming. Warm natural acoustic sound.
+
+2) Lyrics
+[INSTRUMENTAL]
+[bossa nova, acoustic guitar, acoustic piano, upright bass, brushed drums, 120 BPM, bossa rhythm, cheerful, warm, sunny, cafe, instrumental only, no vocals]
+```
+
+### 레퍼런스 3
+
+```
+1) Styles
+Jazz ballad instrumental — no vocals, no lyrics, no humming. A slow and introspective piece with gentle piano chords, warm upright bass, and quiet brushed drums with slow jazz swing at 65 BPM. Nostalgic and serene atmosphere — late night bar or quiet study room. Soft reverb, intimate recording.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz ballad, slow, 65 BPM, piano, upright bass, slow jazz brushes, nostalgic, calm, melancholic, serene, late night, instrumental only, no vocals]
+```
+
+### 레퍼런스 4
+
+```
+1) Styles
+Swing jazz instrumental — no vocals, no lyrics. A cheerful and upbeat swing piece featuring playful piano melodies, warm flute lines weaving through the harmony, walking upright bass, and lively swing drums at 135 BPM. Lighthearted and whimsical energy — vintage jazz club feel. Bright and bouncy mix.
+
+2) Lyrics
+[INSTRUMENTAL]
+[swing jazz, piano, flute, upright bass, swing drums, walking bass, 135 BPM, cheerful, breezy, playful, lighthearted, vintage jazz club, instrumental only, no vocals]
+```
+
+### 레퍼런스 5
+
+```
+1) Styles
+Acoustic bossa nova instrumental — no vocals, no lyrics. A breezy and relaxed bossa nova piece featuring fingerpicked acoustic guitar rhythmic comping, warm piano fills, upright bass, and soft shaker percussion at 88 BPM. Sunny and cheerful cafe atmosphere, easy-listening warmth. Natural acoustic recording, light reverb.
+
+2) Lyrics
+[INSTRUMENTAL]
+[bossa nova, acoustic guitar, piano, upright bass, shaker, 88 BPM, bossa rhythm, breezy, warm, peaceful, cheerful, sunny cafe, instrumental only, no vocals]
+```
+
+### 레퍼런스 6
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A relaxing cool jazz piano trio piece featuring a smooth piano melody, warm upright bass, and gentle brushed swing drums at 115 BPM, evoking an elegant and peaceful atmosphere. Relaxing, peaceful, elegant atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, piano jazz, piano trio, brushed drums, upright bass, acoustic, relaxing, elegant, medium tempo, instrumental, 115 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 7
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A relaxed cool jazz instrumental featuring melodic acoustic piano, warm upright bass, and gentle brushed swing drums, around 108 BPM. Relaxed, breezy, cozy atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, acoustic piano, upright bass, brushed drums, swing, relaxed, breezy, cozy, melodic, 108 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 8
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A smooth and cool jazz instrumental featuring melodic piano chords, warm upright bass, and gentle brushed drums at 78 BPM, evoking a relaxing and cozy mood. Relaxing, mellow, peaceful atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, piano, upright bass, brushed drums, mellow, relaxing, cozy, smooth, instrumental, 78 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 9
+
+```
+1) Styles
+Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A slow and melancholic jazz ballad featuring gentle piano, warm upright bass, and quiet brushed drums, at 65 BPM. Calm, relaxing, nostalgic atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz ballad, slow, piano, upright bass, brushed drums, relaxing, cozy, melancholic, 65 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 10
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A warm and relaxing cool jazz piano trio piece at 118 BPM, featuring melodic acoustic piano, plucked upright bass, and gentle brushed swing drums. Cozy, relaxed, peaceful atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz piano trio, cool jazz, acoustic piano, upright bass, brushed drums, swing, cozy, warm, relaxing, 118 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 11
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A relaxed and cheerful cool jazz piano trio featuring acoustic piano, upright bass, and brushed swing drums at 115 bpm. Relaxed, cheerful, sophisticated atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, piano trio, acoustic piano, upright bass, brushed swing drums, cheerful, relaxed, lounge, 115 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 12
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A slow, cozy cool jazz instrumental featuring gentle piano, warm acoustic guitar, and soft upright bass, with a nostalgic and peaceful mood at 72 BPM. Cozy, nostalgic, peaceful atmosphere. No percussion.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, acoustic jazz, piano, acoustic guitar, upright bass, slow tempo, cozy, nostalgic, warm, instrumental, 72 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 13
+
+```
+1) Styles
+Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A gentle and nostalgic solo jazz piano ballad with a warm, cozy, and melancholic mood at 65 BPM. Warm, nostalgic, peaceful atmosphere. No percussion.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz ballad, solo piano, slow, cozy, melancholic, nostalgic, warm, cinematic, peaceful, 65 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 14
+
+```
+1) Styles
+Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A slow and nostalgic jazz ballad featuring gentle acoustic piano, warm upright bass, and quiet brushed drums at 64 BPM. Nostalgic, peaceful, melancholy atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz ballad, acoustic piano, upright bass, brushed drums, mellow, nostalgic, cozy, relaxing, slow tempo, 64 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 15
+
+```
+1) Styles
+Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A slow-tempo jazz ballad featuring a soft piano trio with melodic piano, gentle upright bass, and quiet brushed drums, creating a warm and nostalgic atmosphere at 65 BPM. Nostalgic, cozy, calm atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz ballad, piano trio, cool jazz, cozy, nostalgic, relaxing, slow tempo, brushed drums, warm piano, 65 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 16
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A serene and cozy cool jazz ballad led by gentle piano, accompanied by a warm upright bass and soft brushed drums at 65 BPM. Cozy, relaxing, nostalgic atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, jazz ballad, piano, upright bass, brushed drums, cozy, relaxing, nostalgic, slow, 65 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 17
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A warm and whimsical cool jazz piano duo featuring acoustic piano and upright bass at 115 BPM. Cozy, nostalgic, whimsical atmosphere. No percussion.
+
+2) Lyrics
+[INSTRUMENTAL]
+[jazz piano duo, cool jazz, acoustic piano, upright bass, cozy, whimsical, nostalgic, lounge, 115 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 18
+
+```
+1) Styles
+Cool Jazz instrumental -- no vocals, no lyrics, no humming. A cozy and melodic cool jazz piano trio style with a warm, nostalgic mood, featuring brushed swing drums, upright bass, and whimsical piano lines at 125 BPM. Cozy, nostalgic, playful atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[cool jazz, piano trio, piano, upright bass, brushed drums, swing, cozy, nostalgic, warm, melodic, 125 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 19
+
+```
+1) Styles
+Bossa Nova instrumental -- no vocals, no lyrics, no humming. A warm and light acoustic bossa nova jazz piece featuring a playful piano melody, gentle upright bass, and soft brushed drums at 115 BPM. Cozy, warm, playful atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[bossa nova, jazz piano, upright bass, brushed drums, acoustic, cozy, warm, nostalgic, light, 115 bpm, no vocals, instrumental only]
+```
+
+### 레퍼런스 20
+
+```
+1) Styles
+Bossa Nova instrumental -- no vocals, no lyrics, no humming. A warm and nostalgic bossa nova jazz piano trio style, featuring lyrical acoustic piano, gentle upright bass, and light brushed drums, around 108 BPM. Cozy, relaxing, nostalgic atmosphere.
+
+2) Lyrics
+[INSTRUMENTAL]
+[bossa nova, jazz bossa, piano trio, acoustic piano, upright bass, brushed drums, cozy, relaxing, nostalgic, 108 bpm, no vocals, instrumental only]
+```
+<!-- CURATED_REFS_END -->

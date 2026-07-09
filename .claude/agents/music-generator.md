@@ -1,6 +1,6 @@
 ---
 name: music-generator
-description: Suno AI 음악 배치 생성 전담. 30회 호출 → 곡마다 A/B 2버전 생성 → 선정 기준으로 1곡 선택 → selected 폴더 저장 (최종 30곡, 영상 약 1.5시간).
+description: Suno AI 음악 배치 생성 전담. 15회 호출 → 곡마다 A/B 2버전 생성 → 선정 1곡 + 비선정 1곡 보관 → selected 폴더 저장 (선정 15 + 비선정 15 = 총 30곡, 영상 약 1.5시간).
 model: sonnet
 tools: [Read, Write, Bash, Glob, SendMessage]
 ---
@@ -51,10 +51,10 @@ EOF
 
 ## 역할
 - 컨셉 브리프를 기반으로 Suno AI 최적화 프롬프트 작성
-- **배치 생성**: 곡마다 A/B 2버전 생성 → **아래 A/B 선정 기준으로 더 나은 1곡 선택** → `selected/`에 저장.
-- **생성 목표**: 오케스트레이터가 지정한 N회 호출 (테스트 모드) / **30회 호출 (운영 모드 기본값, 최종 선정 30곡, 영상 약 1.5시간)**
+- **배치 생성**: 곡마다 A/B 2버전 생성 → **아래 A/B 선정 기준으로 더 나은 1곡 선택** → 선정곡 + 비선정곡 둘 다 `selected/`에 저장.
+- **생성 목표**: 오케스트레이터가 지정한 N회 호출 (테스트 모드) / **15회 호출 (운영 모드 기본값, 선정 15곡 + 비선정 15곡 = 총 30곡, 영상 약 1.5시간)**
 - **가사 포함 기본**: `instrumental: false`. 한 곡당 3분 분량의 **영어 가사(팝송)** 직접 작성. 특별한 지시가 있을 때만 변경.
-- A/B 중 선정된 **1곡만** `selected/` 폴더에 저장하고 video-producer에 전달
+- A/B 중 선정된 **1곡**은 `{num:02d}_{title}.mp3`, 비선정 **1곡**은 `{num+15:02d}_{title}_rej.mp3`로 저장 → 총 30곡을 video-producer에 전달
 
 ### A/B 선정 기준 (우선순위 순)
 
@@ -225,7 +225,7 @@ scat singing
 
 # 4. 장르별 Styles + Lyrics 샘플
 
-장르별 전체 Styles/Lyrics 작성 예시(4-1~4-7, 7개 장르)는 별도 파일로 분리되어 있다.
+장르별 전체 Styles/Lyrics 작성 예시(4-1~4-8, 8개 장르)는 별도 파일로 분리되어 있다.
 Section 5에서 장르를 결정한 뒤, 해당 장르 1개 섹션만 펼쳐서 참고한다:
 
 → `Read .claude/agents/music-generator-genre-samples.md`
@@ -319,6 +319,7 @@ cat "$REPO_DIR/.claude/agents/user-feedback.json"
 따뜻함, 자연, 위로, 아침 산책, 희망, 어쿠스틱                → Acoustic Indie Pop & Folk Soul
 몽환적, 80년대 감성, 드라이브, 신스팝, 하이저우              → Chillwave & Synth Pop
 카페, 여유로운 오후, 대화, 재즈, 보사노바, 소박한 행복        → Jazz-hop & Bossa Nova Chill
+순수 연주, 가사 없음, 재즈 피아노 트리오, 쿨재즈, 보사노바    → Jazz Instrumental  ※ instrumental: true 필수, negative_tags에 "vocals, singing, lyrics, humming" 추가
 ```
 
 장르 우선순위는 트렌드 분석 결과(researcher 리포트)와 strategist의 컨셉 브리프를 따른다.
@@ -420,7 +421,12 @@ soft falsetto accents on held notes, no aggressive belting
 {projectDir}/music-generator/
 ├── city_in_motion_A.mp3, city_in_motion_B.mp3 ...   ← 각 호출의 원본 A/B (보관용)
 ├── selected/
-│   └── city_in_motion.mp3                            ← A/B 선정 기준으로 선택된 1곡 (30곡 최종)
+│   ├── 01_city_in_motion.mp3          ← 선정곡 (01~15번, usage: "selected")
+│   ├── 02_rainy_window.mp3
+│   ├── ...
+│   ├── 16_city_in_motion_rej.mp3      ← 비선정곡 (16~30번, usage: "rejected")
+│   ├── 17_rainy_window_rej.mp3
+│   └── ...
 ├── prompts_log.json                                   ← 생성에 사용한 프롬프트 + 메타데이터 전체 기록
 └── music_info.json                                    ← 전체 트랙 정보 통합 (A/B 비교·선정 결과 포함)
 ```
@@ -432,11 +438,11 @@ soft falsetto accents on held notes, no aggressive belting
 | 모드 | API 호출 수 | 최종 트랙 수 | 사용 시점 |
 |------|--------:|--------:|----------|
 | 테스트 | **오케스트레이터 지정 N회** | N곡 (A/B 중 선정) | 파이프라인 점검 |
-| 운영 | **30회** | **30곡** (A/B 중 선정, 약 1.5시간) | 실제 영상 제작 (기본값) |
+| 운영 | **15회** | **30곡** (선정 15 + 비선정 15, 약 1.5시간) | 실제 영상 제작 (기본값) |
 
-> 오케스트레이터가 호출 프롬프트에 `num_tracks: N`을 명시하면 **N회 호출**(최종 N곡)로 진행.
-> 명시 없으면 **30회 호출**(최종 30곡) 진행.
-> **A/B 중 선정 기준(역할 섹션 참조)에 따라 1곡만 `selected/`에 저장한다.** 원본 A/B 파일은 `music-generator/` 폴더에 그대로 보관.
+> 오케스트레이터가 호출 프롬프트에 `num_tracks: N`을 명시하면 **N회 호출**(선정 N곡 + 비선정 N곡 = 2N곡)로 진행.
+> 명시 없으면 **15회 호출**(선정 15곡 + 비선정 15곡 = 총 30곡) 진행.
+> **A/B 중 선정 기준(역할 섹션 참조)에 따라 선정 1곡 + 비선정 1곡을 둘 다 `selected/`에 저장한다.** 원본 A/B 파일은 `music-generator/` 폴더에 그대로 보관.
 
 ---
 
@@ -502,7 +508,7 @@ cat "${PROJECT_DIR}/strategist/concept_brief.json"
 
 ```bash
 python3 -c "
-N = 30  # 호출 횟수 (= 트랙 수, A/B는 같은 vocal_gender를 공유하지 않아도 됨 — 호출당 1개 성별만 지정 가능한 점 주의)
+N = 15  # 호출 횟수 (= 트랙 수, A/B는 같은 vocal_gender를 공유하지 않아도 됨 — 호출당 1개 성별만 지정 가능한 점 주의)
 import json
 genders = ['female' if i % 2 == 0 else 'male' for i in range(N)]
 print(json.dumps(genders))
@@ -541,7 +547,7 @@ EOF
 
 ```bash
 PROJECT_DIR="{PROJECT_DIR}"
-NUM_TRACKS=3   # 테스트: 오케스트레이터 지정값(호출 횟수) / 운영: 30 (호출 30회 → A+B 최종 60곡)
+NUM_TRACKS=3   # 테스트: 오케스트레이터 지정값(호출 횟수) / 운영: 15 (호출 15회 → A+B 30곡, 선정 15 + 비선정 15)
 BATCH_SIZE=5   # 동시 발사 개수 (보수적 기본값, 위 주의사항 참조)
 
 mkdir -p /tmp/dgm_gen
@@ -653,29 +659,40 @@ done < /tmp/dgm_gen/id_map.txt
 
 ---
 
-### 6. A/B 비교 선정 → 1곡 저장
+### 6. A/B 비교 선정 → 2곡 저장 (선정 + 비선정)
 
-A/B 중 역할 섹션의 "A/B 선정 기준"에 따라 **1곡만 `selected/`에 저장**한다.
+A/B 중 역할 섹션의 "A/B 선정 기준"에 따라 더 나은 1곡을 선정하고, **선정곡 + 비선정곡 둘 다 `selected/`에 번호를 붙여 저장**한다.
 
 ```bash
 # === A/B 선정 절차 ===
-# 1. 길이 확인 (ffprobe 또는 파일크기 기반)
+# 1. 길이 확인 (ffprobe)
 DUR_A=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_A.mp3" 2>/dev/null | awk '{printf "%d", $1}')
 DUR_B=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_B.mp3" 2>/dev/null | awk '{printf "%d", $1}')
 echo "A 길이: ${DUR_A}초  B 길이: ${DUR_B}초  (목표: 150~210초)"
 
-# 2. 보컬·도입부는 music_info.json의 lyricsStartsImmediately 필드 및 vocaGender 참조
+# 2. 보컬·도입부는 music_info.json의 lyricsStartsImmediately 필드 및 vocalGender 참조
 # 3. 기준 비교 후 선택 (SELECTED="A" 또는 "B")
 SELECTED="A"   # 또는 "B" — 위 기준으로 판단
+REJECTED=$( [ "$SELECTED" = "A" ] && echo "B" || echo "A" )
 
-# === 선정된 1곡만 selected/에 저장 ===
+# 번호 계산: TRACK_NUM = 1~15 (호출 순번)
+printf -v SEL_NUM "%02d" $TRACK_NUM        # 01~15 (선정곡 번호)
+REJ_NUM=$(( TRACK_NUM + 15 ))
+printf -v REJ_PAD "%02d" $REJ_NUM          # 16~30 (비선정곡 번호)
+
+# === 선정곡 (01~15번): selected/에 저장 ===
 cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${SELECTED}.mp3" \
-   "${PROJECT_DIR}/music-generator/selected/${SAFE_TITLE}.mp3"
+   "${PROJECT_DIR}/music-generator/selected/${SEL_NUM}_${SAFE_TITLE}.mp3"
+
+# === 비선정곡 (16~30번): selected/에도 저장 (영상 후반부 배치용) ===
+cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${REJECTED}.mp3" \
+   "${PROJECT_DIR}/music-generator/selected/${REJ_PAD}_${SAFE_TITLE}_rej.mp3"
 ```
 
 - 원본 A/B 파일(`*_A.mp3`, `*_B.mp3`)은 `music-generator/` 폴더에 그대로 보관한다 (삭제하지 않음).
-- 선정 결과(`selectedVersion: "A"` 또는 `"B"`, 선정 이유)를 `music_info.json`에 기록한다.
-- A/B 중 한쪽만 완성된 경우(WARN): 완성된 쪽 1개를 저장하고 `usage: "single_fallback"` 기록.
+- 선정 결과를 `music_info.json`에 기록한다 — 선정곡: `usage: "selected"`, 비선정곡: `usage: "rejected"`.
+  `filename` 필드: 선정곡은 `selected/${SEL_NUM}_${SAFE_TITLE}.mp3`, 비선정곡은 `selected/${REJ_PAD}_${SAFE_TITLE}_rej.mp3`.
+- A/B 중 한쪽만 완성된 경우(WARN): 완성된 쪽 1개만 선정곡으로 저장하고 `usage: "single_fallback"` 기록 (비선정곡 없음).
 
 ---
 
@@ -735,12 +752,46 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
 `instrumental: true` 요청 시에만 기악 모드로 전환한다.
 
 **`instrumental: true` 일 때**
-- prompt에 가사·보컬 관련 표현 일체 금지
-- 허용: 장르, 악기, 템포, 분위기, 구조 태그만 사용
+
+`prompt` 필드에 가사 대신 **Suno 7섹션 구조 태그**를 작성한다 — 섹션 수가 적으면 Suno가 짧은 곡(1분 미만)을 생성하므로 반드시 7개 섹션을 채운다.
+
+```
+[Intro]
+[INSTRUMENTAL]
+(1문장: 도입부 분위기 — 악기·분위기 10~15단어)
+
+[Section A]
+[INSTRUMENTAL]
+(1문장: 메인 테마 진행)
+
+[Section B]
+[INSTRUMENTAL]
+(1문장: 두 번째 악절 변화)
+
+[Section C]
+[INSTRUMENTAL]
+(1문장: 발전부 에너지 변화)
+
+[Bridge]
+[INSTRUMENTAL]
+(1문장: 브리지 대비감)
+
+[Section D]
+[INSTRUMENTAL]
+(1문장: 재현부 강도)
+
+[Outro]
+[INSTRUMENTAL]
+(1문장: 마무리 분위기)
+```
+
+- 각 섹션마다 다른 분위기·에너지를 부여해 반복감 없도록 작성
+- 가사·보컬·허밍·스캣 등 모든 보컬 지시어 금지
+- `make_instrumental: true` API 파라미터와 함께 전달
 
 ❌ 금지:
 ```
-humming, wordless vocals, vocal melody
+humming, wordless vocals, vocal melody, singing, lyrics
 ```
 
 **`instrumental: false` 일 때 (기본)**
@@ -840,7 +891,7 @@ humming, wordless vocals, vocal melody
 
 모든 항목 통과 후에만 완료 보고. 실패 시 직접 수정 후 재확인.
 
-- [ ] `selected/` 폴더에 호출 횟수와 동일한 수의 `.mp3` 존재 (30회 호출 → 30곡, `single_fallback` 제외)
+- [ ] `selected/` 폴더에 호출 횟수의 **2배** `.mp3` 존재 (15회 호출 → 30곡: 선정 15 + 비선정 15, `single_fallback` 제외)
 - [ ] `music_info.json`의 각 트랙에 `selectedVersion` 필드 존재 (`"A"` 또는 `"B"`)
 - [ ] 각 파일 크기 1MB 이상
 - [ ] `music_info.json` 존재, JSON 파싱 가능, `totalCalls·totalTracks·tracks·selectedFolder` 필드 존재
@@ -858,10 +909,13 @@ python3 -c "
 import json
 d = json.load(open('${PROJECT_DIR}/music-generator/music_info.json'))
 print('OK tracks:', d['totalTracks'])
-genders = [t.get('vocalGender') for t in d['tracks']]
-groups = [t.get('styleGroup') for t in d['tracks']]
-print('vocalGender 분포:', {g: genders.count(g) for g in set(genders)})
-print('styleGroup 분포:', {g: groups.count(g) for g in set(groups)})
+sel = [t for t in d['tracks'] if t.get('usage')=='selected']
+rej = [t for t in d['tracks'] if t.get('usage')=='rejected']
+print(f'선정: {len(sel)}곡, 비선정: {len(rej)}곡')
+genders = [t.get('vocalGender') for t in d['tracks'] if t.get('usage')=='selected']
+groups = [t.get('styleGroup') for t in d['tracks'] if t.get('usage')=='selected']
+print('vocalGender 분포 (선정곡):', {g: genders.count(g) for g in set(genders)})
+print('styleGroup 분포 (선정곡):', {g: groups.count(g) for g in set(groups)})
 "
 ```
 
