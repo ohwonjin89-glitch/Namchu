@@ -177,13 +177,17 @@ export async function POST(req: NextRequest) {
     }
 
     // ── 곡별 사전 배정 ────────────────────────────────────────
-    // 레퍼런스 라운드로빈: 모든 곡에 대해 i % refs.length → refs 개수보다 곡이 많아도 랜덤 없이 순환
+    // 요청곡수 ≤ 레퍼런스 수: 중복 없이 랜덤 선택
+    // 요청곡수 > 레퍼런스 수: 라운드로빈 (순환)
+    const shuffled = [...refs].sort(() => Math.random() - 0.5);
     const assignments = Array.from({ length: count }, (_, i) => {
-      const refIdx = i % refs.length;
+      const ref = count <= refs.length
+        ? shuffled[i]
+        : refs[i % refs.length];
       return {
         idx: i + 1,
-        refNum: refs[refIdx].refNum,
-        refStyles: refs[refIdx].styles,
+        refNum: ref.refNum,
+        refStyles: ref.styles,
         vocalGender: i % 2 === 0 ? "female" : "male",
         vocal: i % 2 === 0 ? "여성" : "남성",
         styleGroup: i % 3 === 0 ? "anchor" : "variation",
