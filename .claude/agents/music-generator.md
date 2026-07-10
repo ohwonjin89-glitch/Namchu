@@ -523,11 +523,14 @@ print(json.dumps(genders))
 ```bash
 cat > "${PROJECT_DIR}/music-generator/track_plan.json" << 'EOF'
 [
-  {"idx": 1, "title": "...", "scene": "새벽 드라이브, 텅 빈 도로", "styleGroup": "anchor", "prompt": "Section 3 Lyrics 기준 영어 가사 전문", "tags": "Section 2 Styles 기준 문장형 영문 설명", "negative_tags": "kpop, bgm, lofi, humming, intro", "vocal_gender": "female", "weirdness": 15, "style_influence": 70},
-  {"idx": 2, "title": "...", "scene": "비 오는 창가, 카페", "styleGroup": "variation", "prompt": "...", "tags": "...", "negative_tags": "...", "vocal_gender": "male", "weirdness": 15, "style_influence": 70}
+  {"idx": 1, "genre": "Groove Hip-hop & Chill Pop", "refNum": 3, "title": "...", "scene": "새벽 드라이브, 텅 빈 도로", "styleGroup": "anchor", "prompt": "Section 3 Lyrics 기준 영어 가사 전문", "tags": "Section 2 Styles 기준 문장형 영문 설명", "negative_tags": "kpop, bgm, lofi, humming, intro", "vocal_gender": "female", "weirdness": 15, "style_influence": 70},
+  {"idx": 2, "genre": "Groove Hip-hop & Chill Pop", "refNum": 7, "title": "...", "scene": "비 오는 창가, 카페", "styleGroup": "variation", "prompt": "...", "tags": "...", "negative_tags": "...", "vocal_gender": "male", "weirdness": 15, "style_influence": 70}
 ]
 EOF
 ```
+
+> `genre`: Section 5에서 선택한 장르명 (8개 장르 중 하나).
+> `refNum`: `generate-prompts` API 또는 직접 배정한 레퍼런스 번호. 장르 샘플 MD의 "### 레퍼런스 N" 번호와 일치.
 
 생성 전 최종 점검:
 - [ ] scene이 트랙마다 다른가? (재사용 시 디테일이라도 다른가?)
@@ -803,10 +806,12 @@ humming, wordless vocals, vocal melody, singing, lyrics
 
 | 기준 | 판단 방법 | 우선순위 |
 |------|-----------|---------|
+| 비정상 길이 제외 | ffprobe duration ≥ 480초(8분) → streaming 손상 판정, 즉시 제외 | 0순위 (사전 필터) |
 | 길이 (약 3분) | ffprobe로 duration 확인, 150~210초 범위 | 1순위 |
 | 보컬 성별 | track_plan.json `vocal_gender`와 metadata 비교 | 2순위 |
 | 도입부 허밍 없음 | `lyricsStartsImmediately` 필드 확인 (true 우선) | 3순위 |
 
+- **0순위(비정상 길이)**: 480초 이상은 `streaming` 상태에서 다운로드된 손상 파일. 즉시 WARN 기록 후 상대 버전 선택. 상대 버전도 480초 이상이면 두 곡 모두 `qualityWarnings`에 기록하고 더 짧은 쪽 선택.
 - 3개 기준 모두 만족하는 쪽 선택. 동점이면 컨셉 일치도 주관 판단.
 - 둘 다 기준 미충족: WARN 기록 후 나은 쪽 선택.
 - 한쪽만 완성(WARN): `usage: "single_fallback"` 기록 후 완성된 쪽 저장.
@@ -830,6 +835,9 @@ humming, wordless vocals, vocal melody, singing, lyrics
       "version": "A",
       "title": "City in Motion",
       "filename": "city_in_motion.mp3",
+      "genre": "Groove Hip-hop & Chill Pop",
+      "refNum": 3,
+      "refStylesUsed": "실제 사용한 레퍼런스 Styles 원문 (track_plan.json의 tags 값)",
       "vocalGender": "female",
       "styleGroup": "anchor",
       "stylesFinal": "실제 사용한 Styles 문장형 전문",
@@ -928,8 +936,17 @@ cat >> "${PROJECT_DIR}/meeting_log.md" << EOF
 ## music-generator — $(date '+%Y-%m-%d %H:%M:%S')
 - 생성 호출 수: {호출횟수}회 / 선정 트랙 수: {N}곡 (A/B 비교 선정)
 - 총 재생시간: {duration}초 (약 1.5시간)
-- 스타일 가이드: {선택 장르} (사용자 레퍼런스 {n}회 + Gemini 레퍼런스 {n}회 + 랜덤 {n}회)
-- 선정 방법: A/B 선정 기준 (길이·보컬·도입부 허밍) 적용
+- 장르: {선택 장르}
+- 레퍼런스 사용 현황:
+
+| 번호 | 제목 | 레퍼런스 번호 | 장르 | 보컬 | styleGroup |
+|------|------|------------|------|------|------------|
+| 01 | {제목1} | ref-{N} | {장르} | female | anchor |
+| 02 | {제목2} | ref-{N} | {장르} | male | variation |
+| ... | ... | ... | ... | ... | ... |
+
+- WARN 항목: {없음 또는 발생 내역}
+- 선정 방법: A/B 선정 기준 (비정상길이 사전필터 → 길이·보컬·도입부 허밍) 적용
 - 산출물: ${PROJECT_DIR}/music-generator/selected/ (트랙 {N}개)
 - 프롬프트 기록: ${PROJECT_DIR}/music-generator/prompts_log.json
 
