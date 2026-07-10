@@ -311,6 +311,8 @@ cat "$REPO_DIR/.claude/agents/user-feedback.json"
 
 # 5. 장르 선택 기준
 
+> ⛔ **단일 장르 원칙**: concept_brief의 주장르 **1개만** 사용한다. 여러 장르를 블렌딩하거나 "variation 트랙"에 다른 장르를 배정하지 않는다. 15곡 전부 동일한 장르의 레퍼런스 Styles를 사용하되, 레퍼런스 번호만 다르게 배정해 다양성을 확보한다.
+
 입력된 주제와 분위기를 바탕으로 아래 기준에 따라 장르를 선택한다.
 
 ```
@@ -325,6 +327,8 @@ cat "$REPO_DIR/.claude/agents/user-feedback.json"
 ```
 
 장르 우선순위는 트렌드 분석 결과(researcher 리포트)와 strategist의 컨셉 브리프를 따른다.
+
+> **레퍼런스 배정 원칙**: `generate-prompts` API(`/api/generate-prompts`, POST)를 호출하면 선택 장르의 레퍼런스를 **중복 없이 랜덤 배정**해서 반환한다 — 레퍼런스 수 이내라면 각 레퍼런스가 최대 1회만 사용되고, 레퍼런스 수를 초과하는 경우에만 랜덤 재사용된다. 에이전트가 직접 레퍼런스를 선택·배정하지 않고 반드시 이 API를 통해 받는다.
 
 ---
 

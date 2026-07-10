@@ -177,13 +177,13 @@ export async function POST(req: NextRequest) {
     }
 
     // ── 곡별 사전 배정 ────────────────────────────────────────
-    // 요청곡수 ≤ 레퍼런스 수: 중복 없이 랜덤 선택
-    // 요청곡수 > 레퍼런스 수: 라운드로빈 (순환)
+    // 처음 refs.length개: 전체 레퍼런스를 1:1로 중복 없이 랜덤 배정 (shuffled)
+    // 초과분(요청수 > 레퍼런스수): 레퍼런스 중 랜덤 재사용
     const shuffled = [...refs].sort(() => Math.random() - 0.5);
     const assignments = Array.from({ length: count }, (_, i) => {
-      const ref = count <= refs.length
+      const ref = i < refs.length
         ? shuffled[i]
-        : refs[i % refs.length];
+        : refs[Math.floor(Math.random() * refs.length)];
       return {
         idx: i + 1,
         refNum: ref.refNum,
