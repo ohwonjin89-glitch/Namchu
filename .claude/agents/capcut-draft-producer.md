@@ -93,8 +93,8 @@ mkdir -p "${PROJECT_DIR}/capcut-draft-producer"
 {
   "bgImageUrl": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\image-generator\\background_final.jpg",
   "musicFiles": [
-    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\track_01.mp3", "title": "트랙 제목 1"},
-    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\track_02.mp3", "title": "트랙 제목 2"}
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\01_city_in_motion.mp3", "title": "City in Motion"},
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\02_rainy_window.mp3", "title": "Rainy Window"}
   ],
   "tracklistOverlay": {
     "text": "트랙 제목 1  ·  트랙 제목 2  ·  ..."
