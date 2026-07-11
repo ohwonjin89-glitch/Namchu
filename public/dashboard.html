@@ -5628,7 +5628,7 @@ async function ytUpload(){
 
 // ── 연구실 모드 (suno-api 자동 생성) ──
 
-const SUNO_API = 'http://localhost:3000';
+const SUNO_API = window.location.origin;
 
 async function generateLabMode() {
   const channel  = document.getElementById('lab-channel').value;
@@ -8807,6 +8807,27 @@ async function startMakeCapcut() {
     var bgUrl    = DB.get('mj_selected_photo', '');
     var bgIsVideo = DB.get('bg_is_video', false) || !!window._bgIsVideo;
     var bgImagePath = (!bgIsVideo && bgUrl && !bgUrl.startsWith('blob:')) ? bgUrl : '';
+
+    // blob: URL이면 서버에 업로드해서 로컬 경로로 변환
+    if (!bgIsVideo && bgUrl && bgUrl.startsWith('blob:')) {
+      try {
+        if (statusMsg) statusMsg.textContent = '배경 이미지 업로드 중...';
+        var blobResp = await fetch(bgUrl);
+        var blobData = await blobResp.blob();
+        var b64 = await new Promise(function(resolve) {
+          var reader = new FileReader();
+          reader.onload = function(e) { resolve(e.target.result.split(',')[1]); };
+          reader.readAsDataURL(blobData);
+        });
+        var ext = blobData.type === 'image/png' ? '.png' : blobData.type === 'image/webp' ? '.webp' : '.jpg';
+        var upResp = await fetch(SUNO_API + '/api/upload-background', {
+          method: 'POST', headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ base64: b64, fileName: 'uploaded_background' + ext })
+        });
+        var upData = await upResp.json();
+        if (upData.localPath) bgImagePath = upData.localPath;
+      } catch(e) { console.error('배경 업로드 실패:', e); }
+    }
 
     var ch = _vidCurrentCh || APP.channel || 'Playlisttann';
     var chLower = ch.toLowerCase().replace(/[\s_]+/g, '');
