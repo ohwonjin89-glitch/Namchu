@@ -176,6 +176,8 @@ ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:no
 
 **`/api/youtube-upload`의 `action: "upload"`는 비동기 API다.** POST는 업로드를 백그라운드로 시작시키고 즉시 `{"status":"running","taskId":...}`를 반환할 뿐, `videoId`는 그 응답에 들어있지 않다 — 이 응답을 보고 "실패했다"고 판단해 같은 curl을 다시 실행하면 정확히 2026062802 사고(중복 업로드)가 재발한다. 반드시 아래 절차대로 POST 후 GET으로 polling해서 `status: "done"`이 될 때까지 기다린 뒤에 결과를 확정한다.
 
+> **코드 레벨 중복 방지 가드 있음**: 같은 `outputPath`(→ `youtube-uploader/` 폴더) 안에 이미 `upload_result.json`이 있거나 `_upload_status.json`이 `running` 상태면 API가 새 업로드를 시작하지 않고 `409`를 반환한다. 이 응답을 받으면 절대 `force:true`를 붙여 재시도하지 말고, `existingResult`(또는 진행 중 상태)를 그대로 orchestrator에게 보고한다. `force:true`는 사용자가 명시적으로 재업로드를 요청한 경우에만 사용한다.
+
 > 엔드포인트는 `http://172.28.32.1:3000`이 아니라 **`http://localhost:3000`**이다 (이 서버 자체에서 npm 서버가 로컬로 떠 있다 — `172.28.32.1`은 WSL 환경의 호스트 게이트웨이 IP라 이 Linux 서버에서는 연결되지 않거나 불안정하게만 응답한다. 과거 문서가 WSL 환경 기준으로 작성된 채 남아있던 것).
 
 ```bash

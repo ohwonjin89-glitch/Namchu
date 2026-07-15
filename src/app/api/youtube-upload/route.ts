@@ -28,9 +28,43 @@ export async function POST(req: NextRequest) {
       // 출력 디렉토리 생성
       const outputDir = path.dirname(outputPath);
       fs.mkdirSync(outputDir, { recursive: true });
-
-      // 초기 상태 파일 기록
       const statusPath = path.join(outputDir, '_upload_status.json');
+
+      // ── 중복 업로드 가드 ────────────────────────────────────────
+      // 과거 완료 감지 오판/재시도로 동일 영상이 한 프로젝트에서 8회
+      // 업로드된 사고(2026062802)가 있었다. 프롬프트 지시(재시도 금지)만으로는
+      // 에이전트가 지시를 어기거나 오판하면 그대로 뚫리므로, 같은 outputDir에
+      // 이미 완료된 업로드 결과나 진행 중인 업로드가 있으면 코드 레벨에서 차단한다.
+      // 정말로 재업로드가 필요하면 호출부에서 body.force === true를 명시해야 한다.
+      const resultPath = path.join(outputDir, 'upload_result.json');
+      if (!body.force) {
+        if (fs.existsSync(resultPath)) {
+          const existing = JSON.parse(fs.readFileSync(resultPath, 'utf-8'));
+          return new NextResponse(
+            JSON.stringify({
+              error: '이미 이 프로젝트는 업로드가 완료되었습니다. 재업로드하려면 force:true를 명시하세요.',
+              existingResult: existing,
+            }),
+            { status: 409, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+          );
+        }
+        if (fs.existsSync(statusPath)) {
+          try {
+            const existingStatus = JSON.parse(fs.readFileSync(statusPath, 'utf-8'));
+            if (existingStatus.status === 'running') {
+              return new NextResponse(
+                JSON.stringify({
+                  error: '이미 이 프로젝트의 업로드가 진행 중입니다. 새로 시작하지 말고 GET으로 polling하세요.',
+                  status: 'running',
+                  taskId: outputDir,
+                  statusPath,
+                }),
+                { status: 409, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+              );
+            }
+          } catch {}
+        }
+      }
       fs.writeFileSync(
         statusPath,
         JSON.stringify({ status: 'running', progress: 0, message: '업로드 준비 중...' }),

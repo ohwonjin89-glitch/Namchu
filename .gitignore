@@ -56,6 +56,9 @@ yt_credentials/
 .claude_auth/
 *.credentials.json
 
+# VPS 접속 비밀번호 등 민감정보 포함 (퍼블릭 레포 커밋 금지)
+.claude/commands/
+
 # 로그/임시 파일
 server.log
 *.log

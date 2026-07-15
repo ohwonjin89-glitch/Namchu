@@ -132,7 +132,7 @@ Write 도구로 `{projectDir}/capcut-draft-producer/CAPCUT_GUIDE.md` 작성:
 ## 실행 방법
 
 ```cmd
-python "D:\AI Agent\Claude\make_capcut_draft.py" --config "Z:\home\dgm\suno-api\.claude\agents\projects\{projectId}\capcut-draft-producer\_capcut_config.json" --name "DGM_{projectId}" --channel dgm
+python "C:\suno-api\scripts\make_capcut_draft.py" --config "Z:\home\dgm\suno-api\.claude\agents\projects\{projectId}\capcut-draft-producer\_capcut_config.json" --name "DGM_{projectId}" --channel dgm
 ```
 
 ## 실행 결과
@@ -188,7 +188,7 @@ cat >> "${PROJECT_DIR}/meeting_log.md" << EOF
 - CAPCUT_GUIDE.md: ${PROJECT_DIR}/capcut-draft-producer/CAPCUT_GUIDE.md
 - 음악 파일 수: {N}곡
 - 배경 이미지: {bgImageUrl (Z:\\ 경로)}
-- 실행 명령: python "D:\\AI Agent\\Claude\\make_capcut_draft.py" --config "..." --name "DGM_{projectId}" --channel dgm
+- 실행 명령: python "C:\\suno-api\\scripts\\make_capcut_draft.py" --config "..." --name "DGM_{projectId}" --channel dgm
 
 ---
 EOF

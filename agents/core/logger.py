@@ -1,7 +1,36 @@
 """Meeting log writer — saves agent conversations as Markdown."""
 import os
+import sys
 import json
 import datetime
+
+
+class _Tee:
+    """stdout/stderr를 콘솔과 로그 파일에 동시에 쓴다."""
+
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, data):
+        for s in self.streams:
+            s.write(data)
+            s.flush()
+
+    def flush(self):
+        for s in self.streams:
+            s.flush()
+
+
+def setup_run_logging(channel: str, date_str: str) -> str:
+    """파이프라인 실행 전체(print 출력 + traceback)를 agents/logs/에 파일로도 남긴다.
+    tmux pane 스크롤백은 유한하고 유실되기 쉬워, 사후 디버깅용 영구 기록이 필요하다."""
+    log_dir = os.path.join(os.path.dirname(__file__), "..", "logs")
+    os.makedirs(log_dir, exist_ok=True)
+    log_path = os.path.join(log_dir, f"{channel}_{date_str}.log")
+    log_file = open(log_path, "a", encoding="utf-8")
+    sys.stdout = _Tee(sys.__stdout__, log_file)
+    sys.stderr = _Tee(sys.__stderr__, log_file)
+    return log_path
 
 
 class MeetingLogger:
