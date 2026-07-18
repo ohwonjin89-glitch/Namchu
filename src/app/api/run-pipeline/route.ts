@@ -12,6 +12,10 @@ const LOG_PATH = path.join(
 );
 
 export async function POST(req: NextRequest) {
+  return NextResponse.json(
+    { error: 'run-pipeline API는 Windows/WSL 환경 전용으로 현재 Linux VPS에서는 지원하지 않습니다.' },
+    { status: 501 }
+  );
   try {
     const body = await req.json().catch(() => ({}));
     const channel: string = body.channel ?? "DGM";
@@ -84,11 +88,15 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
+  return NextResponse.json(
+    { error: 'run-pipeline API는 Windows/WSL 환경 전용으로 현재 Linux VPS에서는 지원하지 않습니다.' },
+    { status: 501 }
+  );
   try {
     // Return pipeline status
     const statusPath = LOG_PATH;
     const statePath = process.env.TEMP
-      ? path.join(process.env.TEMP, "dgm_state_DGM.json")
+      ? path.join(process.env.TEMP as string, "dgm_state_DGM.json")
       : "C:\\Windows\\Temp\\dgm_state_DGM.json";
 
     let pipelineStatus = { running: false };

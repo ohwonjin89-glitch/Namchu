@@ -151,6 +151,9 @@ export async function POST(req: NextRequest) {
       instrumental = false,
       // 대시보드에서 편집한 레퍼런스 스타일 오버라이드 (순서 보존)
       refStyles = [] as string[],
+      // "reference"(기본값) = 레퍼런스 Styles 원문 그대로 사용
+      // "synthesize" = 레퍼런스 여러 개를 학습해 AI가 매번 새 Styles를 합성 생성
+      styleMode = "reference" as "reference" | "synthesize",
     } = await req.json();
 
     const count = Math.min(Math.max(parseInt(String(songCount)), 1), 99);
@@ -209,19 +212,37 @@ export async function POST(req: NextRequest) {
             .join("\n")}`
         : "";
 
-    // ── Claude에게 Lyrics(or Instrumental 설명)만 요청 ──────────
+    // ── Claude에게 Lyrics(or Instrumental 설명)만 요청 (+ synthesize 모드면 Styles도 요청) ──
+    const isSynthesize = styleMode === "synthesize";
+
+    const styleSynthesisInstructions = isSynthesize
+      ? `
+
+STYLE SYNTHESIS MODE (also write a NEW "style" field per song):
+You are also given several EXAMPLE reference styles below (§ "Reference style examples for this genre").
+Study them to learn the genre's recurring elements — instrumentation, the role of guitar/piano/synth, bass character,
+drum pattern, vocal tone, arrangement flow (verse→chorus), chorus character, tempo (BPM) range, key hints, and mix texture.
+Then WRITE A BRAND-NEW original "style" description per song — do NOT copy any example sentence verbatim, do NOT just
+reshuffle words from one example. Recombine and vary the learned elements (different instrument pairing, a shifted BPM
+within the genre's plausible range, a different mix texture) so each song sounds like an authentic but distinct member
+of the same genre family. Stay strictly within instrumentation/mood that fits this genre — do not introduce elements
+foreign to it (e.g. no synth pads in a genre defined by acoustic guitar, unless an example already uses it).
+The "style" field MUST be full prose (a paragraph of complete sentences), never a keyword list, and must NOT contain
+any negative/exclusionary phrasing (that belongs only in negative_tags, which is fixed separately).`
+      : "";
+
     const systemPrompt = instrumental
       ? `You are a DGM YouTube playlist music director. Your job is to write SUNO SECTION STRUCTURE for instrumental tracks targeting ~3 minutes.
-The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them.
+${isSynthesize ? "You also synthesize a fresh Style description per song (see STYLE SYNTHESIS MODE below)." : "The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them."}
 
 INSTRUMENTAL STRUCTURE RULES:
 - Use exactly 7 Suno section tags in this order: [Intro] [Section A] [Section B] [Section C] [Bridge] [Section D] [Outro]
 - Under EACH section tag, write [INSTRUMENTAL] on the next line, then a 1-sentence atmosphere note (10–15 words max)
 - Each section must have a distinct emotional/atmospheric character — no repetition across sections
 - NO lyrics, NO vocal directions, NO singing whatsoever — pure instrumental guidance only
-- Write in English only`
+- Write in English only${styleSynthesisInstructions}`
       : `You are a DGM YouTube playlist lyricist. Your only job is to write ENGLISH LYRICS for each song.
-The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them.
+${isSynthesize ? "You also synthesize a fresh Style description per song (see STYLE SYNTHESIS MODE below)." : "The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them."}
 
 LYRICS RULES (DGM standard):
 - English lyrics only, approximately 3 minutes total per song
@@ -230,25 +251,35 @@ LYRICS RULES (DGM standard):
 - ZERO tolerance: humming, ooh-ooh, la-la, mm-mm, whoa-oh, meaningless vocal ad-libs
 - Do NOT directly mention the project topic word — express it through scene imagery only
 - Each song MUST have a completely different scene, moment, and emotional situation
-- No direct imitation of any existing artist or song`;
+- No direct imitation of any existing artist or song${styleSynthesisInstructions}`;
 
     const songList = assignments
       .map(
         (a) =>
           `Song ${a.idx} (ref ${a.refNum}${instrumental ? ", INSTRUMENTAL" : `, vocal: ${a.vocalGender}`}, styleGroup: ${a.styleGroup}):
-Style/tags context (DO NOT change, use as musical reference only):
-"${a.refStyles}"
+${isSynthesize
+    ? `Nearest reference style (inspiration only — do NOT copy, synthesize a NEW style per the rules above):\n"${a.refStyles}"`
+    : `Style/tags context (DO NOT change, use as musical reference only):\n"${a.refStyles}"`}
 → ${instrumental
-    ? "Write 7-section Suno structure: [Intro]/[Section A]/[Section B]/[Section C]/[Bridge]/[Section D]/[Outro] — each with [INSTRUMENTAL] + 1-sentence note. Target ~3 minutes. No lyrics, no vocals."
-    : "Write ONLY fresh English lyrics with the above atmosphere in mind."}`
+    ? `Write 7-section Suno structure: [Intro]/[Section A]/[Section B]/[Section C]/[Bridge]/[Section D]/[Outro] — each with [INSTRUMENTAL] + 1-sentence note. Target ~3 minutes. No lyrics, no vocals.${isSynthesize ? " Also write a new \"style\" field." : ""}`
+    : `Write ONLY fresh English lyrics with the above atmosphere in mind.${isSynthesize ? " Also write a new \"style\" field." : ""}`}`
       )
       .join("\n\n");
+
+    // synthesize 모드일 때 장르 전체 스타일 범위를 보여주는 참고 예시(최대 5개, 랜덤 샘플)
+    const inspirationBlock = isSynthesize
+      ? `\nReference style examples for this genre (study the recurring elements, then write NEW styles — never copy these verbatim):\n${[...refs]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, Math.min(5, refs.length))
+          .map((r, i) => `Example ${i + 1}: "${r.styles}"`)
+          .join("\n")}\n`
+      : "";
 
     const userPrompt = `Project topic: ${projectTopic}
 Genre: ${selectedGenre} (${genreMeta.keywords})
 ${trendContext ? trendContext + "\n" : ""}${extraRequest ? `Extra requirements (PRIORITY — override default rules if conflicting): ${extraRequest}\n` : ""}
 ${instrumental ? "Generate instrumental atmosphere descriptions" : "Write lyrics"} for ${count} songs. Each must explore a completely different scene or emotional moment inspired by the project topic.
-
+${inspirationBlock}
 ${songList}
 
 Return ONLY a valid JSON array (no markdown, no explanation):
@@ -256,7 +287,7 @@ Return ONLY a valid JSON array (no markdown, no explanation):
   "idx": 1,
   "title": "English song title",
   "scene": "장면 설명 15자 이내 한국어",
-  "lyric": "${instrumental ? "7-section Suno structure: [Intro]\\n[INSTRUMENTAL] note\\n\\n[Section A]\\n[INSTRUMENTAL] note\\n...\\n[Outro]\\n[INSTRUMENTAL] note" : "full English lyrics with all section tags [Intro][Verse 1]..."}"
+  ${isSynthesize ? `"style": "new synthesized Style prose (full sentences, no keyword list, no negative phrasing)",\n  ` : ""}"lyric": "${instrumental ? "7-section Suno structure: [Intro]\\n[INSTRUMENTAL] note\\n\\n[Section A]\\n[INSTRUMENTAL] note\\n...\\n[Outro]\\n[INSTRUMENTAL] note" : "full English lyrics with all section tags [Intro][Verse 1]..."}"
 }]`;
 
     const stream = client.messages.stream({
@@ -297,7 +328,9 @@ Return ONLY a valid JSON array (no markdown, no explanation):
       const a = assignments[i] || assignments[assignments.length - 1];
       return {
         title: c.title || `Track ${i + 1}`,
-        style: a.refStyles,          // 레퍼런스 Styles 원문 → Suno tags로 사용
+        // reference(기본값): 레퍼런스 Styles 원문 그대로 / synthesize: AI가 합성한 새 Styles
+        style: isSynthesize && c.style ? c.style : a.refStyles,
+        styleMode: isSynthesize ? "synthesize" : "reference",
         lyric: c.lyric || "",        // Claude가 쓴 Lyrics → Suno prompt로 사용
         scene: c.scene || "",
         vocal: a.vocal,
@@ -310,7 +343,11 @@ Return ONLY a valid JSON array (no markdown, no explanation):
       };
     });
 
-    return new NextResponse(JSON.stringify({ prompts }), {
+    const countMismatch = claudeResults.length !== count;
+    return new NextResponse(JSON.stringify({
+      prompts,
+      ...(countMismatch ? { warning: `요청 곡 수(${count})와 Claude 응답 곡 수(${claudeResults.length})가 다릅니다. 트랙 수 부족이 발생할 수 있습니다.` } : {}),
+    }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });

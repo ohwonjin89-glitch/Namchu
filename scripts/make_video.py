@@ -689,7 +689,8 @@ def run_api_mode(config_path):
             f.write(f"file '{p.replace(chr(92), '/').replace(chr(39), chr(92)+chr(39))}'\n")
 
     r = subprocess.run(
-        [FFMPEG_PATH, "-y", "-f", "concat", "-safe", "0", "-i", filelist_path, "-c", "copy", combined_audio],
+        [FFMPEG_PATH, "-y", "-f", "concat", "-safe", "0", "-i", filelist_path,
+         "-c:a", "libmp3lame", "-b:a", "192k", "-ar", "48000", combined_audio],
         capture_output=True, text=True
     )
     if r.returncode != 0:
