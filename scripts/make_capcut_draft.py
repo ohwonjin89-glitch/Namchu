@@ -64,28 +64,57 @@ def new_id() -> str:
 
 
 def get_audio_duration_us(path: str) -> int:
-    """오디오 파일 길이를 마이크로초로 반환."""
+    """오디오 파일의 실제 재생 가능한 길이를 마이크로초로 반환.
+
+    mediainfo/ffprobe의 헤더 메타데이터를 그대로 쓰지 않는다 — Suno가 내려주는 mp3의
+    VBR 헤더가 부정확하면 헤더 길이가 실제보다 짧게 보고될 수 있고, 그 값을 그대로
+    CapCut 세그먼트 길이(target_timerange)로 넣으면 실제 곡이 끝나기 전에 다음 트랙으로
+    넘어가 노래가 중간에 잘려서 재생되는 사고로 이어진다(2026-07-21 확인). 그래서 ffmpeg로
+    끝까지 디코딩한 실측 길이를 우선 사용하고, 디코딩이 실패했을 때만 헤더 값으로 대체한다.
+    """
+    import subprocess
+
+    decoded_us = 0
+    try:
+        r = subprocess.run(
+            ["ffmpeg", "-i", path, "-f", "null", "-"],
+            capture_output=True, text=True, timeout=60
+        )
+        matches = re.findall(r"time=(\d+):(\d+):(\d+\.\d+)", r.stderr)
+        if matches:
+            h, m, s = matches[-1]
+            decoded_us = int((int(h) * 3600 + int(m) * 60 + float(s)) * 1_000_000)
+    except Exception as e:
+        print(f"  ⚠ ffmpeg 실측 실패 ({os.path.basename(path)}): {e}")
+
+    header_us = 0
     if _HAS_MEDIAINFO:
         try:
             info = _MediaInfo.parse(path)
             for track in info.tracks:
                 if track.track_type in ("Audio", "General") and track.duration:
-                    return int(float(track.duration) * 1000)
+                    header_us = int(float(track.duration) * 1000)
+                    break
         except Exception as e:
             print(f"  ⚠ mediainfo 실패 ({os.path.basename(path)}): {e}")
 
-    # fallback: ffprobe
-    try:
-        import subprocess
-        r = subprocess.run(
-            ["ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", path],
-            capture_output=True, text=True, timeout=15
-        )
-        d = json.loads(r.stdout)
-        return int(float(d["format"]["duration"]) * 1_000_000)
-    except Exception as e:
-        print(f"  ⚠ ffprobe 실패 ({os.path.basename(path)}): {e}")
-    return 0
+    if not header_us:
+        try:
+            r = subprocess.run(
+                ["ffprobe", "-v", "quiet", "-print_format", "json", "-show_format", path],
+                capture_output=True, text=True, timeout=15
+            )
+            d = json.loads(r.stdout)
+            header_us = int(float(d["format"]["duration"]) * 1_000_000)
+        except Exception as e:
+            print(f"  ⚠ ffprobe 실패 ({os.path.basename(path)}): {e}")
+
+    if decoded_us:
+        if header_us and abs(decoded_us - header_us) > 2_000_000:
+            print(f"  ⚠ 헤더/실측 길이 불일치 ({os.path.basename(path)}): "
+                  f"헤더 {header_us/1_000_000:.1f}s vs 실측 {decoded_us/1_000_000:.1f}s → 실측값 사용")
+        return decoded_us
+    return header_us
 
 
 def find_mat(lst: list, mat_id: str) -> dict | None:

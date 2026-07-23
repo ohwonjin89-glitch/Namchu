@@ -44,13 +44,20 @@ tools: [Read, Bash, Glob, Grep, SendMessage]
 
 **목적**: video-producer가 영상을 합성하기 전에, 가사 없이 생성됐거나(보컬 요청했는데 Suno가 기악으로 만든 경우) 너무 짧게(2분 미만) 생성된 불량 트랙을 걸러낸다. 이런 트랙이 그대로 영상에 들어가면 합성 이후 단계에서 발견하기 어렵고 재작업 비용이 훨씬 크다.
 
+> ⚠️ **Jazz Instrumental(로파이재즈) 장르는 판정이 반대다**: 이 장르는 처음부터 가사/보컬이 없는 순수 연주곡이어야 한다. `strategist/concept_brief.json`의 `genre`가 `"Jazz Instrumental"`이거나 `instrumental: true`이면, "가사 없음"이 아니라 **"보컬/가사가 감지되면"** 오류곡으로 판정한다 (아래 실행 스크립트가 이 분기를 자동 처리한다).
+
 **판정 기준**:
 - 오류곡 비율(전체 트랙 대비) **10% 이하** → 오류곡만 `selected/_rejected/`로 격리하고 **PASS/WARN**, video-producer에게 진행 지시
 - 오류곡 비율 **10% 초과** → **FAIL**, video-producer를 호출하지 않고 orchestrator에게 보고 (music-generator 재생성 필요)
 
-**오류 판정 기준 (둘 중 하나라도 해당하면 오류곡):**
+**오류 판정 기준 (하나라도 해당하면 오류곡 — 자동 격리 + badRatio 집계):**
 - `durationSec < 120` (2분 미만 — 단, `concept_brief.json`에 짧은 곡 길이를 명시적으로 요청한 경우는 그 길이 기준으로 판단)
 - 가사 없음 — 보컬이 있어야 할 트랙(`instrumental: false`, 별도 요청 없는 기본 케이스)인데 실제로는 가사가 들리지 않는 경우. `faster-whisper`(tiny 모델)로 트랙 중간 30초 구간을 전사해서 단어 수가 3개 미만이면 가사 없음으로 판정한다.
+- **(Jazz Instrumental/로파이재즈 전용, 반대 판정)** 보컬/가사가 있으면 안 되는 트랙(`genre == "Jazz Instrumental"` 또는 `instrumental: true`)인데 실제로 보컬/가사가 감지된 경우. 동일한 `faster-whisper` 전사 결과에서 단어 수가 3개 **이상**이면 "가사 있음(unexpected_lyrics)"으로 판정해 격리한다 — 순수 연주곡만으로 최종 셋을 구성하기 위한 핵심 게이트.
+- **`duration_mismatch`** — `ffprobe format=duration`(헤더 메타데이터)과 `ffmpeg -i {file} -f null -`(실제 디코딩 길이)의 차이가 3초 이상. Suno가 내려주는 mp3의 VBR 헤더가 부정확하면 헤더 길이가 실제 재생 길이보다 짧게 보고될 수 있는데, `make_capcut_draft.py`/video-producer가 이 헤더 값을 그대로 세그먼트 길이로 써버리면 **노래가 실제로 끝나기 전에 잘려서 다음 곡으로 넘어간다** — CapCut 초안에서 "노래가 중간중간 잘리는" 사고의 직접 원인 중 하나(2026-07-21 확인). 이 항목은 아래 "실행" 스크립트가 트랙별로 자동 검사한다.
+
+**참고 판정 기준 (WARN — 자동 격리하지 않고 보고서에만 표시, badRatio에 포함 안 함):**
+- **`abrupt_ending`** — 트랙 마지막 1.5초 구간의 평균 음량(`ffmpeg -sseof -1.5 -af volumedetect`)이 -6dB보다 큰 경우(=페이드아웃/자연스러운 여음 없이 최고 음량 그대로 뚝 끊김). Suno 생성 자체가 중간에 잘린 파일일 가능성을 잡기 위한 대리 지표이지만, 곡이 원래 강한 마무리 코드로 끝나는 경우도 오탐될 수 있어 자동 격리 대상이 아니다 — 목록에 오르면 오케스트레이터/사용자가 해당 트랙을 직접 들어보고 판단한다.
 
 > ⛔ **BPM 검사 — HOLD (비활성화)**: concept_brief에 BPM 범위가 명시되어 있더라도 BPM 기반 오류 판정을 수행하지 않는다. librosa의 양자화 오차와 Suno의 BPM 부정확성으로 인해 정상 곡도 오탐되는 사례가 많아 비활성화했다. BPM은 참고 정보로만 기록할 수 있으나 오류곡 판정 기준에 포함하지 않는다. 사용자 명시 요청이 있을 때만 재활성화한다.
 
@@ -58,13 +65,20 @@ tools: [Read, Bash, Glob, Grep, SendMessage]
 
 ```bash
 python3 << 'PYEOF'
-import json, os, subprocess
+import json, os, re, subprocess
 from faster_whisper import WhisperModel
 
 PROJECT_DIR = "${PROJECT_DIR}"
 SELECTED = os.path.join(PROJECT_DIR, "music-generator", "selected")
 TMP = os.path.join(PROJECT_DIR, "qa-inspector", "_tmp_audio_check")
 os.makedirs(TMP, exist_ok=True)
+
+# Jazz Instrumental(로파이재즈)은 가사/보컬이 없어야 하는 장르라 판정을 반대로 건다.
+concept_brief_path = os.path.join(PROJECT_DIR, "strategist", "concept_brief.json")
+is_instrumental_genre = False
+if os.path.exists(concept_brief_path):
+    concept_brief = json.load(open(concept_brief_path, encoding="utf-8"))
+    is_instrumental_genre = concept_brief.get("genre") == "Jazz Instrumental" or concept_brief.get("instrumental") is True
 
 model = WhisperModel("tiny", device="cpu", compute_type="int8")
 
@@ -80,8 +94,33 @@ for fname in sorted(os.listdir(SELECTED)):
     dur = float(dur_out) if dur_out else 0.0
 
     issues = []
+    warnings = []
     if dur < 120:
         issues.append("too_short")
+
+    # 헤더(ffprobe format=duration) vs 실제 디코딩 길이 이중 검증 — 헤더가 실제보다 짧게
+    # 보고되면 make_capcut_draft.py/video-producer가 세그먼트를 그 길이로 잘라 넣어
+    # CapCut/영상에서 노래가 끝나기 전에 잘리는 사고로 이어진다 (2026-07-21).
+    decode_stderr = subprocess.run(
+        ["ffmpeg", "-i", path, "-f", "null", "-"],
+        capture_output=True, text=True).stderr
+    decode_matches = re.findall(r"time=(\d+):(\d+):(\d+\.\d+)", decode_stderr)
+    decoded_dur = 0.0
+    if decode_matches:
+        h, m, s = decode_matches[-1]
+        decoded_dur = int(h) * 3600 + int(m) * 60 + float(s)
+    if decoded_dur and abs(decoded_dur - dur) >= 3:
+        issues.append("duration_mismatch")
+
+    # 곡 끝부분이 페이드아웃/여음 없이 최고 음량 그대로 뚝 끊기는지 검사
+    # — Suno 생성 자체가 중간에 잘린 파일일 가능성의 대리 지표(WARN, 자동 격리 안 함).
+    tail_stderr = subprocess.run(
+        ["ffmpeg", "-y", "-sseof", "-1.5", "-i", path, "-af", "volumedetect", "-f", "null", "-"],
+        capture_output=True, text=True).stderr
+    tail_vol_match = re.search(r"mean_volume:\s*(-?\d+\.?\d*) dB", tail_stderr)
+    tail_mean_db = float(tail_vol_match.group(1)) if tail_vol_match else None
+    if tail_mean_db is not None and tail_mean_db > -6:
+        warnings.append("abrupt_ending")
 
     sample_start = max(15, dur * 0.25) if dur > 0 else 15
     sample_wav = os.path.join(TMP, fname.replace(".mp3", ".wav"))
@@ -96,13 +135,26 @@ for fname in sorted(os.listdir(SELECTED)):
         text = " ".join(s.text for s in segments).strip()
         word_count = len(text.split())
         os.remove(sample_wav)
-    if word_count < 3:
-        issues.append("no_lyrics")
+    if is_instrumental_genre:
+        if word_count >= 3:
+            issues.append("unexpected_lyrics")
+    else:
+        if word_count < 3:
+            issues.append("no_lyrics")
 
-    results.append({"file": fname, "durationSec": round(dur, 1), "transcribedWords": word_count, "issues": issues})
+    results.append({
+        "file": fname,
+        "durationSec": round(dur, 1),
+        "decodedDurationSec": round(decoded_dur, 1) if decoded_dur else None,
+        "tailMeanDb": tail_mean_db,
+        "transcribedWords": word_count,
+        "issues": issues,
+        "warnings": warnings,
+    })
 
 total = len(results)
 bad = [r for r in results if r["issues"]]
+soft_warn = [r for r in results if not r["issues"] and r["warnings"]]
 ratio = (len(bad) / total) if total else 0
 
 report = {"totalTracks": total, "badTracks": len(bad), "badRatio": round(ratio, 3), "results": results}
@@ -112,6 +164,10 @@ json.dump(report, open(os.path.join(PROJECT_DIR, "qa-inspector", "music_qc_repor
 print(f"전체 {total}곡 / 오류 {len(bad)}곡 / 비율 {ratio:.1%}")
 for r in bad:
     print(" -", r["file"], r["issues"], f"({r['durationSec']}s, {r['transcribedWords']} words)")
+if soft_warn:
+    print(f"참고(WARN, 자동 격리 안 함) — 끝부분 급정지 의심 {len(soft_warn)}곡:")
+    for r in soft_warn:
+        print(" -", r["file"], r["warnings"], f"(tail {r['tailMeanDb']} dB) — 직접 청취 확인 권장")
 PYEOF
 ```
 
@@ -296,11 +352,21 @@ cp "${PROJECT_DIR}/meeting_log.md" "${PROJECT_DIR}/meeting_log.txt"
 
 ---
 
-## 음악 사전검수 완료 후 — video-producer 호출 또는 orchestrator 보고
+## 음악 사전검수 완료 후 — video-producer/capcut-draft-producer 호출 또는 orchestrator 보고
 
 **①(음악 사전검수) 모드에서만 적용.** "음악 품질 진단" 섹션의 진단 + 격리를 마친 뒤 분기한다.
 
-**PASS/WARN인 경우 (badRatio ≤ 0.10):**
+**먼저 파이프라인 모드를 확인한다** — `concept_brief.json`의 `pipelineMode` 필드로 다음 단계 담당자를 정한다 (`"ffmpeg"` → video-producer, `"capcut"` → capcut-draft-producer). 이 확인 없이 항상 video-producer로 보내면 CapCut 모드 프로젝트에서 다음 단계가 아예 호출되지 않는다.
+
+```bash
+python3 -c "
+import json
+brief = json.load(open('${PROJECT_DIR}/strategist/concept_brief.json', encoding='utf-8'))
+print(brief.get('pipelineMode', 'ffmpeg'))
+"
+```
+
+**PASS/WARN인 경우 (badRatio ≤ 0.10) — FFmpeg 모드 (`pipelineMode: "ffmpeg"`):**
 ```
 [qa-inspector → video-producer]
 음악 사전검수 완료. 판정: PASS / WARN
@@ -309,13 +375,27 @@ selected/ 폴더: {projectDir}/music-generator/selected/ (정상 {N}곡, 격리 
 music_qc_report.json: {projectDir}/qa-inspector/music_qc_report.json
 
 image-generator 완료 확인 후 영상 합성을 시작해줘. background_final.jpg가 준비되면 바로 진행해도 됨.
-(WARN인 경우) 격리된 트랙: {파일명 목록} — 가사 없음/길이 미달로 제외했다.
+(WARN인 경우) 격리된 트랙: {파일명 목록} — {issues에 따라: 가사 없음/길이 미달/길이 불일치(duration_mismatch)/(로파이재즈인 경우) 가사·보컬 감지}로 제외했다.
+(끝부분 급정지 의심 트랙이 있는 경우) 참고(자동 격리 안 함): {파일명 목록} — 직접 청취 확인 권장.
 ```
 
-**FAIL인 경우 (badRatio > 0.10, video-producer를 호출하지 않는다):**
+**PASS/WARN인 경우 (badRatio ≤ 0.10) — CapCut 모드 (`pipelineMode: "capcut"`):**
+```
+[qa-inspector → capcut-draft-producer]
+음악 사전검수 완료. 판정: PASS / WARN
+projectId: {projectId}
+selected/ 폴더: {projectDir}/music-generator/selected/ (정상 {N}곡, 격리 {M}곡)
+music_qc_report.json: {projectDir}/qa-inspector/music_qc_report.json
+
+image-generator 완료 확인 후 CapCut 초안 생성을 시작해줘.
+(WARN인 경우) 격리된 트랙: {파일명 목록} — {issues에 따라: 가사 없음/길이 미달/길이 불일치(duration_mismatch)/(로파이재즈인 경우) 가사·보컬 감지}로 제외했다.
+(끝부분 급정지 의심 트랙이 있는 경우) 참고(자동 격리 안 함): {파일명 목록} — 직접 청취 확인 권장.
+```
+
+**FAIL인 경우 (badRatio > 0.10, 다음 단계를 호출하지 않는다 — 모드 무관):**
 ```
 [qa-inspector → orchestrator]
-음악 사전검수 FAIL. 영상 합성을 진행하지 않았다.
+음악 사전검수 FAIL. 영상 합성/CapCut 초안 생성을 진행하지 않았다.
 projectId: {projectId}
 오류곡 비율: {badRatio} ({badTracks}/{totalTracks})
 오류곡 목록: {파일명 + issues 목록}
