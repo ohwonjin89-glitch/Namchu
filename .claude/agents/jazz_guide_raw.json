@@ -1,0 +1,485 @@
+[
+  {
+    "subgenre": "Cool Jazz",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing rhythm",
+    "bpm": 78,
+    "mood_keywords": [
+      "relaxed",
+      "peaceful",
+      "elegant",
+      "cozy",
+      "breezy"
+    ],
+    "atmosphere_ko": [
+      "오후 카페",
+      "여유로운 산책"
+    ],
+    "suno_tags": "cool jazz, piano trio, acoustic, brushed drums, lounge, relaxed, warm, peaceful",
+    "one_line_style": "A relaxed and breezy cool jazz piano trio piece with gentle brushed drums, warm upright bass, and elegant piano melodies at 78 BPM."
+  },
+  {
+    "subgenre": "Cool Jazz",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing drums",
+    "bpm": 115,
+    "mood_keywords": [
+      "relaxing",
+      "peaceful",
+      "elegant",
+      "breezy",
+      "warm"
+    ],
+    "atmosphere_ko": [
+      "오후 카페",
+      "여유로운 산책"
+    ],
+    "suno_tags": "cool jazz, piano jazz, piano trio, brushed drums, upright bass, acoustic, relaxing, elegant, medium tempo, instrumental",
+    "one_line_style": "A relaxing cool jazz piano trio piece featuring a smooth piano melody, warm upright bass, and gentle brushed swing drums at 115 BPM, evoking an elegant and peaceful atmosphere."
+  },
+  {
+    "subgenre": "bossa nova",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "bossa rhythm",
+    "bpm": 120,
+    "mood_keywords": [
+      "relaxing",
+      "cheerful",
+      "warm",
+      "bouncy",
+      "cozy"
+    ],
+    "atmosphere_ko": [
+      "오후 카페",
+      "산책"
+    ],
+    "suno_tags": "bossa nova, jazz, acoustic piano, upright bass, brushed drums, relaxing, cheerful, warm, sunny",
+    "one_line_style": "A warm and cheerful bossa nova jazz track featuring acoustic piano, upright bass, and light brushed drums at 120 BPM."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "acoustic piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing drums",
+    "bpm": 108,
+    "mood_keywords": [
+      "relaxed",
+      "breezy",
+      "cozy",
+      "cheerful",
+      "calm"
+    ],
+    "atmosphere_ko": [
+      "오후의 카페",
+      "여유로운 산책"
+    ],
+    "suno_tags": "cool jazz, acoustic piano, upright bass, brushed drums, swing, relaxed, breezy, cozy, melodic",
+    "one_line_style": "A relaxed cool jazz instrumental featuring melodic acoustic piano, warm upright bass, and gentle brushed swing drums, around 108 BPM."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing drums",
+    "bpm": 78,
+    "mood_keywords": [
+      "relaxing",
+      "mellow",
+      "peaceful",
+      "cozy",
+      "warm"
+    ],
+    "atmosphere_ko": [
+      "오후의 카페",
+      "차분한 서재"
+    ],
+    "suno_tags": "cool jazz, piano, upright bass, brushed drums, mellow, relaxing, cozy, smooth, instrumental",
+    "one_line_style": "A smooth and cool jazz instrumental featuring melodic piano chords, warm upright bass, and gentle brushed drums at 78 BPM, evoking a relaxing and cozy mood."
+  },
+  {
+    "subgenre": "jazz ballad",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "slow jazz swing with brushes",
+    "bpm": 65,
+    "mood_keywords": [
+      "calm",
+      "relaxing",
+      "nostalgic",
+      "serene",
+      "melancholic"
+    ],
+    "atmosphere_ko": [
+      "심야 바",
+      "비 오는 날 카페"
+    ],
+    "suno_tags": "jazz ballad, slow, piano, upright bass, brushed drums, relaxing, cozy, melancholic",
+    "one_line_style": "A slow and melancholic jazz ballad featuring gentle piano, warm upright bass, and quiet brushed drums, at 65 BPM."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "acoustic piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing beat",
+    "bpm": 118,
+    "mood_keywords": [
+      "cozy",
+      "relaxed",
+      "peaceful",
+      "warm",
+      "sophisticated"
+    ],
+    "atmosphere_ko": [
+      "오후의 카페",
+      "차분한 서재"
+    ],
+    "suno_tags": "jazz piano trio, cool jazz, acoustic piano, upright bass, brushed drums, swing, cozy, warm, relaxing",
+    "one_line_style": "A warm and relaxing cool jazz piano trio piece at 118 BPM, featuring melodic acoustic piano, plucked upright bass, and gentle brushed swing drums."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "acoustic piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing drums",
+    "bpm": 115,
+    "mood_keywords": [
+      "relaxed",
+      "cheerful",
+      "sophisticated",
+      "lighthearted",
+      "warm"
+    ],
+    "atmosphere_ko": [
+      "오후의 카페",
+      "여유로운 산책"
+    ],
+    "suno_tags": "cool jazz, piano trio, acoustic piano, upright bass, brushed swing drums, cheerful, relaxed, lounge, 115 bpm",
+    "one_line_style": "A relaxed and cheerful cool jazz piano trio featuring acoustic piano, upright bass, and brushed swing drums at 115 bpm."
+  },
+  {
+    "subgenre": "swing jazz",
+    "instruments": [
+      "piano",
+      "flute",
+      "upright bass",
+      "drums"
+    ],
+    "drum_pattern": "swing drums",
+    "bpm": 135,
+    "mood_keywords": [
+      "cheerful",
+      "breezy",
+      "lighthearted",
+      "whimsical",
+      "playful"
+    ],
+    "atmosphere_ko": [
+      "오후의 카페",
+      "여유로운 산책"
+    ],
+    "suno_tags": "swing jazz, acoustic, piano, flute, upright bass, swing drums, cheerful, breezy, medium-up tempo, walking bass",
+    "one_line_style": "A cheerful swing jazz track featuring a playful piano melody, warm flute lines, walking upright bass, and breezy swing drums at 135 BPM."
+  },
+  {
+    "subgenre": "bossa nova",
+    "instruments": [
+      "acoustic guitar",
+      "piano",
+      "upright bass",
+      "shaker"
+    ],
+    "drum_pattern": "bossa rhythm",
+    "bpm": 88,
+    "mood_keywords": [
+      "breezy",
+      "warm",
+      "peaceful",
+      "relaxed",
+      "cheerful"
+    ],
+    "atmosphere_ko": [
+      "오후의 카페",
+      "여름 산책"
+    ],
+    "suno_tags": "bossa nova, acoustic jazz, warm piano, acoustic guitar, soft shaker percussion, relaxed, breezy, 90 bpm, sunny, cafe jazz",
+    "one_line_style": "A breezy acoustic bossa nova jazz piece featuring rhythmic acoustic guitar, warm piano melodies, and a gentle shaker percussion at a relaxed 88 BPM."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing ballad",
+    "bpm": 65,
+    "mood_keywords": [
+      "cozy",
+      "nostalgic",
+      "peaceful",
+      "melancholic",
+      "mellow"
+    ],
+    "atmosphere_ko": [
+      "심야 카페",
+      "비 오는 날의 방안"
+    ],
+    "suno_tags": "cool jazz, jazz ballad, acoustic piano, upright bass, brushed drums, slow tempo, nostalgic, cozy, mellow",
+    "one_line_style": "A slow and peaceful cool jazz ballad featuring gentle piano, warm upright bass, and quiet brushed drums at 65 BPM."
+  },
+  {
+    "subgenre": "Cool Jazz",
+    "instruments": [
+      "piano",
+      "acoustic guitar",
+      "upright bass"
+    ],
+    "drum_pattern": "no drums",
+    "bpm": 72,
+    "mood_keywords": [
+      "cozy",
+      "nostalgic",
+      "peaceful",
+      "warm",
+      "relaxing"
+    ],
+    "atmosphere_ko": [
+      "따뜻한 카페 분위기",
+      "차분한 심야"
+    ],
+    "suno_tags": "cool jazz, acoustic jazz, piano, acoustic guitar, upright bass, slow tempo, cozy, nostalgic, warm, instrumental",
+    "one_line_style": "A slow, cozy cool jazz instrumental featuring gentle piano, warm acoustic guitar, and soft upright bass, with a nostalgic and peaceful mood at 72 BPM."
+  },
+  {
+    "subgenre": "jazz ballad",
+    "instruments": [
+      "piano"
+    ],
+    "drum_pattern": "none",
+    "bpm": 65,
+    "mood_keywords": [
+      "warm",
+      "nostalgic",
+      "peaceful",
+      "melancholic",
+      "relaxing"
+    ],
+    "atmosphere_ko": [
+      "비오는 날 카페",
+      "늦은 밤 방 안"
+    ],
+    "suno_tags": "jazz ballad, solo piano, slow, cozy, melancholic, nostalgic, warm, cinematic, peaceful",
+    "one_line_style": "A gentle and nostalgic solo jazz piano ballad with a warm, cozy, and melancholic mood at 65 BPM."
+  },
+  {
+    "subgenre": "jazz ballad",
+    "instruments": [
+      "acoustic piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "gentle brushed snare and cymbals",
+    "bpm": 64,
+    "mood_keywords": [
+      "nostalgic",
+      "peaceful",
+      "melancholy",
+      "cozy",
+      "relaxing"
+    ],
+    "atmosphere_ko": [
+      "조용한 북카페",
+      "비 오는 날의 침실"
+    ],
+    "suno_tags": "jazz ballad, acoustic piano, upright bass, brushed drums, mellow, nostalgic, cozy, relaxing, slow tempo",
+    "one_line_style": "A slow and nostalgic jazz ballad featuring gentle acoustic piano, warm upright bass, and quiet brushed drums at 64 BPM."
+  },
+  {
+    "subgenre": "jazz ballad",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing ballad rhythm",
+    "bpm": 65,
+    "mood_keywords": [
+      "nostalgic",
+      "cozy",
+      "calm",
+      "relaxing",
+      "warm"
+    ],
+    "atmosphere_ko": [
+      "비 오는 날의 카페",
+      "심야의 서재"
+    ],
+    "suno_tags": "jazz ballad, piano trio, cool jazz, cozy, nostalgic, relaxing, slow tempo, brushed drums, warm piano",
+    "one_line_style": "A slow-tempo jazz ballad featuring a soft piano trio with melodic piano, gentle upright bass, and quiet brushed drums, creating a warm and nostalgic atmosphere at 65 BPM."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed slow swing",
+    "bpm": 65,
+    "mood_keywords": [
+      "cozy",
+      "relaxing",
+      "nostalgic",
+      "peaceful",
+      "warm"
+    ],
+    "atmosphere_ko": [
+      "아늑한 북카페",
+      "조용한 심야 시간"
+    ],
+    "suno_tags": "cool jazz, jazz ballad, piano, upright bass, brushed drums, cozy, relaxing, nostalgic, slow",
+    "one_line_style": "A serene and cozy cool jazz ballad led by gentle piano, accompanied by a warm upright bass and soft brushed drums at 65 BPM."
+  },
+  {
+    "subgenre": "cool jazz",
+    "instruments": [
+      "acoustic piano",
+      "upright bass"
+    ],
+    "drum_pattern": "none",
+    "bpm": 115,
+    "mood_keywords": [
+      "cozy",
+      "nostalgic",
+      "whimsical",
+      "relaxing",
+      "warm"
+    ],
+    "atmosphere_ko": [
+      "따뜻한 분위기의 카페",
+      "나른한 오후의 티타임"
+    ],
+    "suno_tags": "jazz piano duo, cool jazz, acoustic piano, upright bass, cozy, whimsical, nostalgic, lounge",
+    "one_line_style": "A warm and whimsical cool jazz piano duo featuring acoustic piano and upright bass at 115 BPM."
+  },
+  {
+    "subgenre": "Cool Jazz",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed swing drums",
+    "bpm": 125,
+    "mood_keywords": [
+      "cozy",
+      "nostalgic",
+      "playful",
+      "relaxing",
+      "whimsical"
+    ],
+    "atmosphere_ko": [
+      "따뜻한 오후 카페",
+      "아늑한 서재"
+    ],
+    "suno_tags": "cool jazz, piano trio, piano, upright bass, brushed drums, swing, cozy, nostalgic, warm, melodic",
+    "one_line_style": "A cozy and melodic cool jazz piano trio style with a warm, nostalgic mood, featuring brushed swing drums, upright bass, and whimsical piano lines at 125 BPM."
+  },
+  {
+    "subgenre": "bossa nova",
+    "instruments": [
+      "acoustic piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "soft brushed drums with bossa rhythm",
+    "bpm": 115,
+    "mood_keywords": [
+      "cozy",
+      "warm",
+      "playful",
+      "nostalgic",
+      "relaxing"
+    ],
+    "atmosphere_ko": [
+      "아늑한 카페",
+      "오후의 휴식"
+    ],
+    "suno_tags": "bossa nova, jazz piano, upright bass, brushed drums, acoustic, cozy, warm, nostalgic, light, 115 bpm",
+    "one_line_style": "A warm and light acoustic bossa nova jazz piece featuring a playful piano melody, gentle upright bass, and soft brushed drums at 115 BPM."
+  },
+  {
+    "subgenre": "bossa nova",
+    "instruments": [
+      "acoustic piano",
+      "upright bass",
+      "brushed drums",
+      "shaker"
+    ],
+    "drum_pattern": "bossa rhythm",
+    "bpm": 108,
+    "mood_keywords": [
+      "cozy",
+      "relaxing",
+      "nostalgic",
+      "gentle",
+      "peaceful"
+    ],
+    "atmosphere_ko": [
+      "아늑한 북카페",
+      "나른한 오후의 홈카페"
+    ],
+    "suno_tags": "bossa nova, jazz bossa, piano trio, acoustic piano, upright bass, brushed drums, cozy, relaxing, nostalgic",
+    "one_line_style": "A warm and nostalgic bossa nova jazz piano trio style, featuring lyrical acoustic piano, gentle upright bass, and light brushed drums, around 108 BPM."
+  },
+  {
+    "subgenre": "jazz ballad",
+    "instruments": [
+      "piano",
+      "upright bass",
+      "brushed drums"
+    ],
+    "drum_pattern": "brushed drums",
+    "bpm": 65,
+    "mood_keywords": [
+      "cozy",
+      "nostalgic",
+      "relaxing",
+      "melancholic",
+      "serene"
+    ],
+    "atmosphere_ko": [
+      "비 오는 날의 카페",
+      "늦은 밤의 조용한 바"
+    ],
+    "suno_tags": "jazz ballad, piano trio, slow tempo, cozy, nostalgic, brushed drums, warm upright bass, relaxing",
+    "one_line_style": "A cozy and nostalgic jazz ballad featuring a melancholic piano melody, warm upright bass, and gentle brushed drums at a slow 65 BPM."
+  }
+]

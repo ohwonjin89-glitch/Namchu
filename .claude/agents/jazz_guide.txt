@@ -1,0 +1,29 @@
+━━ Jazz Instrumental 가이드 ━━
+
+[장르 베이스]
+- 서브장르: bossa nova / Cool Jazz / jazz ballad
+- 핵심: instrumental only, no vocals, no lyrics
+
+[템포 & 리듬]
+- BPM: 65~125 BPM (평균 103BPM)
+- 드럼 패턴: brushed swing drums / soft brushed drums with bossa rhythm
+
+[악기 구성]
+- 건반: piano / acoustic piano
+- 베이스: upright bass
+- 기타: brushed drums / shaker
+
+[무드 & 분위기]
+- 무드: cozy / nostalgic / relaxing / playful / whimsical
+- 분위기: 따뜻한 오후 카페 · 아늑한 서재 · 아늑한 카페 · 오후의 휴식
+
+[Suno 권장 태그]
+- brushed drums, cozy, nostalgic, piano trio, upright bass, warm, bossa nova, relaxing, cool jazz, piano, swing, melodic
+
+[네거티브 태그]
+- vocals, singing, lyrics, humming, ooh-ooh, la-la, mm-mm, whoa-oh, rap, spoken word, EDM drop, trap, heavy metal, kpop
+
+[레퍼런스 스타일 예시]
+  1. A cozy and melodic cool jazz piano trio style with a warm, nostalgic mood, featuring brushed swing drums, upright bass, and whimsical piano lines at 125 BPM.
+  2. A warm and light acoustic bossa nova jazz piece featuring a playful piano melody, gentle upright bass, and soft brushed drums at 115 BPM.
+  3. A warm and nostalgic bossa nova jazz piano trio style, featuring lyrical acoustic piano, gentle upright bass, and light brushed drums, around 108 BPM.

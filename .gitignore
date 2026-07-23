@@ -63,3 +63,6 @@ yt_credentials/
 server.log
 *.log
 orch_pane_dump.txt
+
+# 레퍼런스로 다운로드한 원본 영상 (수백MB~, GitHub 100MB 제한 초과)
+.claude/agents/music reference/

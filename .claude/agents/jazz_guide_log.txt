@@ -1,0 +1,86 @@
+﻿🎷 Jazz Instrumental 분석 시작 — 20개 영상
+
+[1/20] https://www.youtube.com/watch?v=U_RUQr9pzHY
+  ✓ Cool Jazz  78BPM  [relaxed, peaceful, elegant]
+[2/20] https://www.youtube.com/watch?v=P3p16Q-4li4
+  ✓ Cool Jazz  115BPM  [relaxing, peaceful, elegant]
+[3/20] https://www.youtube.com/watch?v=G97Amx7J_N4
+  ✓ bossa nova  120BPM  [relaxing, cheerful, warm]
+[4/20] https://www.youtube.com/watch?v=zN58qsVBujk
+  ✓ cool jazz  108BPM  [relaxed, breezy, cozy]
+[5/20] https://www.youtube.com/watch?v=zu2dFC8-3cQ
+  ✓ cool jazz  78BPM  [relaxing, mellow, peaceful]
+[6/20] https://www.youtube.com/watch?v=aqIvI0GpN90
+  ✓ jazz ballad  65BPM  [calm, relaxing, nostalgic]
+[7/20] https://www.youtube.com/watch?v=JPJUyMPWoFw
+  ✓ cool jazz  118BPM  [cozy, relaxed, peaceful]
+[8/20] https://www.youtube.com/watch?v=5RbPA3z8WSA
+  ✓ cool jazz  115BPM  [relaxed, cheerful, sophisticated]
+[9/20] https://www.youtube.com/watch?v=ve1gxYZFnIw
+  ✓ swing jazz  135BPM  [cheerful, breezy, lighthearted]
+[10/20] https://www.youtube.com/watch?v=ytuQ4iILdpE
+  ✓ bossa nova  88BPM  [breezy, warm, peaceful]
+[11/20] https://www.youtube.com/watch?v=k8sZJWUzYRk
+  ❌ 오류: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+  ⚠ 분석 실패, 건너뜀
+[12/20] https://www.youtube.com/watch?v=1aOXxG7W1TQ
+  ❌ 오류: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+  ⚠ 분석 실패, 건너뜀
+[13/20] https://www.youtube.com/watch?v=Z696d4Iu6qQ
+  ❌ 오류: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+  ⚠ 분석 실패, 건너뜀
+[14/20] https://www.youtube.com/watch?v=e6jS8Qy8B4w
+  ✓ cool jazz  65BPM  [cozy, nostalgic, peaceful]
+[15/20] https://www.youtube.com/watch?v=lwMn2XDUAz8
+  ✓ Cool Jazz  72BPM  [cozy, nostalgic, peaceful]
+[16/20] https://www.youtube.com/watch?v=elG2D3_qQFk
+  ✓ jazz ballad  65BPM  [warm, nostalgic, peaceful]
+[17/20] https://www.youtube.com/watch?v=clciUMf5kjY
+  ✓ jazz ballad  64BPM  [nostalgic, peaceful, melancholy]
+[18/20] https://www.youtube.com/watch?v=0lR3iH1WoqU
+  ✓ jazz ballad  65BPM  [nostalgic, cozy, calm]
+[19/20] https://www.youtube.com/watch?v=SZSSFJfMWvc
+  ✓ cool jazz  65BPM  [cozy, relaxing, nostalgic]
+[20/20] https://www.youtube.com/watch?v=ePSZrsmIt3c
+  ✓ cool jazz  115BPM  [cozy, nostalgic, whimsical]
+
+✅ 17/20곡 분석 완료
+
+============================================================
+━━ Jazz Instrumental 가이드 ━━
+
+[장르 베이스]
+- 서브장르: cool jazz / jazz ballad / Cool Jazz
+- 핵심: instrumental only, no vocals, no lyrics
+
+[템포 & 리듬]
+- BPM: 64~135 BPM (평균 90BPM)
+- 드럼 패턴: brushed swing drums / bossa rhythm
+
+[악기 구성]
+- 건반: piano / acoustic piano
+- 기타: acoustic guitar
+- 베이스: upright bass
+- 관악기: flute
+- 기타: brushed drums / drums / shaker
+
+[무드 & 분위기]
+- 무드: cozy / warm / peaceful / relaxing / nostalgic
+- 분위기: 오후의 카페 · 여유로운 산책 · 오후 카페 · 차분한 서재
+
+[Suno 권장 태그]
+- upright bass, cool jazz, brushed drums, cozy, relaxing, acoustic piano, nostalgic, jazz ballad, warm, piano, piano trio, relaxed
+
+[네거티브 태그]
+- vocals, singing, lyrics, humming, ooh-ooh, la-la, mm-mm, whoa-oh, rap, spoken word, EDM drop, trap, heavy metal, kpop
+
+[레퍼런스 스타일 예시]
+  1. A relaxed and breezy cool jazz piano trio piece with gentle brushed drums, warm upright bass, and elegant piano melodies at 78 BPM.
+  2. A relaxing cool jazz piano trio piece featuring a smooth piano melody, warm upright bass, and gentle brushed swing drums at 115 BPM, evoking an elegant and peaceful atmosphere.
+  3. A warm and cheerful bossa nova jazz track featuring acoustic piano, upright bass, and light brushed drums at 120 BPM.
+============================================================
+
+📄 원시 데이터 저장: C:\suno-api\.claude\agents\jazz_guide_raw.json
+
+📋 위 가이드를 복사해서 대시보드에 새 가이드로 추가하세요.
+📄 가이드 텍스트 저장: C:\suno-api\.claude\agents\jazz_guide.txt

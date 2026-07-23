@@ -204,10 +204,110 @@ A natural real-life cityscape photo of a calm evening skyline with open sky spac
 | 노을 도시 | dense downtown skyline with pink, orange, lavender sunset sky |
 | 브릿지 야경 | suspension bridge over river with city lights behind it |
 | 감성 R&B 도시 배경 | moody skyline with muted purple sky and warm lights |
-| City Pop 배경 | glowing city skyline with soft sunset sky and clean composition |
 | Chill playlist 배경 | calm skyline with open sky space and gentle reflections |
 | 새벽 도시 | blue hour skyline with soft haze and fewer lights |
 | 뉴욕 감성 | metropolitan skyline, bridge, river reflections, without copying exact landmarks unless requested |
+
+> **City Pop 배경은 이 섹션(실사 사진)을 사용하지 않는다.** 반드시 아래 **시티팝 전용 프롬프트 기준** 섹션(80년대 일러스트 포스터 스타일)을 적용한다. City Pop 장르가 "도시야경" 폴더로 라우팅된 경우에도 동일하다.
+
+---
+
+#### 시티팝 전용 프롬프트 기준
+
+이 섹션은 **레퍼런스 이미지(sref) 없이** 텍스트 프롬프트만으로 생성한다. 기존 도시배경/도시야경 폴더의 실사 사진 레퍼런스를 sref로 사용하면 일러스트 스타일 프롬프트와 충돌해 결과가 다시 실사 사진 쪽으로 끌려가므로, **3. 레퍼런스 이미지 선택 단계를 생략**하고 API 호출 시 `srefBase64`를 빈 배열(`[]`)로 보낸다.
+
+City Pop, Japanese City Pop, Retro City Pop, 80s Synth Pop 등 장르가 이 섹션 대상이다. (도시배경/도시야경 어느 폴더로 라우팅되었든 City Pop 장르면 이 섹션을 적용한다)
+
+**이 지침은 실사 사진이 아닌 80년대 일본 시티팝 앨범 커버 감성의 플랫 일러스트 포스터 스타일에만 적용한다.** (Hiroshi Nagai 풍 — 이름을 프롬프트에 직접 넣지 않고 아래 스타일 방향으로 풀어 쓴다)
+
+##### 핵심 스타일 방향
+
+- flat retro illustration poster art
+- 80s Japanese city pop album cover aesthetic
+- clean bold geometric shapes
+- warm gradient sunset sky (coral, peach, lavender, soft orange)
+- minimal flat shading, smooth color gradients
+- glowing geometric high-rise silhouettes
+- calm nostalgic summer-night mood
+- subtle vintage print grain or halftone texture
+- not photorealistic, not 3D, not CGI
+
+##### 장면 구성 원칙
+
+장면은 레퍼런스 사진을 복제하지 않고 시티팝 앨범 커버 특유의 구성으로 새롭게 만든다:
+
+- 지평선/수평선을 낮게 잡아 하늘 그라데이션이 화면 대부분을 차지하게 한다
+- 야자수 실루엣, 빈티지 스포츠카의 테일라이트, 크롬/유리 반사, 수영장이나 해안 도로 같은 시티팝 특유의 소품을 선택적으로 1~2개만 사용한다 (한 장면에 다 넣지 않는다)
+- 인물은 넣지 않는다
+- 빌딩은 플랫한 기하학적 형태로 단순화하며 사실적인 창문 디테일을 과하게 넣지 않는다
+- 하단부는 트랙리스트 오버레이를 위해 비교적 단순하고 여백이 있는 영역으로 구성한다
+
+예시 장면:
+- a low-horizon skyline of flat geometric high-rise silhouettes glowing against a warm coral and lavender gradient sky
+- a distant retro cityscape seen past a palm tree silhouette, warm peach sky gradient, calm evening mood
+- a quiet coastal city skyline at dusk with a glowing gradient sky and a hint of chrome reflection on a distant road
+- a minimalist high-rise skyline with warm sunset gradient bands and soft glowing windows
+
+##### 색감 방향
+
+- coral / peach / warm orange sky gradient blending into soft lavender or dusty blue at the top
+- flat teal or dusty blue building silhouettes
+- warm amber or pink glowing windows
+- muted pastel palette overall — not neon, not oversaturated
+
+##### 금지 방향
+
+프롬프트에 아래 결과가 나오지 않도록 유도한다:
+
+- photorealistic / realistic photo / hyperreal / documentary style / stock photo look
+- 3D render / CGI / cyberpunk / neon-soaked cityscape / glitch or vaporwave grid
+- text / logo / watermark / handwritten title / music title / artist name
+- cluttered composition / too many props in one frame / people / faces
+
+##### 시티팝 공통 프롬프트 템플릿
+
+```
+A flat retro illustration poster of [expanded city pop scene], in the style of an 80s Japanese city pop album cover — clean bold geometric shapes, warm gradient sunset sky blending coral, peach, and lavender, minimal flat shading, glowing geometric high-rise silhouettes, calm nostalgic evening mood, subtle vintage print grain, not photorealistic, not 3D, not CGI. --ar 16:9 --style raw --s 200 --v 6 --no photorealistic, realistic photo, hyperreal, documentary, stock photo, 3D render, CGI, cyberpunk, neon, vaporwave, glitch, text, logo, watermark, handwritten title, music title, artist name, people, face
+```
+
+> **API 호출 시 파라미터 변경 (실사 사진 섹션과 다름)**
+> - `srefBase64`: **빈 배열 `[]`** (레퍼런스 이미지 사용하지 않음 — 3단계 레퍼런스 선택 생략)
+> - `stylize`: **200** (기본값 100 대신 — 레퍼런스가 없으므로 텍스트 프롬프트의 창의적 해석 폭을 넓힌다)
+> - `noPrompt`: `"photorealistic, realistic photo, 3D render, CGI, cyberpunk, neon, text, logo, watermark, people, face"`
+
+##### [expanded city pop scene] 작성 규칙
+
+`[expanded city pop scene]`는 입력된 주제에 맞게 완성된 영어 장면 문장으로 확장한다.
+
+나쁜 예: `city pop` / `[시티팝]` / `retro city night` / `80s city background`
+
+좋은 예:
+```
+a low-horizon skyline of flat geometric high-rise silhouettes glowing against a warm coral and lavender gradient sky
+a distant retro cityscape seen past a palm tree silhouette, warm peach sky gradient, calm evening mood
+a minimalist high-rise skyline with warm sunset gradient bands, soft glowing windows, and a hint of chrome car reflection below
+```
+
+##### 시티팝 프롬프트 예시
+
+**입력: 시티팝 (야간 테마)**
+```
+A flat retro illustration poster of a low-horizon skyline of flat geometric high-rise silhouettes glowing against a warm coral and lavender gradient sky, in the style of an 80s Japanese city pop album cover — clean bold geometric shapes, minimal flat shading, calm nostalgic evening mood, subtle vintage print grain, not photorealistic, not 3D, not CGI. --ar 16:9 --style raw --s 200 --v 6 --no photorealistic, realistic photo, hyperreal, documentary, stock photo, 3D render, CGI, cyberpunk, neon, vaporwave, glitch, text, logo, watermark, handwritten title, music title, artist name, people, face
+```
+
+**입력: 시티팝 (해안/여름 테마)**
+```
+A flat retro illustration poster of a distant retro cityscape seen past a palm tree silhouette with a warm peach and coral sky gradient, in the style of an 80s Japanese city pop album cover — clean bold geometric shapes, flat teal building silhouettes, minimal flat shading, calm nostalgic summer-evening mood, subtle vintage print grain, not photorealistic, not 3D, not CGI. --ar 16:9 --style raw --s 200 --v 6 --no photorealistic, realistic photo, hyperreal, documentary, stock photo, 3D render, CGI, cyberpunk, neon, vaporwave, glitch, text, logo, watermark, handwritten title, music title, artist name, people, face
+```
+
+##### 상황별 장면 선택 기준
+
+| 주제 | 장면 방향 |
+|------|---------|
+| 시티팝 (야간) | low-horizon geometric skyline with warm coral-lavender gradient sky |
+| 시티팝 (해안/여름) | palm tree silhouette + distant geometric skyline + warm peach gradient sky |
+| 시티팝 (드라이브) | glowing skyline with a hint of chrome car reflection on a coastal road |
+| 시티팝 (플레이리스트 배경) | minimal geometric skyline, open gradient sky space for title overlay |
 
 ---
 
@@ -1104,10 +1204,12 @@ A warm natural real-life photo of a quiet hillside overlooking a valley at golde
 | 도로, 자연 경관, 주행 시점, 이동감 (실사) | 드라이브 |
 | 들판, 자연, 온기, 피크닉, 골든아워, 야외 평온 (실사) | 어쿠스틱팝 |
 | 손그림, 만화, 굵은 라인, 강한 색감, 음악 커버 일러스트 | Groove Hiphop |
+| City Pop, 시티팝, 80년대 신스팝, 일러스트 포스터 스카이라인 | 시티팝 |
 
 복합 주제 처리:
 - Groove Hip-hop + 자동차/도시/가을 → Groove Hiphop 기본
 - Chill Hip-hop + 공부 (일러스트 요청 시) → Groove Hiphop 기본
+- City Pop + 도시야경/도시배경 폴더 라우팅 → 시티팝 기본 (실사 도시야경/도시배경 섹션 사용 금지)
 - 해변 + 감성 R&B + 인물 → 하이틴 기본
 - 도시 + 노을/야간 스카이라인 + 인물 없음 → 도시야경 기본
 - 도시 + 다리 + 강 반사 → 도시야경 기본

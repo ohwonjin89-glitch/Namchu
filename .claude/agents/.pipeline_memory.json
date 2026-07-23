@@ -1,0 +1,45 @@
+{
+  "projects": [
+    {
+      "projectId": "26070301",
+      "completedAt": "2026-07-04T00:14:13.541854",
+      "finalResult": "FAIL",
+      "warnings": [
+        "amber_signal.mp3 길이 229초로 목표 범위(150~210초) 초과",
+        "background_final.jpg 확장자는 .jpg이나 실제 포맷은 PNG",
+        "로컬 Next.js API 서버(localhost:3000)가 파이프라인 시작 시 다운되어 있었음 (researcher, image-generator 둘 다 겪음)"
+      ],
+      "errors": [
+        "youtube-upload API(spawn python)가 WSL 환경에서 python 바이너리 부재+에러핸들러 부재로 무한 대기",
+        "make-video API 동일 버그(WSL 환경 오판, 에러핸들러 부재)",
+        "동일 playlist.mp4가 DGM 채널에 2회 실제 업로드됨 (videoId: Y9pAUUvN-jc, QRxg3LuT2Kg, 둘 다 private) - youtube-uploader 에이전트가 API 우회 시행착오 중 업로드 스크립트를 두 번 독립 실행시킴"
+      ],
+      "systemDeveloperCalled": true,
+      "systemDeveloperFixes": [
+        "make-video/route.ts: WSL 환경 감지 시 즉시 에러+재기동 안내로 처리 (무한 대기 방지)",
+        "youtube-upload/route.ts: python3 폴백 + child.on('error') 핸들러 추가",
+        "youtube_upload.py: 업로드 중복 실행 가드 추가 (upload_result.json 존재 시 forceReupload=True 아니면 재업로드 차단)"
+      ]
+    }
+  ],
+  "knownIssues": [],
+  "warningHistory": [
+    {
+      "warn": "amber_signal.mp3 길이 229초로 목표 범위(150~210초) 초과",
+      "count": 1
+    },
+    {
+      "warn": "background_final.jpg 확장자는 .jpg이나 실제 포맷은 PNG",
+      "count": 1
+    },
+    {
+      "warn": "로컬 Next.js API 서버(localhost:3000)가 파이프라인 시작 시 다운되어 있었음 (researcher, image-generator 둘 다 겪음)",
+      "count": 1
+    }
+  ],
+  "systemDeveloperFixes": [
+    "make-video/route.ts: WSL 환경 감지 시 즉시 에러+재기동 안내로 처리 (무한 대기 방지)",
+    "youtube-upload/route.ts: python3 폴백 + child.on('error') 핸들러 추가",
+    "youtube_upload.py: 업로드 중복 실행 가드 추가 (upload_result.json 존재 시 forceReupload=True 아니면 재업로드 차단)"
+  ]
+}

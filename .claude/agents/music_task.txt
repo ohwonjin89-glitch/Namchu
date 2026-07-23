@@ -1,0 +1,21 @@
+음악생성 작업 시작.
+
+- projectId: 2026061401
+- num_tracks: 2
+- genre: Groove Hip-hop & Chill Pop
+
+지침서 /mnt/c/suno-api/.claude/agents/music-generator.md 를 읽고, Section 4의 Groove Hip-hop & Chill Pop 장르 샘플을 기준으로 2곡 생성해주세요.
+
+작업 범위:
+1. concept_brief.json 읽기 (없으면 장르 기본값 사용)
+2. 장르 샘플 기반으로 Styles + Lyrics 작성
+3. Suno API로 2곡 생성 (각각 A/B 2트랙 반환)
+4. A/B 선정
+5. prompts_log.json 저장
+6. music_info.json 저장
+
+산출물 경로: /mnt/c/suno-api/.claude/agents/projects/2026061401/music-generator/
+
+파일명은 노래 제목 기반(SAFE_TITLE)으로 저장.
+후속 작업(image-generator, video-producer 등) 절대 금지.
+음악 생성 완료 후 결과만 보고.
