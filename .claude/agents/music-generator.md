@@ -337,7 +337,11 @@ for i in $(seq 1 58); do
   REMAINING=$(echo "$RESULT" | python3 -c "
 import json,sys
 songs = json.load(sys.stdin)
-print(sum(1 for s in songs if s.get('status') not in ('complete', 'streaming')))
+# 'streaming'은 완료로 취급하지 않는다 — 아직 생성 중인 상태에서 다운로드하면
+# 헤더 손상뿐 아니라 실제 길이/내용이 비정상인 파일을 받을 수 있다(2026-07-23,
+# Bedside Book B 테이크가 목표 180초 대비 479초로 생성되고 파형에 이상 잡음이
+# 섞여 있던 사고 — 'streaming' 상태 다운로드가 원인으로 추정됨).
+print(sum(1 for s in songs if s.get('status') != 'complete'))
 ")
   echo "남은 곡: $REMAINING / $(echo $RESULT | python3 -c 'import json,sys; print(len(json.load(sys.stdin)))')"
   if [ "$REMAINING" = "0" ]; then
@@ -504,12 +508,12 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
 
 | 기준 | 판단 방법 | 우선순위 |
 |------|-----------|---------|
-| 비정상 길이 제외 | ffprobe duration ≥ 480초(8분) → streaming 손상 판정, 즉시 제외 | 0순위 (사전 필터) |
+| 비정상 길이 제외 | ffprobe duration > 목표 상한(기본 210초, concept_brief에 별도 목표 길이 명시 시 그 값)의 1.5배 → streaming 손상 판정, 즉시 제외 | 0순위 (사전 필터) |
 | 길이 (약 3분) | ffprobe로 duration 확인, 150~210초 범위 | 1순위 |
 | 보컬 성별 | track_plan.json `vocal_gender`와 metadata 비교 | 2순위 |
 | 도입부 허밍 없음 | `lyricsStartsImmediately` 필드 확인 (true 우선) | 3순위 |
 
-- **0순위(비정상 길이)**: 480초 이상은 `streaming` 상태에서 다운로드된 손상 파일. 즉시 WARN 기록 후 상대 버전 선택. 상대 버전도 480초 이상이면 두 곡 모두 `qualityWarnings`에 기록하고 더 짧은 쪽 선택.
+- **0순위(비정상 길이)**: 기본 기준 210초 × 1.5 = 315초 초과는 `streaming` 상태에서 다운로드된 손상 파일로 간주. 즉시 WARN 기록 후 상대 버전 선택. 상대 버전도 315초 초과면 두 곡 모두 `qualityWarnings`에 기록하고 더 짧은 쪽 선택. (구 버전은 절대값 480초 고정 컷이었으나, 2026-07-23 "Bedside Book" B 테이크가 479초로 이 컷 바로 아래에서 빠져나가 QA도 통과한 채 최종 영상에 실리는 사고가 있어 목표 길이 대비 상대 기준으로 강화함 — 절대 컷은 목표 길이가 짧은 프로젝트에서 상대적으로 훨씬 더 관대해지는 문제가 있었다.)
 - 3개 기준 모두 만족하는 쪽 선택. 동점이면 컨셉 일치도 주관 판단.
 - 둘 다 기준 미충족: WARN 기록 후 나은 쪽 선택.
 - 한쪽만 완성(WARN): `usage: "single_fallback"` 기록 후 완성된 쪽 저장.
