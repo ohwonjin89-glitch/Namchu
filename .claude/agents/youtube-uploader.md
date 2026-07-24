@@ -153,6 +153,7 @@ title = brief.get("youtubeTitle") or brief["titleCandidates"][0]
 
 **트랙 순서 및 시작 시간 계산 시 주의:**
 - 트랙 순서는 `music-generator/selected/` 폴더의 파일 나열 순서가 아니라 **`video-producer/track_order.json`**을 기준으로 한다 (A버전 전체 → B버전 전체 블록 순서가 실제 영상에 합성된 순서이며, 폴더 나열 순서와 다를 수 있다).
+- `track_order.json`의 `title` 값을 그대로 쓴다 — 비선정(B) 블록 트랙은 music-generator가 선정곡과 다르게 지어둔 제목(titleB)이 이미 들어있으므로 임의로 통일하거나 원곡 제목으로 되돌리지 않는다.
 - `music_info.json`의 `durationSec` 필드를 그대로 믿지 말 것 — concat 헤더 손상 버그 이력(642초 실제가 1005초로 오인식된 사례)이 있어 캐시된 값이 실제와 다를 수 있다.
 - `track_order.json`에 적힌 순서대로 각 트랙 파일(`music-generator/selected/{filename}`)을 `ffprobe -show_entries format=duration`으로 직접 실측해서 누적 시작 시간을 계산한다.
 - 형식: 전체 영상 길이가 1시간 미만이면 전 트랙 `m:ss`, 1시간 이상이면 전 트랙 `h:mm:ss`로 **통일**한다. 트랙마다 개별적으로 "이 트랙은 1시간 넘었으니 h:mm:ss"처럼 판단하면 목록 중간에 형식이 바뀌어 유튜브가 타임스탬프 전체를 클릭 가능한 링크로 인식하지 못한다(2026-07-21 실사고 — 90분짜리 영상에서 59:57까지는 m:ss, 그 이후만 h:mm:ss로 나가면서 전체 링크화 실패). 유튜브는 이 형식을 자동으로 클릭 가능한 타임스탬프 링크로 변환한다 (공개/일부공개 영상에서만 동작, 비공개에서는 표시는 되지만 링크 클릭 이동은 검증 불가).

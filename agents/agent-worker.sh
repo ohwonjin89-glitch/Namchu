@@ -39,7 +39,7 @@ while true; do
         echo "[${AGENT_NAME}] 작업 수신 [$TS]"
 
         RESULT=$(claude --print \
-            --model claude-sonnet-4-6 \
+            --model claude-sonnet-5 \
             --system-prompt "$SYSTEM_PROMPT" \
             --dangerously-skip-permissions \
             "$TASK" 2>&1)

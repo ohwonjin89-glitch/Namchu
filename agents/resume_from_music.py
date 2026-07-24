@@ -25,7 +25,7 @@ os.environ.setdefault("SUNO_API_BASE", "http://172.28.32.1:3000")
 sys.path.insert(0, os.path.dirname(__file__))
 from core.agent import Agent, agent_dialogue
 from core.tools import generate_image, _fallback_image, create_video, upload_youtube, _to_win
-from core.logger import MeetingLogger
+from core.logger import MeetingLogger, setup_run_logging
 from core.pipeline import load_instructions, parse_upload_info
 
 
@@ -49,6 +49,9 @@ def main():
     if not os.path.exists(music_path):
         print(f"음악 파일이 없습니다: {music_path}")
         sys.exit(1)
+
+    log_path = setup_run_logging(channel, date_str)
+    print(f"  로그 파일: {log_path}")
 
     print(f"\n{'='*52}")
     print(f"  재개: {channel} / {date_str}")

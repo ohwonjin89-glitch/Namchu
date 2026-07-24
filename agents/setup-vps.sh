@@ -131,6 +131,12 @@ if [ -f "$PROJECT_DIR/requirements.txt" ]; then
     || pip3 install --user -q --break-system-packages -r "$PROJECT_DIR/requirements.txt" 2>&1 | tail -5
 fi
 
+# 프롬프트 가이드 자동 백업 cron 등록 (매일 03:00, 이미 등록돼 있으면 건너뜀)
+CRON_LINE="0 3 * * * bash $PROJECT_DIR/agents/backup-restore.sh backup auto >> /tmp/dgm/backup-cron.log 2>&1"
+( crontab -l 2>/dev/null | grep -qF "agents/backup-restore.sh backup auto" ) \
+  || ( crontab -l 2>/dev/null; echo "$CRON_LINE" ) | crontab -
+echo "▶ 백업 cron 확인 완료 (매일 03:00 자동 백업)"
+
 # tmux 설정 (focus-events + xterm-256color: Agent Teams 우측 패널 표시에 필수)
 grep -q 'focus-events on' "$HOME/.tmux.conf" 2>/dev/null || echo 'set -g focus-events on' >> "$HOME/.tmux.conf"
 grep -q 'default-terminal' "$HOME/.tmux.conf" 2>/dev/null \
@@ -205,7 +211,7 @@ print('  ✓ settings.json: AGENT_TEAMS=1, teammateMode=tmux 강제 적용')
 tmux new-window -t "$SESSION" -n "orchestrator"
 # ── [BILLING GUARD 3/4] unset API 키 후 billing-guard 검증 → claude 실행 ───
 tmux send-keys -t "$SESSION:orchestrator" \
-  "unset ANTHROPIC_API_KEY && cd $PROJECT_DIR && source /home/dgm/.config/dgm.env && bash $PROJECT_DIR/agents/billing-guard.sh && claude --model claude-sonnet-4-6 --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
+  "unset ANTHROPIC_API_KEY && cd $PROJECT_DIR && source /home/dgm/.config/dgm.env && bash $PROJECT_DIR/agents/billing-guard.sh && claude --model claude-sonnet-5 --dangerously-skip-permissions --append-system-prompt-file $PROJECT_DIR/.claude/agents/orchestrator.md" Enter
 
 # ── Window 3: logs ─────────────────────────────────────────────────────
 tmux new-window -t "$SESSION" -n "logs"

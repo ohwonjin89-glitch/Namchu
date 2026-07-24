@@ -16,8 +16,8 @@ tools: [Read, Write, Edit, Bash, Glob, Grep, TodoWrite]
 ## 담당 코드 영역
 - Python 파이프라인: agents/core/ (pipeline.py, tools.py, agent.py)
 - Next.js API 라우트: src/app/api/
-- 에이전트 지시문: agents/instructions/
-- 대시보드: public/
+- 에이전트 지시문: .claude/agents/*.md
+- 대시보드: public/, src/app/dgm/page.tsx
 
 ## 작업 원칙
 - 수정 전 파일을 반드시 읽고 전체 맥락 파악

@@ -10,7 +10,7 @@ from .tools import (
     get_trend_data, generate_music, generate_music_batch, generate_image,
     create_video, upload_youtube
 )
-from .logger import MeetingLogger
+from .logger import MeetingLogger, setup_run_logging
 
 INSTRUCTIONS_DIR = Path(__file__).parent.parent.parent / ".claude" / "agents"
 
@@ -145,6 +145,8 @@ _PROJECTS_BASE = os.environ.get(
 def run_pipeline(channel: str = "DGM", num_tracks: int = 20) -> dict:
     date_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     date_only = datetime.datetime.now().strftime("%Y%m%d")
+    log_path = setup_run_logging(channel, date_str)
+    print(f"  로그 파일: {log_path}")
     ch_folder = _CHANNEL_FOLDER_MAP.get(channel, channel)
     projects_base = _PROJECTS_BASE.format(ch_folder=ch_folder)
     os.makedirs(projects_base, exist_ok=True)

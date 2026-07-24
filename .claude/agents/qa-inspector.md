@@ -52,12 +52,14 @@ tools: [Read, Bash, Glob, Grep, SendMessage]
 
 **오류 판정 기준 (하나라도 해당하면 오류곡 — 자동 격리 + badRatio 집계):**
 - `durationSec < 120` (2분 미만 — 단, `concept_brief.json`에 짧은 곡 길이를 명시적으로 요청한 경우는 그 길이 기준으로 판단)
+- **`too_long`** — `durationSec > 315` (목표 상한 210초 × 1.5 — concept_brief에 별도 목표 길이가 명시된 경우 그 값 기준). Suno가 `streaming` 상태에서 다운로드되어 목표보다 훨씬 길게 생성된 손상 파일을 잡기 위한 검사(2026-07-23, "Bedside Book" B 테이크가 목표 180초 대비 479초로 생성되어 파형에 이상 잡음이 섞인 채 이 검사 부재로 QA를 통과, 최종 영상에 그대로 실린 사고 이후 추가). 길이만 정상이어 보여도 실제로는 재생 중 구간에 클리핑/잡음이 섞여 있을 수 있으니 상한 초과 시 청취 확인 없이 바로 격리한다.
+- **`upstream_quality_warning`** — `music-generator/music_info.json`에서 해당 파일의 `qualityWarnings` 배열이 비어있지 않은 경우. music-generator가 A/B 선정 과정에서 이미 "비정상/손상 추정" 메모를 남긴 트랙은, 비록 선정 단계에서 제외됐더라도(비선정 15곡 블록에 그대로 포함되어 최종 영상에서 재생되므로) 이 QA 단계에서도 동일하게 오류곡으로 잡아 격리한다 — 이전에는 이 필드를 qa-inspector가 전혀 참조하지 않아 music-generator 자신의 진단이 다음 단계로 전달되지 않았다.
 - 가사 없음 — 보컬이 있어야 할 트랙(`instrumental: false`, 별도 요청 없는 기본 케이스)인데 실제로는 가사가 들리지 않는 경우. `faster-whisper`(tiny 모델)로 트랙 중간 30초 구간을 전사해서 단어 수가 3개 미만이면 가사 없음으로 판정한다.
 - **(Jazz Instrumental/로파이재즈 전용, 반대 판정)** 보컬/가사가 있으면 안 되는 트랙(`genre == "Jazz Instrumental"` 또는 `instrumental: true`)인데 실제로 보컬/가사가 감지된 경우. 동일한 `faster-whisper` 전사 결과에서 단어 수가 3개 **이상**이면 "가사 있음(unexpected_lyrics)"으로 판정해 격리한다 — 순수 연주곡만으로 최종 셋을 구성하기 위한 핵심 게이트.
 - **`duration_mismatch`** — `ffprobe format=duration`(헤더 메타데이터)과 `ffmpeg -i {file} -f null -`(실제 디코딩 길이)의 차이가 3초 이상. Suno가 내려주는 mp3의 VBR 헤더가 부정확하면 헤더 길이가 실제 재생 길이보다 짧게 보고될 수 있는데, `make_capcut_draft.py`/video-producer가 이 헤더 값을 그대로 세그먼트 길이로 써버리면 **노래가 실제로 끝나기 전에 잘려서 다음 곡으로 넘어간다** — CapCut 초안에서 "노래가 중간중간 잘리는" 사고의 직접 원인 중 하나(2026-07-21 확인). 이 항목은 아래 "실행" 스크립트가 트랙별로 자동 검사한다.
 
 **참고 판정 기준 (WARN — 자동 격리하지 않고 보고서에만 표시, badRatio에 포함 안 함):**
-- **`abrupt_ending`** — 트랙 마지막 1.5초 구간의 평균 음량(`ffmpeg -sseof -1.5 -af volumedetect`)이 -6dB보다 큰 경우(=페이드아웃/자연스러운 여음 없이 최고 음량 그대로 뚝 끊김). Suno 생성 자체가 중간에 잘린 파일일 가능성을 잡기 위한 대리 지표이지만, 곡이 원래 강한 마무리 코드로 끝나는 경우도 오탐될 수 있어 자동 격리 대상이 아니다 — 목록에 오르면 오케스트레이터/사용자가 해당 트랙을 직접 들어보고 판단한다.
+- **`abrupt_ending`** — 트랙 마지막 1.5초 구간의 평균 음량(`ffmpeg -sseof -1.5 -af volumedetect`)이 무음에 가깝지 않은 경우(절대 -6dB 기준이 아니라 "곡이 자연스럽게 페이드아웃/무음으로 마무리됐는가"를 보는 것 — 판정 로직은 아래 "실행" 스크립트 참고). 이 검사가 잡으려는 것은 "곡 길이(초)"가 아니라 **"노래가 아직 나오고 있는 도중에 파일이 끊겼는가"** — 즉 마지막 구간에 보컬/악기가 여전히 들리는 상태로 갑자기 끝나면 이상 신호다. Suno 생성 자체가 중간에 잘린 파일일 가능성을 잡기 위한 대리 지표이지만, 곡이 원래 강한 마무리 코드로 끝나는 경우도 오탐될 수 있어 자동 격리 대상이 아니다 — 목록에 오르면 오케스트레이터/사용자가 해당 트랙을 직접 들어보고 판단한다.
 
 > ⛔ **BPM 검사 — HOLD (비활성화)**: concept_brief에 BPM 범위가 명시되어 있더라도 BPM 기반 오류 판정을 수행하지 않는다. librosa의 양자화 오차와 Suno의 BPM 부정확성으로 인해 정상 곡도 오탐되는 사례가 많아 비활성화했다. BPM은 참고 정보로만 기록할 수 있으나 오류곡 판정 기준에 포함하지 않는다. 사용자 명시 요청이 있을 때만 재활성화한다.
 
@@ -80,6 +82,19 @@ if os.path.exists(concept_brief_path):
     concept_brief = json.load(open(concept_brief_path, encoding="utf-8"))
     is_instrumental_genre = concept_brief.get("genre") == "Jazz Instrumental" or concept_brief.get("instrumental") is True
 
+# music-generator가 A/B 선정 시 남긴 자체 진단(qualityWarnings)을 이 QA 단계에도 반영한다 —
+# 선정 단계에서만 쓰이고 버려지면 안 됨(2026-07-23 Bedside Book 사고: 손상 진단이 있었지만
+# 이 필드를 여기서 참조하지 않아 최종 영상까지 그대로 흘러들어갔다).
+music_info_path = os.path.join(PROJECT_DIR, "music-generator", "music_info.json")
+upstream_warnings = {}
+if os.path.exists(music_info_path):
+    music_info = json.load(open(music_info_path, encoding="utf-8"))
+    entries = music_info if isinstance(music_info, list) else music_info.get("tracks", music_info.get("songs", []))
+    for entry in entries:
+        fname = os.path.basename(entry.get("filename", ""))
+        if fname and entry.get("qualityWarnings"):
+            upstream_warnings[fname] = entry["qualityWarnings"]
+
 model = WhisperModel("tiny", device="cpu", compute_type="int8")
 
 results = []
@@ -97,6 +112,10 @@ for fname in sorted(os.listdir(SELECTED)):
     warnings = []
     if dur < 120:
         issues.append("too_short")
+    if dur > 315:
+        issues.append("too_long")
+    if fname in upstream_warnings:
+        issues.append("upstream_quality_warning")
 
     # 헤더(ffprobe format=duration) vs 실제 디코딩 길이 이중 검증 — 헤더가 실제보다 짧게
     # 보고되면 make_capcut_draft.py/video-producer가 세그먼트를 그 길이로 잘라 넣어
@@ -112,15 +131,43 @@ for fname in sorted(os.listdir(SELECTED)):
     if decoded_dur and abs(decoded_dur - dur) >= 3:
         issues.append("duration_mismatch")
 
-    # 곡 끝부분이 페이드아웃/여음 없이 최고 음량 그대로 뚝 끊기는지 검사
-    # — Suno 생성 자체가 중간에 잘린 파일일 가능성의 대리 지표(WARN, 자동 격리 안 함).
+    # 곡 끝부분이 "무음/페이드아웃으로 자연스럽게 마무리"됐는지, 아니면 "노래가
+    # 계속 나오고 있는 도중에 파일이 그대로 끊겼는지" 검사(2026-07-23 갱신).
+    # 절대 dB 기준(예전 -6dB)만 보면 원곡 자체가 조용히 믹스된 트랙은 못 잡고,
+    # 시끄러운 트랙의 정상적인 강한 마무리 코드는 오탐하기 쉽다 — 그래서 트랙
+    # 전체의 평균 음량 대비 "마지막 구간이 얼마나 무음에 가까워졌는가"의
+    # 상대값으로 판단한다. 마지막 구간이 트랙 평균 대비 15dB 이상 조용해지지
+    # 않았다면(=충분히 무음/여음으로 가라앉지 않았다면) 여전히 노래가 진행
+    # 중이던 상태로 끊겼을 가능성이 높다.
+    full_stderr = subprocess.run(
+        ["ffmpeg", "-i", path, "-af", "volumedetect", "-f", "null", "-"],
+        capture_output=True, text=True).stderr
+    full_vol_match = re.search(r"mean_volume:\s*(-?\d+\.?\d*) dB", full_stderr)
+    full_mean_db = float(full_vol_match.group(1)) if full_vol_match else None
+
     tail_stderr = subprocess.run(
         ["ffmpeg", "-y", "-sseof", "-1.5", "-i", path, "-af", "volumedetect", "-f", "null", "-"],
         capture_output=True, text=True).stderr
     tail_vol_match = re.search(r"mean_volume:\s*(-?\d+\.?\d*) dB", tail_stderr)
     tail_mean_db = float(tail_vol_match.group(1)) if tail_vol_match else None
-    if tail_mean_db is not None and tail_mean_db > -6:
-        warnings.append("abrupt_ending")
+
+    if tail_mean_db is not None and full_mean_db is not None:
+        if (tail_mean_db - full_mean_db) < 15:
+            warnings.append("abrupt_ending")
+
+    # 헤더(ffprobe format=duration) vs 실제 디코딩 길이 이중 검증 — 헤더가 실제보다 짧게
+    # 보고되면 make_capcut_draft.py/video-producer가 세그먼트를 그 길이로 잘라 넣어
+    # CapCut/영상에서 노래가 끝나기 전에 잘리는 사고로 이어진다 (2026-07-21).
+    decode_stderr = subprocess.run(
+        ["ffmpeg", "-i", path, "-f", "null", "-"],
+        capture_output=True, text=True).stderr
+    decode_matches = re.findall(r"time=(\d+):(\d+):(\d+\.\d+)", decode_stderr)
+    decoded_dur = 0.0
+    if decode_matches:
+        h, m, s = decode_matches[-1]
+        decoded_dur = int(h) * 3600 + int(m) * 60 + float(s)
+    if decoded_dur and abs(decoded_dur - dur) >= 3:
+        issues.append("duration_mismatch")
 
     sample_start = max(15, dur * 0.25) if dur > 0 else 15
     sample_wav = os.path.join(TMP, fname.replace(".mp3", ".wav"))
@@ -150,6 +197,7 @@ for fname in sorted(os.listdir(SELECTED)):
         "transcribedWords": word_count,
         "issues": issues,
         "warnings": warnings,
+        "upstreamQualityWarnings": upstream_warnings.get(fname, []),
     })
 
 total = len(results)

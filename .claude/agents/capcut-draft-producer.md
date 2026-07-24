@@ -121,8 +121,8 @@ mkdir -p "${PROJECT_DIR}/capcut-draft-producer"
     {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\01_city_in_motion.mp3", "title": "City in Motion"},
     {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\02_rainy_window.mp3", "title": "Rainy Window"},
     "... (선정 15곡, 01~15번)",
-    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\16_city_in_motion_rej.mp3", "title": "City in Motion"},
-    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\17_rainy_window_rej.mp3", "title": "Rainy Window"},
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\16_traffic_lights_blur_rej.mp3", "title": "Traffic Lights Blur"},
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\17_umbrella_at_midnight_rej.mp3", "title": "Umbrella at Midnight"},
     "... (비선정 15곡, 16~30번) → 배열 전체 30개"
   ],
   "tracklistOverlay": {
@@ -135,6 +135,7 @@ mkdir -p "${PROJECT_DIR}/capcut-draft-producer"
 **주의사항:**
 - `bgImageUrl`: Z:\ 경로 사용 (파일이 VPS에 있으므로 Z:\ 마운트 필요)
 - `musicFiles`: **1-b에서 계산한 `ordered_tracks` 30개 전체**를 순서대로 Z:\ 경로로 입력 (위 예시의 문자열 줄은 설명용이며 실제 JSON에는 넣지 않는다 — 15개에서 멈추지 않는다)
+- **`title`은 `music_info.json`의 `title` 필드를 그대로 사용한다** — 비선정곡(16~30번)은 music-generator가 이미 선정곡과 다르게 지어둔 제목(titleB)이 들어있으므로 별도로 바꾸지 않는다 (위 예시처럼 16번 "Traffic Lights Blur"는 01번 "City in Motion"과 다른 제목이어야 정상이다. 둘이 같다면 music-generator 산출물 오류로 보고 재확인한다).
 - `tracklistOverlay.text`: 전체 트랙 제목(30개)을 `  ·  `로 연결한 단일 문자열
 - `outputDir`: Windows 로컬 임시 디렉터리 (Z:\ 아님)
 

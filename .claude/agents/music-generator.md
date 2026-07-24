@@ -54,7 +54,8 @@ EOF
 - **배치 생성**: 곡마다 A/B 2버전 생성 → **아래 A/B 선정 기준으로 더 나은 1곡 선택** → 선정곡 + 비선정곡 둘 다 `selected/`에 저장.
 - **생성 목표**: 오케스트레이터가 지정한 N회 호출 (테스트 모드) / **15회 호출 (운영 모드 기본값, 선정 15곡 + 비선정 15곡 = 총 30곡, 영상 약 1.5시간)**
 - **가사 포함 기본**: `instrumental: false`. 한 곡당 3분 분량의 **영어 가사(팝송)** 직접 작성. 특별한 지시가 있을 때만 변경.
-- A/B 중 선정된 **1곡**은 `{num:02d}_{safe_title}.mp3`, 비선정 **1곡**은 `{num+15:02d}_{safe_title}_rej.mp3`로 저장 → 총 30곡을 video-producer에 전달
+- A/B 중 선정된 **1곡**은 `{num:02d}_{safe_title}.mp3`, 비선정 **1곡**은 `{num+15:02d}_{safe_title_b}_rej.mp3`로 저장 → 총 30곡을 video-producer에 전달
+- **비선정곡 제목은 선정곡과 다르게 새로 짓는다** (기본 동작, 별도 요청 불필요 — 아래 "A/B 선정 기준" 이후 §6 참고). 같은 프롬프트에서 나온 A/B 쌍이라도 플레이리스트·유튜브 트랙리스트에 같은 제목이 15회 반복 노출되는 것을 막기 위함이다.
 
 > ⛔ **파일명 절대 규칙**: `track_1.mp3`, `track_2.mp3` 등 번호만 쓰는 파일명 **절대 금지**. 사용자가 CapCut에서 트랙을 재배치할 때 어떤 곡인지 식별할 수 없게 된다. 반드시 `01_city_in_motion.mp3` 형식(번호+곡제목)으로 저장한다.
 
@@ -155,8 +156,8 @@ cat "$REPO_DIR/.claude/agents/user-feedback.json"
 │   ├── 01_city_in_motion.mp3          ← 선정곡 (01~15번, usage: "selected")
 │   ├── 02_rainy_window.mp3
 │   ├── ...
-│   ├── 16_city_in_motion_rej.mp3      ← 비선정곡 (16~30번, usage: "rejected")
-│   ├── 17_rainy_window_rej.mp3
+│   ├── 16_traffic_lights_blur_rej.mp3 ← 비선정곡 (16~30번, usage: "rejected", 제목은 01번(선정곡 "City in Motion")과 다르게 재작성)
+│   ├── 17_umbrella_at_midnight_rej.mp3
 │   └── ...
 ├── prompts_log.json                                   ← 생성에 사용한 프롬프트 + 메타데이터 전체 기록
 └── music_info.json                                    ← 전체 트랙 정보 통합 (A/B 비교·선정 결과 포함)
@@ -336,7 +337,11 @@ for i in $(seq 1 58); do
   REMAINING=$(echo "$RESULT" | python3 -c "
 import json,sys
 songs = json.load(sys.stdin)
-print(sum(1 for s in songs if s.get('status') not in ('complete', 'streaming')))
+# 'streaming'은 완료로 취급하지 않는다 — 아직 생성 중인 상태에서 다운로드하면
+# 헤더 손상뿐 아니라 실제 길이/내용이 비정상인 파일을 받을 수 있다(2026-07-23,
+# Bedside Book B 테이크가 목표 180초 대비 479초로 생성되고 파형에 이상 잡음이
+# 섞여 있던 사고 — 'streaming' 상태 다운로드가 원인으로 추정됨).
+print(sum(1 for s in songs if s.get('status') != 'complete'))
 ")
   echo "남은 곡: $REMAINING / $(echo $RESULT | python3 -c 'import json,sys; print(len(json.load(sys.stdin)))')"
   if [ "$REMAINING" = "0" ]; then
@@ -409,24 +414,31 @@ echo "A 길이: ${DUR_A}초  B 길이: ${DUR_B}초  (목표: 150~210초)"
 SELECTED="A"   # 또는 "B" — 위 기준으로 판단
 REJECTED=$( [ "$SELECTED" = "A" ] && echo "B" || echo "A" )
 
+# 4. 비선정곡용 새 제목(titleB) 작성 — 선정곡 제목(titleA)과 다른 표현으로 재작성한다.
+#    같은 장면/무드를 유지하되 단어·어순을 바꾼 동의어 재구성 (예: "City in Motion" → "Traffic Lights Blur").
+#    track_plan.json의 title은 그대로 titleA로 둔다 — titleB는 이 단계에서만 새로 짓고 아래 SAFE_TITLE_B로 변환한다.
+TITLE_B="..."  # 에이전트가 직접 작성 (LLM 판단, 별도 API 호출 불필요)
+SAFE_TITLE_B=$(echo "$TITLE_B" | tr '[:upper:]' '[:lower:]' | tr ' ' '_' | tr -cd 'a-z0-9_')
+
 # 번호 계산: TRACK_NUM = 1~15 (호출 순번)
 printf -v SEL_NUM "%02d" $TRACK_NUM        # 01~15 (선정곡 번호)
 REJ_NUM=$(( TRACK_NUM + 15 ))
 printf -v REJ_PAD "%02d" $REJ_NUM          # 16~30 (비선정곡 번호)
 
-# === 선정곡 (01~15번): selected/에 저장 ===
+# === 선정곡 (01~15번): selected/에 저장 (제목 = titleA) ===
 cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${SELECTED}.mp3" \
    "${PROJECT_DIR}/music-generator/selected/${SEL_NUM}_${SAFE_TITLE}.mp3"
 
-# === 비선정곡 (16~30번): selected/에도 저장 (영상 후반부 배치용) ===
+# === 비선정곡 (16~30번): selected/에도 저장 (제목 = titleB, 선정곡과 다른 제목) ===
 cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${REJECTED}.mp3" \
-   "${PROJECT_DIR}/music-generator/selected/${REJ_PAD}_${SAFE_TITLE}_rej.mp3"
+   "${PROJECT_DIR}/music-generator/selected/${REJ_PAD}_${SAFE_TITLE_B}_rej.mp3"
 ```
 
 - 원본 A/B 파일(`*_A.mp3`, `*_B.mp3`)은 `music-generator/` 폴더에 그대로 보관한다 (삭제하지 않음).
-- 선정 결과를 `music_info.json`에 기록한다 — 선정곡: `usage: "selected"`, 비선정곡: `usage: "rejected"`.
-  `filename` 필드: 선정곡은 `selected/${SEL_NUM}_${SAFE_TITLE}.mp3`, 비선정곡은 `selected/${REJ_PAD}_${SAFE_TITLE}_rej.mp3`.
-- A/B 중 한쪽만 완성된 경우(WARN): 완성된 쪽 1개만 선정곡으로 저장하고 `usage: "single_fallback"` 기록 (비선정곡 없음).
+- 선정 결과를 `music_info.json`에 기록한다 — 선정곡: `usage: "selected"`, `title: {titleA}`. 비선정곡: `usage: "rejected"`, **`title: {titleB}` (선정곡과 반드시 다른 값)**.
+  `filename` 필드: 선정곡은 `selected/${SEL_NUM}_${SAFE_TITLE}.mp3`, 비선정곡은 `selected/${REJ_PAD}_${SAFE_TITLE_B}_rej.mp3`.
+- **이 제목 분리는 기본 동작이다** — 사용자가 별도로 요청하지 않아도 A/B 쌍이 생기는 모든 배치(테스트 모드 포함)에 항상 적용한다. `music_info.json`의 `title` 필드가 곧 video-producer/capcut-draft-producer/youtube-uploader가 그대로 읽어가는 표시용 제목이므로, 여기서 다르게 기록해두면 트랙 순서(`track_order.json`/`_capcut_config.json`)와 유튜브 트랙리스트에도 자동으로 반영된다 (별도 수정 불필요).
+- A/B 중 한쪽만 완성된 경우(WARN): 완성된 쪽 1개만 선정곡으로 저장하고 `usage: "single_fallback"` 기록 (비선정곡 없음, titleB 불필요).
 
 ---
 
@@ -459,8 +471,8 @@ cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${REJECTED}.mp3" \
       "negativeTags": "실제 사용한 negative_tags",
       "make_instrumental": false,
       "model": "chirp-fenix",
-      "titleA": "A버전 제목 (원곡 제목)",
-      "titleB": "B버전 제목 (동의어/어순 변경)",
+      "titleA": "A버전 제목 (원곡 제목, Suno 생성 시 실제 전달한 title)",
+      "titleB": "B버전 제목 (동의어/어순 변경 — §6에서 정한 값과 동일해야 함)",
       "idA": "song-id-A",
       "idB": "song-id-B",
       "usage": "both"
@@ -468,6 +480,8 @@ cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${REJECTED}.mp3" \
   ]
 }
 ```
+
+> `titleA`/`titleB`는 여기 기록만으로 끝나지 않는다 — §6에서 비선정곡의 실제 파일명·`music_info.json`의 `title` 필드에 `titleB`를 그대로 사용해야, video-producer/capcut-draft-producer/youtube-uploader까지 다른 제목이 이어진다. 이 필드에만 적어두고 실제 저장 시 선정곡과 같은 제목을 쓰는 것은 금지.
 
 > `styleRef.genre`: Section 4의 8개 장르 중 선택한 이름. 자유 창작 시 `"custom"`.
 > `vocal`, `weirdnessPct`, `styleInfluencePct`: API 호출 시 실제 전달한 값을 그대로 기록.
@@ -494,12 +508,12 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
 
 | 기준 | 판단 방법 | 우선순위 |
 |------|-----------|---------|
-| 비정상 길이 제외 | ffprobe duration ≥ 480초(8분) → streaming 손상 판정, 즉시 제외 | 0순위 (사전 필터) |
+| 비정상 길이 제외 | ffprobe duration > 목표 상한(기본 210초, concept_brief에 별도 목표 길이 명시 시 그 값)의 1.5배 → streaming 손상 판정, 즉시 제외 | 0순위 (사전 필터) |
 | 길이 (약 3분) | ffprobe로 duration 확인, 150~210초 범위 | 1순위 |
 | 보컬 성별 | track_plan.json `vocal_gender`와 metadata 비교 | 2순위 |
 | 도입부 허밍 없음 | `lyricsStartsImmediately` 필드 확인 (true 우선) | 3순위 |
 
-- **0순위(비정상 길이)**: 480초 이상은 `streaming` 상태에서 다운로드된 손상 파일. 즉시 WARN 기록 후 상대 버전 선택. 상대 버전도 480초 이상이면 두 곡 모두 `qualityWarnings`에 기록하고 더 짧은 쪽 선택.
+- **0순위(비정상 길이)**: 기본 기준 210초 × 1.5 = 315초 초과는 `streaming` 상태에서 다운로드된 손상 파일로 간주. 즉시 WARN 기록 후 상대 버전 선택. 상대 버전도 315초 초과면 두 곡 모두 `qualityWarnings`에 기록하고 더 짧은 쪽 선택. (구 버전은 절대값 480초 고정 컷이었으나, 2026-07-23 "Bedside Book" B 테이크가 479초로 이 컷 바로 아래에서 빠져나가 QA도 통과한 채 최종 영상에 실리는 사고가 있어 목표 길이 대비 상대 기준으로 강화함 — 절대 컷은 목표 길이가 짧은 프로젝트에서 상대적으로 훨씬 더 관대해지는 문제가 있었다.)
 - 3개 기준 모두 만족하는 쪽 선택. 동점이면 컨셉 일치도 주관 판단.
 - 둘 다 기준 미충족: WARN 기록 후 나은 쪽 선택.
 - 한쪽만 완성(WARN): `usage: "single_fallback"` 기록 후 완성된 쪽 저장.
@@ -555,6 +569,24 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
       "durationSec": 191,
       "fileSizeMB": 4.4,
       "lyricsStartsImmediately": true
+    },
+    {
+      "trackNum": 4,
+      "pairId": 1,
+      "version": "B",
+      "title": "Traffic Lights Blur",
+      "filename": "16_traffic_lights_blur_rej.mp3",
+      "vocalGender": "female",
+      "styleGroup": "anchor",
+      "stylesFinal": "실제 사용한 Styles 문장형 전문",
+      "songId": "song-id-B",
+      "selectedVersion": "A",
+      "selectionReason": "trackNum 1(pairId 1)의 비선정(B) 버전",
+      "usage": "rejected",
+      "qualityWarnings": [],
+      "durationSec": 179,
+      "fileSizeMB": 4.1,
+      "lyricsStartsImmediately": true
     }
   ],
   "selectedFolder": "selected/",
@@ -565,6 +597,7 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
 
 > `pairId`: 같은 Suno 호출에서 나온 A/B를 연결하는 식별자 (호출 순번과 동일). video-producer가 A블록/B블록 경계에서 같은 곡이 인접 배치되지 않도록 이 값으로 판단한다.
 > `totalCalls`: 실제 Suno API 호출 횟수. `totalTracks`: A+B 합산 최종 트랙 수(= `totalCalls` × 2, `single_fallback` 발생 시 그만큼 적음).
+> **`usage: "rejected"`인 트랙의 `title`은 같은 `pairId`의 선정곡 `title`과 반드시 달라야 한다** (위 예시: pairId 1의 선정곡 "City in Motion" ↔ 비선정곡 "Traffic Lights Blur"). video-producer/capcut-draft-producer/youtube-uploader는 이 `title` 값을 그대로 가져다 쓰므로, 여기서 다르게 기록되어 있으면 트랙 순서 파일과 유튜브 트랙리스트에도 자동으로 다른 제목이 노출된다.
 
 > `lyricsStartsImmediately`: video-producer가 첫 곡 선정 시 사용. 가사가 도입부부터 즉시 시작하면 true.
 
@@ -598,6 +631,7 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
 - [ ] `vocalGender` 비율이 50:50 ±15%p 안에 있는가 (Section 2-3)
 - [ ] `styleGroup`이 anchor:variation ≈ 1:2 비율인가 (Section 2-2)
 - [ ] `track_plan.json`의 `scene`이 트랙마다 중복 없이(또는 디테일이 달리) 배정됐는가 (Section 2-1)
+- [ ] 같은 `pairId`의 선정곡·비선정곡 `title`이 서로 다른가 (`single_fallback` 제외 — 아래 python 스니펫으로 일괄 확인)
 
 ```bash
 ls -lh "${PROJECT_DIR}/music-generator/selected/"
@@ -608,6 +642,9 @@ print('OK tracks:', d['totalTracks'])
 sel = [t for t in d['tracks'] if t.get('usage')=='selected']
 rej = [t for t in d['tracks'] if t.get('usage')=='rejected']
 print(f'선정: {len(sel)}곡, 비선정: {len(rej)}곡')
+sel_by_pair = {t['pairId']: t['title'] for t in sel}
+dupes = [t for t in rej if t['title'] == sel_by_pair.get(t['pairId'])]
+print('제목 중복(오류):', len(dupes), dupes[:3] if dupes else '')
 genders = [t.get('vocalGender') for t in d['tracks'] if t.get('usage')=='selected']
 groups = [t.get('styleGroup') for t in d['tracks'] if t.get('usage')=='selected']
 print('vocalGender 분포 (선정곡):', {g: genders.count(g) for g in set(genders)})

@@ -84,6 +84,13 @@ cmd_backup() {
   if [ "$tag" = "baseline" ]; then
     echo "   ★ 초기 버전(baseline) 저장됨 — 언제든 이 상태로 복원 가능"
   fi
+
+  # cron 자동 백업은 매일 쌓이므로 30일 지난 auto 백업은 정리한다
+  # (baseline/수동 태그 백업은 절대 자동 삭제하지 않음)
+  if [ "$tag" = "auto" ]; then
+    find "$BACKUP_BASE" -maxdepth 1 -type d -name 'v_*_auto' -mtime +30 -print -exec rm -rf {} \; \
+      | while read -r pruned; do echo "  🗑 30일 경과 auto 백업 정리: $(basename "$pruned")"; done
+  fi
 }
 
 cmd_list() {
