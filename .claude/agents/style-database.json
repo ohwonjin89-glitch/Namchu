@@ -1,8 +1,8 @@
 {
   "version": "1.0",
   "description": "Gemini API 영상 분석으로 학습된 스타일 데이터베이스. gemini_analyzer.py가 자동 관리.",
-  "last_updated": "2026-07-03T08:10:40.676521",
-  "analyzed_count": 58,
+  "last_updated": "2026-07-18T13:11:14.294670",
+  "analyzed_count": 78,
   "genres": {
     "Groove Hip-hop & Chill Pop": {
       "name_ko": "Groove Hip-hop & Chill Pop",
@@ -565,6 +565,192 @@
           "vocal_gender": "male",
           "vocal_tone": "따뜻한",
           "bpm": 86
+        }
+      ]
+    },
+    "Jazz Instrumental": {
+      "name_ko": "Jazz Instrumental",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=KA8KWNB-1EY",
+          "source": "user_curated",
+          "track_number": 1,
+          "analyzed_at": "2026-07-18T13:05:05.053588",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=f6Zgg6nmGQ0",
+          "source": "user_curated",
+          "track_number": 2,
+          "analyzed_at": "2026-07-18T13:05:23.670794",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=NfGKsiKxR3M",
+          "source": "user_curated",
+          "track_number": 3,
+          "analyzed_at": "2026-07-18T13:05:39.679182",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=Z22PVqIufrI",
+          "source": "user_curated",
+          "track_number": 4,
+          "analyzed_at": "2026-07-18T13:05:57.892193",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=a5KZ-qduxo0",
+          "source": "user_curated",
+          "track_number": 5,
+          "analyzed_at": "2026-07-18T13:06:17.869698",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=KQoQxx09EM0",
+          "source": "user_curated",
+          "track_number": 6,
+          "analyzed_at": "2026-07-18T13:06:39.281107",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7yU7tdZLrZ8",
+          "source": "user_curated",
+          "track_number": 7,
+          "analyzed_at": "2026-07-18T13:06:59.581417",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 75
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=xgewjEFVuZw",
+          "source": "user_curated",
+          "track_number": 8,
+          "analyzed_at": "2026-07-18T13:07:18.561371",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=xOrZfrbeHXs",
+          "source": "user_curated",
+          "track_number": 9,
+          "analyzed_at": "2026-07-18T13:07:35.591090",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 74
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=VDRGZEz1O2A",
+          "source": "user_curated",
+          "track_number": 10,
+          "analyzed_at": "2026-07-18T13:07:56.491958",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 75
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=Nm8I_vEF7O0",
+          "source": "user_curated",
+          "track_number": 11,
+          "analyzed_at": "2026-07-18T13:08:15.991122",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=PDb_N6Y4Nr0",
+          "source": "user_curated",
+          "track_number": 12,
+          "analyzed_at": "2026-07-18T13:08:29.553301",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=481HWSiUIrU",
+          "source": "user_curated",
+          "track_number": 13,
+          "analyzed_at": "2026-07-18T13:08:46.123068",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=HH26sjxjfWU",
+          "source": "user_curated",
+          "track_number": 14,
+          "analyzed_at": "2026-07-18T13:09:05.363705",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 71
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=b181aKChK2E",
+          "source": "user_curated",
+          "track_number": 15,
+          "analyzed_at": "2026-07-18T13:09:26.262624",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=gu0K8VYKlUM",
+          "source": "user_curated",
+          "track_number": 16,
+          "analyzed_at": "2026-07-18T13:09:51.222801",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 83
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=VhfBW_dkNxM",
+          "source": "user_curated",
+          "track_number": 17,
+          "analyzed_at": "2026-07-18T13:10:12.533402",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 83
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=8pJq77cUYmY",
+          "source": "user_curated",
+          "track_number": 18,
+          "analyzed_at": "2026-07-18T13:10:31.424820",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=5ZosM_xPPrE",
+          "source": "user_curated",
+          "track_number": 19,
+          "analyzed_at": "2026-07-18T13:10:51.493735",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 83
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=uz56gtS0Arw",
+          "source": "user_curated",
+          "track_number": 20,
+          "analyzed_at": "2026-07-18T13:11:14.294628",
+          "vocal_gender": null,
+          "vocal_tone": null,
+          "bpm": 80
         }
       ]
     }

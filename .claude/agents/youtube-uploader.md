@@ -155,7 +155,7 @@ title = brief.get("youtubeTitle") or brief["titleCandidates"][0]
 - 트랙 순서는 `music-generator/selected/` 폴더의 파일 나열 순서가 아니라 **`video-producer/track_order.json`**을 기준으로 한다 (A버전 전체 → B버전 전체 블록 순서가 실제 영상에 합성된 순서이며, 폴더 나열 순서와 다를 수 있다).
 - `music_info.json`의 `durationSec` 필드를 그대로 믿지 말 것 — concat 헤더 손상 버그 이력(642초 실제가 1005초로 오인식된 사례)이 있어 캐시된 값이 실제와 다를 수 있다.
 - `track_order.json`에 적힌 순서대로 각 트랙 파일(`music-generator/selected/{filename}`)을 `ffprobe -show_entries format=duration`으로 직접 실측해서 누적 시작 시간을 계산한다.
-- mm:ss 형식 (1시간 넘으면 h:mm:ss). 유튜브는 이 형식을 자동으로 클릭 가능한 타임스탬프 링크로 변환한다 (공개/일부공개 영상에서만 동작, 비공개에서는 표시는 되지만 링크 클릭 이동은 검증 불가).
+- 형식: 전체 영상 길이가 1시간 미만이면 전 트랙 `m:ss`, 1시간 이상이면 전 트랙 `h:mm:ss`로 **통일**한다. 트랙마다 개별적으로 "이 트랙은 1시간 넘었으니 h:mm:ss"처럼 판단하면 목록 중간에 형식이 바뀌어 유튜브가 타임스탬프 전체를 클릭 가능한 링크로 인식하지 못한다(2026-07-21 실사고 — 90분짜리 영상에서 59:57까지는 m:ss, 그 이후만 h:mm:ss로 나가면서 전체 링크화 실패). 유튜브는 이 형식을 자동으로 클릭 가능한 타임스탬프 링크로 변환한다 (공개/일부공개 영상에서만 동작, 비공개에서는 표시는 되지만 링크 클릭 이동은 검증 불가).
 
 ---
 
@@ -175,6 +175,8 @@ ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:no
 ### 5. 업로드 API 호출 (비동기 — 반드시 polling 필요)
 
 **`/api/youtube-upload`의 `action: "upload"`는 비동기 API다.** POST는 업로드를 백그라운드로 시작시키고 즉시 `{"status":"running","taskId":...}`를 반환할 뿐, `videoId`는 그 응답에 들어있지 않다 — 이 응답을 보고 "실패했다"고 판단해 같은 curl을 다시 실행하면 정확히 2026062802 사고(중복 업로드)가 재발한다. 반드시 아래 절차대로 POST 후 GET으로 polling해서 `status: "done"`이 될 때까지 기다린 뒤에 결과를 확정한다.
+
+> **코드 레벨 중복 방지 가드 있음**: 같은 `outputPath`(→ `youtube-uploader/` 폴더) 안에 이미 `upload_result.json`이 있거나 `_upload_status.json`이 `running` 상태면 API가 새 업로드를 시작하지 않고 `409`를 반환한다. 이 응답을 받으면 절대 `force:true`를 붙여 재시도하지 말고, `existingResult`(또는 진행 중 상태)를 그대로 orchestrator에게 보고한다. `force:true`는 사용자가 명시적으로 재업로드를 요청한 경우에만 사용한다.
 
 > 엔드포인트는 `http://172.28.32.1:3000`이 아니라 **`http://localhost:3000`**이다 (이 서버 자체에서 npm 서버가 로컬로 떠 있다 — `172.28.32.1`은 WSL 환경의 호스트 게이트웨이 IP라 이 Linux 서버에서는 연결되지 않거나 불안정하게만 응답한다. 과거 문서가 WSL 환경 기준으로 작성된 채 남아있던 것).
 
@@ -209,7 +211,7 @@ ENCODED_TASK_ID=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(
 
 **`containsSyntheticMedia: true` 필수**: 음악(Suno AI)과 영상(AI 생성 이미지 포함 가능)이 합성 콘텐츠이므로, YouTube의 "변경되었거나 합성된 콘텐츠" 공개 정책에 따라 항상 `true`로 설정한다 (Studio UI의 "변경되었거나 합성된 콘텐츠" 토글과 동일한 효과). 이 필드는 `youtube_upload.py`가 기본값 `true`로 처리하므로 생략해도 되지만, 명시적으로 포함하는 것을 권장한다.
 
-**POST 직후 polling (한 Bash 호출 안에서 묶어서 실행 — video-producer의 인코딩 polling과 동일한 원칙, 5분 간격을 넘기면 프롬프트 캐시가 깨진다):**
+**POST 직후 polling (한 Bash 호출 안에서 묶어서 실행 — `long-running-api-poll` 스킬의 공용 패턴, video-producer/music-generator와 동일한 원칙, 5분 간격을 넘기면 프롬프트 캐시가 깨진다):**
 
 ```bash
 for i in $(seq 1 58); do
@@ -339,8 +341,7 @@ import json, subprocess, sys
 with open('${PROJECT_DIR}/capcut-draft-producer/_capcut_params.json') as f:
     p = json.load(f)
 
-tracks = []
-cursor_sec = 0
+durations = []
 for mf in p['musicFiles']:
     vps_path = mf['path'].replace('Z:\\\\', '/').replace('\\\\', '/')
     try:
@@ -352,10 +353,26 @@ for mf in p['musicFiles']:
         dur_sec = float(result.stdout.strip() or '0')
     except Exception:
         dur_sec = 180.0
-    h = int(cursor_sec // 3600)
-    m = int((cursor_sec % 3600) // 60)
-    s = int(cursor_sec % 60)
-    ts = f'{h}:{m:02d}:{s:02d}' if h > 0 else f'{m}:{s:02d}'
+    durations.append(dur_sec)
+
+# 전체 길이 기준으로 형식을 하나로 통일한다 (트랙별로 따로 판단하면 1시간을 넘는
+# 지점부터 M:SS -> H:MM:SS로 형식이 바뀌어 유튜브가 타임스탬프 전체를 클릭 가능한
+# 링크로 인식하지 못한다 — 2026-07-10 CapCut 모드 도입 때 생긴 회귀 버그, 2026-07-21 수정)
+total_sec = sum(durations)
+use_hours = total_sec >= 3600
+
+tracks = []
+cursor_sec = 0
+for mf, dur_sec in zip(p['musicFiles'], durations):
+    if use_hours:
+        h = int(cursor_sec // 3600)
+        m = int((cursor_sec % 3600) // 60)
+        s = int(cursor_sec % 60)
+        ts = f'{h}:{m:02d}:{s:02d}'
+    else:
+        m = int(cursor_sec // 60)
+        s = int(cursor_sec % 60)
+        ts = f'{m}:{s:02d}'
     tracks.append({'timestamp': ts, 'title': mf['title'], 'durationSec': dur_sec})
     cursor_sec += dur_sec
 
@@ -426,7 +443,7 @@ cat "${PROJECT_DIR}/strategist/concept_brief.json"
 - 해시태그 10개 이상
 - "AI가 생성한" 등 AI 언급 문구 금지
 - "저작권 걱정 없이" 등 저작권 안심 멘트 금지
-- 트랙리스트 타임스탬프: mm:ss 형식 (1시간 초과 시 h:mm:ss)
+- 트랙리스트 타임스탬프: 전체 영상이 1시간 미만이면 전 트랙 m:ss, 1시간 이상이면 전 트랙 h:mm:ss로 통일 (트랙별 개별 판단 금지 — C-1 스크립트가 이미 total_sec 기준으로 통일 처리함)
 
 ### C-3. 출력 디렉터리 생성 및 회의록 기록
 

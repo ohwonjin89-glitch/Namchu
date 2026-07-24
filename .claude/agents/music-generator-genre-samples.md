@@ -7678,226 +7678,230 @@ And I'm on my way
 ## 4-8. Jazz Instrumental (재즈 인스트루멘탈)
 
 <!-- CURATED_REFS_START -->
-> 🎷 영구 레퍼런스 (user_curated) — Gemini 20곡 청취 분석 / 갱신일: 2026-07-08
-> 가사 없는 순수 연주곡 전용 — no vocals, no lyrics
+> 🎵 영구 레퍼런스 (user_curated) — 총 19곡 / 갱신일: 2026-07-18
 
 ### 레퍼런스 1
+> 원본: https://www.youtube.com/watch?v=KA8KWNB-1EY
 
 ```
 1) Styles
-Cool jazz piano trio instrumental — no vocals, no lyrics, no humming. A relaxed and breezy piece with gentle brushed swing rhythm, warm upright bass walking the groove, and elegant acoustic piano melodies at 78 BPM. Cozy lounge atmosphere, peaceful and elegant. Warm analog texture, intimate room ambience.
+This is a laid-back lofi hip hop and jazz-hop instrumental track characterized by warm electric piano chords and smooth, melodic electric guitar riffs. The rhythm is driven by a relaxed, dusty boom-bap drum loop and a deep, mellow bassline, creating a cozy and nostalgic atmosphere. The overall mix features a warm, vintage tape texture with no vocals and no lyrics, making it ideal for study and relaxation.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, piano trio, 78 BPM, brushed swing rhythm, warm upright bass, acoustic piano, cozy lounge, relaxed, peaceful, elegant, no vocals, instrumental only]
+[lofi hip hop, jazz-hop, electric guitar, electric piano, 80 bpm, cozy, relaxing, nostalgic]
 ```
 
 ### 레퍼런스 2
+> 원본: https://www.youtube.com/watch?v=f6Zgg6nmGQ0
 
 ```
 1) Styles
-Bossa nova jazz instrumental — no vocals, no lyrics. A warm and cheerful bossa nova piece featuring rhythmic acoustic guitar comping, acoustic piano melodies, upright bass holding the groove, and light brushed drums with bossa rhythm at 120 BPM. Sunny afternoon cafe, breezy and welcoming. Warm natural acoustic sound.
+This is a lo-fi hip-hop and jazzhop instrumental track with no vocals and no lyrics, characterized by a warm, cozy, and nostalgic atmosphere. The arrangement is centered around mellow electric piano chord progressions and soft synthesizer pads. A slow-tempo, dusty boom-bap drum pattern with a relaxed kick, soft snare, and gentle hi-hats provides the rhythm. It is supported by a warm, round sub-bass line. The mix has a distinct lo-fi texture, complete with vinyl crackle and a warm, filtered frequency response. At 80 BPM, the track exudes a highly relaxing, dreamy, and peaceful mood.
 
 2) Lyrics
 [INSTRUMENTAL]
-[bossa nova, acoustic guitar, acoustic piano, upright bass, brushed drums, 120 BPM, bossa rhythm, cheerful, warm, sunny, cafe, instrumental only, no vocals]
+[Lofi Hip-Hop, Jazzhop, Electric Piano, Boom-Bap Drums, Sub-Bass, 80 BPM, Relaxing, Cozy, Nostalgic, No Vocals]
 ```
 
 ### 레퍼런스 3
+> 원본: https://www.youtube.com/watch?v=NfGKsiKxR3M
 
 ```
 1) Styles
-Jazz ballad instrumental — no vocals, no lyrics, no humming. A slow and introspective piece with gentle piano chords, warm upright bass, and quiet brushed drums with slow jazz swing at 65 BPM. Nostalgic and serene atmosphere — late night bar or quiet study room. Soft reverb, intimate recording.
+This is a mellow and cozy lofi jazz hop instrumental track featuring a soft, expressive acoustic piano that plays a gentle and reflective melody. The groove is driven by a laid-back, slow-tempo drum beat with smooth rimshots, quiet hi-hats, and a warm, deep bassline. Subtle ambient textures and soft synthesizer elements enhance the nostalgic, relaxed, and warm atmosphere. There are no vocals, no lyrics, and no vocal elements, making it a purely instrumental piece.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz ballad, slow, 65 BPM, piano, upright bass, slow jazz brushes, nostalgic, calm, melancholic, serene, late night, instrumental only, no vocals]
+[Lofi Jazz, Chillhop, Piano, Cozy, Laid-back, Warm, Relaxing, Nostalgic, 78 BPM]
 ```
 
 ### 레퍼런스 4
+> 원본: https://www.youtube.com/watch?v=Z22PVqIufrI
 
 ```
 1) Styles
-Swing jazz instrumental — no vocals, no lyrics. A cheerful and upbeat swing piece featuring playful piano melodies, warm flute lines weaving through the harmony, walking upright bass, and lively swing drums at 135 BPM. Lighthearted and whimsical energy — vintage jazz club feel. Bright and bouncy mix.
+This is a relaxing lo-fi hip-hop and jazzhop instrumental song with a tempo of 78 BPM. It features a mellow electric piano playing smooth jazz chords, accompanied by a warm acoustic bassline and a classic dusty lo-fi drum beat with a soft kick and crisp snare. The mix has a warm, vintage texture, creating a cozy and nostalgic mood. There are no vocals and no lyrics, making it a pure instrumental track.
 
 2) Lyrics
 [INSTRUMENTAL]
-[swing jazz, piano, flute, upright bass, swing drums, walking bass, 135 BPM, cheerful, breezy, playful, lighthearted, vintage jazz club, instrumental only, no vocals]
+[lo-fi hip-hop, jazzhop, electric piano, acoustic bass, relaxed, cozy, vintage, 78 BPM]
 ```
 
 ### 레퍼런스 5
+> 원본: https://www.youtube.com/watch?v=a5KZ-qduxo0
 
 ```
 1) Styles
-Acoustic bossa nova instrumental — no vocals, no lyrics. A breezy and relaxed bossa nova piece featuring fingerpicked acoustic guitar rhythmic comping, warm piano fills, upright bass, and soft shaker percussion at 88 BPM. Sunny and cheerful cafe atmosphere, easy-listening warmth. Natural acoustic recording, light reverb.
+This is a laidback lofi jazz hop track with a slow tempo of 80 BPM. It features a warm, mellow electric piano chord progression, accompanied by a soft, vintage drum beat with subtle rim shots and a cozy vinyl crackle texture. The bassline is smooth and deep, contributing to the relaxing and nostalgic atmosphere. There are no vocals, no lyrics, and no humming throughout the entire track.
 
 2) Lyrics
 [INSTRUMENTAL]
-[bossa nova, acoustic guitar, piano, upright bass, shaker, 88 BPM, bossa rhythm, breezy, warm, peaceful, cheerful, sunny cafe, instrumental only, no vocals]
+[lofi, jazz hop, electric piano, relaxed, nostalgic, vinyl crackle, warm bass, chill, cozy, 80 bpm]
 ```
 
 ### 레퍼런스 6
+> 원본: https://www.youtube.com/watch?v=KQoQxx09EM0
 
 ```
-1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A relaxing cool jazz piano trio piece featuring a smooth piano melody, warm upright bass, and gentle brushed swing drums at 115 BPM, evoking an elegant and peaceful atmosphere. Relaxing, peaceful, elegant atmosphere.
+This cozy and nostalgic lofi jazz instrumental track features no vocals, no lyrics, and maintains a deeply relaxing, warm atmosphere. Driven by a gentle, jazzy acoustic piano playing mellow chord progressions and melodic improvisations, it is supported by a slow, laid-back hip-hop drum beat with soft kicks and crisp rim-shots. A warm, round double bass provides a steady, comforting groove alongside subtle flute-like woodwind embellishments that float over a vinyl-infused, low-fidelity mix texture at 80 BPM.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, piano jazz, piano trio, brushed drums, upright bass, acoustic, relaxing, elegant, medium tempo, instrumental, 115 bpm, no vocals, instrumental only]
+[Lofi Jazz, Chillhop, Acoustic Piano, Warm Bass, Soft Drums, Relaxing, Vintage, Cozy, 80 BPM]
 ```
 
 ### 레퍼런스 7
+> 원본: https://www.youtube.com/watch?v=7yU7tdZLrZ8
 
 ```
 1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A relaxed cool jazz instrumental featuring melodic acoustic piano, warm upright bass, and gentle brushed swing drums, around 108 BPM. Relaxed, breezy, cozy atmosphere.
+This is a lo-fi hip-hop and chillhop instrumental track with a distinct jazz hop influence, featuring no vocals and no lyrics. The piece is driven by a warm, soulful Fender Rhodes electric piano chord progression, accompanied by a laid-back boom-bap drum pattern and a smooth, rounded electric bassline. A mellow synthesizer lead, carrying a flute-like quality, introduces a nostalgic and comforting melody. Operating at a relaxed tempo of approximately 75 BPM, the music projects a cozy, chill, and study-friendly mood. The mix is characterized by an intimate, retro texture with subtle vinyl crackle and soft tape saturation.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, acoustic piano, upright bass, brushed drums, swing, relaxed, breezy, cozy, melodic, 108 bpm, no vocals, instrumental only]
+[Lo-Fi Hip-Hop, Chillhop, Jazz Hop, Fender Rhodes, Synthesizer, Cozy, Relaxing, 75 BPM]
 ```
 
 ### 레퍼런스 8
+> 원본: https://www.youtube.com/watch?v=xgewjEFVuZw
 
 ```
-1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A smooth and cool jazz instrumental featuring melodic piano chords, warm upright bass, and gentle brushed drums at 78 BPM, evoking a relaxing and cozy mood. Relaxing, mellow, peaceful atmosphere.
+This is a laid-back lo-fi hip-hop and chillhop track featuring mellow electric piano chords, gentle jazz guitar licks, and a relaxed boom-bap drum pattern. The warm sub-bass lays down a cozy foundation, while subtle vinyl crackle adds a nostalgic mix texture. With a tempo around 82 BPM, the overall mood is deeply relaxing, jazzy, and warm. There are no vocals and no lyrics in this track.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, piano, upright bass, brushed drums, mellow, relaxing, cozy, smooth, instrumental, 78 bpm, no vocals, instrumental only]
+lo-fi hip-hop, chillhop, electric piano, jazz guitar, boom-bap beat, warm, relaxing, nostalgic, 82 BPM
 ```
 
 ### 레퍼런스 9
+> 원본: https://www.youtube.com/watch?v=xOrZfrbeHXs
 
 ```
-1) Styles
-Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A slow and melancholic jazz ballad featuring gentle piano, warm upright bass, and quiet brushed drums, at 65 BPM. Calm, relaxing, nostalgic atmosphere.
+This is a serene lo-fi jazz hop track featuring a warm, clean electric guitar playing gentle jazz chords and smooth melodic leads, supported by soft electric piano chords. The rhythm is driven by a relaxed, dusty lo-fi hip-hop drum pattern utilizing a soft kick and a crisp rimshot. A deep, warm electric bass line anchors the groove smoothly at a cozy tempo of 74 BPM. The overall mood is deeply soothing and relaxed, set in a warm, vintage-textured mix with no vocals, no lyrics, or vocalizations present.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz ballad, slow, piano, upright bass, brushed drums, relaxing, cozy, melancholic, 65 bpm, no vocals, instrumental only]
+[lo-fi jazz hop, clean electric guitar, electric piano, dusty drums, warm bass, 74 bpm, cozy, relaxed, instrumental]
 ```
 
 ### 레퍼런스 10
+> 원본: https://www.youtube.com/watch?v=Nm8I_vEF7O0
 
 ```
 1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A warm and relaxing cool jazz piano trio piece at 118 BPM, featuring melodic acoustic piano, plucked upright bass, and gentle brushed swing drums. Cozy, relaxed, peaceful atmosphere.
+This is a warm and relaxed lofi jazzhop track characterized by a cozy, calm coffee shop atmosphere. The arrangement is built around a smooth electric piano playing gentle jazz chords, supported by a deep, warm synth bass and a slow-tempo lo-fi boom-bap drum beat with a dusty vinyl texture. The overall mix feels vintage and nostalgic, creating a soothing and comforting mood. This pure instrumental track contains no vocals, no lyrics, and no vocal chops.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz piano trio, cool jazz, acoustic piano, upright bass, brushed drums, swing, cozy, warm, relaxing, 118 bpm, no vocals, instrumental only]
+[Lofi hip hop, jazzhop, electric piano, synth bass, vintage texture, relaxed, cozy, slow boom-bap, 78 BPM]
 ```
 
 ### 레퍼런스 11
+> 원본: https://www.youtube.com/watch?v=PDb_N6Y4Nr0
 
 ```
 1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A relaxed and cheerful cool jazz piano trio featuring acoustic piano, upright bass, and brushed swing drums at 115 bpm. Relaxed, cheerful, sophisticated atmosphere.
+This instrumental-only jazz hop track blends elements of lo-fi hip hop and smooth jazz, featuring a soulful saxophone lead playing expressive melodies over gentle electric piano chords. Accompanied by a steady, laid-back boom-bap drum beat and a warm, groovy electric bassline, the piece maintains a cozy, relaxed, and nostalgic mood. There are no vocals and no lyrics throughout the song, creating a clean, warm mix texture perfect for chilling or focusing.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, piano trio, acoustic piano, upright bass, brushed swing drums, cheerful, relaxed, lounge, 115 bpm, no vocals, instrumental only]
+[Jazz Hop, Lo-Fi Hip Hop, Saxophone, Electric Piano, Groovy Bass, Boom-Bap, Relaxed, Chill, Cozy, 80 BPM]
 ```
 
 ### 레퍼런스 12
+> 원본: https://www.youtube.com/watch?v=481HWSiUIrU
 
 ```
-1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A slow, cozy cool jazz instrumental featuring gentle piano, warm acoustic guitar, and soft upright bass, with a nostalgic and peaceful mood at 72 BPM. Cozy, nostalgic, peaceful atmosphere. No percussion.
+This is a warm and mellow lo-fi jazz hop instrumental track featuring no vocals and no lyrics. The composition is driven by a relaxed electric piano playing smooth jazz chords, accompanied by a gentle, groovy electric bassline and a classic laid-back boom-bap drum beat with soft kicks and crisp snares. The overall mood is incredibly cozy, nostalgic, and relaxing, enveloped in a warm tape-saturated mix texture at a steady tempo of 78 BPM.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, acoustic jazz, piano, acoustic guitar, upright bass, slow tempo, cozy, nostalgic, warm, instrumental, 72 bpm, no vocals, instrumental only]
+Lo-fi hip hop, Jazz hop, Electric piano, Smooth bass, Boom-bap drums, Cozy, Relaxing, 78 BPM
 ```
 
 ### 레퍼런스 13
+> 원본: https://www.youtube.com/watch?v=HH26sjxjfWU
 
 ```
 1) Styles
-Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A gentle and nostalgic solo jazz piano ballad with a warm, cozy, and melancholic mood at 65 BPM. Warm, nostalgic, peaceful atmosphere. No percussion.
+This is a chillhop and lo-fi jazz hop instrumental track featuring a warm Rhodes electric piano, a mellow synthesizer melody, and clean electric guitar accents. The rhythm is driven by a relaxed boom-bap drum pattern with a dusty, vintage-style mix texture. A deep and melodic electric bassline provides a solid foundation, maintaining a calm and cozy atmosphere at a tempo of 71 BPM. This track is entirely instrumental with no vocals, no lyrics, and no humming.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz ballad, solo piano, slow, cozy, melancholic, nostalgic, warm, cinematic, peaceful, 65 bpm, no vocals, instrumental only]
+[Lofi hip hop, Jazz hop, Chillhop, Rhodes piano, Boom-bap drums, Warm bass, Melodic synth, Relaxed, Cozy, 71 BPM]
 ```
 
 ### 레퍼런스 14
+> 원본: https://www.youtube.com/watch?v=b181aKChK2E
 
 ```
 1) Styles
-Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A slow and nostalgic jazz ballad featuring gentle acoustic piano, warm upright bass, and quiet brushed drums at 64 BPM. Nostalgic, peaceful, melancholy atmosphere.
+This is a cozy and relaxing lo-fi jazzhop track featuring no vocals, no lyrics. It is driven by a gentle, laid-back boom-bap drum pattern with soft rim shots and warm hi-hats. The harmonic foundation is provided by a mellow, jazzy Rhodes electric piano, complemented by a smooth and deep electric bassline. A subtle, nostalgic synthesizer melody floats over the top, creating a chill, peaceful, and cozy atmosphere. The overall mix has a warm, vintage, and slightly tape-saturated texture, operating at a slow tempo of around 80 BPM.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz ballad, acoustic piano, upright bass, brushed drums, mellow, nostalgic, cozy, relaxing, slow tempo, 64 bpm, no vocals, instrumental only]
+[Cozy, Relaxing, Lo-fi Hip Hop, Jazzhop, Rhodes Piano, Synthesizer, Boom-bap Beat, Warm Bass, Chill, Nostalgic, 80 BPM]
 ```
 
 ### 레퍼런스 15
+> 원본: https://www.youtube.com/watch?v=gu0K8VYKlUM
 
 ```
 1) Styles
-Jazz Ballad instrumental -- no vocals, no lyrics, no humming. A slow-tempo jazz ballad featuring a soft piano trio with melodic piano, gentle upright bass, and quiet brushed drums, creating a warm and nostalgic atmosphere at 65 BPM. Nostalgic, cozy, calm atmosphere.
+This is a relaxing, cozy instrumental lo-fi jazz and chillhop track. It features a mellow acoustic piano playing gentle chords and smooth melodies, accompanied by a warm, deep acoustic bass. The rhythm is driven by a slow, laid-back boom-bap jazz drum pattern with soft rim shots, giving it a relaxing swing. With a tempo of 83 BPM, the mood is nostalgic and comforting, reminiscent of a quiet coffee shop or study playlist. The mix is warm and intimate, with a clean yet slightly retro vibe. There are no vocals, no lyrics, and no humming throughout the piece.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz ballad, piano trio, cool jazz, cozy, nostalgic, relaxing, slow tempo, brushed drums, warm piano, 65 bpm, no vocals, instrumental only]
+[Piano, Acoustic Bass, Lo-Fi Jazz, Chillhop, 83 BPM, Relaxing, Cozy, Nostalgic, Coffee Shop]
 ```
 
 ### 레퍼런스 16
+> 원본: https://www.youtube.com/watch?v=VhfBW_dkNxM
 
 ```
 1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A serene and cozy cool jazz ballad led by gentle piano, accompanied by a warm upright bass and soft brushed drums at 65 BPM. Cozy, relaxing, nostalgic atmosphere.
+This is a cozy and laid-back lo-fi jazz hop instrumental track with a tempo of approximately 83 BPM. The composition features a smooth electric piano chord progression, a warm double bassline, and a relaxed boom-bap drum beat with vintage vinyl crackle texture. A soulful muted trumpet melody enters, adding a nostalgic and mellow cafe vibe. The mix is warm and slightly dusty, creating a perfect atmosphere for studying or relaxing. There are no vocals and no lyrics.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, jazz ballad, piano, upright bass, brushed drums, cozy, relaxing, nostalgic, slow, 65 bpm, no vocals, instrumental only]
+[electric piano, double bass, muted trumpet, lo-fi hip hop, chillhop, cozy, relaxed, 83 BPM, cafe, study]
 ```
 
 ### 레퍼런스 17
+> 원본: https://www.youtube.com/watch?v=8pJq77cUYmY
 
 ```
 1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A warm and whimsical cool jazz piano duo featuring acoustic piano and upright bass at 115 BPM. Cozy, nostalgic, whimsical atmosphere. No percussion.
+This is a smooth lo-fi jazz-hop track featuring warm electric piano chords, a steady boom-bap drum pattern, and a deep, mellow bassline. The piece moves at a relaxed tempo of around 80 BPM, creating a warm, nostalgic, and cozy atmosphere. The mix texture is dusty and vintage with a soft, laid-back vibe, containing no vocals, no lyrics, and no humming.
 
 2) Lyrics
 [INSTRUMENTAL]
-[jazz piano duo, cool jazz, acoustic piano, upright bass, cozy, whimsical, nostalgic, lounge, 115 bpm, no vocals, instrumental only]
+[lo-fi jazz-hop, electric piano, boom-bap drums, warm bassline, chill, nostalgic, 80 BPM, vintage texture]
 ```
 
 ### 레퍼런스 18
+> 원본: https://www.youtube.com/watch?v=5ZosM_xPPrE
 
 ```
-1) Styles
-Cool Jazz instrumental -- no vocals, no lyrics, no humming. A cozy and melodic cool jazz piano trio style with a warm, nostalgic mood, featuring brushed swing drums, upright bass, and whimsical piano lines at 125 BPM. Cozy, nostalgic, playful atmosphere.
+This is a relaxed lo-fi jazz hop instrumental track featuring warm, soulful electric piano chords and a prominent acoustic double bassline. The rhythm is characterized by a laid-back, dusty boom-bap drum pattern with soft snares and crisp hi-hats, setting a cozy and nocturnal mood. The mix has a vintage vinyl texture with a warm analog feel, and there are no vocals and no lyrics. Operating at a chill tempo of around 83 BPM, the track delivers a serene and comforting atmosphere ideal for studying or relaxing.
 
 2) Lyrics
 [INSTRUMENTAL]
-[cool jazz, piano trio, piano, upright bass, brushed drums, swing, cozy, nostalgic, warm, melodic, 125 bpm, no vocals, instrumental only]
+[lo-fi hip hop, jazz hop, electric piano, double bass, boom-bap, cozy, relaxed, warm, vinyl texture, 83 bpm]
 ```
 
 ### 레퍼런스 19
+> 원본: https://www.youtube.com/watch?v=uz56gtS0Arw
 
 ```
 1) Styles
-Bossa Nova instrumental -- no vocals, no lyrics, no humming. A warm and light acoustic bossa nova jazz piece featuring a playful piano melody, gentle upright bass, and soft brushed drums at 115 BPM. Cozy, warm, playful atmosphere.
+This is a chilled lo-fi jazzy hip hop instrumental track featuring mellow electric piano chords and soft electric guitar melodies. The rhythm is defined by a relaxed, dusty lo-fi boom bap drum pattern and a warm, gentle bassline. Creating a cozy, nostalgic, and soothing atmosphere, the track is purely instrumental-only with no vocals and no lyrics, resulting in a clean and calm mix texture.
 
 2) Lyrics
 [INSTRUMENTAL]
-[bossa nova, jazz piano, upright bass, brushed drums, acoustic, cozy, warm, nostalgic, light, 115 bpm, no vocals, instrumental only]
+[lo-fi hip hop, jazzy hip hop, electric piano, electric guitar, chill, cozy, nostalgic, relaxing, 80 BPM, instrumental]
 ```
 
-### 레퍼런스 20
-
-```
-1) Styles
-Bossa Nova instrumental -- no vocals, no lyrics, no humming. A warm and nostalgic bossa nova jazz piano trio style, featuring lyrical acoustic piano, gentle upright bass, and light brushed drums, around 108 BPM. Cozy, relaxing, nostalgic atmosphere.
-
-2) Lyrics
-[INSTRUMENTAL]
-[bossa nova, jazz bossa, piano trio, acoustic piano, upright bass, brushed drums, cozy, relaxing, nostalgic, 108 bpm, no vocals, instrumental only]
-```
 <!-- CURATED_REFS_END -->
+

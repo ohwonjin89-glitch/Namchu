@@ -90,201 +90,15 @@ A/B 중 아래 기준을 더 많이 충족하는 1곡을 선택한다.
 
 ---
 
-# 1. 공통 기본값
+# 1~4-A. Styles/Lyrics 작성 규칙 + 장르별 레퍼런스 운영
 
-별도 조건이 없으면 아래 기준을 기본 적용한다.
+프롬프트(Styles/Lyrics) 작성의 공통 기본값, Styles 문장체 작성법, Lyrics 파트태그·금지어·주제어 회피 규칙, 장르별 레퍼런스 풀 로테이션(최대 20개, 순환 후 랜덤 재사용) 방식은 `suno-prompt-authoring` 스킬을 참고한다.
 
-```
-- English pop song lyrics
-- Around 3 minutes long
-- Strong impact within the first 3 seconds
-- No humming
-- No ooh-ooh
-- No la-la
-- No mm-mm
-- No meaningless vocal ad-libs
-- No direct imitation of a specific artist or existing song
-- Playlist-friendly arrangement
-- Clear SUNO section tags
-- No direct mention of the theme word in lyrics (카페 주제 → coffee/cafe 언급 금지, 드라이브 주제 → drive 언급 금지 등 — avoidKeywords 참조)
-```
-
----
-
-# 2. Styles 작성 기준
-
-Styles는 반드시 **완성된 문장형 설명**으로 작성한다.
-단어 나열식 키워드 프롬프트를 사용하지 않는다.
-
-## Styles에 포함할 요소
-
-Styles에는 아래 요소를 자연스러운 영어 문장으로 포함한다.
-
-```
-- Main genre
-- Sub-genre influences
-- Intro impact within the first 3 seconds
-- Main instruments
-- Guitar / piano / synth role
-- Bass style
-- Drum and percussion pattern
-- Vocal tone and delivery
-- Arrangement development
-- Chorus character
-- Tempo
-- Time signature
-- Key
-- Mix texture
-```
-
-> **Negative direction은 Styles에 포함하지 않는다.**
-> "No humming, no EDM drop..." 등 부정 지시어를 `tags` 필드에 넣으면 Suno API가 400 오류를 반환한다.
-> 부정 방향은 반드시 `negative_tags` 파라미터로 별도 전달한다.
-
-## Styles 작성 방식
-
-좋지 않은 방식:
-
-```
-Emotional hip-hop, 82 BPM, A minor, piano, soft drums, male vocal, sad mood.
-```
-
-좋은 방식:
-
-```
-Emotional hip-hop with soft R&B and melodic pop influences. The song opens within the first 3 seconds with a direct emotional vocal hook over a moody piano chord and a soft vinyl-textured drum hit. A warm piano provides the harmonic core with minor chord progressions and gentle sustain. Soft hip-hop drums create a laid-back groove with a deep kick, tight snare, and relaxed hi-hat movement. Male vocals deliver intimate English melodic rap-singing with restrained emotion and clear pronunciation. The tempo is 82 BPM in 4/4 time, in the key of A minor.
-```
-
----
-
-# 3. Lyrics 작성 기준
-
-Lyrics는 영어 가사로 작성한다.
-SUNO가 구조를 명확히 인식하도록 파트 태그와 연출 태그를 함께 사용한다.
-
-## 기본 구조
-
-```
-[Intro]
-[Verse 1]
-[Pre-Chorus]
-[Chorus]
-[Verse 2]
-[Pre-Chorus]
-[Chorus]
-[Bridge]
-[Final Chorus]
-[Outro]
-```
-
-## 약 3분 분량 기준
-
-```
-[Intro] 1~2 lines
-[Verse 1] 4~6 lines
-[Pre-Chorus] 2~4 lines
-[Chorus] 4~6 lines
-[Verse 2] 4~6 lines
-[Pre-Chorus] 2~4 lines
-[Chorus] 4~6 lines
-[Bridge] 4~6 lines
-[Final Chorus] 6~8 lines
-[Outro] 2~4 lines
-```
-
-## Lyrics 금지 요소
-
-아래 표현은 가사와 태그 어디에도 사용하지 않는다.
-
-```
-humming
-hums
-ooh-ooh
-whoa-oh
-la-la
-mm-mm
-hmm
-meaningless vocal ad-libs
-scat singing
-```
-
-의미 없는 애드리브 대신 반드시 실제 가사 문장을 작성한다.
-
-## 주제 단어 직접 언급 금지
-
-가사에 주제를 직접 언급하지 않는다. concept_brief의 `avoidKeywords`를 반드시 가사에서도 배제한다.
-
-```
-예시:
-  카페/커피 주제 → "cafe", "coffee", "latte", "americano" 가사 사용 금지
-  드라이브 주제 → "drive", "driving", "road trip" 가사 사용 금지
-  야경 주제 → "night view", "city lights" 직접 나열 금지
-```
-
-주제는 직접 언급 없이 장면·감정·분위기 묘사로만 표현한다.
-
----
-
-# 4. 장르별 Styles + Lyrics 샘플
-
-장르별 전체 Styles/Lyrics 작성 예시(4-1~4-8, 8개 장르)는 별도 파일로 분리되어 있다.
-Section 5에서 장르를 결정한 뒤, 해당 장르 1개 섹션만 펼쳐서 참고한다:
+장르별 전체 Styles/Lyrics 작성 예시(8개 장르)는 별도 파일로 분리되어 있다. Section 5에서 장르를 결정한 뒤, 해당 장르 1개 섹션만 펼쳐서 참고한다:
 
 → `Read .claude/agents/music-generator-genre-samples.md`
 
 매 턴마다 전체를 다시 읽지 말고, 프로젝트당 장르가 정해진 시점에 1회만 읽는다.
-
----
-
-# 4-A. 장르별 프롬프트 레퍼런스 운영 방식
-
-각 장르별로 **최대 20개의 레퍼런스**를 운영한다.
-
-```
-구성:
-  기본 샘플         1개 — 영구 보호 (섹션 상단 코드블록, 삭제 불가)
-  사용자 큐레이션   최대 19개 — user_curated 태그, 수동 업데이트
-
-업데이트 방식:
-  - 주간 리포트에서 채널 운영자가 직접 듣고 판단한 링크를 선별
-  - python scripts/gemini_analyzer.py add-curated "장르명" <url> ...
-  - 20개 초과 시 AI가 자동으로 가장 약한 레퍼런스를 제거
-
-관리 파일: .claude/agents/music-generator-genre-samples.md
-  - <!-- CURATED_REFS_START --> ~ <!-- CURATED_REFS_END --> 블록에 저장
-```
-
-### 30곡 생성 시 레퍼런스 배치 규칙
-
-```
-전체 레퍼런스 풀 = 기본 샘플 1개 + 큐레이션 N개
-
-배치 순서:
-  1단계: 레퍼런스 풀 전체를 1회씩 순환 사용 (N+1곡 생성)
-  2단계: 요청 곡 수가 레퍼런스 수보다 많으면 풀에서 랜덤으로 추가 사용 (중복 허용)
-
-→ 모든 레퍼런스가 최소 1회 이상 사용됨이 보장됨
-→ 랜덤 추가 배치로 곡 다양성 확보
-```
-
-### 레퍼런스 적용 방식
-
-```
-Styles(스타일 프롬프트): 레퍼런스 원문 그대로 사용
-Lyrics(가사):           AI가 새로 작성 — 레퍼런스 가사와 유사하지 않게, 구조만 참고
-```
-
-가사 작성 시 레퍼런스 가사를 참고하되 실질적 내용(단어·구절·이미지)은 완전히 새로 구성한다.
-
-### 레퍼런스 교체 기준 (20개 초과 시)
-
-```
-add-curated 실행 시 총 수가 20을 초과하면 자동 제거:
-  판단 기준: AI(Gemini)가 기존 레퍼런스 전체를 검토 후
-            채널 감성과 가장 거리 먼 1개를 선별해 제거
-
-보호 규칙: 기본 샘플(섹션 상단 코드블록)은 절대 삭제 금지
-```
 
 ---
 
@@ -313,111 +127,22 @@ cat "$REPO_DIR/.claude/agents/user-feedback.json"
 
 > ⛔ **단일 장르 원칙**: concept_brief의 주장르 **1개만** 사용한다. 여러 장르를 블렌딩하거나 "variation 트랙"에 다른 장르를 배정하지 않는다. 15곡 전부 동일한 장르의 레퍼런스 Styles를 사용하되, 레퍼런스 번호만 다르게 배정해 다양성을 확보한다.
 
-입력된 주제와 분위기를 바탕으로 아래 기준에 따라 장르를 선택한다.
-
-```
-집중, 카페, 공부, 조용한 배경음악, 로파이 감성               → Lo-fi Focus & Cafe Chill
-도시, 세련됨, 미드템포, NYC 감성, 여유 있는 리듬              → Groove Hip-hop & Chill Pop
-늦은 밤, 이별, 감성, 드라이브, 로맨틱                        → Late Night R&B & Soul
-밝은 에너지, 설렘, 여름, 댄서블, 긍정, 도시 활기             → Upbeat City Pop & Funk Groove
-따뜻함, 자연, 위로, 아침 산책, 희망, 어쿠스틱                → Acoustic Indie Pop & Folk Soul
-몽환적, 80년대 감성, 드라이브, 신스팝, 하이저우              → Chillwave & Synth Pop
-카페, 여유로운 오후, 대화, 재즈, 보사노바, 소박한 행복        → Jazz-hop & Bossa Nova Chill
-순수 연주, 가사 없음, 재즈 피아노 트리오, 쿨재즈, 보사노바    → Jazz Instrumental  ※ instrumental: true 필수, negative_tags에 "vocals, singing, lyrics, humming" 추가
-```
+입력된 주제와 분위기를 바탕으로 장르를 선택한다. 무드 키워드→8개 장르 매핑 테이블은 `dgm-genre-reference` 스킬 참고 (image-generator/strategist와 공유하는 단일 진실 공급원).
 
 장르 우선순위는 트렌드 분석 결과(researcher 리포트)와 strategist의 컨셉 브리프를 따른다.
 
 > **레퍼런스 배정 원칙**: `generate-prompts` API(`/api/generate-prompts`, POST)를 호출하면 선택 장르의 레퍼런스를 **중복 없이 랜덤 배정**해서 반환한다 — 레퍼런스 수 이내라면 각 레퍼런스가 최대 1회만 사용되고, 레퍼런스 수를 초과하는 경우에만 랜덤 재사용된다. 에이전트가 직접 레퍼런스를 선택·배정하지 않고 반드시 이 API를 통해 받는다.
+>
+> **기본값은 레퍼런스 Styles 원문 그대로 사용**(`styleMode` 미지정 = `"reference"`). 사용자/오케스트레이터 지시에 "새로운 스타일로", "신규 프롬프트 생성해줘" 등 명시적 요청이 있을 때만 `[[suno-style-synthesis]]` 스킬을 참고해 API 호출 시 `styleMode: "synthesize"`를 지정한다 — 이 경우 Styles도 레퍼런스를 학습 예시 삼아 AI가 매번 새로 합성해 다양성을 높인다. 8개 장르 전체에 동일하게 적용 가능.
 
 ---
 
-# 6. 여성 보컬 스타일 기준
+# 6~8. 보컬 스타일 기준 + 최종 검수
 
-여성 보컬(`vocal_gender: "female"`)을 사용할 때 **기본 스타일**은 아래 방향으로 Styles에 기술한다.
+여성/남성 보컬 스타일 기준(채널 선호 방향, 좋은 Styles 예시, 피해야 할 방향)과 출력 전 최종 검수 체크리스트는 `suno-prompt-authoring` 스킬 참고.
 
-**채널 선호 여성 보컬 방향 (백예린 스타일 참조):**
-
-```
-soft, breathy female vocal with a slightly husky lower register,
-intimate and emotionally restrained delivery,
-warm close-mic tone, airy falsetto in upper notes,
-gentle vibrato, delicate vulnerability without oversinging,
-clear pronunciation, quiet introspective energy
-```
-
-**Styles 기술 예시 (선호 방향):**
-
-```
-✅ A warm, breathy female vocal with a slightly husky lower register and airy upper tones,
-   delivering lyrics with intimate emotional restraint and gentle vibrato.
-
-✅ Soft close-mic female vocal, slightly husky and breathy, emotionally vulnerable
-   but never oversinging, with delicate falsetto in the chorus.
-```
-
-**피해야 할 보컬 방향:**
-- powerful belting / Broadway-style vocal / oversinging
-- overly bright or sharp tone
-- aggressive vibrato or excessive runs
-- girl-group idol vocal style
-
-> 이 스타일은 Groove Hip-hop & Chill Pop, Chillwave & Synth Pop, Acoustic Indie Pop 계열에서 특히 잘 어울린다.
-
----
-
-# 7. 남성 보컬 스타일 기준
-
-남성 보컬(`vocal_gender: "male"`)을 사용할 때 **기본 스타일**은 아래 방향으로 Styles에 기술한다.
-Section 2의 50:50 보컬 비율 규칙을 지키려면 이 섹션을 Section 6과 **동등한 비중**으로 참고해야 한다 — 남성 보컬 디테일이 부족해서 여성 보컬로 쏠리는 일이 없도록 한다.
-
-**채널 선호 남성 보컬 방향:**
-
-```
-warm, relaxed male vocal with a smooth mid-low register,
-laid-back conversational delivery with light melodic rap-singing influence,
-close-mic intimacy, restrained emotion, clear English pronunciation,
-soft falsetto accents on held notes, no aggressive belting
-```
-
-**Styles 기술 예시 (선호 방향):**
-
-```
-✅ A warm, smooth male vocal with a relaxed mid-low register, delivering lyrics in an
-   intimate, conversational tone with subtle melodic rap-singing phrasing.
-
-✅ Close-mic male vocal with restrained emotional delivery, smooth low-to-mid range,
-   soft falsetto accents on sustained notes in the chorus.
-```
-
-**피해야 할 보컬 방향:**
-- aggressive belting / arena-rock shouting
-- overly nasal or thin tone
-- heavy autotune/robotic processing
-- boy-band idol vocal style
-
-> 이 스타일은 Groove Hip-hop & Chill Pop, Late Night R&B & Soul, Jazz-hop & Bossa Nova Chill 계열에서 특히 잘 어울린다.
-
----
-
-# 8. 최종 검수 기준
-
-출력 전 아래 항목을 반드시 점검한다.
-
-```
-[ ] Styles가 단어 나열식이 아니라 완성된 문장형인가?
-[ ] Styles에 장르, 악기, 리듬, 드럼, 베이스, 보컬, BPM, Key, Mix가 포함되어 있는가?
-[ ] Intro가 초반 3초 안에 강한 인상을 주는 구조인가?
-[ ] Lyrics가 약 3분 분량의 구조인가?
-[ ] Chorus가 반복 가능하고 기억하기 쉬운가?
-[ ] humming, ooh-ooh, la-la, mm-mm, whoa-oh이 없는가?
-[ ] 의미 없는 애드리브가 없는가?
-[ ] 특정 아티스트, 특정 곡, 기존 가사를 직접 모방하지 않았는가?
-[ ] 최종 출력이 1) Styles / 2) Lyrics 두 섹션으로만 구성되어 있는가?
-[ ] 이 트랙의 scene이 다른 트랙과 겹치지 않는가? (Section 2-1)
-[ ] anchor라면 concept_brief 방향에 충실한가, variation이라면 의도된 변주 요소가 실제로 반영됐는가? (Section 2-2)
-```
-
+> Section 2의 50:50 보컬 비율 규칙을 지키려면 여성/남성 보컬 스타일을 **동등한 비중**으로 참고해야 한다 — 디테일 부족으로 여성 보컬 쪽에 쏠리는 일이 없도록 한다.
+> 최종 검수 시 이 파일 Section 2-1(scene 중복 금지)·2-2(anchor/variation 반영 여부)도 함께 확인한다 (스킬의 체크리스트는 프롬프트 자체의 품질만 다루며, 트랙플랜 차원의 항목은 이 파일에만 있다).
 
 ---
 
@@ -600,7 +325,7 @@ done
 
 ### 4. 완료 폴링 — 통합 폴링 (전체 트랙 동시)
 
-30번의 개별 폴링 대신, 전체 트랙의 ID를 한 번에 모아 **하나의 통합 루프**로 폴링한다. video-producer의 영상 인코딩 폴링과 동일한 원칙: 한 Bash 호출 안에서 최대 ~10분(Bash 도구 타임아웃 한도) 동안 폴링하고, 끝나지 않았으면 이 블록을 그대로 다시 호출해서 이어 폴링한다 — 짧은 간격으로 여러 번 개별 확인하지 않는다.
+30번의 개별 폴링 대신, 전체 트랙의 ID를 한 번에 모아 **하나의 통합 루프**로 폴링한다. `long-running-api-poll` 스킬의 공용 패턴과 동일한 원칙(video-producer/youtube-uploader와 공유): 한 Bash 호출 안에서 최대 ~10분(Bash 도구 타임아웃 한도) 동안 폴링하고, 끝나지 않았으면 이 블록을 그대로 다시 호출해서 이어 폴링한다 — 짧은 간격으로 여러 번 개별 확인하지 않는다.
 
 ```bash
 ALL_IDS=$(awk '{print $2","$3}' /tmp/dgm_gen/id_map.txt | paste -sd, -)
@@ -744,7 +469,7 @@ cp "${PROJECT_DIR}/music-generator/${SAFE_TITLE}_${REJECTED}.mp3" \
 }
 ```
 
-> `styleRef.genre`: Section 4의 7개 장르 중 선택한 이름. 자유 창작 시 `"custom"`.
+> `styleRef.genre`: Section 4의 8개 장르 중 선택한 이름. 자유 창작 시 `"custom"`.
 > `vocal`, `weirdnessPct`, `styleInfluencePct`: API 호출 시 실제 전달한 값을 그대로 기록.
 
 저장 후 메모장으로 바로 열 수 있는 사본도 함께 남긴다:
@@ -758,50 +483,7 @@ python3 -c "import json; d=json.load(open('${PROJECT_DIR}/music-generator/prompt
 
 ### 1. instrumental 모드
 
-`instrumental: true` 요청 시에만 기악 모드로 전환한다.
-
-**`instrumental: true` 일 때**
-
-`prompt` 필드에 가사 대신 **Suno 7섹션 구조 태그**를 작성한다 — 섹션 수가 적으면 Suno가 짧은 곡(1분 미만)을 생성하므로 반드시 7개 섹션을 채운다.
-
-```
-[Intro]
-[INSTRUMENTAL]
-(1문장: 도입부 분위기 — 악기·분위기 10~15단어)
-
-[Section A]
-[INSTRUMENTAL]
-(1문장: 메인 테마 진행)
-
-[Section B]
-[INSTRUMENTAL]
-(1문장: 두 번째 악절 변화)
-
-[Section C]
-[INSTRUMENTAL]
-(1문장: 발전부 에너지 변화)
-
-[Bridge]
-[INSTRUMENTAL]
-(1문장: 브리지 대비감)
-
-[Section D]
-[INSTRUMENTAL]
-(1문장: 재현부 강도)
-
-[Outro]
-[INSTRUMENTAL]
-(1문장: 마무리 분위기)
-```
-
-- 각 섹션마다 다른 분위기·에너지를 부여해 반복감 없도록 작성
-- 가사·보컬·허밍·스캣 등 모든 보컬 지시어 금지
-- `make_instrumental: true` API 파라미터와 함께 전달
-
-❌ 금지:
-```
-humming, wordless vocals, vocal melody, singing, lyrics
-```
+`instrumental: true` 요청 시에만 기악 모드로 전환한다. 7섹션 구조 태그 템플릿과 보컬 지시어 금지 목록은 `suno-prompt-authoring` 스킬 참고 — 섹션 수가 적으면 Suno가 짧은 곡(1분 미만)을 생성하므로 반드시 7개 섹션을 채운다. `make_instrumental: true` API 파라미터와 함께 전달한다.
 
 **`instrumental: false` 일 때 (기본)**
 - Section 3 Lyrics 기준 3분 분량 영어 가사 작성

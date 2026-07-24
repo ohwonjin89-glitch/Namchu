@@ -368,15 +368,8 @@ researcher의 후보를 검토할 때 아래 순서로 판단한다.
 - `Korean indie soul with gentle rhythm, no aggressive drums, peaceful melody`
 - `smooth R&B groove with Rhodes piano and soft bass, suitable for background listening`
 
-**채널 선호 장르 우선순위** (컨셉이 복수 장르로 해석될 때 아래 순서로 결정):
+**채널 선호 장르 우선순위** (컨셉이 복수 장르로 해석될 때 아래 순서로 결정): `dgm-genre-reference` 스킬 참고 (music-generator/image-generator와 공유하는 단일 진실 공급원).
 
-| 우선순위 | 장르 | 적합 컨셉 예시 |
-|:---:|---|---|
-| ★★★ | Groove Hip-hop & Chill Pop | 도시, 드라이브, 세련된 감성, 미드템포 |
-| ★★☆ | Chillwave & Synth Pop | 몽환, 80s 감성, 야경, 신스 분위기 |
-| ★☆☆ | Acoustic Indie Pop & Folk Soul | 자연, 위로, 아침, 따뜻한 어쿠스틱 |
-
-- 위 3개 장르에 해당하지 않는 컨셉은 나머지 장르(Lo-fi, Late Night R&B, Upbeat City Pop, Jazz-hop) 중에서 선택한다.
 - `musicDirection`에 선택한 장르의 핵심 악기·리듬을 반드시 포함한다.
 
 ---
@@ -424,19 +417,7 @@ print('OK:', d['title'], '| projectId:', d['projectId'])
 
 ## 이미지 키워드 참고 (테마별 imageKeywords)
 
-| 주제 | imageKeywords |
-|------|--------------|
-| 카페 | cozy cafe aesthetic woman warm light |
-| 새벽 감성 | late night city lights solitude moody |
-| 드라이브 | night drive highway warm city lights window |
-| 모닝커피 | morning coffee window sunlight golden |
-| 주말 아침 | sunday morning cozy bedroom soft light |
-| 공부/작업 | study desk minimal aesthetic lamp |
-| 비 오는 날 | rainy day window cozy indoor moody |
-| 힐링 자연 | nature forest peaceful green calm |
-| 여행 | travel wanderlust scenic view sky |
-| 여름/청량 | summer beach blue sky ocean sunny bright outdoor |
-| 봄/꽃 | spring cherry blossom flowers soft pastel daylight |
+테마별 imageKeywords 목록은 `dgm-genre-reference` 스킬 참고.
 
 ---
 

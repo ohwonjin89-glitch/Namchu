@@ -62,6 +62,13 @@ EXISTING_GENRES = [
     "Acoustic Indie Pop & Folk Soul",
     "Chillwave & Synth Pop",
     "Jazz-hop & Bossa Nova Chill",
+    "Jazz Instrumental",
+]
+
+# 가사/보컬 없는 순수 연주곡 전용 장르 — 이 목록에 있으면 FILTER_CRITERIA의
+# "가사 없는 순수 BGM 제외" 규칙을 적용하지 않고, 반대로 보컬이 감지되면 제외한다.
+INSTRUMENTAL_GENRES = [
+    "Jazz Instrumental",
 ]
 
 # ── 우리 채널 성격 필터 ──────────────────────────────────
@@ -155,6 +162,34 @@ JSON 외의 다른 텍스트 없이 JSON만 출력해.
   "image_keywords": "Midjourney 영어 프롬프트 20단어 이내",
   "image_palette": "색상 팔레트 한국어 2~3가지",
   "image_style": "이미지 분위기 1문장 한국어"
+}}
+
+YouTube URL: {url}
+"""
+
+# ── 순수 연주곡(보컬 없음) 전용 분석 프롬프트 (add-curated, INSTRUMENTAL_GENRES 전용) ──
+INSTRUMENTAL_ANALYSIS_PROMPT = """
+이 YouTube 영상의 음악을 분석해서 아래 JSON 형식 그대로 출력해줘.
+JSON 외의 다른 텍스트 없이 JSON만 출력해.
+
+이 영상은 보컬/가사가 전혀 없는 순수 연주곡(instrumental-only) 레퍼런스 수집용이다.
+⚠️ 보컬이나 가사, 허밍이 들리면 filter_out: true, filter_reason에 이유를 적어줘 (우리가 찾는 건 instrumental-only 트랙이다).
+
+⚠️ 중요: 영상의 앞부분에서 첫 번째 곡만 분석할 것.
+   Gemini가 직접 듣고 첫 번째 곡의 끝을 판단한 뒤 그 곡만 대상으로 한다.
+
+=== 스타일 작성 규칙 ===
+반드시 완성된 영어 문장형으로 작성. 단어 나열 금지.
+포함 필수 요소: 장르명, 서브장르, 주요 악기, 리듬/드럼 패턴, 베이스 스타일, BPM, 분위기, 믹스 텍스처
+문장 안에 "no vocals, no lyrics"를 명시할 것.
+
+=== 출력 JSON 형식 ===
+{{
+  "filter_out": false,
+  "filter_reason": "",
+  "styles": "1) Styles\\n[완성된 영어 문장형 스타일 설명, no vocals/no lyrics 명시 포함]",
+  "lyrics_structure": "2) Lyrics\\n[INSTRUMENTAL]\\n[핵심 악기/장르/BPM/무드 키워드를 쉼표로 나열, 영어]",
+  "bpm": 80
 }}
 
 YouTube URL: {url}
@@ -542,6 +577,8 @@ def cmd_add_curated(genre_name: str, urls: list):
     """
     여러 개별 YouTube URL을 각각 분석해서 해당 장르의 영구 레퍼런스로 일괄 저장.
     각 URL을 단일 트랙으로 간주하고 analyze_video로 분석.
+    genre_name이 INSTRUMENTAL_GENRES에 있으면 analyze_video_instrumental을 사용해
+    보컬/가사 없는 순수 연주곡 전용 프롬프트로 분석한다 (일반 필터의 "가사 없음 제외" 규칙 미적용).
     """
     if genre_name not in EXISTING_GENRES:
         print(f"⚠ '{genre_name}'은 등록된 장르가 아닙니다.")
@@ -550,7 +587,9 @@ def cmd_add_curated(genre_name: str, urls: list):
             print(f"    - {g}")
         sys.exit(1)
 
-    print(f"\n🎵 add-curated: {genre_name}")
+    is_instrumental = genre_name in INSTRUMENTAL_GENRES
+
+    print(f"\n🎵 add-curated: {genre_name}{' [instrumental]' if is_instrumental else ''}")
     print(f"   총 {len(urls)}개 URL 분석 시작...\n")
 
     client = get_client()
@@ -560,7 +599,7 @@ def cmd_add_curated(genre_name: str, urls: list):
     for i, url in enumerate(urls, 1):
         url = _clean_youtube_url(url)
         print(f"[{i}/{len(urls)}] {url}")
-        result = analyze_video(url, client)
+        result = analyze_video_instrumental(url, client) if is_instrumental else analyze_video(url, client)
 
         if result is None:
             print(f"  ❌ 분석 실패, 건너뜀")
@@ -580,12 +619,12 @@ def cmd_add_curated(genre_name: str, urls: list):
             "source_url": url,
             "styles": result.get("styles", ""),
             "lyrics_structure": result.get("lyrics_structure", ""),
-            "vocal_gender": result.get("vocal_gender", "?"),
-            "vocal_tone": result.get("vocal_tone", "?"),
+            "vocal_gender": result.get("vocal_gender", "instrumental" if is_instrumental else "?"),
+            "vocal_tone": result.get("vocal_tone", "-" if is_instrumental else "?"),
             "bpm": result.get("bpm", "?"),
         })
 
-        print(f"  ✓ {result.get('vocal_gender', '?')} / {result.get('vocal_tone', '?')}  {result.get('bpm', '?')}BPM")
+        print(f"  ✓ {result.get('vocal_gender', 'instrumental' if is_instrumental else '?')} / {result.get('vocal_tone', '-' if is_instrumental else '?')}  {result.get('bpm', '?')}BPM")
 
         db["analyzed_count"] += 1
         if genre_name not in db["genres"]:
@@ -623,6 +662,43 @@ def analyze_video(url: str, client) -> dict | None:
         existing_genres="\n".join(f"- {g}" for g in EXISTING_GENRES),
         url=url
     )
+
+    try:
+        response = client.models.generate_content(
+            model="gemini-flash-latest",
+            contents=[
+                {
+                    "file_data": {
+                        "file_uri": url,
+                        "mime_type": "video/*"
+                    }
+                },
+                prompt
+            ]
+        )
+        raw = response.text.strip()
+
+        json_match = re.search(r'\{[\s\S]*\}', raw)
+        if not json_match:
+            print(f"  ❌ JSON 파싱 실패: {raw[:200]}")
+            return None
+
+        result = json.loads(json_match.group())
+        result["source_url"] = url
+        result["analyzed_at"] = datetime.now().isoformat()
+        return result
+
+    except json.JSONDecodeError as e:
+        print(f"  ❌ JSON 파싱 오류: {e}")
+        return None
+    except Exception as e:
+        print(f"  ❌ Gemini API 오류: {e}")
+        return None
+
+
+def analyze_video_instrumental(url: str, client) -> dict | None:
+    """Gemini API로 순수 연주곡(보컬 없음) YouTube 영상 분석 (INSTRUMENTAL_GENRES 전용, add-curated)."""
+    prompt = INSTRUMENTAL_ANALYSIS_PROMPT.format(url=url)
 
     try:
         response = client.models.generate_content(

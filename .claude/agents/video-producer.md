@@ -57,12 +57,7 @@ tools: [Read, Write, Bash, Glob, SendMessage]
 
 ## 곡 순서 결정
 
-영상 합성 전에 music_info.json을 읽어 곡 순서를 확정한다.
-
-**규칙:**
-1. **선정곡(usage: "selected") 전체를 먼저, 비선정곡(usage: "rejected") 전체를 이어서 배치**한다 (곡마다 번갈아 배치하지 않는다 — 동일 호출에서 나온 선정/비선정이 연속으로 들리지 않도록 블록 단위로 떼어놓는다).
-2. 각 블록(선정 블록/비선정 블록) 내부에서는 `lyricsStartsImmediately: true`인 곡을 그 블록의 **첫 번째 트랙**으로 배치한다.
-3. 파일명 번호(01~15 / 16~30) 기준으로 정렬하되, `lyricsStartsImmediately` 우선 정렬을 그 위에 적용한다.
+영상 합성 전에 music_info.json을 읽어 곡 순서를 확정한다. 정렬 규칙(선정 블록 우선, `lyricsStartsImmediately` 우선 서브정렬, 파일명 번호 기준)은 `track-block-ordering` 스킬 참고 — capcut-draft-producer와 공유하는 공통 규칙이다. 아래는 video-producer 전용으로, qa-inspector에서 격리된 트랙/파일 없는 트랙을 미리 걸러내는 단계가 추가되어 있다.
 
 ```python
 import json, os, re
@@ -412,7 +407,7 @@ curl -s -X POST http://localhost:3000/api/make-video \
 # → {"taskId": "{PROJECT_DIR}\\video-producer"}
 ```
 
-**폴링은 반드시 아래처럼 하나의 Bash 호출 안에서 sleep 루프로 묶어서 실행한다.** 인코딩은 수 시간이 걸릴 수 있는데, 턴(Bash 호출)마다 호출 간격이 5분을 넘으면 프롬프트 캐시가 깨져서 이 지침 전체가 매번 풀가격으로 재처리된다 — 짧은 간격으로 여러 번 개별 확인하지 말 것.
+**폴링은 반드시 아래처럼 하나의 Bash 호출 안에서 sleep 루프로 묶어서 실행한다** (`long-running-api-poll` 스킬의 공용 패턴 — music-generator/youtube-uploader와 동일한 원칙). 인코딩은 수 시간이 걸릴 수 있는데, 턴(Bash 호출)마다 호출 간격이 5분을 넘으면 프롬프트 캐시가 깨져서 이 지침 전체가 매번 풀가격으로 재처리된다 — 짧은 간격으로 여러 번 개별 확인하지 말 것.
 
 ```bash
 ENCODED_TASK_ID=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''{taskId}'''))")

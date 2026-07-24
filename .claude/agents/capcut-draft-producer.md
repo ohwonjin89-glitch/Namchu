@@ -57,18 +57,43 @@ ls -1 "${PROJECT_DIR}/music-generator/selected/"
 find "${PROJECT_DIR}/image-generator/" -maxdepth 2 -name "background_final.*" | head -1
 ```
 
-### 2. 트랙리스트 텍스트 생성
+> ⛔ **CapCut 모드에서는 video-producer가 실행되지 않으므로 `track_order.json`이 존재하지 않는 것이 정상이다.** 이 파일이 없다고 트랙 수를 15곡으로 줄이지 않는다 — 아래 1-b 규칙에 따라 `music_info.json`에서 직접 30곡 전체 순서를 계산한다.
 
-`music_info.json`의 tracks 배열에서 제목을 추출하여 `·` 구분자로 연결:
+### 1-b. 트랙 구성 규칙 (필수 — 30곡 전체 포함)
+
+`selected/` 폴더에는 A안(선정, `usage: "selected"`) 15곡 + B안(비선정, `usage: "rejected"`) 15곡, 총 30곡이 들어 있다. **둘 다 `musicFiles`에 포함해야 하며, 15곡만 넣는 것은 오류다.**
+
+정렬 알고리즘(선정 블록 우선 배치, 파일명 정렬 등)은 `track-block-ordering` 스킬 참고 — video-producer와 동일한 규칙을 쓰되, `lyricsStartsImmediately` 서브정렬 없는 간이 버전(파일명 순서만)을 써도 무방하다.
 
 ```python
-# 예시
-titles = ["Rainy Morning", "Quiet Cafe", "Soft Rain", ...]
-tracklist_text = "  ·  ".join(titles)
-# → "Rainy Morning  ·  Quiet Cafe  ·  Soft Rain  ·  ..."
+import json
+
+info = json.load(open(f"{PROJECT_DIR}/music-generator/music_info.json"))
+tracks = info["tracks"]
+
+selected_tracks = sorted([t for t in tracks if t.get("usage") == "selected"], key=lambda t: t["filename"])
+rejected_tracks = sorted([t for t in tracks if t.get("usage") == "rejected"], key=lambda t: t["filename"])
+fallback_tracks = [t for t in tracks if t.get("usage") not in ("selected", "rejected")]
+
+ordered_tracks = selected_tracks + rejected_tracks + fallback_tracks
+print("선정 블록:", len(selected_tracks), "/ 비선정 블록:", len(rejected_tracks), "/ 합계:", len(ordered_tracks))
+# → 합계가 30이 아니면 (qa-inspector에서 격리된 트랙 제외 케이스가 아닌 한) 원인을 확인하고 진행한다.
 ```
 
-트랙 순서: `video-producer/track_order.json` → `music_info.json` tracks 순서 → selected/ 알파벳순
+이 `ordered_tracks` 순서를 그대로 `_capcut_config.json`의 `musicFiles` 배열 순서로 사용한다.
+
+### 2. 트랙리스트 텍스트 생성
+
+`ordered_tracks`(위 1-b에서 계산한 30곡 전체 순서)에서 제목을 추출하여 `·` 구분자로 연결:
+
+```python
+# 예시 — 30곡 전체 (선정 15 + 비선정 15)
+titles = [t["title"] for t in ordered_tracks]
+tracklist_text = "  ·  ".join(titles)
+# → "Rainy Morning  ·  Quiet Cafe  ·  Soft Rain  ·  ... (총 30개)"
+```
+
+트랙 순서: 위 1-b에서 계산한 `ordered_tracks` (선정 15 + 비선정 15 블록 순서) 고정 사용. `video-producer/track_order.json`은 CapCut 모드에서 생성되지 않으므로 참조하지 않는다.
 
 ### 3. Z:\ 경로 변환
 
@@ -94,7 +119,11 @@ mkdir -p "${PROJECT_DIR}/capcut-draft-producer"
   "bgImageUrl": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\image-generator\\background_final.jpg",
   "musicFiles": [
     {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\01_city_in_motion.mp3", "title": "City in Motion"},
-    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\02_rainy_window.mp3", "title": "Rainy Window"}
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\02_rainy_window.mp3", "title": "Rainy Window"},
+    "... (선정 15곡, 01~15번)",
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\16_city_in_motion_rej.mp3", "title": "City in Motion"},
+    {"path": "Z:\\home\\dgm\\suno-api\\.claude\\agents\\projects\\{projectId}\\music-generator\\selected\\17_rainy_window_rej.mp3", "title": "Rainy Window"},
+    "... (비선정 15곡, 16~30번) → 배열 전체 30개"
   ],
   "tracklistOverlay": {
     "text": "트랙 제목 1  ·  트랙 제목 2  ·  ..."
@@ -105,9 +134,20 @@ mkdir -p "${PROJECT_DIR}/capcut-draft-producer"
 
 **주의사항:**
 - `bgImageUrl`: Z:\ 경로 사용 (파일이 VPS에 있으므로 Z:\ 마운트 필요)
-- `musicFiles`: 트랙 순서대로 Z:\ 경로 입력
-- `tracklistOverlay.text`: 전체 트랙 제목을 `  ·  `로 연결한 단일 문자열
+- `musicFiles`: **1-b에서 계산한 `ordered_tracks` 30개 전체**를 순서대로 Z:\ 경로로 입력 (위 예시의 문자열 줄은 설명용이며 실제 JSON에는 넣지 않는다 — 15개에서 멈추지 않는다)
+- `tracklistOverlay.text`: 전체 트랙 제목(30개)을 `  ·  `로 연결한 단일 문자열
 - `outputDir`: Windows 로컬 임시 디렉터리 (Z:\ 아님)
+
+**작성 후 검증 (필수):**
+```bash
+python3 -c "
+import json
+cfg = json.load(open('${PROJECT_DIR}/capcut-draft-producer/_capcut_config.json'))
+n = len(cfg['musicFiles'])
+print(f'musicFiles 개수: {n}')
+assert n == 30, f'30곡이어야 하는데 {n}곡입니다 — selected/rejected 블록 중 하나가 누락되었을 가능성'
+"
+```
 
 ### 5. CAPCUT_GUIDE.md 생성
 
@@ -118,7 +158,7 @@ Write 도구로 `{projectDir}/capcut-draft-producer/CAPCUT_GUIDE.md` 작성:
 
 프로젝트: {projectId}
 생성일: {날짜}
-트랙 수: {N}곡
+트랙 수: {N}곡 (선정 15 + 비선정 15 = 총 30곡이 기본값 — music-generator가 N회 호출한 경우 2N곡)
 
 ## 사전 조건
 
@@ -132,7 +172,7 @@ Write 도구로 `{projectDir}/capcut-draft-producer/CAPCUT_GUIDE.md` 작성:
 ## 실행 방법
 
 ```cmd
-python "D:\AI Agent\Claude\make_capcut_draft.py" --config "Z:\home\dgm\suno-api\.claude\agents\projects\{projectId}\capcut-draft-producer\_capcut_config.json" --name "DGM_{projectId}" --channel dgm
+python "C:\suno-api\scripts\make_capcut_draft.py" --config "Z:\home\dgm\suno-api\.claude\agents\projects\{projectId}\capcut-draft-producer\_capcut_config.json" --name "DGM_{projectId}" --channel dgm
 ```
 
 ## 실행 결과
@@ -188,7 +228,7 @@ cat >> "${PROJECT_DIR}/meeting_log.md" << EOF
 - CAPCUT_GUIDE.md: ${PROJECT_DIR}/capcut-draft-producer/CAPCUT_GUIDE.md
 - 음악 파일 수: {N}곡
 - 배경 이미지: {bgImageUrl (Z:\\ 경로)}
-- 실행 명령: python "D:\\AI Agent\\Claude\\make_capcut_draft.py" --config "..." --name "DGM_{projectId}" --channel dgm
+- 실행 명령: python "C:\\suno-api\\scripts\\make_capcut_draft.py" --config "..." --name "DGM_{projectId}" --channel dgm
 
 ---
 EOF
