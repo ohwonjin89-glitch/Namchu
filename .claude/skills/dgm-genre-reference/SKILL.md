@@ -1,6 +1,6 @@
 ---
 name: dgm-genre-reference
-description: DGM 채널의 8개 음악 장르(Lo-fi Focus & Cafe Chill, Groove Hip-hop & Chill Pop, Late Night R&B & Soul, Upbeat City Pop & Funk Groove, Acoustic Indie Pop & Folk Soul, Chillwave & Synth Pop, Jazz-hop & Bossa Nova Chill, Jazz Instrumental/로파이재즈)에 대한 단일 진실 공급원 — 무드→장르 매핑, 장르→이미지 레퍼런스 폴더 매핑, 채널 선호 우선순위, 테마별 imageKeywords. music-generator/image-generator/strategist가 각자 장르 관련 판단을 할 때 공통으로 참조해 3곳의 테이블이 서로 어긋나는 것을 방지한다.
+description: DGM 채널의 9개 음악 장르(Lo-fi Focus & Cafe Chill, Groove Hip-hop & Chill Pop, Late Night R&B & Soul, Upbeat City Pop & Funk Groove, Acoustic Indie Pop & Folk Soul, Chillwave & Synth Pop, Jazz-hop & Bossa Nova Chill, Jazz Instrumental/로파이재즈, Old Jazz/올드재즈)에 대한 단일 진실 공급원 — 무드→장르 매핑, 장르→이미지 레퍼런스 폴더 매핑, 채널 선호 우선순위, 테마별 imageKeywords. music-generator/image-generator/strategist가 각자 장르 관련 판단을 할 때 공통으로 참조해 3곳의 테이블이 서로 어긋나는 것을 방지한다.
 ---
 
 # DGM 장르 레퍼런스
@@ -9,7 +9,7 @@ music-generator.md(무드→장르), image-generator.md(장르→레퍼런스 �
 
 > ⛔ **단일 장르 원칙**: 한 프로젝트(15회 호출, 30곡)는 주장르 1개만 사용한다. 여러 장르를 블렌딩하거나 트랙마다 다른 장르를 배정하지 않는다 — variation 트랙도 동일 장르 내에서 템포/악기/보컬 뉘앙스만 바꾼다.
 
-## 8개 장르 마스터 테이블
+## 9개 장르 마스터 테이블
 
 | 장르 | 무드 키워드 (한국어, music-generator 판단 기준) | 이미지 레퍼런스 1순위 폴더 | 이미지 레퍼런스 2순위 폴더 | scene-prompts 섹션 |
 |---|---|---|---|---|
@@ -21,13 +21,17 @@ music-generator.md(무드→장르), image-generator.md(장르→레퍼런스 �
 | Chillwave & Synth Pop | 몽환적, 80년대 감성, 드라이브, 신스팝, 하이레조 | 도시야경 | 드라이브 | 도시야경 / 드라이브 |
 | Jazz-hop & Bossa Nova Chill | 카페, 여유로운 오후, 대화, 재즈, 보사노바, 소박한 행복 | 카페 | 감성R&B | 카페 / 하이틴 |
 | Jazz Instrumental (로파이재즈) | 순수 연주, 가사 없음, 재즈 피아노 트리오, 쿨재즈, 보사노바 | — (instrumental, 이미지는 위 장르 준하는 무드로 별도 판단) | — | — |
+| Old Jazz (올드재즈) | 빈티지, 올드재즈, 스윙, 축음기 감성, 클래식 재즈보컬, 1950년대 무드 | 없음 (sref 없음, 텍스트 프롬프트 전용) | — | 올드재즈 |
 
 > `Jazz Instrumental`(사용자 호칭: 로파이재즈)은 `instrumental: true` 필수, `negative_tags`에 `"vocals, singing, lyrics, humming"` 추가. `gemini_analyzer.py`의 `EXISTING_GENRES`/`INSTRUMENTAL_GENRES`에 등록되어 있고, `music-generator-genre-samples.md` 4-8 섹션에 Gemini로 분석한 user_curated 레퍼런스가 있다. `qa-inspector.md`가 이 장르에 한해 "가사/보컬 감지 시 오류곡" 반대 판정을 적용해, 최종 셋에 보컬 트랙이 섞이지 않도록 게이트한다.
+
+> `Old Jazz`(2026-07-26 추가)는 `.claude/agents/reference/`에 아직 전용 사진 레퍼런스 폴더가 없다 — 기존 8개 장르의 어떤 폴더도 빈티지/올드재즈 무드와 맞지 않아, City Pop과 동일한 방식(sref 없이 텍스트 프롬프트만)을 채택한다. `music-generator-genre-samples.md` 4-9 섹션에 Gemini로 분석한 user_curated 레퍼런스 20곡이 있다(`gemini_analyzer.py`의 `EXISTING_GENRES`에 등록됨, `/api/generate-prompts`의 `GENRE_META`/`SECTION_MAP`에도 반영됨). 보컬/인스트루멘탈이 곡마다 섞여 있어 `INSTRUMENTAL_GENRES`에는 포함하지 않음.
 
 ### 특수 규칙
 
 - **감성R&B 폴더 → scene 섹션은 "하이틴"을 사용한다** (하이틴 섹션이 emotional R&B 무드를 다룸, 폴더명과 섹션명이 일치하지 않는 유일한 예외).
 - **City Pop은 폴더(도시배경/도시야경)와 무관하게 scene-prompts 섹션은 항상 "시티팝"을 사용한다.** 시티팝 섹션은 sref 없이 텍스트 프롬프트만으로 생성하므로 레퍼런스 이미지 선택·base64 인코딩·사본 저장 단계를 전부 생략하고 바로 프롬프트 생성 단계로 진행한다. (야간 테마면 도시야경 폴더, 해안/여름 테마면 도시배경 폴더 쪽 방향성을 참고만 하되 실제 이미지는 실사 레퍼런스를 사용하지 않는다 — 80년대 일러스트 포스터 스타일 전용.)
+- **Old Jazz도 City Pop과 동일하게 sref 없이 텍스트 프롬프트만 사용한다** — 레퍼런스 이미지 선택·base64 인코딩·사본 저장 단계를 생략하고 바로 프롬프트 생성 단계로 진행. 방향성은 빈티지 축음기/바이닐, 세피아·앰버 톤, 1950년대 재즈클럽 분위기(실사보다는 따뜻한 일러스트/필름 그레인 질감 권장).
 
 ## 채널 선호 장르 우선순위 (strategist 전용)
 

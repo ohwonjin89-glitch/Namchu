@@ -1,8 +1,8 @@
 {
   "version": "1.0",
   "description": "Gemini API 영상 분석으로 학습된 스타일 데이터베이스. gemini_analyzer.py가 자동 관리.",
-  "last_updated": "2026-07-18T13:11:14.294670",
-  "analyzed_count": 78,
+  "last_updated": "2026-07-25T23:21:22.271639",
+  "analyzed_count": 98,
   "genres": {
     "Groove Hip-hop & Chill Pop": {
       "name_ko": "Groove Hip-hop & Chill Pop",
@@ -751,6 +751,232 @@
           "vocal_gender": null,
           "vocal_tone": null,
           "bpm": 80
+        }
+      ]
+    },
+    "Old Jazz": {
+      "name_ko": "Old Jazz",
+      "is_new": false,
+      "samples": [
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 1,
+          "detected_start": "0:00",
+          "detected_end": "3:26",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 72
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 2,
+          "detected_start": "3:26",
+          "detected_end": "6:02",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "co-ed",
+          "vocal_tone": "허스키",
+          "bpm": 80
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 3,
+          "detected_start": "6:02",
+          "detected_end": "9:16",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "co-ed",
+          "vocal_tone": "청량한",
+          "bpm": 98
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 4,
+          "detected_start": "9:16",
+          "detected_end": "12:56",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 68
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 5,
+          "detected_start": "12:56",
+          "detected_end": "15:26",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "co-ed",
+          "vocal_tone": "몽환적",
+          "bpm": 90
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 6,
+          "detected_start": "15:26",
+          "detected_end": "18:23",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "co-ed",
+          "vocal_tone": "몽환적",
+          "bpm": 70
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 7,
+          "detected_start": "18:23",
+          "detected_end": "21:12",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 104
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 8,
+          "detected_start": "21:12",
+          "detected_end": "24:10",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 78
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 9,
+          "detected_start": "24:10",
+          "detected_end": "27:20",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 66
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 10,
+          "detected_start": "27:20",
+          "detected_end": "29:48",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 95
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 11,
+          "detected_start": "29:48",
+          "detected_end": "31:59",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "male",
+          "vocal_tone": "허스키",
+          "bpm": 82
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 12,
+          "detected_start": "31:59",
+          "detected_end": "34:06",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 76
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 13,
+          "detected_start": "34:06",
+          "detected_end": "36:19",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "청량한",
+          "bpm": 108
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 14,
+          "detected_start": "36:19",
+          "detected_end": "38:34",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "맑은",
+          "bpm": 112
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 15,
+          "detected_start": "38:34",
+          "detected_end": "41:10",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "허스키",
+          "bpm": 68
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 16,
+          "detected_start": "41:10",
+          "detected_end": "45:21",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "따뜻한",
+          "bpm": 86
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 17,
+          "detected_start": "45:21",
+          "detected_end": "48:22",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 74
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 18,
+          "detected_start": "48:22",
+          "detected_end": "51:01",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "male",
+          "vocal_tone": "허스키",
+          "bpm": 70
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 19,
+          "detected_start": "51:01",
+          "detected_end": "53:38",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "male",
+          "vocal_tone": "따뜻한",
+          "bpm": 116
+        },
+        {
+          "source_url": "https://www.youtube.com/watch?v=7PelgAG_LZY",
+          "source": "user_curated",
+          "track_number": 20,
+          "detected_start": "53:38",
+          "detected_end": "56:43",
+          "analyzed_at": "2026-07-25T23:21:22.266253",
+          "vocal_gender": "female",
+          "vocal_tone": "몽환적",
+          "bpm": 65
         }
       ]
     }

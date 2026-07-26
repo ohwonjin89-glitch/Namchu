@@ -3,8 +3,8 @@
 Gemini API로 YouTube 영상을 분석하여 DGM 프롬프트 가이드를 생성합니다.
 
 Usage:
-  python3 scripts/gemini_analyzer.py setup-genre <장르명> <youtube_url>
-      → 영상에서 곡을 직접 감지(최대 5곡) → 해당 장르의 영구 레퍼런스 저장
+  python3 scripts/gemini_analyzer.py setup-genre <장르명> <youtube_url> [최대곡수]
+      → 영상에서 곡을 직접 감지(기본 최대 5곡, 최대곡수 지정 시 해당 값까지) → 해당 장르의 영구 레퍼런스 저장
 
   python3 scripts/gemini_analyzer.py add-curated <장르명> <url1> [<url2> ...]
       → 개별 곡 URL 여러 개를 각각 분석 → 해당 장르의 영구 레퍼런스로 일괄 추가
@@ -63,6 +63,7 @@ EXISTING_GENRES = [
     "Chillwave & Synth Pop",
     "Jazz-hop & Bossa Nova Chill",
     "Jazz Instrumental",
+    "Old Jazz",
 ]
 
 # 가사/보컬 없는 순수 연주곡 전용 장르 — 이 목록에 있으면 FILTER_CRITERIA의
@@ -92,7 +93,7 @@ SETUP_GENRE_PROMPT = """
 1. 영상에서 재생되는 개별 곡들을 순서대로 감지한다.
    - 곡 경계 판단 기준: 무음 구간, 박수/환호, 분위기 전환, 새 인트로 시작 등
    - 고정된 시간(3분, 6분 등)으로 자르지 말고, 실제 음악을 들어서 곡이 바뀌는 시점을 찾을 것
-2. 1번 곡부터 최대 5번 곡까지 각각 분석한다.
+2. 1번 곡부터 최대 {max_songs}번 곡까지 각각 분석한다. 영상에 그보다 적은 곡이 있으면 실제 감지된 곡 수만큼만 출력한다.
 3. 아래 JSON 형식 그대로 출력한다.
 
 === 스타일 작성 규칙 ===
@@ -227,9 +228,9 @@ def get_client() -> object:
 
 
 # ── setup-genre: 영상에서 곡 자동 감지 후 영구 레퍼런스 생성 ──
-def analyze_genre_setup(genre_name: str, url: str, client) -> dict | None:
-    """YouTube 영상에서 곡을 자동 감지해서 최대 5개 프롬프트 생성."""
-    prompt = SETUP_GENRE_PROMPT.format(genre_name=genre_name, url=url)
+def analyze_genre_setup(genre_name: str, url: str, client, max_songs: int = 5) -> dict | None:
+    """YouTube 영상에서 곡을 자동 감지해서 최대 max_songs개 프롬프트 생성."""
+    prompt = SETUP_GENRE_PROMPT.format(genre_name=genre_name, url=url, max_songs=max_songs)
 
     try:
         print(f"  Gemini가 영상을 듣고 곡을 감지 중...")
@@ -264,7 +265,7 @@ def analyze_genre_setup(genre_name: str, url: str, client) -> dict | None:
         return None
 
 
-def save_curated_references(genre_name: str, url: str, songs: list):
+def save_curated_references(genre_name: str, url: str, songs: list, max_songs: int = 5):
     """
     분석된 곡들을 music-generator-genre-samples.md의 해당 장르에 영구 레퍼런스로 저장.
     source: user_curated 태그로 보호 (주간 트렌드 교체 불가).
@@ -312,7 +313,7 @@ def save_curated_references(genre_name: str, url: str, songs: list):
     blocks = [f"\n<!-- CURATED_REFS_START -->\n"]
     blocks.append(f"> 🎵 영구 레퍼런스 (user_curated) — 원본 영상: {url} / 분석일: {today}\n\n")
 
-    for song in songs[:5]:
+    for song in songs[:max_songs]:
         n = song.get("track_number", saved_count + 1)
         start_t = song.get("detected_start", "?")
         end_t = song.get("detected_end", "?")
@@ -333,10 +334,10 @@ def save_curated_references(genre_name: str, url: str, songs: list):
     return saved_count
 
 
-def cmd_setup_genre(genre_name: str, url: str):
+def cmd_setup_genre(genre_name: str, url: str, max_songs: int = 5):
     """
-    사용자가 지정한 YouTube 영상에서 1~5번 곡을 자동 감지해서
-    해당 장르의 영구 레퍼런스(user_curated) 5개를 생성한다.
+    사용자가 지정한 YouTube 영상에서 1~max_songs번 곡을 자동 감지해서
+    해당 장르의 영구 레퍼런스(user_curated) 최대 max_songs개를 생성한다.
     """
     if genre_name not in EXISTING_GENRES:
         print(f"⚠ '{genre_name}'은 등록된 장르가 아닙니다.")
@@ -348,10 +349,10 @@ def cmd_setup_genre(genre_name: str, url: str):
 
     print(f"\n🎵 setup-genre: {genre_name}")
     print(f"   영상: {url}")
-    print(f"   Gemini가 영상을 직접 듣고 곡 경계를 감지합니다...\n")
+    print(f"   Gemini가 영상을 직접 듣고 곡 경계를 감지합니다(최대 {max_songs}곡)...\n")
 
     client = get_client()
-    result = analyze_genre_setup(genre_name, url, client)
+    result = analyze_genre_setup(genre_name, url, client, max_songs)
 
     if result is None:
         print("❌ 분석 실패")
@@ -371,7 +372,7 @@ def cmd_setup_genre(genre_name: str, url: str):
         bpm = song.get("bpm", "?")
         print(f"  {n}번곡  {s} ~ {e}  |  {vocal}  {bpm}BPM")
 
-    saved = save_curated_references(genre_name, url, songs)
+    saved = save_curated_references(genre_name, url, songs, max_songs)
     print(f"\n✅ {saved}개 영구 레퍼런스 저장 완료")
     print(f"   파일: {GENRE_SAMPLES_PATH}")
     print(f"   태그: user_curated (주간 트렌드 교체로부터 보호됨)")
@@ -874,10 +875,11 @@ if __name__ == "__main__":
 
     if cmd == "setup-genre":
         if len(sys.argv) < 4:
-            print("❌ 사용법: setup-genre <장르명> <youtube_url>")
+            print("❌ 사용법: setup-genre <장르명> <youtube_url> [최대곡수]")
             print('   예시: python3 scripts/gemini_analyzer.py setup-genre "Lo-fi Focus & Cafe Chill" https://youtu.be/...')
             sys.exit(1)
-        cmd_setup_genre(sys.argv[2], sys.argv[3])
+        max_songs = int(sys.argv[4]) if len(sys.argv) > 4 else 5
+        cmd_setup_genre(sys.argv[2], sys.argv[3], max_songs)
 
     elif cmd == "add-curated":
         if len(sys.argv) < 4:

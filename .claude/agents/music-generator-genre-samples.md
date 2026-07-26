@@ -7905,3 +7905,1123 @@ This is a chilled lo-fi jazzy hip hop instrumental track featuring mellow electr
 
 <!-- CURATED_REFS_END -->
 
+---
+
+## 4-9. Old Jazz (올드재즈)
+
+<!-- CURATED_REFS_START -->
+> 🎵 영구 레퍼런스 (user_curated) — 원본 영상: https://www.youtube.com/watch?v=7PelgAG_LZY / 분석일: 2026-07-25
+
+### 레퍼런스 1 (0:00 ~ 3:26)
+
+```
+1) Styles
+Classic 1950s vocal jazz ballad with a nostalgic, gentle mood. A smooth female vocal leads with a warm, comforting tone. Soft piano chords and subtle brush drum patterns set a relaxed pace at 72 BPM in 4/4 time. An upright bass provides a warm low-end warmth, complemented by subtle guitar strums. The mix features a vintage, vinyl-like warmth.
+
+2) Lyrics
+[Intro]
+[Soft piano and light brush drums]
+
+[Verse 1]
+[Gentle female vocals]
+Rain on the window, the road stretches far
+Tired eyes and gentle hearts beneath the stars
+Suitcases packed with stories to keep
+Backseat whispers slowly drift into sleep
+
+[Pre-Chorus]
+[Soft bass accents]
+The radio hums a song we know
+And every mile feels soft and slow
+
+[Chorus]
+[Fuller jazz ensemble]
+We're heading home where quiet lights glow
+Where slippers wait by the door and warm winds blow
+Memories ride in the rearview mirror
+But home sweet home is drawing near
+
+[Verse 2]
+[Saxophone counter-melody]
+Dad's steady hands, mom's sleepy smile
+Children dreaming after a hundred miles
+The journey fades like a passing train
+But love remains like a gentle refrain
+
+[Pre-Chorus]
+[Smooth chord transitions]
+No need for words, no need to roam
+The world feels right when you're going home
+
+[Chorus]
+[Warm harmony layer]
+We're heading home where the laughter stays
+Where the clocks tick soft in familiar ways
+The world can wait, let the rain fall slow
+We're safe together, and we're heading home
+
+[Bridge]
+[Melodic clarinet solo]
+
+[Chorus]
+[Slightly higher vocal pitch]
+No need for words, no need to roam
+The world feels right when you're going home
+We're heading home where the laughter stays
+Where the clocks tick soft in familiar ways
+The world can wait, let the rain fall slow
+We're safe together, and we're heading home
+
+[Outro]
+[Fade out with soft piano chords]
+Heading home, soft and slow
+```
+
+### 레퍼런스 2 (3:26 ~ 6:02)
+
+```
+1) Styles
+Sultry 1950s late-night jazz vocal duet with romantic tension. Male and female vocals alternate with velvety, intimate tones. A slow walking upright bass and brush snare drive a swing beat at 80 BPM in 4/4 time in E-flat major. Soft brass swells and muted trumpet accents create an elegant, smoky atmosphere.
+
+2) Lyrics
+[Intro]
+[Muted trumpet and soft piano]
+
+[Verse 1]
+[Female vocal]
+You think the night is deep and still
+But you don't know all of love
+You don't know
+
+[Verse 2]
+[Male vocal]
+The moon just stares while I burn through my skin
+You're dreaming in velvet, but I'm blazing within
+
+[Chorus]
+[Duet]
+Our love is hotter, hotter than your night
+Hotter, hotter than your night
+You sleep in silver, but we burn in light
+Hotter, hotter than your night
+
+[Bridge]
+[Male lead, female response]
+You wear the dark like satin gloves
+We light the sky with every touch
+You sip the stars in quiet hush
+We spill them out, too much, too much
+
+[Chorus]
+[Duet]
+Too much heat, too much fire
+Too much youth, too much desire
+Too much sweat, too much sight
+Too much love, too late tonight
+
+[Final Chorus]
+[Climactic harmony]
+Hotter, hotter than your night
+We burn, we blaze, we don't sleep right
+Candles cry and windows steam
+Our love's a fever, not a dream
+
+[Outro]
+[Fading brass and bass]
+You keep your night in quiet shade
+But I set mine on fire
+```
+
+### 레퍼런스 3 (6:02 ~ 9:16)
+
+```
+1) Styles
+Mid-tempo vintage coastal swing jazz. A dual vocal harmony of male and female voices delivers a lighthearted, sun-drenched performance. Swinging acoustic guitar, playful clarinet counter-melodies, and walking bass drive the track at 98 BPM in 4/4 time in F major. Bright and breezy mix with a retro vinyl finish.
+
+2) Lyrics
+[Intro]
+[Upbeat clarinet swing solo]
+
+[Verse 1]
+[Female vocal]
+Checked in by the sea, no plans to leave
+Wicker chairs and lemon tea
+Barefoot strolls through boardwalk breeze
+It's just you, it's just me
+
+[Pre-Chorus]
+[Male vocal]
+Waves don't care what day it is
+Sun forgets what time it keeps
+
+[Chorus]
+[Duet]
+Let the world keep turning slow
+We've got nowhere else to go
+Let's stay all summer, all summer long
+Spin the vinyl, melt like butter
+Let's stay all summer long
+
+[Verse 2]
+[Male vocal]
+Striped umbrellas, peach perfume
+Midday hush and pale lagoon
+Laughing through a postcard view
+No rush, just me and you
+
+[Pre-Chorus]
+[Female vocal]
+Trains go past, but we don't care
+Your hand fits just right there
+
+[Chorus]
+[Duet]
+The heat is sweet, the skies are song
+Nothing loud, just humming along
+Let's stay all summer, all summer long
+Fan the breeze and sip another
+Let's stay all summer long
+
+[Bridge]
+[Clarinet and guitar dialogue]
+Where nothing ever feels too wrong
+Time forgets us here at last
+Seagulls dance in salted air
+Your lips taste like cherry fizz
+Tell me what could be better than this
+
+[Final Chorus]
+[Duet, energetic brass accents]
+Let's stay all summer, all summer long
+Fan the breeze and sip another
+Let's stay all summer long
+Where nothing ever feels too wrong
+Time forgets us here at last
+Seagulls dance in salted air
+Your lips taste like cherry fizz
+Tell me what could be better than this
+
+[Outro]
+[Breezy fading swing rhythm]
+All summer long...
+```
+
+### 레퍼런스 4 (9:16 ~ 12:56)
+
+```
+1) Styles
+Bittersweet 1950s train-ride jazz ballad. Soft female vocal with an emotionally gentle and longing tone leads the melody. Muted saxophone and warm upright bass flow gently with a slow brush snare at 68 BPM in 4/4 time in G major. Tender piano chords add nostalgia to a soft, warm audio texture.
+
+2) Lyrics
+[Intro]
+[Slow saxophone intro with soft piano]
+
+[Verse 1]
+[Female vocal]
+The train is calling, it's time to go
+Your hand in mine, I won't let it show
+That tears might fall when you walk away
+But I'll be strong, come what may
+
+[Pre-Chorus]
+[Soft saxophone counter-line]
+Till the morning comes again
+Till the clouds drift past the rain
+
+[Chorus]
+Keep my love inside your heart
+Though we're far, we're never apart
+I'll wait for you through night and day
+Till the morning comes again
+
+[Verse 2]
+[Male vocal joins softly]
+The letters we write will keep us near
+Each word a whisper, I'll hold them dear
+No distance or time, no fear or fight
+Can dim the glow of our shared light
+
+[Pre-Chorus]
+[Duet]
+Till the morning comes again
+Till the skies are clear and plain
+
+[Chorus]
+Promise me you'll dream of home
+Of dancing fields and silver tones
+I'll sing for you through wind and flame
+Till the morning comes again
+
+[Bridge]
+[Emotional saxophone solo]
+
+[Chorus]
+[Full duet harmony]
+So kiss me soft and don't be blue
+The stars will shine and guide us through
+And when the world begins to mend
+I know, my love, we'll meet again
+
+[Outro]
+[Fading piano and bass]
+We'll meet again... till morning comes.
+```
+
+### 레퍼런스 5 (12:56 ~ 15:26)
+
+```
+1) Styles
+Mid-tempo 1950s rainy urban jazz swing. Alternating male and female vocals deliver warm, reflective lines over a strolling upright bass and brushed snare drum rhythm at 90 BPM in 4/4 time. Warm piano chords and a muted trumpet fill the spatial texture with a classic cinematic feel.
+
+2) Lyrics
+[Intro]
+[Muted trumpet and soft walking bass]
+
+[Verse 1]
+[Male vocal]
+The train is calling, it's time to go
+Your hand in mine, I won't let it show
+That tears might fall when you walk away
+But I'll be strong, come what may
+
+[Pre-Chorus]
+[Female vocal]
+Till the morning comes again
+Till the clouds drift past the rain
+
+[Chorus]
+[Duet]
+Keep my love inside your heart
+Though we're far, we're never apart
+I'll wait for you through night and day
+Till the morning comes again
+
+[Verse 2]
+[Female vocal]
+The letters we write will keep us near
+Each word a whisper, I'll hold them dear
+No distance or time, no fear or fight
+Can dim the glow of our shared light
+
+[Pre-Chorus]
+[Male vocal]
+Till the morning comes again
+Till the skies are clear and plain
+
+[Chorus]
+[Duet]
+Promise me you'll dream of home
+Of dancing fields and silver tones
+I'll sing for you through wind and flame
+Till the morning comes again
+
+[Outro]
+[Trumpet solo fade-out]
+So kiss me soft and don't be blue
+The stars will shine and guide us through
+And when the world begins to mend
+I know, my love, we'll meet again
+```
+
+### 레퍼런스 6 (15:26 ~ 18:23)
+
+```
+1) Styles
+Melancholic, intimate lo-fi jazz ballad. Smooth male and female vocals blend seamlessly with breathy, nostalgic delivery. Brushed drums, soft upright bass, and gentle electric piano chords play softly at 70 BPM in 4/4 time in D minor. The mix is warm, close, and gently ambient with rain sounds.
+
+2) Lyrics
+[Intro]
+[Rain on glass, gentle piano intro]
+
+[Verse 1]
+[Female vocal]
+I waited two heartbeats longer
+Than anyone else would
+Your shadow kept walking
+And I stayed where I stood
+
+[Verse 2]
+[Female vocal]
+The world made no sound
+But my name almost broke through
+You didn't turn
+So I never moved
+
+[Pre-Chorus]
+[Male spoken line]
+If you had turned around...
+If you had turned around, would it all feel different now?
+
+[Chorus]
+[Duet]
+I was right there by the light on the stairs
+I was right there with the words in the air
+I was right there, not lost, just seen
+I was right there in the space in between
+
+[Bridge]
+[Male vocal]
+Maybe you heard me breathe
+Or maybe not at all
+Maybe the wind was louder than the call
+Maybe I smiled too late, or hoped too soon
+Or maybe we just weren't built to bloom
+
+[Chorus]
+[Duet]
+I was right there before goodbye had a name
+I was right there with no one to blame
+I was right there in the second you passed
+I was right there, but you never asked
+
+[Outro]
+[Soft piano roll]
+If you had turned...
+If you had turned around...
+```
+
+### 레퍼런스 7 (18:23 ~ 21:12)
+
+```
+1) Styles
+Upbeat French-style vintage acoustic swing. Bright female lead vocals with a playful French chanson charm. Swung accordion, upbeat acoustic guitar strums, and walking bassline at 104 BPM in 4/4 time in C major create a cheerful, sunny mood with vintage vinyl warmth.
+
+2) Lyrics
+[Intro]
+[Upbeat accordion intro]
+
+[Verse 1]
+L'odeur du pain tout juste doré
+Le café danse dans ma tasse rayée
+Mon chat Kimori dort sur le sofa
+Le soleil caresse les rideaux en soie
+
+[Pre-Chorus]
+Chez moi, c'est le bonheur discret
+Des choses simples qu'on oublie souvent
+
+[Chorus]
+Le linge sèche sur le vieux balcon
+Et l'air sent bon, si bon
+Une chanson douce à la radio
+Les miettes d'amour sur le vieux carreau
+Je fredonne sans vraiment penser
+À rien d'autre que l'instant passé
+
+[Verse 2]
+[Accordion fills]
+Chez moi, c'est le bonheur discret
+Des choses simples qu'on oublie souvent
+Le linge sèche sur le vieux balcon
+Et l'air sent bon, si bon
+
+[Bridge]
+Et Kimori ronronne doucement
+Pendant que la vie passe lentement
+
+[Chorus]
+Le linge sèche sur le vieux balcon
+Et l'air sent bon, si bon
+Une chanson douce à la radio
+Les miettes d'amour sur le vieux carreau
+Je fredonne sans vraiment penser
+À rien d'autre que l'instant passé
+
+[Outro]
+[Accordion chord resolution]
+C'est la douce vie chez moi...
+```
+
+### 레퍼런스 8 (21:12 ~ 24:10)
+
+```
+1) Styles
+Classic romantic French jazz chanson. Mellow female vocal singing softly in French over elegant piano, gentle acoustic bass, and brushed hi-hats at 78 BPM in 3/4 time (waltz felt as 4/4 swing). Rich nostalgic strings and warm woodwind touches give a cinematic French film score feel.
+
+2) Lyrics
+[Intro]
+[Gently swaying piano and bass]
+
+[Verse 1]
+Le train siffle dans le matin
+Tes yeux se perdent dans les miens
+Je souris mais mon cœur pleure
+Ce n'est qu'un au revoir, mon cœur
+
+[Pre-Chorus]
+Un jour je te retrouverai
+Quand les vents se seront calmés
+
+[Chorus]
+Garde-moi dans ta mémoire
+Sous les étoiles, dans l'espoir
+Même loin, je pense à toi
+Un jour je reviendrai vers toi
+
+[Verse 2]
+Les lettres, je les garderai
+Comme des promesses murmurées
+La guerre emporte les saisons
+Mais l'amour chante sans raison
+
+[Pre-Chorus]
+Un jour je te retrouverai
+Quand les larmes auront séché
+
+[Chorus]
+Serre mon nom dans ton sommeil
+Et souviens-toi de nos merveilles
+Je t'attendrai nuit et jour
+Jusqu'au retour de notre amour
+
+[Bridge]
+[Melancholic saxophone solo]
+
+[Final Chorus]
+Alors embrasse-moi doucement
+Et croyons en nous, infiniment
+Même si le monde s'éteint
+Je sais qu'on se reverra enfin
+
+[Outro]
+[Soft fading piano notes]
+Au revoir, mon amour... à bientôt.
+```
+
+### 레퍼런스 9 (24:10 ~ 27:20)
+
+```
+1) Styles
+Classic Hollywood-style slow jazz ballad. Gentle female vocals deliver romantic, poetic lyrics. Lush string arrangement, soft piano arpeggios, and brushed snare drums create a dreamy, cinematic ambiance at 66 BPM in 4/4 time in C major. Soft tape-saturated vintage mix texture.
+
+2) Lyrics
+[Intro]
+[Lush string pad and piano]
+
+[Verse 1]
+Curtains rise, the lights grow dim
+Your hand found mine on a playful whim
+We sipped on cola, sweet and slow
+While Marilyn smiled in soft shadow glow
+
+[Pre-Chorus]
+Black and white dreams on a silver screen
+You whispered lines like we were a scene
+
+[Chorus]
+The world was quiet, just us and the sound
+Of violins playing as the light spun round
+Rose velvet seats, a secret hide
+Shoes off, quietly, hearts skipped a beat
+
+[Verse 2]
+The newsreel faded, the lovers kissed
+In stories made for afternoons like this
+Black and white dreams on a silver screen
+You whispered lines like we were a scene
+
+[Chorus]
+The world was quiet, just us and the sound
+Of violins playing as the light spun round
+Rose velvet seats, a secret hide
+Shoes off, quietly, hearts skipped a beat
+
+[Bridge]
+[Orchestral string sweep]
+Maybe the reel ends, the credits roll
+But I still replay your eyes, your soul
+That matinee glow, that summer sun
+Still flickers inside when day is done
+
+[Final Chorus]
+When I close my eyes, we'll always meet
+In that theater haze where time stood still
+For two old souls, where lovers meet
+Under the silver screen's sweet thrill
+
+[Outro]
+[Fading piano arpeggio]
+Black and white dreams... forever ours.
+```
+
+### 레퍼런스 10 (27:20 ~ 29:48)
+
+```
+1) Styles
+Retro French-tinted swing jazz. Clear female vocal sang softly in French with light accordion and acoustic guitar accompaniment. Walking bassline and light brush snare set a walking pace at 95 BPM in 4/4 time in A-flat major. Elegant and charming vintage mix texture.
+
+2) Lyrics
+[Intro]
+[Charming accordion and guitar rhythm]
+
+[Verse 1]
+Je descends l'avenue, parfum dans l'air
+Les vitrines brillent comme un doux mystère
+Un chapeau crème, des gants ivoire
+Je cherche mon reflet dans le miroir
+
+[Chorus]
+Une robe, un rêve, un regard volé
+Sous les lampes dorées du grand marché
+Je ne cours pas, je flâne, je vis
+La mode me chuchote qui je suis
+
+[Verse 2]
+Les pages du Vogue dans mon sac plié
+M'inspirent les coupes que je vais essayer
+Un sourire discret, un pas léger
+Chaque essayage est une idée à aimer
+
+[Chorus]
+Une robe, un rêve, un instant volé
+Sous les tissus fins, je me sens danser
+La soie me frôle, le temps s'enfuit
+Mais ce moment-là reste pour la vie
+
+[Bridge]
+[Violin and accordion breakdown]
+Un escalator vers le deuxième étage
+Où tout scintille, où tout est mirage
+Je n'achète pas tout, mais je m'imagine
+Dame d'un film dans une scène divine
+
+[Final Chorus]
+Une robe, un rêve, un cœur léger
+Dans ce grand magasin enchanté
+Je rentre chez moi sous un ciel gris
+Mais dans mes bras, Paris me sourit
+
+[Outro]
+[Gentle accordion fading]
+Paris me sourit...
+```
+
+### 레퍼런스 11 (29:48 ~ 31:59)
+
+```
+1) Styles
+Intimate French vintage vocal jazz. Smooth male lead vocal sings a poetic chanson over gentle nylon-string guitar and soft accordion touches. Slow 3/4 waltz tempo at 82 BPM. Understated bass note accents and warm vinyl hiss create a nostalgic, painterly mood.
+
+2) Lyrics
+[Intro]
+[Nylon guitar and accordion snippet]
+
+[Verse 1]
+Je descends la rue Mouffetard
+Toile sous le bras, cœur un peu bavard
+Le parfum des pivoines s'échappe dans l'air
+Et la lumière danse sur les visages clairs
+
+[Pre-Chorus]
+Je choisis mes fleurs comme des mots à écrire
+Un peu de rose, un soupçon de saphir
+
+[Chorus]
+Chaque pétale murmure une idée
+Sur ma toile blanche, tout va commencer
+La marchande sourit, les mains me pleines de saisons
+Ses bouquets parlent mieux que mille chansons
+
+[Verse 2]
+Je peins les silences entre deux regards
+Dans les marguerites, je cherche un hasard
+Je cueille les couleurs comme on cueille l'amour
+Des nuances fragiles, des promesses d'un jour
+
+[Bridge]
+[Accordion solo with soft guitar rhythm]
+Le pinceau caresse ce que l'œil n'ose dire
+Et l'ombre d'un lys devient souvenir
+Sous les balcons de pierre, les géraniums dansent
+Et mon esprit vagabonde en cadence
+
+[Final Chorus]
+Paris s'éveille dans un éclat de ciel gris
+Et moi, je peins ce que personne n'a dit
+Je ramène chez moi un bouquet de matin
+Des fleurs simples, un éclat de destin
+
+[Outro]
+[Guitar strum resolution]
+Sur ma toile, je fige ce que je ressens
+Le silence fleuri d'un instant vivant
+```
+
+### 레퍼런스 12 (31:59 ~ 34:06)
+
+```
+1) Styles
+Slow, reflective French museum-themed jazz chanson. Soft female lead vocals with a delicate, thoughtful tone. Gentle piano chords, muted trumpet, and a slow walking bass line at 76 BPM in 4/4 time. Warm acoustic ambiance with subtle tape flutter.
+
+2) Lyrics
+[Intro]
+[Soft piano and brush drums]
+
+[Verse 1]
+Un dimanche gris à Paris
+J'entre au musée, l'esprit ralenti
+Les pas feutrés sur le vieux parquet
+Et mes pensées qui voguent sans arrêt
+
+[Chorus]
+Je regarde Degas danser ses ballerines
+Mon cœur s'incline devant leur grâce fine
+Chez Monet, l'eau frémit comme une chanson
+Et soudain j'oublie toutes mes raisons
+
+[Verse 2]
+Une lumière douce sur un Van Gogh tourmenté
+Ses tournesols me parlent d'un été manqué
+Devant un portrait de Modigliani
+Je cherche un regard qui comprend la vie
+
+[Chorus]
+Je regarde Degas danser ses ballerines
+Mon cœur s'incline devant leur grâce fine
+Chez Monet, l'eau frémit comme une chanson
+Et soudain j'oublie toutes mes raisons
+
+[Bridge]
+[Muted trumpet solo]
+Dans la salle douze, un murmure discret
+Un couple admire Manet en secret
+Je souris seule, un peu rêveuse
+Chaque tableau m'offre une pause précieuse
+
+[Final Chorus]
+Je regarde le monde dans un cadre doré
+Et mes pensées se laissent emporter
+Dans ce silence fait de pigments et de temps
+Je me retrouve entre les instants
+
+[Outro]
+[Piano tail fade-out]
+Entre les instants...
+```
+
+### 레퍼런스 13 (34:06 ~ 36:19)
+
+```
+1) Styles
+1950s diner-themed swing jazz song. Playful female vocals with bright, confident tone. Upbeat brass accents, swinging drum beat with crisp ride cymbal, and walking bassline at 108 BPM in 4/4 time in F major. Bright, cheerful tone with classic vintage warmth.
+
+2) Lyrics
+[Intro]
+[Brass riff and walking bass intro]
+
+[Verse 1]
+Neon buzzing in the corner light
+Coffee's warm, but the world feels quiet
+Checker floor and cherry pie
+You walked in, and time slipped by
+
+[Chorus]
+Midnight diner, hearts rewinding
+Old jukebox softly crying
+Two hands close on a silver spoon
+Tell me, love, did we meet too soon?
+
+[Verse 2]
+Salt and sugar in the air
+Whispers float, but we just stare
+Napkin folded, name half said
+You smile slow and tilt your head
+
+[Chorus]
+Midnight diner, hearts rewinding
+Old jukebox softly crying
+Two hands close on a silver spoon
+Tell me, love, did we meet too soon?
+
+[Bridge]
+[Upbeat saxophone swing solo]
+Outside it's rain and radio tunes
+Inside we're dancing with the moon
+No one knows, just me and you
+Midnight feels like something new
+
+[Final Chorus]
+Leave your coat, stay a while
+This booth's been empty for too long
+The world can wait, let's waste a song
+In this midnight diner, just us alone
+
+[Outro]
+[Saxophone roll and drum flourish]
+Just us alone...
+```
+
+### 레퍼런스 14 (36:19 ~ 38:34)
+
+```
+1) Styles
+1950s jukebox retro pop-jazz swing. Energetic female lead vocal with bouncy phrasing. Upbeat swing drum beat, walking bass, swinging acoustic guitar chords, and playful horn section at 112 BPM in 4/4 time in C major. Bright, sunny vintage audio texture.
+
+2) Lyrics
+[Intro]
+[Upbeat horn fanfare and guitar swing]
+
+[Verse 1]
+Cherry Cola in my hand
+Roller skates upon my feet
+Quarter in the jukebox, tapping to the beat
+Slicked-back hair, leather jacket cool
+You lean on the counter, breaking all the rules
+
+[Chorus]
+Oh jukebox, playing loud and clear
+Dancing like nobody's here
+Spin me 'round in the neon light
+Cherry Cola kisses, Friday night!
+
+[Verse 2]
+Bubblegum laughs and a twist in our hips
+Sugar on the rim and sass on our lips
+Your hand on mine, we slide through the floor
+Every song's a memory, every dance means more
+
+[Chorus]
+Oh jukebox, playing loud and clear
+Dancing like nobody's here
+Spin me 'round in the neon light
+Cherry Cola kisses, Friday night!
+
+[Bridge]
+[Swing guitar and sax duet]
+We don't need no silver screens
+Just this groove and soda dreams
+Snap of fingers, heart in sync
+Red straws crossed in a midnight drink!
+
+[Final Chorus]
+Jukebox playing wild and free
+You and me in harmony
+Spin me 'round till the world's just right
+Cherry Cola jukebox night!
+
+[Outro]
+[Playful sax sting]
+Cherry Cola night!
+```
+
+### 레퍼런스 15 (38:34 ~ 41:10)
+
+```
+1) Styles
+Slow, bittersweet lounge jazz ballad. A mellow female vocal sings emotionally over a delicate piano and slow walking acoustic bass. Soft brush snare drum rhythm at 68 BPM in 4/4 time in F minor. Rich, longing mood with subtle vintage tape warmness.
+
+2) Lyrics
+[Intro]
+[Gentle melancholic piano arpeggio]
+
+[Verse 1]
+The chair still knows where you used to sit
+Coffee's cold where your fingers would fit
+Your laughter's gone, but the echo stays
+Like news that never quite fades
+
+[Chorus]
+Your shoes left marks on the hallway floor
+I wipe them off, but they come back more
+The quiet talks louder than it should
+I'd leave if forgetting felt good
+
+[Verse 2]
+You're not here, but you still live
+In the time the kettle takes to heat
+In the shape the bedsheets miss
+You're not mine, but you still give me silence
+
+[Chorus]
+Your shoes left marks on the hallway floor
+I wipe them off, but they come back more
+The quiet talks louder than it should
+I'd leave if forgetting felt good
+
+[Bridge]
+[Melancholic muted trumpet solo]
+I didn't ask to keep an address
+I don't know how to leave an address
+You're still on my street, just not on my side
+Just not on my side
+
+[Final Chorus]
+I walk past doors we never locked
+Mail comes in, but you're never talked
+Neighbors still ask if you've been well
+I nod, but I never tell
+
+[Outro]
+[Slow fading piano chords]
+Just not on my side...
+```
+
+### 레퍼런스 16 (41:10 ~ 45:21)
+
+```
+1) Styles
+Nostalgic, narrative-driven 1950s jazz song. A warm, expressive female vocal carries a storytelling tone. Gentle piano, walking upright bass, and brushed snare set a relaxed groove at 86 BPM in 4/4 time in G major. Lush string pad and soft horn countermelodies enhance the vintage radio feel.
+
+2) Lyrics
+[Intro]
+[Vintage radio tuning sound into soft piano]
+
+[Verse 1]
+It was just a voice between the news and the song
+Said your name once, didn't take long
+I froze with my teacup halfway in air
+And your name just echoed like it was still there
+
+[Pre-Chorus]
+No address, no face, just the name they read
+Like a ghost in the static, soft and unsaid
+
+[Chorus]
+They moved on fast to the weather and war
+But I was still standing where I heard you before
+They said your name on the radio
+No warning, no reason, no hello
+Just five small letters, once and gone
+But it rang in my chest like a midnight gong
+
+[Verse 2]
+They said your name and the room went cold
+Like time had stopped, or maybe just got old
+The announcer coughed, then cleared his throat
+And I stared down at my half-read note
+
+[Pre-Chorus]
+I thought of calling, I thought of Jean
+But I just sat there and let you begin again
+
+[Chorus]
+They said your name on the radio
+No warning, no reason, no hello
+Just five small letters, once and gone
+But it rang in my chest like a midnight gong
+
+[Bridge]
+[Saxophone solo with delicate brush snare]
+Did you hear it too, wherever you are?
+Did your heart jump slow behind your car?
+Or was it just a name that sounded the same?
+A stranger's grief in a stranger's frame?
+
+[Final Chorus]
+They said your name and the world stood still
+And I loved you again, against my will
+They said your name on the radio
+And suddenly you were everywhere I go
+
+[Outro]
+[Fading piano and bass groove]
+Everywhere I go... on the radio...
+```
+
+### 레퍼런스 17 (45:21 ~ 48:22)
+
+```
+1) Styles
+Mellow, reflective jazz song about lingering memories. Soft female vocal with an intimate, breathy delivery. Brushed drums, warm double bass notes, and delicate acoustic guitar arpeggios at 74 BPM in 4/4 time in D major. Soft vinyl crackle texture adds warmth.
+
+2) Lyrics
+[Intro]
+[Acoustic guitar arpeggio and soft bass]
+
+[Verse 1]
+The table at the corner café still seats two
+Though you're far away
+They changed the blinds, repainted the door
+But I still glance like before
+
+[Pre-Chorus]
+The bench where your stories began
+Now welcomes pigeons, not hands
+
+[Chorus]
+The tree we carved is taller now
+But your name still in the bark somehow
+I walk where we used to go
+The wind doesn't ask, it just knows
+
+[Verse 2]
+The books we shared stay on my shelf
+I read the margins you wrote yourself
+They whisper things I can't outgrow
+Like laughter caught in a radio
+
+[Pre-Chorus]
+The street lamp flickers soft and low
+The soup is warm, the crowd is loud
+
+[Chorus]
+But you're the silence in the sound
+The seasons change, the pace is slow
+Still I go where we used to go
+
+[Bridge]
+[Guitar and piano dialogue]
+
+[Final Chorus]
+Where we used to go, the scent of rain
+The café lights still echo you, each quiet night
+They say it's fall, but no leaves show
+Where we used to go...
+
+[Outro]
+[Soft fading guitar strum]
+Where we used to go.
+```
+
+### 레퍼런스 18 (48:22 ~ 51:01)
+
+```
+1) Styles
+1950s slow romantic crooner jazz ballad. Deep, velvety male vocals with smooth phrasing. Muted saxophone fills, warm piano chords, upright bass, and brushed drums at 70 BPM in 4/4 time in E-flat major. Intimate, atmospheric mix with analog tape saturation.
+
+2) Lyrics
+[Intro]
+[Muted sax intro and soft piano chord]
+
+[Verse 1]
+Say it just once, and I'll believe
+No need for flowers, a pure sleeve
+Just one word soft, like tea on the stove
+And I'll stay right here and call it love
+
+[Pre-Chorus]
+You don't have to make it rhyme
+Just say you missed me, one small time
+
+[Chorus]
+Don't promise spring or stars above
+Just stay the night and call it love
+Your silence says too much, it's true
+But I'd take silence if it's from you
+
+[Verse 2]
+I don't need more than what you give
+A breath, a glance, a reason to live
+So say it once, not twice or three
+Say you love me and let it be
+
+[Bridge]
+[Muted saxophone solo]
+
+[Final Chorus]
+Your silence says too much, it's true
+But I'd take silence if it's from you
+Don't promise spring or stars above
+Just stay the night and call it love
+
+[Outro]
+[Fading piano and bass notes]
+Call it love... just call it love.
+```
+
+### 레퍼런스 19 (51:01 ~ 53:38)
+
+```
+1) Styles
+Upbeat 1940s-style swing jazz dance tune. Deep crooner male vocal with rhythmic cadence and big band brass accents. Swinging drum rhythm with driving bass at 116 BPM in 4/4 time in B-flat major. High-energy, joyful vintage ballroom vibe.
+
+2) Lyrics
+[Intro]
+[Big band horn section and drum intro]
+
+[Verse 1]
+Put on your dress, let's shine the floor
+Heels click-clack as we head to the door
+The gramophone's humming that old-time sound
+The party's jumping, so gather 'round!
+
+[Chorus]
+Swing, swing, swing tonight!
+Hold me close, the mood is right
+Spin, spin, spin me tight
+All through the jazz-lit night!
+
+[Verse 2]
+Cigarette smoke in the chandelier light
+Champagne popping and laughter so bright
+Tuxedo sharp and rouge on her smile
+Let's dance like we'll stay here a while!
+
+[Chorus]
+Swing, swing, swing tonight!
+Clap your hands and feel the light
+Spin, spin, spin just right
+Under the stars so bright!
+
+[Bridge]
+[Brass solo and drum fill]
+Oh, the band plays on and on
+Feet can't help but move along
+Tap that beat, don't miss a thing
+Let the night do all the swinging!
+
+[Final Chorus]
+Swing, swing, swing tonight!
+Moonlight, jazz, and candlelight
+Swing, swing, hold on tight
+It's a nineteen-forties delight!
+
+[Outro]
+[Grand brass finale accent]
+Swing tonight!
+```
+
+### 레퍼런스 20 (53:38 ~ 56:43)
+
+```
+1) Styles
+Slow, gentle acoustic lullaby jazz. Soft female lead vocals with a serene, comforting tone. Gentle nylon-string guitar picking, light upright bass, and quiet brush drum taps at 65 BPM in 4/4 time in C major. Peaceful, dreamy atmosphere with vintage warmth.
+
+2) Lyrics
+[Intro]
+[Soft acoustic guitar picking]
+
+[Verse 1]
+Lazy breeze on cobblestone
+Barefoot steps I walk alone
+Shadows stretch beneath the dome
+Finding peace, I call it home
+
+[Chorus]
+Take a nap and roam with me
+Where the sky is slow and free
+Close your eyes and let it be
+Take a nap and roam with me
+
+[Verse 2]
+Linen dress and lemon light
+Coffee dreams in midday white
+Whispers float like poetry
+Time forgets to bother me
+
+[Chorus]
+Take a nap and roam with me
+Like the bells that ring and flee
+Pigeons dance on balconies
+Take a nap and roam with me
+
+[Bridge]
+[Melodic guitar and flute solo]
+No agenda, no more rush
+Just the hush of olive hush
+Past and present blend so sweet
+In the heat of quiet street
+
+[Final Chorus]
+Take a nap and roam with me
+Feel the breeze, feel the ease
+World can wait, let it be
+Take a nap and roam with me
+
+[Outro]
+[Soft fading acoustic guitar chords]
+Roam with me...
+```
+
+<!-- CURATED_REFS_END -->
+

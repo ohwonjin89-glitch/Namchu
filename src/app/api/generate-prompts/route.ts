@@ -54,6 +54,11 @@ const GENRE_META: Record<
     negTags:
       "vocals, singing, lyrics, humming, ooh-ooh, la-la, mm-mm, whoa-oh, rap, spoken word, EDM drop, trap, heavy metal, kpop, electronic",
   },
+  "Old Jazz": {
+    keywords: "빈티지, 올드재즈, 스윙, 축음기 감성, 클래식 재즈보컬, 1950년대 무드",
+    negTags:
+      "kpop, bgm, humming, long intro, EDM drop, ooh-ooh, la-la, mm-mm, whoa-oh, trap, synth, electronic, heavy bass drop, modern pop production",
+  },
 };
 
 const SECTION_MAP: Record<string, string> = {
@@ -65,6 +70,7 @@ const SECTION_MAP: Record<string, string> = {
   "Chillwave & Synth Pop": "## 4-6.",
   "Jazz-hop & Bossa Nova Chill": "## 4-7.",
   "Jazz Instrumental": "## 4-8.",
+  "Old Jazz": "## 4-9.",
 };
 
 let _mdCache: string | null = null;
