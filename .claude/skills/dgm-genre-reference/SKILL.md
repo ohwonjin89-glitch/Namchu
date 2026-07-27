@@ -21,7 +21,7 @@ music-generator.md(무드→장르), image-generator.md(장르→레퍼런스 �
 | Chillwave & Synth Pop | 몽환적, 80년대 감성, 드라이브, 신스팝, 하이레조 | 도시야경 | 드라이브 | 도시야경 / 드라이브 |
 | Jazz-hop & Bossa Nova Chill | 카페, 여유로운 오후, 대화, 재즈, 보사노바, 소박한 행복 | 카페 | 감성R&B | 카페 / 하이틴 |
 | Jazz Instrumental (로파이재즈) | 순수 연주, 가사 없음, 재즈 피아노 트리오, 쿨재즈, 보사노바 | — (instrumental, 이미지는 위 장르 준하는 무드로 별도 판단) | — | — |
-| Old Jazz (올드재즈) | 빈티지, 올드재즈, 스윙, 축음기 감성, 클래식 재즈보컬, 1950년대 무드 | 없음 (sref 없음, 텍스트 프롬프트 전용) | — | 올드재즈 |
+| Old Jazz (올드재즈) | 빈티지, 올드재즈, 스윙, 축음기 감성, 클래식 재즈보컬, 1940~1950년대 무드 | 없음 (sref 없음, 텍스트 프롬프트 전용) | — | 올드재즈 |
 
 > `Jazz Instrumental`(사용자 호칭: 로파이재즈)은 `instrumental: true` 필수, `negative_tags`에 `"vocals, singing, lyrics, humming"` 추가. `gemini_analyzer.py`의 `EXISTING_GENRES`/`INSTRUMENTAL_GENRES`에 등록되어 있고, `music-generator-genre-samples.md` 4-8 섹션에 Gemini로 분석한 user_curated 레퍼런스가 있다. `qa-inspector.md`가 이 장르에 한해 "가사/보컬 감지 시 오류곡" 반대 판정을 적용해, 최종 셋에 보컬 트랙이 섞이지 않도록 게이트한다.
 
@@ -32,6 +32,12 @@ music-generator.md(무드→장르), image-generator.md(장르→레퍼런스 �
 - **감성R&B 폴더 → scene 섹션은 "하이틴"을 사용한다** (하이틴 섹션이 emotional R&B 무드를 다룸, 폴더명과 섹션명이 일치하지 않는 유일한 예외).
 - **City Pop은 폴더(도시배경/도시야경)와 무관하게 scene-prompts 섹션은 항상 "시티팝"을 사용한다.** 시티팝 섹션은 sref 없이 텍스트 프롬프트만으로 생성하므로 레퍼런스 이미지 선택·base64 인코딩·사본 저장 단계를 전부 생략하고 바로 프롬프트 생성 단계로 진행한다. (야간 테마면 도시야경 폴더, 해안/여름 테마면 도시배경 폴더 쪽 방향성을 참고만 하되 실제 이미지는 실사 레퍼런스를 사용하지 않는다 — 80년대 일러스트 포스터 스타일 전용.)
 - **Old Jazz도 City Pop과 동일하게 sref 없이 텍스트 프롬프트만 사용한다** — 레퍼런스 이미지 선택·base64 인코딩·사본 저장 단계를 생략하고 바로 프롬프트 생성 단계로 진행. 방향성은 빈티지 축음기/바이닐, 세피아·앰버 톤, 1950년대 재즈클럽 분위기(실사보다는 따뜻한 일러스트/필름 그레인 질감 권장).
+- **Old Jazz는 매 트랙마다 Styles(음악 스타일 프롬프트)에 LP 레코드/바이닐 질감이 반드시 드러나야 한다** (2026-07-26, 사용자 피드백 — 발랄한 톤/촌스러운 아웃트로 문구 등 무드 이탈 오류가 반복 발견됨). `music-generator-genre-samples.md` 4-9 레퍼런스는 20곡 중 일부만 "vinyl crackle"/"vintage vinyl warmth" 표현을 명시하므로, 레퍼런스 원문 그대로 재사용하는 기본 모드에서 선택된 레퍼런스에 vinyl/LP record 관련 질감 표현이 없으면 music-generator가 Styles 끝에 짧은 질감 문구(예: "with a warm vinyl crackle and gentle surface noise texture")를 자연스럽게 덧붙인다. [[suno-style-synthesis]] 합성 모드에서도 `GENRE_META["Old Jazz"].keywords`에 "LP 레코드/바이닐 크랙클 질감"이 포함되어 있어 AI가 매번 반영한다.
+- **Old Jazz는 발랄하고 경쾌한 톤을 지양하고 묵직하고 진중한(heavy, somber) 톤을 기본으로 한다** (2026-07-26, 사용자 피드백 — 프로젝트 2026072601의 10/25번곡이 "너무 발랄한 분위기"라 주제/톤 불일치로 삭제됨). 긍정 예시: 같은 프로젝트의 "Last Call Blues"(느린 템포, walking upright bass, muted trumpet, 회고적 무드)가 적합도가 매우 높은 것으로 확인됨 — 레퍼런스 선택 시 이런 느리고 무게감 있는 톤을 우선하고, upbeat/cheerful/bouncy 뉘앙스가 강한 레퍼런스는 anchor로 쓰지 않는다. `GENRE_META["Old Jazz"].negTags`에도 "upbeat cheerful bouncy energy, bright pop energy"가 추가되어 있다.
+- **Old Jazz 로파이/축음기 질감은 "은은하게"가 아니라 "또렷하게 들릴 정도"로 강하게 넣는다** (2026-07-27, 사용자 피드백 — 묵직한 톤 테스트 3곡 청취 후 "로파이 느낌이 강하게 나오도록"으로 상향 요청). Styles 문장에 vinyl crackle/surface noise를 언급만 하는 수준이 아니라, 곡 전체에 걸쳐 지속적으로 들리는 축음기 서피스 노이즈 레이어로 명시한다 (예: "a continuous, clearly audible vinyl surface noise and gramophone crackle layered under the entire mix, like an old 78rpm record"). `GENRE_META["Old Jazz"].keywords`/`negTags`도 이에 맞춰 상향(2026-07-27) — `negTags`에 "clean pristine studio mix, digital clarity" 추가로 지나치게 깨끗한 믹스를 배제한다.
+- **Old Jazz 보컬 캐스팅: 프로젝트(15회 호출/30곡) 기준 50%는 기존 "묵직한 톤"(굵고 걸걸한 저음 남성 보컬, Louis Armstrong 스타일 참조하되 이름 언급 금지)을 유지하고, 나머지 50%는 남녀 보컬을 랜덤하게 섞는다** (2026-07-27, 사용자 피드백). 이는 [[suno-prompt-authoring]] §7의 장르 전반 50:50 성비 원칙과 별개로, Old Jazz 한정으로 "무거운 앵커 보컬 50% + 나머지 50% 내에서 랜덤 성별" 2단 구조를 적용하라는 지시다 — 즉 전체로 보면 남성 비중이 50%보다 높아질 수 있고, 이는 Old Jazz에 한해 의도된 것이다.
+- **"Whiskey-Worn Voice" 테스트 트랙의 스타일/프롬프트 접근은 이후 생성에서 제외한다** (2026-07-27, 사용자 피드백 — "whiskey_worn_voice는 별로야 이 프롬프트는 제외해줘"). 해당 트랙은 `C:\temp_dgm_upload\old_jazz_heavy_test\whiskey_worn_voice_*.mp3`로, 술에 전 목소리(whiskey-worn) 컨셉의 걸걸한 보컬 묘사 방식이었다 — 같은 문구/컨셉을 negative 예시로 취급하고 재사용하지 않는다. "Gravel and Gaslight"/"Smoke Ring Serenade" 방향은 유지.
+- **Old Jazz 시대 배경은 1950년대 단독이 아니라 1940~1950년대로 확장한다** (2026-07-27, 사용자 피드백). Styles/컨셉 문구에서 "1950s"만 쓰지 말고 "1940s-1950s"로 표기.
 
 ## 채널 선호 장르 우선순위 (strategist 전용)
 

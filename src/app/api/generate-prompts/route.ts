@@ -55,9 +55,9 @@ const GENRE_META: Record<
       "vocals, singing, lyrics, humming, ooh-ooh, la-la, mm-mm, whoa-oh, rap, spoken word, EDM drop, trap, heavy metal, kpop, electronic",
   },
   "Old Jazz": {
-    keywords: "빈티지, 올드재즈, 스윙, 축음기 감성, 클래식 재즈보컬, 1950년대 무드",
+    keywords: "빈티지, 올드재즈, 스윙, 축음기 감성, 클래식 재즈보컬, 1940~1950년대 무드, 강한 LP 레코드/바이닐 크랙클과 축음기 서피스 노이즈 질감(또렷하게 들릴 정도), 묵직하고 진중한 톤(발랄함 지양)",
     negTags:
-      "kpop, bgm, humming, long intro, EDM drop, ooh-ooh, la-la, mm-mm, whoa-oh, trap, synth, electronic, heavy bass drop, modern pop production",
+      "kpop, bgm, humming, long intro, EDM drop, ooh-ooh, la-la, mm-mm, whoa-oh, trap, synth, electronic, heavy bass drop, modern pop production, upbeat cheerful bouncy energy, bright pop energy, clean pristine studio mix, digital clarity",
   },
 };
 
