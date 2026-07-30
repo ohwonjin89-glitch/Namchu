@@ -186,17 +186,30 @@ export async function POST(req: NextRequest) {
     }
 
     // ── 곡별 사전 배정 ────────────────────────────────────────
-    // 처음 refs.length개: 전체 레퍼런스를 1:1로 중복 없이 랜덤 배정 (shuffled)
-    // 초과분(요청수 > 레퍼런스수): 레퍼런스 중 랜덤 재사용
-    const shuffled = [...refs].sort(() => Math.random() - 0.5);
+    // 레퍼런스 풀을 "라운드" 단위로 소진한다: 매 라운드마다 전체 레퍼런스를 새로
+    // 셔플해서 1:1로 중복 없이 배정하고, count가 refs.length를 초과하면 다음
+    // 라운드로 넘어가 다시 전체를 셔플한다. (예: refs=10, count=15 → 1라운드는
+    // 10개 전부 1회씩, 2라운드는 그중 5개를 다시 랜덤 순서로 사용)
+    // 이전 방식(초과분을 매번 독립적으로 완전 무작위 추첨)은 같은 레퍼런스가
+    // 초과분끼리도 중복될 수 있었고, 무엇보다 재사용된 곡의 Styles 텍스트를
+    // 전혀 변형하지 않아 "보컬 성별 단어만 다르고 나머지는 완전히 동일한 곡"이
+    // 한 프로젝트 안에 여러 쌍 생기는 사고로 이어졌다(2026-07-30, 프로젝트
+    // 2026072901 — 15곡 중 10곡이 5쌍으로 Styles 완전 중복, 인트로/아웃로/
+    // 리듬이 사실상 같은 곡이 되어 영상 전체 폐기). 아래 forceVary 플래그로
+    // 재사용 곡은 반드시 Styles를 새로 변주하도록 강제해 재발을 막는다.
+    const refSequence: typeof refs = [];
+    for (let round = 0; round * refs.length < count; round++) {
+      refSequence.push(...[...refs].sort(() => Math.random() - 0.5));
+    }
     const assignments = Array.from({ length: count }, (_, i) => {
-      const ref = i < refs.length
-        ? shuffled[i]
-        : refs[Math.floor(Math.random() * refs.length)];
+      const ref = refSequence[i];
       return {
         idx: i + 1,
         refNum: ref.refNum,
         refStyles: ref.styles,
+        // 이 프로젝트 배치 안에서 레퍼런스 풀을 이미 한 바퀴 이상 소진하고
+        // 재사용되는 곡 — Styles를 그대로 베끼지 않고 새로 변주해야 한다.
+        forceVary: i >= refs.length,
         vocalGender: i % 2 === 0 ? "female" : "male",
         vocal: i % 2 === 0 ? "여성" : "남성",
         styleGroup: i % 3 === 0 ? "anchor" : "variation",
@@ -204,6 +217,7 @@ export async function POST(req: NextRequest) {
         styleInfluence: 65 + Math.floor(Math.random() * 16),
       };
     });
+    const anyForceVary = assignments.some((a) => a.forceVary);
 
     const trendContext =
       trendVideos.length > 0
@@ -237,18 +251,36 @@ The "style" field MUST be full prose (a paragraph of complete sentences), never 
 any negative/exclusionary phrasing (that belongs only in negative_tags, which is fixed separately).`
       : "";
 
+    // count가 레퍼런스 수를 초과해 일부 곡이 같은 레퍼런스를 재사용할 때(forceVary),
+    // styleMode가 "reference"라도 그 곡들만은 Styles를 새로 변주해서 쓰게 강제한다.
+    // 그대로 두면 같은 프로젝트 안에 Styles가 통째로(보컬 성별만 다르고) 겹치는 곡이
+    // 생긴다(2026-07-30 사고, 위 refSequence 주석 참고).
+    const forceVaryInstructions =
+      !isSynthesize && anyForceVary
+        ? `
+
+REUSED-REFERENCE SONGS (marked "NEEDS NEW STYLE" below): this batch requested more songs than this genre has unique
+reference styles, so a few songs were assigned a reference already used by an earlier song in this same batch. For
+those songs ONLY, also write a NEW "style" field: study the given reference's instrumentation, BPM, and mood, then
+write a fresh prose description that keeps the same genre feel but varies at least the instrument pairing, BPM
+(±5-10 within the genre's plausible range), and mix texture — so it does not sound identical to the reference or to
+the other song(s) reusing it. Do NOT copy the reference sentence verbatim. Stay strictly within this genre's
+instrumentation/mood family. For every other song (not marked "NEEDS NEW STYLE"), use the given reference Style/tags
+exactly as-is and do NOT write a "style" field for it.`
+        : "";
+
     const systemPrompt = instrumental
       ? `You are a DGM YouTube playlist music director. Your job is to write SUNO SECTION STRUCTURE for instrumental tracks targeting ~3 minutes.
-${isSynthesize ? "You also synthesize a fresh Style description per song (see STYLE SYNTHESIS MODE below)." : "The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them."}
+${isSynthesize ? "You also synthesize a fresh Style description per song (see STYLE SYNTHESIS MODE below)." : anyForceVary ? "The musical Style/tags are FIXED from reference tracks for most songs — but see REUSED-REFERENCE SONGS below for the exceptions." : "The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them."}
 
 INSTRUMENTAL STRUCTURE RULES:
 - Use exactly 7 Suno section tags in this order: [Intro] [Section A] [Section B] [Section C] [Bridge] [Section D] [Outro]
 - Under EACH section tag, write [INSTRUMENTAL] on the next line, then a 1-sentence atmosphere note (10–15 words max)
 - Each section must have a distinct emotional/atmospheric character — no repetition across sections
 - NO lyrics, NO vocal directions, NO singing whatsoever — pure instrumental guidance only
-- Write in English only${styleSynthesisInstructions}`
+- Write in English only${styleSynthesisInstructions}${forceVaryInstructions}`
       : `You are a DGM YouTube playlist lyricist. Your only job is to write ENGLISH LYRICS for each song.
-${isSynthesize ? "You also synthesize a fresh Style description per song (see STYLE SYNTHESIS MODE below)." : "The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them."}
+${isSynthesize ? "You also synthesize a fresh Style description per song (see STYLE SYNTHESIS MODE below)." : anyForceVary ? "The musical Style/tags are FIXED from reference tracks for most songs — but see REUSED-REFERENCE SONGS below for the exceptions." : "The musical Style/tags are ALREADY FIXED from reference tracks — do NOT write or modify them."}
 
 LYRICS RULES (DGM standard):
 - English lyrics only, approximately 3 minutes total per song
@@ -257,19 +289,19 @@ LYRICS RULES (DGM standard):
 - ZERO tolerance: humming, ooh-ooh, la-la, mm-mm, whoa-oh, meaningless vocal ad-libs
 - Do NOT directly mention the project topic word — express it through scene imagery only
 - Each song MUST have a completely different scene, moment, and emotional situation
-- No direct imitation of any existing artist or song${styleSynthesisInstructions}`;
+- No direct imitation of any existing artist or song${styleSynthesisInstructions}${forceVaryInstructions}`;
 
     const songList = assignments
-      .map(
-        (a) =>
-          `Song ${a.idx} (ref ${a.refNum}${instrumental ? ", INSTRUMENTAL" : `, vocal: ${a.vocalGender}`}, styleGroup: ${a.styleGroup}):
-${isSynthesize
+      .map((a) => {
+        const needsNewStyle = isSynthesize || a.forceVary;
+        return `Song ${a.idx} (ref ${a.refNum}${instrumental ? ", INSTRUMENTAL" : `, vocal: ${a.vocalGender}`}, styleGroup: ${a.styleGroup})${a.forceVary && !isSynthesize ? " [NEEDS NEW STYLE — reused reference]" : ""}:
+${needsNewStyle
     ? `Nearest reference style (inspiration only — do NOT copy, synthesize a NEW style per the rules above):\n"${a.refStyles}"`
     : `Style/tags context (DO NOT change, use as musical reference only):\n"${a.refStyles}"`}
 → ${instrumental
-    ? `Write 7-section Suno structure: [Intro]/[Section A]/[Section B]/[Section C]/[Bridge]/[Section D]/[Outro] — each with [INSTRUMENTAL] + 1-sentence note. Target ~3 minutes. No lyrics, no vocals.${isSynthesize ? " Also write a new \"style\" field." : ""}`
-    : `Write ONLY fresh English lyrics with the above atmosphere in mind.${isSynthesize ? " Also write a new \"style\" field." : ""}`}`
-      )
+    ? `Write 7-section Suno structure: [Intro]/[Section A]/[Section B]/[Section C]/[Bridge]/[Section D]/[Outro] — each with [INSTRUMENTAL] + 1-sentence note. Target ~3 minutes. No lyrics, no vocals.${needsNewStyle ? " Also write a new \"style\" field." : ""}`
+    : `Write ONLY fresh English lyrics with the above atmosphere in mind.${needsNewStyle ? " Also write a new \"style\" field." : ""}`}`;
+      })
       .join("\n\n");
 
     // synthesize 모드일 때 장르 전체 스타일 범위를 보여주는 참고 예시(최대 5개, 랜덤 샘플)
@@ -293,7 +325,7 @@ Return ONLY a valid JSON array (no markdown, no explanation):
   "idx": 1,
   "title": "English song title",
   "scene": "장면 설명 15자 이내 한국어",
-  ${isSynthesize ? `"style": "new synthesized Style prose (full sentences, no keyword list, no negative phrasing)",\n  ` : ""}"lyric": "${instrumental ? "7-section Suno structure: [Intro]\\n[INSTRUMENTAL] note\\n\\n[Section A]\\n[INSTRUMENTAL] note\\n...\\n[Outro]\\n[INSTRUMENTAL] note" : "full English lyrics with all section tags [Intro][Verse 1]..."}"
+  ${isSynthesize || anyForceVary ? `"style": "new synthesized Style prose — ONLY for songs marked NEEDS NEW STYLE (or all songs in STYLE SYNTHESIS MODE); omit this field entirely for other songs",\n  ` : ""}"lyric": "${instrumental ? "7-section Suno structure: [Intro]\\n[INSTRUMENTAL] note\\n\\n[Section A]\\n[INSTRUMENTAL] note\\n...\\n[Outro]\\n[INSTRUMENTAL] note" : "full English lyrics with all section tags [Intro][Verse 1]..."}"
 }]`;
 
     const stream = client.messages.stream({
@@ -332,11 +364,15 @@ Return ONLY a valid JSON array (no markdown, no explanation):
     // ── 레퍼런스 Styles + Claude Lyrics 합산 ─────────────────
     const prompts = claudeResults.map((c: any, i: number) => {
       const a = assignments[i] || assignments[assignments.length - 1];
+      // reference(기본값): 레퍼런스 Styles 원문 그대로 사용
+      // synthesize: AI가 매 곡 새로 합성한 Styles 사용
+      // forceVary(레퍼런스 재사용 곡): reference 모드라도 AI가 새로 변주한 Styles를 사용
+      //   — 그대로 두면 같은 프로젝트 안에 Styles가 통째로 겹치는 곡이 생긴다(2026-07-30 사고)
+      const useVariedStyle = (isSynthesize || a.forceVary) && c.style;
       return {
         title: c.title || `Track ${i + 1}`,
-        // reference(기본값): 레퍼런스 Styles 원문 그대로 / synthesize: AI가 합성한 새 Styles
-        style: isSynthesize && c.style ? c.style : a.refStyles,
-        styleMode: isSynthesize ? "synthesize" : "reference",
+        style: useVariedStyle ? c.style : a.refStyles,
+        styleMode: isSynthesize ? "synthesize" : a.forceVary ? "reference+varied" : "reference",
         lyric: c.lyric || "",        // Claude가 쓴 Lyrics → Suno prompt로 사용
         scene: c.scene || "",
         vocal: a.vocal,

@@ -53,7 +53,7 @@ music-generator.md(무드→장르), image-generator.md(장르→레퍼런스 �
 
 ## 레퍼런스 배정 원칙 (music-generator 전용)
 
-`generate-prompts` API(`/api/generate-prompts`, POST)를 호출하면 선택 장르의 레퍼런스를 **중복 없이 랜덤 배정**해서 반환한다 — 레퍼런스 수 이내라면 각 레퍼런스가 최대 1회만 사용되고, 레퍼런스 수를 초과하는 경우에만 랜덤 재사용된다. 에이전트가 직접 레퍼런스를 선택·배정하지 않고 반드시 이 API를 통해 받는다. (레퍼런스 풀 로테이션 세부 알고리즘은 [[suno-prompt-authoring]] 스킬 참고.)
+`generate-prompts` API(`/api/generate-prompts`, POST)를 호출하면 선택 장르의 레퍼런스를 **라운드 단위로 재셔플하며 배정**한다 — 레퍼런스 풀을 매 라운드 통째로 섞어서 소진하므로 같은 라운드 안에서는 절대 중복되지 않고, 요청 곡 수가 레퍼런스 수를 초과해 다음 라운드로 넘어갈 때만 이전 라운드에서 쓴 레퍼런스가 다시 배정된다. 이렇게 재사용되는 곡은 `styleMode: "reference"`(기본값)여도 Styles 문장을 레퍼런스 원문 그대로 쓰지 않고 AI가 강제로 새로 변주해서 쓴다 — 그대로 두면 같은 프로젝트 안에 Styles가 통째로 겹치는 곡이 생기기 때문이다(2026-07-30 사고: Groove Hip-hop & Chill Pop 레퍼런스 10개로 15곡을 요청해 5쌍이 완전히 동일한 Styles로 생성됨, [[project-2026072901-abrupt-ending-fix]] 참고). 에이전트가 직접 레퍼런스를 선택·배정하지 않고 반드시 이 API를 통해 받는다. (세부 알고리즘은 [[suno-prompt-authoring]] 스킬 참고.) 근본적으로는 장르별 레퍼런스 풀을 프로젝트당 필요 곡 수(15개) 이상으로 유지하는 것이 가장 확실한 예방책이다 — `python scripts/gemini_analyzer.py add-curated`로 추가.
 
 ## 테마별 imageKeywords (strategist 전용, `visualDirection`/`imageKeywords` 필드 작성 시 참고)
 
