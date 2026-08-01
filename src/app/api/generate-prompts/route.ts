@@ -157,9 +157,14 @@ export async function POST(req: NextRequest) {
       instrumental = false,
       // 대시보드에서 편집한 레퍼런스 스타일 오버라이드 (순서 보존)
       refStyles = [] as string[],
-      // "reference"(기본값) = 레퍼런스 Styles 원문 그대로 사용
-      // "synthesize" = 레퍼런스 여러 개를 학습해 AI가 매번 새 Styles를 합성 생성
-      styleMode = "reference" as "reference" | "synthesize",
+      // "synthesize"(기본값, 2026-08-01부터) = 레퍼런스를 학습 예시 삼아 AI가 매번 새 Styles를 합성 생성
+      // "reference" = 레퍼런스 Styles 원문을 거의 그대로 사용 (명시적으로 지정해야만 적용)
+      // 예전 기본값("reference")은 레퍼런스 문장을 그대로 복사해 쓰다 보니, 레퍼런스 풀보다
+      // 요청 곡 수가 많은 배치에서 여러 곡이 사실상 동일한 인트로/아웃로/리듬으로 들리는
+      // 사고로 이어졌다(2026-07-30, 프로젝트 2026072901). "레퍼런스를 참고해 AI가 창작"하는
+      // 쪽을 기본값으로 바꾸고, 레퍼런스 배정 자체는 여전히 라운드 단위로 골고루 순환시켜
+      // 등록된 레퍼런스가 모두 균등하게 창작의 씨앗으로 쓰이도록 한다.
+      styleMode = "synthesize" as "reference" | "synthesize",
     } = await req.json();
 
     const count = Math.min(Math.max(parseInt(String(songCount)), 1), 99);
@@ -364,10 +369,12 @@ Return ONLY a valid JSON array (no markdown, no explanation):
     // ── 레퍼런스 Styles + Claude Lyrics 합산 ─────────────────
     const prompts = claudeResults.map((c: any, i: number) => {
       const a = assignments[i] || assignments[assignments.length - 1];
-      // reference(기본값): 레퍼런스 Styles 원문 그대로 사용
-      // synthesize: AI가 매 곡 새로 합성한 Styles 사용
-      // forceVary(레퍼런스 재사용 곡): reference 모드라도 AI가 새로 변주한 Styles를 사용
-      //   — 그대로 두면 같은 프로젝트 안에 Styles가 통째로 겹치는 곡이 생긴다(2026-07-30 사고)
+      // synthesize(기본값, 2026-08-01~): AI가 매 곡 자신에게 배정된 레퍼런스(round-robin으로
+      //   전체 풀을 균등 순환)를 참고해 새로 합성한 Styles 사용 — 원문 복사 금지
+      // reference(명시적 요청 시): 레퍼런스 Styles 원문 그대로 사용
+      // forceVary(레퍼런스 재사용 곡, reference 모드에서만 발생): reference 모드라도 AI가
+      //   새로 변주한 Styles를 사용 — 그대로 두면 같은 프로젝트 안에 Styles가 통째로 겹치는
+      //   곡이 생긴다(2026-07-30 사고)
       const useVariedStyle = (isSynthesize || a.forceVary) && c.style;
       return {
         title: c.title || `Track ${i + 1}`,

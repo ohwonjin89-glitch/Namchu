@@ -53,7 +53,11 @@ music-generator.md(무드→장르), image-generator.md(장르→레퍼런스 �
 
 ## 레퍼런스 배정 원칙 (music-generator 전용)
 
-`generate-prompts` API(`/api/generate-prompts`, POST)를 호출하면 선택 장르의 레퍼런스를 **라운드 단위로 재셔플하며 배정**한다 — 레퍼런스 풀을 매 라운드 통째로 섞어서 소진하므로 같은 라운드 안에서는 절대 중복되지 않고, 요청 곡 수가 레퍼런스 수를 초과해 다음 라운드로 넘어갈 때만 이전 라운드에서 쓴 레퍼런스가 다시 배정된다. 이렇게 재사용되는 곡은 `styleMode: "reference"`(기본값)여도 Styles 문장을 레퍼런스 원문 그대로 쓰지 않고 AI가 강제로 새로 변주해서 쓴다 — 그대로 두면 같은 프로젝트 안에 Styles가 통째로 겹치는 곡이 생기기 때문이다(2026-07-30 사고: Groove Hip-hop & Chill Pop 레퍼런스 10개로 15곡을 요청해 5쌍이 완전히 동일한 Styles로 생성됨, [[project-2026072901-abrupt-ending-fix]] 참고). 에이전트가 직접 레퍼런스를 선택·배정하지 않고 반드시 이 API를 통해 받는다. (세부 알고리즘은 [[suno-prompt-authoring]] 스킬 참고.) 근본적으로는 장르별 레퍼런스 풀을 프로젝트당 필요 곡 수(15개) 이상으로 유지하는 것이 가장 확실한 예방책이다 — `python scripts/gemini_analyzer.py add-curated`로 추가.
+`generate-prompts` API(`/api/generate-prompts`, POST)를 호출하면 선택 장르의 레퍼런스를 **라운드 단위로 재셔플하며 배정**한다 — 레퍼런스 풀을 매 라운드 통째로 섞어서 소진하므로 같은 라운드 안에서는 절대 중복되지 않고 등록된 레퍼런스가 모두 골고루 쓰인다. 요청 곡 수가 레퍼런스 수를 초과해 다음 라운드로 넘어갈 때만 이전 라운드에서 쓴 레퍼런스가 다시 배정된다.
+
+**기본값(2026-08-01~)은 `styleMode: "synthesize"`** — 곡마다 배정된 레퍼런스를 "학습 예시"로 삼아 AI가 Styles 문장을 매번 새로 창작하며, 원문을 그대로 베끼지 않는다([[suno-style-synthesis]] 스킬 참고). 레퍼런스 원문을 그대로 쓰려면(`styleMode: "reference"`) 사용자가 명시적으로 요청해야 한다 — 이 예외 모드에서 레퍼런스가 재사용되는 곡은 `forceVary: true`로 표시되어 AI가 강제로 Styles를 변주한다. 에이전트가 직접 레퍼런스를 선택·배정하지 않고 반드시 이 API를 통해 받는다. (세부 알고리즘은 [[suno-prompt-authoring]] 스킬 참고.)
+
+> 2026-07-30 사고: Groove Hip-hop & Chill Pop 레퍼런스 10개로 15곡을 요청해 옛 "reference" 기본값 하에서 5쌍이 완전히 동일한 Styles로 생성됨 → 프로젝트 전체 폐기 ([[project-2026072901-styles-duplication-fix]]). 이 사고를 계기로 기본값 자체를 "synthesize"로 전환했다. 근본적으로는 장르별 레퍼런스 풀을 프로젝트당 필요 곡 수(15개) 이상으로 유지하는 것이 가장 확실한 예방책이다 — `python scripts/gemini_analyzer.py add-curated`로 추가.
 
 ## 테마별 imageKeywords (strategist 전용, `visualDirection`/`imageKeywords` 필드 작성 시 참고)
 
